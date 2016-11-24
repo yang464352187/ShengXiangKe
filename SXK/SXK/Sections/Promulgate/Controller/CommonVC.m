@@ -19,6 +19,7 @@
 @property (nonatomic, strong)NSMutableArray *qualityArr;
 @property (nonatomic, strong)NSMutableArray *qualityContentArr;
 @property (nonatomic, strong)NSMutableArray *enclosureArr;
+@property (nonatomic, assign)NSInteger btnTag;
 
 @property (nonatomic, strong) qualityVC *selectCell;
 
@@ -50,12 +51,12 @@
     //    [self.jt_navigationController popToViewController:[ctrlArray objectAtIndex:1] animated:YES];
     
   
-    NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"title"]};
-    NSLog(@"%@",describe(dic));
-    NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    [self PopToIndexViewController:1];
+//    NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"title"]};
+//    NSLog(@"%@",describe(dic));
+//    NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    [self PopToIndexViewController:1];
 }
 
 
@@ -192,9 +193,12 @@
             [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
             UIImage *image1 = [UIImage imageNamed:@"打钩-1"];
             [btn setImage:[image1 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+            [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
             [btn setTitle:titleArr[k] forState:UIControlStateNormal];
             btn.tag = 100 + k;
-            [btn setTintColor:[UIColor blackColor]];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+            [btn setTintColor:[UIColor whiteColor]];
             btn.titleLabel.font = SYSTEMFONT(14);
             btn.imageEdgeInsets = UIEdgeInsetsMake(0,-10,0,0);
             [view addSubview:btn];
@@ -232,6 +236,17 @@
     
 }
 
+-(void)btnAction:(UIButton *)sender
+{
+    if (self.btnTag < 100) {
+        [sender setSelected:YES];
+        self.btnTag = sender.tag;
+    }else{
+        UIButton *btn = (UIButton *)[self.view viewWithTag:self.btnTag];
+        [btn setSelected:NO];
+        [sender setSelected:YES];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -35,7 +35,6 @@
     if (![self.myDict[@"title"] isEqualToString:@"类别"] && ![self.myDict[@"title"] isEqualToString:@"附件"]) {
          [self setRightBarButtonWith:[NSString stringWithFormat:@"完成"] selector:@selector(barButtonAction)];
     }
-    
     if ([self.myDict[@"title"] isEqualToString:@"附件"]) {
         [self setRightBarButtonWith:[NSString stringWithFormat:@"保存"] selector:@selector(barButtonAction)];
     }
@@ -47,16 +46,13 @@
 
 -(void)barButtonAction
 {
-    //    NSArray * ctrlArray = self.jt_navigationController.viewControllers;
-    //    [self.jt_navigationController popToViewController:[ctrlArray objectAtIndex:1] animated:YES];
-    
-  
-//    NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"title"]};
-//    NSLog(@"%@",describe(dic));
-//    NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
-//    //通过通知中心发送通知
-//    [[NSNotificationCenter defaultCenter] postNotification:notification];
-//    [self PopToIndexViewController:1];
+
+    NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"title"]};
+    NSLog(@"%@",describe(dic));
+    NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self PopToIndexViewController:1];
 }
 
 
@@ -151,25 +147,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *dic = @{@"title":self.CategoryArr[indexPath.row],@"className":self.myDict[@"title"]};
-    NSLog(@"%@",describe(dic));
-    switch (indexPath.row) {
-        case 0:{
-            [self PushViewControllerByClassName:@"SecondCommonVC" info:dic];
-        }
-            break;
-        case 1:{
-            [self PushViewControllerByClassName:@"SecondCommonVC" info:dic];
-            break;
-        }
-        case 2:{
-//            [self PushViewControllerByClassName:@"SecondCommonVC" info:dic];
-        }
-            break;
-            
-        default:
-            break;
+    if ([self.myDict[@"title"] isEqualToString:@"类别"]) {
+        NSDictionary *dic = @{@"title":self.CategoryArr[indexPath.row],@"className":self.myDict[@"title"]};
+        [self PushViewControllerByClassName:@"SecondCommonVC" info:dic];
     }
+    
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -233,7 +215,6 @@
         [(qualityVC *)cell isSelect];
         self.selectCell = (qualityVC *)cell;
     }
-    
 }
 
 -(void)btnAction:(UIButton *)sender

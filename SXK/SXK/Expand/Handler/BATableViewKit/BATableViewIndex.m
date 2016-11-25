@@ -66,9 +66,9 @@
         [bezierPath moveToPoint:CGPointZero];
         [bezierPath addLineToPoint:CGPointMake(0, self.frame.size.height)];
         if (SCREEN_HIGHT < 568) {
-            letterHeight = 14;
+            letterHeight = 11.5;
         }else{
-            letterHeight = 18;
+            letterHeight = 16;
         }
          //self.frame.size.height / [letters count];
         CGFloat fontSize = 12;
@@ -77,10 +77,18 @@
         }
         
         [self.letters enumerateObjectsUsingBlock:^(NSString *letter, NSUInteger idx, BOOL *stop) {
+//            NSLog(@"%@",self.letters);
             CGFloat originY = idx * letterHeight;
+            if ([letter isEqualToString:@"search"]) {
+                UIImageView *image =[[UIImageView alloc] initWithFrame:CGRectMake(3, originY, 12, 12)];
+                image.image = [UIImage imageNamed:@"搜索"];
+                [self addSubview:image];
+                return ;
+            }
+
             CATextLayer *ctl = [self textLayerWithSize:fontSize
                                                 string:letter
-                                              andFrame:CGRectMake(0, originY-CommonHight(20), self.frame.size.width, letterHeight)];
+                                              andFrame:CGRectMake(0, originY , self.frame.size.width, letterHeight)];
             [self.layer addSublayer:ctl];
             [bezierPath moveToPoint:CGPointMake(0, originY)];
             [bezierPath addLineToPoint:CGPointMake(ctl.frame.size.width, originY)];

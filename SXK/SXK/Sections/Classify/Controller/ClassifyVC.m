@@ -10,16 +10,18 @@
 #import "LeftCell.h"
 #import "ClassCollectionViewCell.h"
 #import "RightCell.h"
+#import "BATableView.h"
 
-@interface ClassifyVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+
+@interface ClassifyVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,BATableViewDelegate>
 
 @property (nonatomic, strong)NSMutableArray *dataArr;
 @property (nonatomic, strong)UITableView *selectView;
-@property (nonatomic, strong)UITableView *rightTableView;
+//@property (nonatomic, strong)UITableView *rightTableView;
 @property (nonatomic, strong) UIView *headView;
 @property (nonatomic, strong)UICollectionView *collectionView;
-@property (nonatomic, strong)NSMutableArray *dataArray;
-
+//@property (nonatomic, strong)NSMutableArray *dataArray;
+@property (nonatomic, strong) BATableView *contactTableView;
 @end
 
 @implementation ClassifyVC
@@ -37,17 +39,17 @@
 -(void)loadData
 {
     self.dataArr = [[NSMutableArray alloc] initWithObjects:@"品牌",@"包袋",@"腕表" ,nil];
-    self.dataArray = [NSMutableArray array];
-    for (int i = 0; i < 26; i++) {
-        //         循环段数据
-        NSMutableArray *sectionArr = [NSMutableArray array];
-        for (int j = 0; j < 5; j++) {
-            //            循环行数据
-            NSString *rowStr = [NSString stringWithFormat:@"第%d段，%d行", i, j];
-            [sectionArr addObject:rowStr];
-        }
-        [self.dataArray addObject:sectionArr];
-    }
+//    self.dataArray = [NSMutableArray array];
+//    for (int i = 0; i < 26; i++) {
+//        //         循环段数据
+//        NSMutableArray *sectionArr = [NSMutableArray array];
+//        for (int j = 0; j < 5; j++) {
+//            //            循环行数据
+//            NSString *rowStr = [NSString stringWithFormat:@"第%d段，%d行", i, j];
+//            [sectionArr addObject:rowStr];
+//        }
+//        [self.dataArray addObject:sectionArr];
+//    }
 
 }
 
@@ -61,31 +63,36 @@
     [self.view addSubview:searchBtn];
     
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.rightTableView];
+    [self.view addSubview:self.contactTableView];
+    
+//    self.contactTableView.tableViewIndex.frame = VIEWFRAME(SCREEN_WIDTH- CommonWidth(72)-5-20, 0, 20,50);
+//    [self. bringSubviewToFront:self.contactTableView.tableViewIndex];
+    [self.view bringSubviewToFront:self.contactTableView.tableViewIndex];
 
 }
 
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView == _rightTableView) {
-        return self.dataArray.count;
+    if (tableView == _contactTableView.tableView) {
+        return 27;
     }
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (tableView == _rightTableView) {
-        NSArray *sectionArr = self.dataArray[section];
-        return sectionArr.count;
+    if (tableView == _contactTableView.tableView) {
+//        NSArray *sectionArr = self.dataArray[section];
+        return 5;
     }
 
     return 13;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == _rightTableView) {
+    if (tableView == _contactTableView.tableView) {
         RightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"rightCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 
@@ -99,7 +106,10 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView == _rightTableView) {
+    if (tableView == _contactTableView.tableView) {
+        if (indexPath.section == 0) {
+            return 0;
+        }
         return CommonHight(52);
     }
 
@@ -107,7 +117,10 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (tableView == _rightTableView) {
+    if (tableView == _contactTableView.tableView) {
+        if (section == 0) {
+            return 0;
+        }
         return CommonHight(52);
     }
 
@@ -120,12 +133,13 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
-    if (tableView == _rightTableView) {
+    if (tableView == _contactTableView.tableView && section != 0) {
         view.backgroundColor = [UIColor whiteColor];
         
         UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(16,0 ,  SCREEN_WIDTH- CommonWidth(72)-5, CommonHight(51.5))
-                                               andText:[NSString stringWithFormat:@"%c", (int)(section + 65)]
+                                               andText:[NSString stringWithFormat:@"%c", (int)(section + 64)]
                                           andTextColor:[UIColor blackColor]
                                             andBgColor:[UIColor clearColor]
                                                andFont:SYSTEMFONT(14)
@@ -140,6 +154,8 @@
   
     return view;
 }
+
+
 #pragma mark - UICollectionViewDataSource
 //这个collectionView有多少个段落
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -161,10 +177,10 @@
     return cell;
 }
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(0, 0, 0, 0);
-}
+//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+//{
+//    return UIEdgeInsetsMake(0, 0, 0, 0);
+//}
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
 {
@@ -208,26 +224,23 @@
     return _tableView;
 }
 
-- (UITableView *)rightTableView{
-    if (!_rightTableView) {
+- (BATableView *)contactTableView{
+    if (!_contactTableView) {
         
-        _rightTableView = [[UITableView alloc] initWithFrame:VIEWFRAME(CommonWidth(72)+5, CommonHight(68), SCREEN_WIDTH- CommonWidth(72)-5,SCREEN_HIGHT - CommonHight(68)-64-44-6)  style:UITableViewStyleGrouped];
-        _rightTableView.dataSource      = self;
-        _rightTableView.delegate        = self;
-//        [_rightTableView registerClass:[LeftCell class] forCellReuseIdentifier:@"leftCell"];
-        [_rightTableView registerClass:[RightCell class] forCellReuseIdentifier:@"rightCell"];
-        //        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
-        _rightTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _rightTableView.showsVerticalScrollIndicator = NO;
-//        _rightTableView.backgroundColor = [UIColor redColor];
-        _rightTableView.tableFooterView = [[UIView alloc] init];
-        _rightTableView.tableHeaderView = self.headView;
-        _rightTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
-        _rightTableView.sectionHeaderHeight = 0.0;
-        _rightTableView.sectionFooterHeight = 0.0;
+        _contactTableView = [[BATableView alloc] initWithFrame:VIEWFRAME(CommonWidth(72)+5, CommonHight(68), SCREEN_WIDTH- CommonWidth(72)-5,SCREEN_HIGHT - CommonHight(68)-64-44-6)];
+        _contactTableView.delegate        = self;
+        [_contactTableView.tableView registerClass:[RightCell class] forCellReuseIdentifier:@"rightCell"];
+        _contactTableView.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _contactTableView.tableView.showsVerticalScrollIndicator = NO;
+        _contactTableView.tableView.backgroundColor = [UIColor whiteColor];
+        _contactTableView.tableView.tableFooterView = [[UIView alloc] init];
+        _contactTableView.tableView.tableHeaderView = self.headView;
+        _contactTableView.tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _contactTableView.tableView.sectionHeaderHeight = 0.0;
+        _contactTableView.tableView.sectionFooterHeight = 0.0;
         
     }
-    return _rightTableView;
+    return _contactTableView;
 }
 
 - (UIView *)headView{
@@ -259,7 +272,7 @@
 - (UICollectionView *)collectionView{
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         
         _collectionView = [[UICollectionView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH- CommonWidth(72)-5, 340.0000/667*SCREEN_HIGHT ) collectionViewLayout:layout];
         _collectionView.delegate = self;
@@ -276,7 +289,17 @@
 }
 
 
-
+- (NSArray *) sectionIndexTitlesForABELTableView:(BATableView *)tableView {
+    NSMutableArray *titles = [NSMutableArray array];
+    [titles addObject:[NSString stringWithFormat:@"search"]];
+    for (int i = 0; i < 26; i++) {
+        
+        [titles addObject:[NSString stringWithFormat:@"%c", 65+i]];
+    }
+    //    [titles addObject:UITableViewIndexSearch];
+    
+    return titles;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

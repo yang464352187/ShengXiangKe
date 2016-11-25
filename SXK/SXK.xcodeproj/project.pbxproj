@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7F55C71C3467914DCE5D65D7 /* libPods-SXK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEF36623432472EDA20ED53 /* libPods-SXK.a */; };
+		AD2558921DE7D7B800E34CF7 /* LeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558911DE7D7B800E34CF7 /* LeftCell.m */; };
+		AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558991DE802A500E34CF7 /* RightCell.m */; };
+		AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558A41DE8100E00E34CF7 /* ClassCollectionViewCell.m */; };
+		AD2558A71DE8100E00E34CF7 /* ClassCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD2558A51DE8100E00E34CF7 /* ClassCollectionViewCell.xib */; };
 		AD40A2FC1DDD5E43006C5576 /* ZTTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A2FB1DDD5E43006C5576 /* ZTTabBar.m */; };
 		AD40A3011DDD5EFE006C5576 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A2FE1DDD5EFE006C5576 /* UIBarButtonItem+Extension.m */; };
 		AD40A3021DDD5EFE006C5576 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A3001DDD5EFE006C5576 /* UIView+Extension.m */; };
@@ -111,6 +115,13 @@
 		0DEF36623432472EDA20ED53 /* libPods-SXK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SXK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EAC5BC4BDD7C045C7BE1066 /* Pods-SXK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.debug.xcconfig"; sourceTree = "<group>"; };
 		A5C516769DD62A7AC259CF26 /* Pods-SXK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.release.xcconfig"; sourceTree = "<group>"; };
+		AD2558901DE7D7B800E34CF7 /* LeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftCell.h; sourceTree = "<group>"; };
+		AD2558911DE7D7B800E34CF7 /* LeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftCell.m; sourceTree = "<group>"; };
+		AD2558981DE802A500E34CF7 /* RightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightCell.h; sourceTree = "<group>"; };
+		AD2558991DE802A500E34CF7 /* RightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightCell.m; sourceTree = "<group>"; };
+		AD2558A31DE8100E00E34CF7 /* ClassCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewCell.h; sourceTree = "<group>"; };
+		AD2558A41DE8100E00E34CF7 /* ClassCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewCell.m; sourceTree = "<group>"; };
+		AD2558A51DE8100E00E34CF7 /* ClassCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClassCollectionViewCell.xib; sourceTree = "<group>"; };
 		AD40A2FA1DDD5E43006C5576 /* ZTTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTTabBar.h; sourceTree = "<group>"; };
 		AD40A2FB1DDD5E43006C5576 /* ZTTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTTabBar.m; sourceTree = "<group>"; };
 		AD40A2FD1DDD5EFE006C5576 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
@@ -701,6 +712,13 @@
 		ADB99CC01DD5BA2500EC1DAD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AD2558901DE7D7B800E34CF7 /* LeftCell.h */,
+				AD2558911DE7D7B800E34CF7 /* LeftCell.m */,
+				AD2558981DE802A500E34CF7 /* RightCell.h */,
+				AD2558991DE802A500E34CF7 /* RightCell.m */,
+				AD2558A31DE8100E00E34CF7 /* ClassCollectionViewCell.h */,
+				AD2558A41DE8100E00E34CF7 /* ClassCollectionViewCell.m */,
+				AD2558A51DE8100E00E34CF7 /* ClassCollectionViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -941,6 +959,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD861B8A1DDC513800BC657E /* remind@2x.png in Resources */,
+				AD2558A71DE8100E00E34CF7 /* ClassCollectionViewCell.xib in Resources */,
 				AD861B811DDC513800BC657E /* 背景1@2x.png in Resources */,
 				AD861B891DDC513800BC657E /* weibo.PNG in Resources */,
 				AD861B821DDC513800BC657E /* 背景@2x.png in Resources */,
@@ -1051,6 +1070,7 @@
 				ADC07F751DE536C000B665CC /* BATableViewIndex.m in Sources */,
 				AD65A5EE1DE436E6002C6364 /* WSImageBroserCell.m in Sources */,
 				ADB99CDA1DD5BB1300EC1DAD /* MeVC.m in Sources */,
+				AD2558921DE7D7B800E34CF7 /* LeftCell.m in Sources */,
 				AD65A5E81DE436E6002C6364 /* JFImageGroupTableViewController.m in Sources */,
 				AD65A5EC1DE436E6002C6364 /* JFPhotoBrowserViewController.m in Sources */,
 				AD65A5F41DE43E7C002C6364 /* WSImagePickerView.m in Sources */,
@@ -1061,6 +1081,7 @@
 				AD65A5ED1DE436E6002C6364 /* JFPhotoView.m in Sources */,
 				ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */,
 				ADC07F821DE559DF00B665CC /* CategoryCell.m in Sources */,
+				AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */,
 				AD861B6E1DDC3C9100BC657E /* BaseNavigationVC.m in Sources */,
 				AD5CD4B41DE2D4E800FA659D /* ClassifyCell.m in Sources */,
 				ADC07F741DE536C000B665CC /* BATableView.m in Sources */,
@@ -1072,6 +1093,7 @@
 				AD40A3011DDD5EFE006C5576 /* UIBarButtonItem+Extension.m in Sources */,
 				ADB99CAC1DD576BB00EC1DAD /* NetworkClient.m in Sources */,
 				AD861B6B1DDC3C4700BC657E /* UIViewController+JTNavigationExtension.m in Sources */,
+				AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */,
 				AD5CD4C01DE2E4EB00FA659D /* ClaasifyCollectionViewCell.m in Sources */,
 				ADB99C6E1DD567C400EC1DAD /* SXK.xcdatamodeld in Sources */,
 				AD861B711DDC50FA00BC657E /* VTingSeaPopView.m in Sources */,

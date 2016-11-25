@@ -180,7 +180,7 @@ static NSValue *jt_tabBarRectValue;
     self.delegate = self;
     
     self.line = [[UIView alloc] initWithFrame:VIEWFRAME(0, 63.5, SCREEN_WIDTH, 0.5)];
-//    view.backgroundColor = [UIColor blackColor];
+    self.line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
     [self.view addSubview:self.line];
 
     self.popGestureDelegate = self.interactivePopGestureRecognizer.delegate;

@@ -40,7 +40,6 @@
         _headImageView.image = [UIImage imageNamed:@"背景"];
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        
         _collectionView = [[UICollectionView alloc] initWithFrame:CommonVIEWFRAME(0, 268.5, 375, 161.5) collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;

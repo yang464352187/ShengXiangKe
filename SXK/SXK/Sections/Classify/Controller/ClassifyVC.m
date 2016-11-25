@@ -7,8 +7,18 @@
 //
 
 #import "ClassifyVC.h"
+#import "LeftCell.h"
+#import "ClassCollectionViewCell.h"
+#import "RightCell.h"
 
-@interface ClassifyVC ()
+@interface ClassifyVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong)NSMutableArray *dataArr;
+@property (nonatomic, strong)UITableView *selectView;
+@property (nonatomic, strong)UITableView *rightTableView;
+@property (nonatomic, strong) UIView *headView;
+@property (nonatomic, strong)UICollectionView *collectionView;
+@property (nonatomic, strong)NSMutableArray *dataArray;
 
 @end
 
@@ -19,8 +29,254 @@
     // Do any additional setup after loading the view.
 //    self.view.backgroundColor = [UIColor greenColor];
     self.navigationItem.title = @"分类";
+    [self loadData];
+    [self initUI];
+    //2c2b30
+}
+
+-(void)loadData
+{
+    self.dataArr = [[NSMutableArray alloc] initWithObjects:@"品牌",@"包袋",@"腕表" ,nil];
+    self.dataArray = [NSMutableArray array];
+    for (int i = 0; i < 26; i++) {
+        //         循环段数据
+        NSMutableArray *sectionArr = [NSMutableArray array];
+        for (int j = 0; j < 5; j++) {
+            //            循环行数据
+            NSString *rowStr = [NSString stringWithFormat:@"第%d段，%d行", i, j];
+            [sectionArr addObject:rowStr];
+        }
+        [self.dataArray addObject:sectionArr];
+    }
 
 }
+
+-(void)initUI
+{
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    searchBtn.frame = VIEWFRAME(15, CommonHight(11), SCREEN_WIDTH - 30,CommonHight(35) );
+    UIImage *image = [UIImage imageNamed:@"搜索-6"];
+    [searchBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [searchBtn.imageView setContentMode:UIViewContentModeScaleAspectFill]; //防止图片变形
+    [self.view addSubview:searchBtn];
+    
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.rightTableView];
+
+}
+
+#pragma mark -- UITabelViewDelegate And DataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (tableView == _rightTableView) {
+        return self.dataArray.count;
+    }
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (tableView == _rightTableView) {
+        NSArray *sectionArr = self.dataArray[section];
+        return sectionArr.count;
+    }
+
+    return 13;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView == _rightTableView) {
+        RightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"rightCell"];
+        return cell;
+    }
+
+    
+    LeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftCell"];
+    cell.backgroundColor = [UIColor colorWithHexColorString:@"eeeeee"];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == _rightTableView) {
+        return CommonHight(52);
+    }
+
+    return CommonHight(60);
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (tableView == _rightTableView) {
+        return CommonHight(52);
+    }
+
+    return 0.00001;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.000001;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+    if (tableView == _rightTableView) {
+        view.backgroundColor = [UIColor whiteColor];
+        
+        UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(16,0 ,  SCREEN_WIDTH- CommonWidth(72)-5, CommonHight(51.5))
+                                               andText:[NSString stringWithFormat:@"%c", (int)(section + 65)]
+                                          andTextColor:[UIColor blackColor]
+                                            andBgColor:[UIColor clearColor]
+                                               andFont:SYSTEMFONT(14)
+                                      andTextAlignment:NSTextAlignmentLeft];
+        UIView *line = [[UIView alloc] initWithFrame:VIEWFRAME(0, CommonHight(52)-0.5, SCREEN_WIDTH, 0.5)];
+        line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
+        
+        [view addSubview:title];
+        [view addSubview:line];
+
+    }
+  
+    return view;
+}
+#pragma mark - UICollectionViewDataSource
+//这个collectionView有多少个段落
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+//某一段有多少个item
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    
+    return 15;
+}
+
+//每个item应该如何展示
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ClassCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    return cell;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;
+{
+    return CommonHight(8);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return CommonWidth(7);
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(CommonWidth(88), CommonHight(60));
+}
+
+
+
+#pragma mark -- getters and setters
+
+
+- (UITableView *)tableView{
+    if (!_tableView) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, CommonHight(68), CommonWidth(72),SCREEN_HIGHT - CommonHight(68)-64-44-6) style:UITableViewStyleGrouped];
+        _tableView.dataSource      = self;
+        _tableView.delegate        = self;
+        [_tableView registerClass:[LeftCell class] forCellReuseIdentifier:@"leftCell"];
+//        [_tableView registerClass:[ClassifyCell class] forCellReuseIdentifier:@"ClassifyCell"];
+//        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.backgroundColor = [UIColor colorWithHexColorString:@"eeeeee"];
+        _tableView.tableFooterView = [[UIView alloc] init];
+//        _tableView.tableHeaderView = self.headView;
+        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _tableView.sectionHeaderHeight = 0.0;
+        _tableView.sectionFooterHeight = 0.0;
+
+    }
+    return _tableView;
+}
+
+- (UITableView *)rightTableView{
+    if (!_rightTableView) {
+        
+        _rightTableView = [[UITableView alloc] initWithFrame:VIEWFRAME(CommonWidth(72)+5, CommonHight(68), SCREEN_WIDTH- CommonWidth(72)-5,SCREEN_HIGHT - CommonHight(68)-64-44-6)  style:UITableViewStyleGrouped];
+        _rightTableView.dataSource      = self;
+        _rightTableView.delegate        = self;
+//        [_rightTableView registerClass:[LeftCell class] forCellReuseIdentifier:@"leftCell"];
+        [_rightTableView registerClass:[RightCell class] forCellReuseIdentifier:@"rightCell"];
+        //        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
+        _rightTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _rightTableView.showsVerticalScrollIndicator = NO;
+//        _rightTableView.backgroundColor = [UIColor redColor];
+        _rightTableView.tableFooterView = [[UIView alloc] init];
+        _rightTableView.tableHeaderView = self.headView;
+        _rightTableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _rightTableView.sectionHeaderHeight = 0.0;
+        _rightTableView.sectionFooterHeight = 0.0;
+        
+    }
+    return _rightTableView;
+}
+
+- (UIView *)headView{
+    if (!_headView) {
+        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0,  SCREEN_WIDTH- CommonWidth(72)-5, 400.0000/667*SCREEN_HIGHT)];
+        _headView.backgroundColor = [UIColor whiteColor];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        btn.frame = VIEWFRAME((SCREEN_WIDTH- CommonWidth(72)-5-75)/2,  381.0000/667*SCREEN_HIGHT, 75, 15);
+        UIImage *image = [UIImage imageNamed:@"矩形-9-拷贝-2"];
+        [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+//        [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTitle:@"全部分类" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = SYSTEMFONT(13);
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0,-10,0,0);
+//        btn.backgroundColor = [UIColor greenColor];
+        [_headView addSubview:btn];
+        [_headView addSubview:self.collectionView];
+        
+        
+        
+        
+        
+    }
+    return _headView;
+}
+
+- (UICollectionView *)collectionView{
+    if (!_collectionView) {
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH- CommonWidth(72)-5, 340.0000/667*SCREEN_HIGHT ) collectionViewLayout:layout];
+        _collectionView.delegate = self;
+        _collectionView.dataSource = self;
+        _collectionView.backgroundColor = [UIColor whiteColor];
+        _collectionView.showsVerticalScrollIndicator = NO;
+        _collectionView.showsHorizontalScrollIndicator = NO;
+        [_collectionView registerNib:[UINib nibWithNibName:@"ClassCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+        
+        
+        
+    }
+    return _collectionView;
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

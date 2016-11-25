@@ -23,6 +23,8 @@
 @implementation HomeVC
 -(void)viewDidAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+
     self.jt_navigationController.line.backgroundColor = [UIColor clearColor];
 }
 
@@ -217,6 +219,7 @@
         ViewBorderRadius(searchBtn, 0, 0.2, [UIColor colorWithHexColorString:@"313131"]);
         UIImage *image = [UIImage imageNamed:@"搜索-2"];
         [searchBtn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
+        [searchBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];
         //        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:searchBtn];
         
@@ -225,6 +228,7 @@
         leftBtn.frame = CommonVIEWFRAME(16.5, 33.5, 21, 19);
         UIImage *image1 = [UIImage imageNamed:@"图层-158"];
         [leftBtn setImage:[image1 imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
+        
         //        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:leftBtn];
         

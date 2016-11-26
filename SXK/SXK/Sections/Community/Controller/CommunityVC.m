@@ -8,6 +8,7 @@
 
 #import "CommunityVC.h"
 #import "CommunityCollectionCell.h"
+#import "CommunityCell.h"
 
 @interface CommunityVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -42,16 +43,16 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 0;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        CommunityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityCell"];
     
     return cell;
 }
@@ -66,7 +67,7 @@
         _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, -20, SCREEN_WIDTH, SCREEN_HIGHT+40) style:UITableViewStyleGrouped];
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
-//        [_tableView registerClass:[FirstTableViewCell class] forCellReuseIdentifier:@"FirstTableViewCell"];
+        [_tableView registerClass:[CommunityCell class] forCellReuseIdentifier:@"CommunityCell"];
 //        [_tableView registerClass:[ClassifyCell class] forCellReuseIdentifier:@"ClassifyCell"];
 //        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
         _tableView.showsVerticalScrollIndicator = NO;

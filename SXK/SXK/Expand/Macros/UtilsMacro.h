@@ -35,6 +35,7 @@
 #define HSVCOLOR(h,s,v)                     [UIColor colorWithHue:h saturation:s value:v alpha:1]
 #define HSVACOLOR(h,s,v,a)                  [UIColor colorWithHue:h saturation:s value:v alpha:a]
 #define RGBA(r,g,b,a)                       [UIColor colorWithRed:(float)r/255.0f green:(float)g/255.0f blue:(float)b/255.0f alpha:a]
+#define HighLightTextColor [UIColor colorWithRed:92/255.0 green:140/255.0 blue:193/255.0 alpha:1.0]
 
 
 

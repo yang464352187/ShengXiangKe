@@ -1,0 +1,559 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ADA93FE11DE9616600DE6B9E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FE01DE9616600DE6B9E /* main.m */; };
+		ADA93FE41DE9616600DE6B9E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FE31DE9616600DE6B9E /* AppDelegate.m */; };
+		ADA93FE71DE9616600DE6B9E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FE61DE9616600DE6B9E /* ViewController.m */; };
+		ADA93FEA1DE9616600DE6B9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA93FE81DE9616600DE6B9E /* Main.storyboard */; };
+		ADA93FED1DE9616600DE6B9E /* pengyouquan.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FEB1DE9616600DE6B9E /* pengyouquan.xcdatamodeld */; };
+		ADA93FEF1DE9616600DE6B9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADA93FEE1DE9616600DE6B9E /* Assets.xcassets */; };
+		ADA93FF21DE9616600DE6B9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA93FF01DE9616600DE6B9E /* LaunchScreen.storyboard */; };
+		ADA93FFD1DE9616600DE6B9E /* pengyouquanTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FFC1DE9616600DE6B9E /* pengyouquanTests.m */; };
+		ADA940081DE9616600DE6B9E /* pengyouquanUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA940071DE9616600DE6B9E /* pengyouquanUITests.m */; };
+		ADA940191DE961AC00DE6B9E /* DFBaseTimeLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA940161DE961AC00DE6B9E /* DFBaseTimeLineViewController.m */; };
+		ADA9401A1DE961AC00DE6B9E /* DFTimeLineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA940181DE961AC00DE6B9E /* DFTimeLineViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ADA93FF91DE9616600DE6B9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADA93FD41DE9616600DE6B9E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADA93FDB1DE9616600DE6B9E;
+			remoteInfo = pengyouquan;
+		};
+		ADA940041DE9616600DE6B9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ADA93FD41DE9616600DE6B9E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ADA93FDB1DE9616600DE6B9E;
+			remoteInfo = pengyouquan;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		ADA93FDC1DE9616600DE6B9E /* pengyouquan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pengyouquan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA93FE01DE9616600DE6B9E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		ADA93FE21DE9616600DE6B9E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		ADA93FE31DE9616600DE6B9E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		ADA93FE51DE9616600DE6B9E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		ADA93FE61DE9616600DE6B9E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		ADA93FE91DE9616600DE6B9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ADA93FEC1DE9616600DE6B9E /* pengyouquan.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = pengyouquan.xcdatamodel; sourceTree = "<group>"; };
+		ADA93FEE1DE9616600DE6B9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ADA93FF11DE9616600DE6B9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ADA93FF31DE9616600DE6B9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADA93FF81DE9616600DE6B9E /* pengyouquanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pengyouquanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA93FFC1DE9616600DE6B9E /* pengyouquanTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pengyouquanTests.m; sourceTree = "<group>"; };
+		ADA93FFE1DE9616600DE6B9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADA940031DE9616600DE6B9E /* pengyouquanUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pengyouquanUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ADA940071DE9616600DE6B9E /* pengyouquanUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = pengyouquanUITests.m; sourceTree = "<group>"; };
+		ADA940091DE9616600DE6B9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADA940151DE961AC00DE6B9E /* DFBaseTimeLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFBaseTimeLineViewController.h; sourceTree = "<group>"; };
+		ADA940161DE961AC00DE6B9E /* DFBaseTimeLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFBaseTimeLineViewController.m; sourceTree = "<group>"; };
+		ADA940171DE961AC00DE6B9E /* DFTimeLineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFTimeLineViewController.h; sourceTree = "<group>"; };
+		ADA940181DE961AC00DE6B9E /* DFTimeLineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFTimeLineViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ADA93FD91DE9616600DE6B9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA93FF51DE9616600DE6B9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA940001DE9616600DE6B9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ADA93FD31DE9616600DE6B9E = {
+			isa = PBXGroup;
+			children = (
+				ADA93FDE1DE9616600DE6B9E /* pengyouquan */,
+				ADA93FFB1DE9616600DE6B9E /* pengyouquanTests */,
+				ADA940061DE9616600DE6B9E /* pengyouquanUITests */,
+				ADA93FDD1DE9616600DE6B9E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		ADA93FDD1DE9616600DE6B9E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ADA93FDC1DE9616600DE6B9E /* pengyouquan.app */,
+				ADA93FF81DE9616600DE6B9E /* pengyouquanTests.xctest */,
+				ADA940031DE9616600DE6B9E /* pengyouquanUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ADA93FDE1DE9616600DE6B9E /* pengyouquan */ = {
+			isa = PBXGroup;
+			children = (
+				ADA940151DE961AC00DE6B9E /* DFBaseTimeLineViewController.h */,
+				ADA940161DE961AC00DE6B9E /* DFBaseTimeLineViewController.m */,
+				ADA940171DE961AC00DE6B9E /* DFTimeLineViewController.h */,
+				ADA940181DE961AC00DE6B9E /* DFTimeLineViewController.m */,
+				ADA93FE21DE9616600DE6B9E /* AppDelegate.h */,
+				ADA93FE31DE9616600DE6B9E /* AppDelegate.m */,
+				ADA93FE51DE9616600DE6B9E /* ViewController.h */,
+				ADA93FE61DE9616600DE6B9E /* ViewController.m */,
+				ADA93FE81DE9616600DE6B9E /* Main.storyboard */,
+				ADA93FEE1DE9616600DE6B9E /* Assets.xcassets */,
+				ADA93FF01DE9616600DE6B9E /* LaunchScreen.storyboard */,
+				ADA93FF31DE9616600DE6B9E /* Info.plist */,
+				ADA93FEB1DE9616600DE6B9E /* pengyouquan.xcdatamodeld */,
+				ADA93FDF1DE9616600DE6B9E /* Supporting Files */,
+			);
+			path = pengyouquan;
+			sourceTree = "<group>";
+		};
+		ADA93FDF1DE9616600DE6B9E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ADA93FE01DE9616600DE6B9E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ADA93FFB1DE9616600DE6B9E /* pengyouquanTests */ = {
+			isa = PBXGroup;
+			children = (
+				ADA93FFC1DE9616600DE6B9E /* pengyouquanTests.m */,
+				ADA93FFE1DE9616600DE6B9E /* Info.plist */,
+			);
+			path = pengyouquanTests;
+			sourceTree = "<group>";
+		};
+		ADA940061DE9616600DE6B9E /* pengyouquanUITests */ = {
+			isa = PBXGroup;
+			children = (
+				ADA940071DE9616600DE6B9E /* pengyouquanUITests.m */,
+				ADA940091DE9616600DE6B9E /* Info.plist */,
+			);
+			path = pengyouquanUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ADA93FDB1DE9616600DE6B9E /* pengyouquan */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADA9400C1DE9616600DE6B9E /* Build configuration list for PBXNativeTarget "pengyouquan" */;
+			buildPhases = (
+				ADA93FD81DE9616600DE6B9E /* Sources */,
+				ADA93FD91DE9616600DE6B9E /* Frameworks */,
+				ADA93FDA1DE9616600DE6B9E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pengyouquan;
+			productName = pengyouquan;
+			productReference = ADA93FDC1DE9616600DE6B9E /* pengyouquan.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ADA93FF71DE9616600DE6B9E /* pengyouquanTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADA9400F1DE9616600DE6B9E /* Build configuration list for PBXNativeTarget "pengyouquanTests" */;
+			buildPhases = (
+				ADA93FF41DE9616600DE6B9E /* Sources */,
+				ADA93FF51DE9616600DE6B9E /* Frameworks */,
+				ADA93FF61DE9616600DE6B9E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ADA93FFA1DE9616600DE6B9E /* PBXTargetDependency */,
+			);
+			name = pengyouquanTests;
+			productName = pengyouquanTests;
+			productReference = ADA93FF81DE9616600DE6B9E /* pengyouquanTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		ADA940021DE9616600DE6B9E /* pengyouquanUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADA940121DE9616600DE6B9E /* Build configuration list for PBXNativeTarget "pengyouquanUITests" */;
+			buildPhases = (
+				ADA93FFF1DE9616600DE6B9E /* Sources */,
+				ADA940001DE9616600DE6B9E /* Frameworks */,
+				ADA940011DE9616600DE6B9E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ADA940051DE9616600DE6B9E /* PBXTargetDependency */,
+			);
+			name = pengyouquanUITests;
+			productName = pengyouquanUITests;
+			productReference = ADA940031DE9616600DE6B9E /* pengyouquanUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ADA93FD41DE9616600DE6B9E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = ywk;
+				TargetAttributes = {
+					ADA93FDB1DE9616600DE6B9E = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+					ADA93FF71DE9616600DE6B9E = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = ADA93FDB1DE9616600DE6B9E;
+					};
+					ADA940021DE9616600DE6B9E = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+						TestTargetID = ADA93FDB1DE9616600DE6B9E;
+					};
+				};
+			};
+			buildConfigurationList = ADA93FD71DE9616600DE6B9E /* Build configuration list for PBXProject "pengyouquan" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ADA93FD31DE9616600DE6B9E;
+			productRefGroup = ADA93FDD1DE9616600DE6B9E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ADA93FDB1DE9616600DE6B9E /* pengyouquan */,
+				ADA93FF71DE9616600DE6B9E /* pengyouquanTests */,
+				ADA940021DE9616600DE6B9E /* pengyouquanUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ADA93FDA1DE9616600DE6B9E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA93FF21DE9616600DE6B9E /* LaunchScreen.storyboard in Resources */,
+				ADA93FEF1DE9616600DE6B9E /* Assets.xcassets in Resources */,
+				ADA93FEA1DE9616600DE6B9E /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA93FF61DE9616600DE6B9E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA940011DE9616600DE6B9E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ADA93FD81DE9616600DE6B9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA93FED1DE9616600DE6B9E /* pengyouquan.xcdatamodeld in Sources */,
+				ADA93FE71DE9616600DE6B9E /* ViewController.m in Sources */,
+				ADA93FE41DE9616600DE6B9E /* AppDelegate.m in Sources */,
+				ADA93FE11DE9616600DE6B9E /* main.m in Sources */,
+				ADA940191DE961AC00DE6B9E /* DFBaseTimeLineViewController.m in Sources */,
+				ADA9401A1DE961AC00DE6B9E /* DFTimeLineViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA93FF41DE9616600DE6B9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA93FFD1DE9616600DE6B9E /* pengyouquanTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADA93FFF1DE9616600DE6B9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA940081DE9616600DE6B9E /* pengyouquanUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ADA93FFA1DE9616600DE6B9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ADA93FDB1DE9616600DE6B9E /* pengyouquan */;
+			targetProxy = ADA93FF91DE9616600DE6B9E /* PBXContainerItemProxy */;
+		};
+		ADA940051DE9616600DE6B9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ADA93FDB1DE9616600DE6B9E /* pengyouquan */;
+			targetProxy = ADA940041DE9616600DE6B9E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ADA93FE81DE9616600DE6B9E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ADA93FE91DE9616600DE6B9E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		ADA93FF01DE9616600DE6B9E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ADA93FF11DE9616600DE6B9E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		ADA9400A1DE9616600DE6B9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ADA9400B1DE9616600DE6B9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ADA9400D1DE9616600DE6B9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = pengyouquan/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.pengyouquan;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		ADA9400E1DE9616600DE6B9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = pengyouquan/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.pengyouquan;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		ADA940101DE9616600DE6B9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = pengyouquanTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.pengyouquanTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pengyouquan.app/pengyouquan";
+			};
+			name = Debug;
+		};
+		ADA940111DE9616600DE6B9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = pengyouquanTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.pengyouquanTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pengyouquan.app/pengyouquan";
+			};
+			name = Release;
+		};
+		ADA940131DE9616600DE6B9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = pengyouquanUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.pengyouquanUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = pengyouquan;
+			};
+			name = Debug;
+		};
+		ADA940141DE9616600DE6B9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = pengyouquanUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.pengyouquanUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = pengyouquan;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ADA93FD71DE9616600DE6B9E /* Build configuration list for PBXProject "pengyouquan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADA9400A1DE9616600DE6B9E /* Debug */,
+				ADA9400B1DE9616600DE6B9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ADA9400C1DE9616600DE6B9E /* Build configuration list for PBXNativeTarget "pengyouquan" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADA9400D1DE9616600DE6B9E /* Debug */,
+				ADA9400E1DE9616600DE6B9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ADA9400F1DE9616600DE6B9E /* Build configuration list for PBXNativeTarget "pengyouquanTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADA940101DE9616600DE6B9E /* Debug */,
+				ADA940111DE9616600DE6B9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		ADA940121DE9616600DE6B9E /* Build configuration list for PBXNativeTarget "pengyouquanUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ADA940131DE9616600DE6B9E /* Debug */,
+				ADA940141DE9616600DE6B9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		ADA93FEB1DE9616600DE6B9E /* pengyouquan.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ADA93FEC1DE9616600DE6B9E /* pengyouquan.xcdatamodel */,
+			);
+			currentVersion = ADA93FEC1DE9616600DE6B9E /* pengyouquan.xcdatamodel */;
+			path = pengyouquan.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = ADA93FD41DE9616600DE6B9E /* Project object */;
+}

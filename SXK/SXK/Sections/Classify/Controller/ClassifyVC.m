@@ -331,7 +331,6 @@
         _listCollectionView.showsVerticalScrollIndicator = NO;
         _listCollectionView.showsHorizontalScrollIndicator = NO;
         [_listCollectionView registerNib:[UINib nibWithNibName:@"ClassCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-
         [_listCollectionView registerClass:[ClassifyCollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
         [_listCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     }
@@ -345,6 +344,7 @@
     if ([kind isEqualToString:UICollectionElementKindSectionHeader] ) {
         
         UICollectionReusableView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
+        headerView.backgroundColor = [UIColor whiteColor];
         return headerView;
     }
     else {

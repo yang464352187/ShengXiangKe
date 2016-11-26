@@ -7,11 +7,9 @@
 //
 
 #import "BATableView.h"
-#import "BATableViewIndex.h"
 
 @interface BATableView()<BATableViewIndexDelegate>
 @property (nonatomic, strong) UILabel * flotageLabel;
-@property (nonatomic, strong) BATableViewIndex * tableViewIndex;
 @end
 
 @implementation BATableView
@@ -22,13 +20,14 @@
     if (self) {
         // Initialization code
         
-        self.tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-44) style:UITableViewStyleGrouped];
+        self.tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, frame.size.width, frame.size.height) style:UITableViewStyleGrouped];
 //        self.tableView.backgroundColor = [UIColor redColor];
         self.tableView.showsVerticalScrollIndicator = NO;
         [self addSubview:self.tableView];
         
-        self.tableViewIndex = [[BATableViewIndex alloc] initWithFrame:(CGRect){SCREEN_WIDTH - 20,0,20,frame.size.height}];
+        self.tableViewIndex = [[BATableViewIndex alloc] initWithFrame:(CGRect){frame.size.width-20,0,20,frame.size.height}];
         [self addSubview:self.tableViewIndex];
+        
         self.tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         self.tableView.sectionHeaderHeight = 0.0;
         self.tableView.sectionFooterHeight = 0.0;
@@ -50,7 +49,12 @@
     self.tableViewIndex.indexes = [self.delegate sectionIndexTitlesForABELTableView:self];
     CGRect rect = self.tableViewIndex.frame;
     rect.size.height = self.tableViewIndex.indexes.count * 16;
-    rect.origin.y = (self.bounds.size.height - rect.size.height) / 2;
+    int i = 0;
+    if (SCREEN_HIGHT < 568) {
+        i =1;
+    }
+    rect.origin.y = (self.bounds.size.height - rect.size.height) / 2+55*i;
+//    rect.origin.x = SCREEN_WIDTH - 20;
     self.tableViewIndex.frame = rect;
     
     self.tableViewIndex.tableViewIndexDelegate = self;
@@ -61,11 +65,17 @@
     [self.tableView reloadData];
     
     UIEdgeInsets edgeInsets = self.tableView.contentInset;
-    
+    int i = 0;
+    if (SCREEN_HIGHT < 568) {
+        i =1;
+    }
+
     self.tableViewIndex.indexes = [self.delegate sectionIndexTitlesForABELTableView:self];
     CGRect rect = self.tableViewIndex.frame;
     rect.size.height = self.tableViewIndex.indexes.count * 16;
-    rect.origin.y = (self.bounds.size.height - rect.size.height - edgeInsets.top - edgeInsets.bottom) / 2 + edgeInsets.top + 20;
+    rect.origin.y = (self.bounds.size.height - rect.size.height - edgeInsets.top - edgeInsets.bottom) / 2 + edgeInsets.top + 20+55*i;
+//    rect.origin.x = SCREEN_WIDTH - 20;
+
     self.tableViewIndex.frame = rect;
     self.tableViewIndex.tableViewIndexDelegate = self;
 }

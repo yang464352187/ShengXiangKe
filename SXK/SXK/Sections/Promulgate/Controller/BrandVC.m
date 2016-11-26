@@ -44,7 +44,7 @@
 #pragma mark -- getters and setters
 -(void)initUI
 {
-    self.contactTableView = [[BATableView alloc] initWithFrame:self.view.bounds];
+    self.contactTableView = [[BATableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-44)];
     self.contactTableView.delegate = self;
     [self.contactTableView.tableView registerClass:[BrandCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.contactTableView];
@@ -127,8 +127,11 @@
 - (NSArray *) sectionIndexTitlesForABELTableView:(BATableView *)tableView {
         NSMutableArray *titles = [NSMutableArray array];
         for (int i = 0; i < 26; i++) {
+            
             [titles addObject:[NSString stringWithFormat:@"%c", 65+i]];
         }
+//    [titles addObject:UITableViewIndexSearch];
+    
         return titles;
 }
 

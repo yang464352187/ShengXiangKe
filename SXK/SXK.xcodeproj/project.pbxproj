@@ -82,6 +82,20 @@
 		ADA941421DE9910E00DE6B9E /* Like@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA941321DE9910E00DE6B9E /* Like@3x.png */; };
 		ADA941431DE9910E00DE6B9E /* LikeCmtBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA941331DE9910E00DE6B9E /* LikeCmtBg@2x.png */; };
 		ADA941441DE9910E00DE6B9E /* LikeCmtBg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA941341DE9910E00DE6B9E /* LikeCmtBg@3x.png */; };
+		ADA941471DE9923A00DE6B9E /* DFLikeCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941461DE9923A00DE6B9E /* DFLikeCommentView.m */; };
+		ADA9414A1DE9925200DE6B9E /* DFLikeCommentToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941491DE9925200DE6B9E /* DFLikeCommentToolbar.m */; };
+		ADA9414D1DE9927F00DE6B9E /* DFLineLikeItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9414C1DE9927F00DE6B9E /* DFLineLikeItem.m */; };
+		ADA941501DE9929100DE6B9E /* DFBaseLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9414F1DE9929100DE6B9E /* DFBaseLineItem.m */; };
+		ADA941531DE992D500DE6B9E /* DFLineCommentItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941521DE992D500DE6B9E /* DFLineCommentItem.m */; };
+		ADA941561DE9937000DE6B9E /* MLLinkClickLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941551DE9937000DE6B9E /* MLLinkClickLabel.m */; };
+		ADA941591DE9939A00DE6B9E /* MLClickColorLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941581DE9939A00DE6B9E /* MLClickColorLinkLabel.m */; };
+		ADA9415C1DE9957800DE6B9E /* DFToolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9415B1DE9957800DE6B9E /* DFToolUtil.m */; };
+		ADA941651DE9985700DE6B9E /* DFLineCellManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941641DE9985700DE6B9E /* DFLineCellManager.m */; };
+		ADA941681DE998A200DE6B9E /* DFTextImageLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941671DE998A200DE6B9E /* DFTextImageLineCell.m */; };
+		ADA9416B1DE998E200DE6B9E /* DFTextImageLineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9416A1DE998E200DE6B9E /* DFTextImageLineItem.m */; };
+		ADA941701DE9992600DE6B9E /* DFGridImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9416D1DE9992600DE6B9E /* DFGridImageView.m */; };
+		ADA941711DE9992600DE6B9E /* DFImageUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9416F1DE9992600DE6B9E /* DFImageUnitView.m */; };
+		ADA941741DE9996100DE6B9E /* DFFaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941731DE9996100DE6B9E /* DFFaceManager.m */; };
 		ADB99C621DD567C400EC1DAD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB99C611DD567C400EC1DAD /* main.m */; };
 		ADB99C651DD567C400EC1DAD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB99C641DD567C400EC1DAD /* AppDelegate.m */; };
 		ADB99C681DD567C400EC1DAD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB99C671DD567C400EC1DAD /* ViewController.m */; };
@@ -109,6 +123,7 @@
 		ADC07F821DE559DF00B665CC /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC07F811DE559DF00B665CC /* CategoryCell.m */; };
 		ADC07F881DE5627E00B665CC /* SecondCommonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC07F871DE5627E00B665CC /* SecondCommonVC.m */; };
 		ADC07F8B1DE5678A00B665CC /* SelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC07F8A1DE5678A00B665CC /* SelectCell.m */; };
+		ADD062F11DEB3B260003433F /* Expression.plist in Resources */ = {isa = PBXBuildFile; fileRef = ADD062F01DEB3B260003433F /* Expression.plist */; };
 		ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE9C3BD1DE5E192004E172C /* qualityVC.m */; };
 		ADFA8BE01DE4BB2800F992DA /* BrandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFA8BDF1DE4BB2800F992DA /* BrandVC.m */; };
 		ADFAB8AD1DE602C1005BEAF9 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFAB8AC1DE602C1005BEAF9 /* RegisterVC.m */; };
@@ -258,6 +273,34 @@
 		ADA941321DE9910E00DE6B9E /* Like@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Like@3x.png"; sourceTree = "<group>"; };
 		ADA941331DE9910E00DE6B9E /* LikeCmtBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LikeCmtBg@2x.png"; sourceTree = "<group>"; };
 		ADA941341DE9910E00DE6B9E /* LikeCmtBg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LikeCmtBg@3x.png"; sourceTree = "<group>"; };
+		ADA941451DE9923A00DE6B9E /* DFLikeCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFLikeCommentView.h; sourceTree = "<group>"; };
+		ADA941461DE9923A00DE6B9E /* DFLikeCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFLikeCommentView.m; sourceTree = "<group>"; };
+		ADA941481DE9925200DE6B9E /* DFLikeCommentToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFLikeCommentToolbar.h; sourceTree = "<group>"; };
+		ADA941491DE9925200DE6B9E /* DFLikeCommentToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFLikeCommentToolbar.m; sourceTree = "<group>"; };
+		ADA9414B1DE9927F00DE6B9E /* DFLineLikeItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFLineLikeItem.h; sourceTree = "<group>"; };
+		ADA9414C1DE9927F00DE6B9E /* DFLineLikeItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFLineLikeItem.m; sourceTree = "<group>"; };
+		ADA9414E1DE9929100DE6B9E /* DFBaseLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFBaseLineItem.h; sourceTree = "<group>"; };
+		ADA9414F1DE9929100DE6B9E /* DFBaseLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFBaseLineItem.m; sourceTree = "<group>"; };
+		ADA941511DE992D400DE6B9E /* DFLineCommentItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFLineCommentItem.h; sourceTree = "<group>"; };
+		ADA941521DE992D500DE6B9E /* DFLineCommentItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFLineCommentItem.m; sourceTree = "<group>"; };
+		ADA941541DE9937000DE6B9E /* MLLinkClickLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLLinkClickLabel.h; sourceTree = "<group>"; };
+		ADA941551DE9937000DE6B9E /* MLLinkClickLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLLinkClickLabel.m; sourceTree = "<group>"; };
+		ADA941571DE9939A00DE6B9E /* MLClickColorLinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLClickColorLinkLabel.h; sourceTree = "<group>"; };
+		ADA941581DE9939A00DE6B9E /* MLClickColorLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLClickColorLinkLabel.m; sourceTree = "<group>"; };
+		ADA9415A1DE9957800DE6B9E /* DFToolUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFToolUtil.h; sourceTree = "<group>"; };
+		ADA9415B1DE9957800DE6B9E /* DFToolUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFToolUtil.m; sourceTree = "<group>"; };
+		ADA941631DE9985700DE6B9E /* DFLineCellManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFLineCellManager.h; sourceTree = "<group>"; };
+		ADA941641DE9985700DE6B9E /* DFLineCellManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFLineCellManager.m; sourceTree = "<group>"; };
+		ADA941661DE998A200DE6B9E /* DFTextImageLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFTextImageLineCell.h; sourceTree = "<group>"; };
+		ADA941671DE998A200DE6B9E /* DFTextImageLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFTextImageLineCell.m; sourceTree = "<group>"; };
+		ADA941691DE998E200DE6B9E /* DFTextImageLineItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFTextImageLineItem.h; sourceTree = "<group>"; };
+		ADA9416A1DE998E200DE6B9E /* DFTextImageLineItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFTextImageLineItem.m; sourceTree = "<group>"; };
+		ADA9416C1DE9992600DE6B9E /* DFGridImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFGridImageView.h; sourceTree = "<group>"; };
+		ADA9416D1DE9992600DE6B9E /* DFGridImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFGridImageView.m; sourceTree = "<group>"; };
+		ADA9416E1DE9992600DE6B9E /* DFImageUnitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFImageUnitView.h; sourceTree = "<group>"; };
+		ADA9416F1DE9992600DE6B9E /* DFImageUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFImageUnitView.m; sourceTree = "<group>"; };
+		ADA941721DE9996100DE6B9E /* DFFaceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFFaceManager.h; sourceTree = "<group>"; };
+		ADA941731DE9996100DE6B9E /* DFFaceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFFaceManager.m; sourceTree = "<group>"; };
 		ADB99C5D1DD567C400EC1DAD /* SXK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SXK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB99C611DD567C400EC1DAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		ADB99C631DD567C400EC1DAD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
@@ -314,6 +357,7 @@
 		ADC07F871DE5627E00B665CC /* SecondCommonVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondCommonVC.m; sourceTree = "<group>"; };
 		ADC07F891DE5678A00B665CC /* SelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCell.h; sourceTree = "<group>"; };
 		ADC07F8A1DE5678A00B665CC /* SelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCell.m; sourceTree = "<group>"; };
+		ADD062F01DEB3B260003433F /* Expression.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expression.plist; sourceTree = "<group>"; };
 		ADE9C3BC1DE5E192004E172C /* qualityVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qualityVC.h; sourceTree = "<group>"; };
 		ADE9C3BD1DE5E192004E172C /* qualityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = qualityVC.m; sourceTree = "<group>"; };
 		ADFA8BDE1DE4BB2800F992DA /* BrandVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandVC.h; sourceTree = "<group>"; };
@@ -874,12 +918,41 @@
 		ADB99CC81DD5BA4300EC1DAD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ADA941721DE9996100DE6B9E /* DFFaceManager.h */,
+				ADA941731DE9996100DE6B9E /* DFFaceManager.m */,
+				ADA9416C1DE9992600DE6B9E /* DFGridImageView.h */,
+				ADA9416D1DE9992600DE6B9E /* DFGridImageView.m */,
+				ADA9416E1DE9992600DE6B9E /* DFImageUnitView.h */,
+				ADA9416F1DE9992600DE6B9E /* DFImageUnitView.m */,
 				ADA941221DE98FBA00DE6B9E /* MLLabel+Size.h */,
 				ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */,
 				ADA93FD01DE9368200DE6B9E /* CommunityCollectionCell.h */,
 				ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */,
 				ADA9411F1DE98BB200DE6B9E /* CommunityCell.h */,
 				ADA941201DE98BB200DE6B9E /* CommunityCell.m */,
+				ADA941451DE9923A00DE6B9E /* DFLikeCommentView.h */,
+				ADA941461DE9923A00DE6B9E /* DFLikeCommentView.m */,
+				ADA941481DE9925200DE6B9E /* DFLikeCommentToolbar.h */,
+				ADA941491DE9925200DE6B9E /* DFLikeCommentToolbar.m */,
+				ADA941631DE9985700DE6B9E /* DFLineCellManager.h */,
+				ADA941641DE9985700DE6B9E /* DFLineCellManager.m */,
+				ADA9414B1DE9927F00DE6B9E /* DFLineLikeItem.h */,
+				ADA9414C1DE9927F00DE6B9E /* DFLineLikeItem.m */,
+				ADA9414E1DE9929100DE6B9E /* DFBaseLineItem.h */,
+				ADA9414F1DE9929100DE6B9E /* DFBaseLineItem.m */,
+				ADA941511DE992D400DE6B9E /* DFLineCommentItem.h */,
+				ADA941521DE992D500DE6B9E /* DFLineCommentItem.m */,
+				ADA941541DE9937000DE6B9E /* MLLinkClickLabel.h */,
+				ADA941551DE9937000DE6B9E /* MLLinkClickLabel.m */,
+				ADA941571DE9939A00DE6B9E /* MLClickColorLinkLabel.h */,
+				ADA941581DE9939A00DE6B9E /* MLClickColorLinkLabel.m */,
+				ADA9415A1DE9957800DE6B9E /* DFToolUtil.h */,
+				ADA9415B1DE9957800DE6B9E /* DFToolUtil.m */,
+				ADA941691DE998E200DE6B9E /* DFTextImageLineItem.h */,
+				ADD062F01DEB3B260003433F /* Expression.plist */,
+				ADA9416A1DE998E200DE6B9E /* DFTextImageLineItem.m */,
+				ADA941661DE998A200DE6B9E /* DFTextImageLineCell.h */,
+				ADA941671DE998A200DE6B9E /* DFTextImageLineCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1048,6 +1121,7 @@
 				ADA9413C1DE9910E00DE6B9E /* AlbumOperateMoreHL@2x.png in Resources */,
 				AD861B821DDC513800BC657E /* 背景@2x.png in Resources */,
 				ADA941351DE9910E00DE6B9E /* AlbumAddBtn@2x.png in Resources */,
+				ADD062F11DEB3B260003433F /* Expression.plist in Resources */,
 				ADB99C731DD567C400EC1DAD /* LaunchScreen.storyboard in Resources */,
 				AD5CD4C11DE2E4EB00FA659D /* ClaasifyCollectionViewCell.xib in Resources */,
 				AD861B831DDC513800BC657E /* 广告@2x.png in Resources */,
@@ -1138,12 +1212,15 @@
 				ADB99C681DD567C400EC1DAD /* ViewController.m in Sources */,
 				ADA941241DE98FBA00DE6B9E /* MLLabel+Size.m in Sources */,
 				ADB99CA91DD56D0300EC1DAD /* Describe.m in Sources */,
+				ADA9414D1DE9927F00DE6B9E /* DFLineLikeItem.m in Sources */,
 				AD6BE9421DDEF44B00DFEA92 /* LoginVCViewController.m in Sources */,
 				ADFAB8AD1DE602C1005BEAF9 /* RegisterVC.m in Sources */,
 				AD861B631DDC3B9800BC657E /* SXKViewController.m in Sources */,
 				AD6BE9361DDEE49300DFEA92 /* BaseViewController.m in Sources */,
+				ADA941531DE992D500DE6B9E /* DFLineCommentItem.m in Sources */,
 				AD861B741DDC510400BC657E /* VTingTimeView.m in Sources */,
 				AD65A5CB1DE3FA6A002C6364 /* TypeCell.m in Sources */,
+				ADA9416B1DE998E200DE6B9E /* DFTextImageLineItem.m in Sources */,
 				ADB99C651DD567C400EC1DAD /* AppDelegate.m in Sources */,
 				AD6BE9331DDEE40C00DFEA92 /* PushManager.m in Sources */,
 				AD40A3021DDD5EFE006C5576 /* UIView+Extension.m in Sources */,
@@ -1152,6 +1229,8 @@
 				ADA93FD21DE9368200DE6B9E /* CommunityCollectionCell.m in Sources */,
 				AD5CD4AC1DE2B75000FA659D /* FirstTableViewCell.m in Sources */,
 				AD40A30E1DDD98C6006C5576 /* UILabel+Handy.m in Sources */,
+				ADA941651DE9985700DE6B9E /* DFLineCellManager.m in Sources */,
+				ADA941741DE9996100DE6B9E /* DFFaceManager.m in Sources */,
 				ADFAB8B01DE60B1E005BEAF9 /* ForgetVC.m in Sources */,
 				AD65A5C81DE3F752002C6364 /* SummaryCell.m in Sources */,
 				AD6BE9481DDEF61400DFEA92 /* CustomField.m in Sources */,
@@ -1159,12 +1238,19 @@
 				AD861B6A1DDC3C4700BC657E /* JTNavigationController.m in Sources */,
 				AD5CD4C41DE2F2DD00FA659D /* SpecialCell.m in Sources */,
 				ADC07F751DE536C000B665CC /* BATableViewIndex.m in Sources */,
+				ADA941711DE9992600DE6B9E /* DFImageUnitView.m in Sources */,
 				AD65A5EE1DE436E6002C6364 /* WSImageBroserCell.m in Sources */,
 				ADB99CDA1DD5BB1300EC1DAD /* MeVC.m in Sources */,
+				ADA941701DE9992600DE6B9E /* DFGridImageView.m in Sources */,
+				ADA941591DE9939A00DE6B9E /* MLClickColorLinkLabel.m in Sources */,
 				AD2558921DE7D7B800E34CF7 /* LeftCell.m in Sources */,
 				AD65A5E81DE436E6002C6364 /* JFImageGroupTableViewController.m in Sources */,
 				AD2558B21DE8562F00E34CF7 /* ClassifyCollectionFooter.m in Sources */,
+				ADA9415C1DE9957800DE6B9E /* DFToolUtil.m in Sources */,
 				AD65A5EC1DE436E6002C6364 /* JFPhotoBrowserViewController.m in Sources */,
+				ADA941681DE998A200DE6B9E /* DFTextImageLineCell.m in Sources */,
+				ADA9414A1DE9925200DE6B9E /* DFLikeCommentToolbar.m in Sources */,
+				ADA941561DE9937000DE6B9E /* MLLinkClickLabel.m in Sources */,
 				AD65A5F41DE43E7C002C6364 /* WSImagePickerView.m in Sources */,
 				AD65A5C51DE3EA8C002C6364 /* FEPlaceHolderTextView.m in Sources */,
 				ADC07F791DE53D6900B665CC /* BrandCell.m in Sources */,
@@ -1176,6 +1262,7 @@
 				ADA941211DE98BB200DE6B9E /* CommunityCell.m in Sources */,
 				AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */,
 				AD861B6E1DDC3C9100BC657E /* BaseNavigationVC.m in Sources */,
+				ADA941471DE9923A00DE6B9E /* DFLikeCommentView.m in Sources */,
 				AD5CD4B41DE2D4E800FA659D /* ClassifyCell.m in Sources */,
 				ADC07F741DE536C000B665CC /* BATableView.m in Sources */,
 				AD65A5E61DE436E6002C6364 /* JFAssetHelper.m in Sources */,
@@ -1194,6 +1281,7 @@
 				ADB99CAF1DD576D000EC1DAD /* NetworkErrorHandler.m in Sources */,
 				AD65A5EA1DE436E6002C6364 /* JFImagePickerController.m in Sources */,
 				AD6BE93F1DDEE8EE00DFEA92 /* NoDataView.m in Sources */,
+				ADA941501DE9929100DE6B9E /* DFBaseLineItem.m in Sources */,
 				ADFA8BE01DE4BB2800F992DA /* BrandVC.m in Sources */,
 				AD65A5F11DE436E6002C6364 /* WSPhotosBroseVC.m in Sources */,
 				AD65A5EB1DE436E6002C6364 /* JFImagePickerViewCell.m in Sources */,

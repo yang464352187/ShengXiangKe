@@ -22,6 +22,10 @@ PODS:
   - Mantle/extobjc (2.0.7)
   - Masonry (0.6.4)
   - MBProgressHUD (0.9.2)
+  - MJPhotoBrowser (1.0.2):
+    - SDWebImage
+    - SVProgressHUD
+    - YLGIFImage
   - MJRefresh (2.4.12)
   - MLLabel (1.9.2)
   - MMPopupView (1.7.2):
@@ -37,6 +41,7 @@ PODS:
     - SDWebImage/Core (= 3.8.1)
   - SDWebImage/Core (3.8.1)
   - SVProgressHUD (2.0.3)
+  - YLGIFImage (0.11)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0 (~> 2.0.3)
@@ -45,6 +50,7 @@ DEPENDENCIES:
   - Mantle (~> 2.0.5)
   - Masonry (~> 0.6.3)
   - MBProgressHUD (~> 0.9.1)
+  - MJPhotoBrowser (~> 1.0.2)
   - MJRefresh (~> 2.4.12)
   - MLLabel (~> 1.9.2)
   - MMPopupView
@@ -62,6 +68,7 @@ SPEC CHECKSUMS:
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MJPhotoBrowser: f55e8490231f44a78ca6455105a1c798a142c95f
   MJRefresh: ca8e9589895977df32d379d46e6b8a5450b3ff44
   MLLabel: df58127ce0bd1f87890ecc3232db77a85ce4cd97
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
@@ -70,7 +77,8 @@ SPEC CHECKSUMS:
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
 
-PODFILE CHECKSUM: ca4e92323dee66c3fcc5918ed72b2e0761ff6e6d
+PODFILE CHECKSUM: 362a201a7c8db36f9470ee4c87edad674536c4e1
 
 COCOAPODS: 1.0.1

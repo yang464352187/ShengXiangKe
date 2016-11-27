@@ -16,6 +16,7 @@ target 'SXK' do
     pod 'MMPopupView'
 	pod 'SDWebImage'	,'~> 3.8.1'
 pod 'MLLabel', '~> 1.9.2'    
+  pod 'MJPhotoBrowser', '~> 1.0.2'
 
 end
 

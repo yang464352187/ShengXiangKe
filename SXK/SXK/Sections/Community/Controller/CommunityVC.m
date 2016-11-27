@@ -8,10 +8,12 @@
 
 #import "CommunityVC.h"
 #import "CommunityCollectionCell.h"
-#import "CommunityCell.h"
+//#import "CommunityCell.h"
 #import "DFLineCellManager.h"
 #import "DFLineCommentItem.h"
 #import "DFLineLikeItem.h"
+
+#import "DFBaseLineCell.h"
 
 @interface CommunityVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,DFLineCellDelegate>
 
@@ -258,26 +260,27 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    NSLog(@"1aaaaaa%ld",_items.count);
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     DFBaseLineItem *item = [_items objectAtIndex:indexPath.row];
-    CommunityCell *typeCell = [self getCell:[item class]];
-
+    DFBaseLineCell *typeCell = [self getCell:[item class]];
+    
     NSString *reuseIdentifier = NSStringFromClass([typeCell class]);
-    CommunityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommunityCell"];
+    DFBaseLineCell *cell = [tableView dequeueReusableCellWithIdentifier: reuseIdentifier];
     if (cell == nil ) {
         cell = [[[typeCell class] alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }else{
         NSLog(@"重用Cell: %@", reuseIdentifier);
     }
-
+    
     cell.delegate = self;
     
     cell.separatorInset = UIEdgeInsetsZero;
@@ -292,13 +295,13 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DFBaseLineItem *item = [_items objectAtIndex:indexPath.row];
-    CommunityCell *typeCell = [self getCell:[item class]];
+    DFBaseLineCell *typeCell = [self getCell:[item class]];
     return  [typeCell getReuseableCellHeight:item];
 ;
 }
 #pragma mark - Method
 
--(CommunityCell *) getCell:(Class)itemClass
+-(DFBaseLineCell *) getCell:(Class)itemClass
 {
     DFLineCellManager *manager = [DFLineCellManager sharedInstance];
     return [manager getCell:itemClass];
@@ -313,7 +316,7 @@
         _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, -20, SCREEN_WIDTH, SCREEN_HIGHT+40) style:UITableViewStyleGrouped];
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
-        [_tableView registerClass:[CommunityCell class] forCellReuseIdentifier:@"CommunityCell"];
+//        [_tableView registerClass:[CommunityCell class] forCellReuseIdentifier:@"CommunityCell"];
 //        [_tableView registerClass:[ClassifyCell class] forCellReuseIdentifier:@"ClassifyCell"];
 //        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
         _tableView.showsVerticalScrollIndicator = NO;

@@ -1,16 +1,14 @@
 //
-//  CommunityCell.m
-//  SXK
+//  DFBaseLineCell.m
+//  DFTimelineView
 //
-//  Created by 杨伟康 on 2016/11/26.
-//  Copyright © 2016年 ywk. All rights reserved.
+//  Created by Allen Zhong on 15/9/27.
+//  Copyright (c) 2015年 Datafans, Inc. All rights reserved.
 //
 
-#import "CommunityCell.h"
-#import "MLLabel+Size.h"
-#import "DFLikeCommentView.h"
-#import "DFLikeCommentToolbar.h"
-#import "DFToolUtil.h"
+
+
+
 
 #define UserNickFont [UIFont systemFontOfSize:16]
 #define TitleLabelFont [UIFont systemFontOfSize:13]
@@ -38,7 +36,15 @@
 #define ToolbarWidth 150
 #define ToolbarHeight 30
 
-@interface CommunityCell()
+#import "DFBaseLineCell.h"
+#import "MLLabel+Size.h"
+#import "DFLikeCommentView.h"
+#import "DFLikeCommentToolbar.h"
+#import "DFToolUtil.h"
+
+
+@interface DFBaseLineCell()<DFLikeCommentToolbarDelegate, DFLikeCommentViewDelegate>
+
 
 @property (nonatomic, strong) DFBaseLineItem *item;
 
@@ -57,42 +63,36 @@
 @property (nonatomic, strong) UIButton *likeCmtButton;
 
 
+
 @property (nonatomic, strong) DFLikeCommentView *likeCommentView;
 
 
 @property (nonatomic, strong) DFLikeCommentToolbar *likeCommentToolbar;
+
 
 @property (nonatomic, assign) BOOL isLikeCommentToolbarShow;
 
 @end
 
 
-@implementation CommunityCell
+
+@implementation DFBaseLineCell
 
 
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
+#pragma mark - Lifecycle
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
         _isLikeCommentToolbarShow = NO;
-
-        [self initCell];
+        
+        [self initBaseCell];
     }
     return self;
 }
--(void) initCell
+
+-(void) initBaseCell
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
@@ -121,7 +121,7 @@
         _userNickLabel.numberOfLines = 1;
         _userNickLabel.adjustsFontSizeToFitWidth = NO;
         _userNickLabel.textInsets = UIEdgeInsetsZero;
-        _userNickLabel.text = @"sdafjklasjdklfjaksldjfklajdskl";
+        
         _userNickLabel.dataDetectorTypes = MLDataDetectorTypeAll;
         _userNickLabel.allowLineBreakInsideLinks = NO;
         _userNickLabel.linkTextAttributes = nil;
@@ -153,7 +153,6 @@
         _locationLabel.textColor = [UIColor colorWithRed:35/255.0 green:83/255.0 blue:120/255.0 alpha:1.0];
         _locationLabel.font = LocationLabelFont;
         _locationLabel.hidden = YES;
-        _locationLabel.text = @"fasdlkfjklasdjklf";
         [self.contentView addSubview:_locationLabel];
     }
     
@@ -164,7 +163,6 @@
         _timeLabel.textColor = [UIColor lightGrayColor];
         _timeLabel.font = TimeLabelFont;
         _timeLabel.hidden = YES;
-        _timeLabel.text = @"sdafkjaskdl";
         [self.contentView addSubview:_timeLabel];
     }
     
@@ -185,9 +183,9 @@
         height = 10;
         _likeCommentView = [[DFLikeCommentView alloc] initWithFrame:CGRectMake(x, y, width, height)];
         _likeCommentView.delegate = self;
-        [self.contentView addSubview:_likeCommentView];
+        [self.contentView addSubview:_likeCommentView];  
     }
-    
+
     
     
     if (_likeCommentToolbar == nil) {
@@ -200,8 +198,11 @@
         _likeCommentToolbar.hidden = YES;
         [self.contentView addSubview:_likeCommentToolbar];
     }
-    
+
 }
+
+
+
 
 #pragma mark - Method
 
@@ -351,7 +352,7 @@
 }
 
 
--(CommunityCell *)getCell:(UITableView *)tableView
+-(DFBaseLineCell *)getCell:(UITableView *)tableView
 {
     return nil;
 }
@@ -395,7 +396,7 @@
 
 -(void)onLike
 {
-    
+   
     [self hideLikeCommentToolbar];
     
     if (_delegate != nil && [_delegate respondsToSelector:@selector(onLike:)]) {
@@ -423,7 +424,7 @@
     if (_delegate != nil && [_delegate respondsToSelector:@selector(onClickUser:)]) {
         [_delegate onClickUser:userId];
     }
-    
+
 }
 
 -(void)onClickComment:(long long)commentId
@@ -432,9 +433,4 @@
         [_delegate onClickComment:commentId itemId:self.item.itemId];
     }
 }
-
-
-
-
-
 @end

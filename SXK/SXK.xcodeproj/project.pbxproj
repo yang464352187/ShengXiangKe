@@ -64,7 +64,6 @@
 		AD861B891DDC513800BC657E /* weibo.PNG in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7E1DDC513800BC657E /* weibo.PNG */; };
 		AD861B8A1DDC513800BC657E /* remind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7F1DDC513800BC657E /* remind@2x.png */; };
 		ADA93FD21DE9368200DE6B9E /* CommunityCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */; };
-		ADA941211DE98BB200DE6B9E /* CommunityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941201DE98BB200DE6B9E /* CommunityCell.m */; };
 		ADA941241DE98FBA00DE6B9E /* MLLabel+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */; };
 		ADA941351DE9910E00DE6B9E /* AlbumAddBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA941251DE9910E00DE6B9E /* AlbumAddBtn@2x.png */; };
 		ADA941361DE9910E00DE6B9E /* AlbumComment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA941261DE9910E00DE6B9E /* AlbumComment@2x.png */; };
@@ -124,6 +123,7 @@
 		ADC07F881DE5627E00B665CC /* SecondCommonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC07F871DE5627E00B665CC /* SecondCommonVC.m */; };
 		ADC07F8B1DE5678A00B665CC /* SelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC07F8A1DE5678A00B665CC /* SelectCell.m */; };
 		ADD062F11DEB3B260003433F /* Expression.plist in Resources */ = {isa = PBXBuildFile; fileRef = ADD062F01DEB3B260003433F /* Expression.plist */; };
+		ADD062F41DEB3D8D0003433F /* DFBaseLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */; };
 		ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE9C3BD1DE5E192004E172C /* qualityVC.m */; };
 		ADFA8BE01DE4BB2800F992DA /* BrandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFA8BDF1DE4BB2800F992DA /* BrandVC.m */; };
 		ADFAB8AD1DE602C1005BEAF9 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFAB8AC1DE602C1005BEAF9 /* RegisterVC.m */; };
@@ -253,8 +253,6 @@
 		AD861B7F1DDC513800BC657E /* remind@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remind@2x.png"; sourceTree = "<group>"; };
 		ADA93FD01DE9368200DE6B9E /* CommunityCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityCollectionCell.h; sourceTree = "<group>"; };
 		ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityCollectionCell.m; sourceTree = "<group>"; };
-		ADA9411F1DE98BB200DE6B9E /* CommunityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityCell.h; sourceTree = "<group>"; };
-		ADA941201DE98BB200DE6B9E /* CommunityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityCell.m; sourceTree = "<group>"; };
 		ADA941221DE98FBA00DE6B9E /* MLLabel+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLLabel+Size.h"; sourceTree = "<group>"; };
 		ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MLLabel+Size.m"; sourceTree = "<group>"; };
 		ADA941251DE9910E00DE6B9E /* AlbumAddBtn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AlbumAddBtn@2x.png"; sourceTree = "<group>"; };
@@ -358,6 +356,8 @@
 		ADC07F891DE5678A00B665CC /* SelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCell.h; sourceTree = "<group>"; };
 		ADC07F8A1DE5678A00B665CC /* SelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCell.m; sourceTree = "<group>"; };
 		ADD062F01DEB3B260003433F /* Expression.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expression.plist; sourceTree = "<group>"; };
+		ADD062F21DEB3D8D0003433F /* DFBaseLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFBaseLineCell.h; sourceTree = "<group>"; };
+		ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFBaseLineCell.m; sourceTree = "<group>"; };
 		ADE9C3BC1DE5E192004E172C /* qualityVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qualityVC.h; sourceTree = "<group>"; };
 		ADE9C3BD1DE5E192004E172C /* qualityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = qualityVC.m; sourceTree = "<group>"; };
 		ADFA8BDE1DE4BB2800F992DA /* BrandVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandVC.h; sourceTree = "<group>"; };
@@ -918,6 +918,8 @@
 		ADB99CC81DD5BA4300EC1DAD /* View */ = {
 			isa = PBXGroup;
 			children = (
+				ADD062F21DEB3D8D0003433F /* DFBaseLineCell.h */,
+				ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */,
 				ADA941721DE9996100DE6B9E /* DFFaceManager.h */,
 				ADA941731DE9996100DE6B9E /* DFFaceManager.m */,
 				ADA9416C1DE9992600DE6B9E /* DFGridImageView.h */,
@@ -928,8 +930,6 @@
 				ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */,
 				ADA93FD01DE9368200DE6B9E /* CommunityCollectionCell.h */,
 				ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */,
-				ADA9411F1DE98BB200DE6B9E /* CommunityCell.h */,
-				ADA941201DE98BB200DE6B9E /* CommunityCell.m */,
 				ADA941451DE9923A00DE6B9E /* DFLikeCommentView.h */,
 				ADA941461DE9923A00DE6B9E /* DFLikeCommentView.m */,
 				ADA941481DE9925200DE6B9E /* DFLikeCommentToolbar.h */,
@@ -1207,6 +1207,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADD062F41DEB3D8D0003433F /* DFBaseLineCell.m in Sources */,
 				ADC07F7C1DE54A6C00B665CC /* CommonVC.m in Sources */,
 				ADB99CD71DD5BB0300EC1DAD /* CommunityVC.m in Sources */,
 				ADB99C681DD567C400EC1DAD /* ViewController.m in Sources */,
@@ -1259,7 +1260,6 @@
 				AD65A5ED1DE436E6002C6364 /* JFPhotoView.m in Sources */,
 				ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */,
 				ADC07F821DE559DF00B665CC /* CategoryCell.m in Sources */,
-				ADA941211DE98BB200DE6B9E /* CommunityCell.m in Sources */,
 				AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */,
 				AD861B6E1DDC3C9100BC657E /* BaseNavigationVC.m in Sources */,
 				ADA941471DE9923A00DE6B9E /* DFLikeCommentView.m in Sources */,

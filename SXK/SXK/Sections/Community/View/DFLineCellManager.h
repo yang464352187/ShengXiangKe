@@ -7,7 +7,7 @@
 //
 
 #import "DFBaseLineItem.h"
-#import "CommunityCell.h"
+#import "DFBaseLineCell.h"
 
 #import "DFTextImageLineItem.h"
 
@@ -20,7 +20,7 @@
 
 -(void) registerCell:(Class) itemClass cellClass:(Class ) cellClass;
 
--(CommunityCell *) getCell:(Class) itemClass;
+-(DFBaseLineCell *) getCell:(Class) itemClass;
 
 
 @end

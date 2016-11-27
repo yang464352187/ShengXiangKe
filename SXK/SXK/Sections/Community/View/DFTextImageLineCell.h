@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 Datafans, Inc. All rights reserved.
 //
 
-#import "CommunityCell.h"
+#import "DFBaseLineCell.h"
 #import "DFBaseLineItem.h"
 
 
-@interface DFTextImageLineCell : CommunityCell
+@interface DFTextImageLineCell :DFBaseLineCell
 
 @end

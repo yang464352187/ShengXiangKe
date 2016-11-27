@@ -58,7 +58,7 @@ static DFLineCellManager  *_manager=nil;
 }
 
 
--(CommunityCell *) getCell:(Class) itemClass
+-(DFBaseLineCell *) getCell:(Class) itemClass
 {
     return [_dic objectForKey:NSStringFromClass(itemClass)];
 }

@@ -1,13 +1,16 @@
 //
-//  CommunityCell.h
-//  SXK
+//  DFBaseLineCell.h
+//  DFTimelineView
 //
-//  Created by 杨伟康 on 2016/11/26.
-//  Copyright © 2016年 ywk. All rights reserved.
+//  Created by Allen Zhong on 15/9/27.
+//  Copyright (c) 2015年 Datafans, Inc. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "UIImageView+WebCache.h"
 #import "DFBaseLineItem.h"
+
+//#import "Const.h"
+
 
 #define Margin 15
 
@@ -33,8 +36,8 @@
 
 
 @end
-@interface CommunityCell : UITableViewCell
 
+@interface DFBaseLineCell : UITableViewCell
 
 
 @property (nonatomic, strong) UIView *bodyView;
@@ -54,8 +57,5 @@
 -(void) hideLikeCommentToolbar;
 
 -(UINavigationController *) getController;
-
-
-
 
 @end

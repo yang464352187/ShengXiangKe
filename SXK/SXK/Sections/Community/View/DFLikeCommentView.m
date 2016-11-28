@@ -100,8 +100,8 @@
         y = LikeIconTopMargin;
         width = LikeIconSize;
         height = width;
-        _likeIconView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
-        _likeIconView.image = [UIImage imageNamed:@"Like"];
+        _likeIconView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y-1, width, height)];
+        _likeIconView.image = [UIImage imageNamed:@"图层-125-拷贝-2"];
         [self addSubview:_likeIconView];
     }
     

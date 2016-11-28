@@ -63,6 +63,7 @@
 		AD861B881DDC513800BC657E /* left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7D1DDC513800BC657E /* left@2x.png */; };
 		AD861B891DDC513800BC657E /* weibo.PNG in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7E1DDC513800BC657E /* weibo.PNG */; };
 		AD861B8A1DDC513800BC657E /* remind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7F1DDC513800BC657E /* remind@2x.png */; };
+		AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD91883B1DEBD02400694D92 /* CommentInputView.m */; };
 		ADA93FD21DE9368200DE6B9E /* CommunityCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */; };
 		ADA941241DE98FBA00DE6B9E /* MLLabel+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */; };
 		ADA941351DE9910E00DE6B9E /* AlbumAddBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA941251DE9910E00DE6B9E /* AlbumAddBtn@2x.png */; };
@@ -251,6 +252,8 @@
 		AD861B7D1DDC513800BC657E /* left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left@2x.png"; sourceTree = "<group>"; };
 		AD861B7E1DDC513800BC657E /* weibo.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weibo.PNG; sourceTree = "<group>"; };
 		AD861B7F1DDC513800BC657E /* remind@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remind@2x.png"; sourceTree = "<group>"; };
+		AD91883A1DEBD02400694D92 /* CommentInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentInputView.h; sourceTree = "<group>"; };
+		AD91883B1DEBD02400694D92 /* CommentInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentInputView.m; sourceTree = "<group>"; };
 		ADA93FD01DE9368200DE6B9E /* CommunityCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityCollectionCell.h; sourceTree = "<group>"; };
 		ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityCollectionCell.m; sourceTree = "<group>"; };
 		ADA941221DE98FBA00DE6B9E /* MLLabel+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLLabel+Size.h"; sourceTree = "<group>"; };
@@ -918,41 +921,15 @@
 		ADB99CC81DD5BA4300EC1DAD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				ADD062F21DEB3D8D0003433F /* DFBaseLineCell.h */,
-				ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */,
-				ADA941721DE9996100DE6B9E /* DFFaceManager.h */,
-				ADA941731DE9996100DE6B9E /* DFFaceManager.m */,
-				ADA9416C1DE9992600DE6B9E /* DFGridImageView.h */,
-				ADA9416D1DE9992600DE6B9E /* DFGridImageView.m */,
-				ADA9416E1DE9992600DE6B9E /* DFImageUnitView.h */,
-				ADA9416F1DE9992600DE6B9E /* DFImageUnitView.m */,
-				ADA941221DE98FBA00DE6B9E /* MLLabel+Size.h */,
-				ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */,
+				ADD062FB1DEB431B0003433F /* Lib */,
+				ADD062FA1DEB42E90003433F /* BaseCell */,
+				ADD062F91DEB42C20003433F /* LikeComment */,
+				ADD062F81DEB42B20003433F /* DFGridImageView */,
+				ADD062F71DEB42990003433F /* LikeCommentView */,
+				ADD062F61DEB42910003433F /* LikeCommentToolbar */,
+				ADD062F51DEB42680003433F /* CommentInputView */,
 				ADA93FD01DE9368200DE6B9E /* CommunityCollectionCell.h */,
 				ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */,
-				ADA941451DE9923A00DE6B9E /* DFLikeCommentView.h */,
-				ADA941461DE9923A00DE6B9E /* DFLikeCommentView.m */,
-				ADA941481DE9925200DE6B9E /* DFLikeCommentToolbar.h */,
-				ADA941491DE9925200DE6B9E /* DFLikeCommentToolbar.m */,
-				ADA941631DE9985700DE6B9E /* DFLineCellManager.h */,
-				ADA941641DE9985700DE6B9E /* DFLineCellManager.m */,
-				ADA9414B1DE9927F00DE6B9E /* DFLineLikeItem.h */,
-				ADA9414C1DE9927F00DE6B9E /* DFLineLikeItem.m */,
-				ADA9414E1DE9929100DE6B9E /* DFBaseLineItem.h */,
-				ADA9414F1DE9929100DE6B9E /* DFBaseLineItem.m */,
-				ADA941511DE992D400DE6B9E /* DFLineCommentItem.h */,
-				ADA941521DE992D500DE6B9E /* DFLineCommentItem.m */,
-				ADA941541DE9937000DE6B9E /* MLLinkClickLabel.h */,
-				ADA941551DE9937000DE6B9E /* MLLinkClickLabel.m */,
-				ADA941571DE9939A00DE6B9E /* MLClickColorLinkLabel.h */,
-				ADA941581DE9939A00DE6B9E /* MLClickColorLinkLabel.m */,
-				ADA9415A1DE9957800DE6B9E /* DFToolUtil.h */,
-				ADA9415B1DE9957800DE6B9E /* DFToolUtil.m */,
-				ADA941691DE998E200DE6B9E /* DFTextImageLineItem.h */,
-				ADD062F01DEB3B260003433F /* Expression.plist */,
-				ADA9416A1DE998E200DE6B9E /* DFTextImageLineItem.m */,
-				ADA941661DE998A200DE6B9E /* DFTextImageLineCell.h */,
-				ADA941671DE998A200DE6B9E /* DFTextImageLineCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -992,6 +969,90 @@
 				ADC07F731DE536C000B665CC /* flotageBackgroud@2x.png */,
 			);
 			path = BATableViewKit;
+			sourceTree = "<group>";
+		};
+		ADD062F51DEB42680003433F /* CommentInputView */ = {
+			isa = PBXGroup;
+			children = (
+				AD91883A1DEBD02400694D92 /* CommentInputView.h */,
+				AD91883B1DEBD02400694D92 /* CommentInputView.m */,
+			);
+			name = CommentInputView;
+			sourceTree = "<group>";
+		};
+		ADD062F61DEB42910003433F /* LikeCommentToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				ADA941481DE9925200DE6B9E /* DFLikeCommentToolbar.h */,
+				ADA941491DE9925200DE6B9E /* DFLikeCommentToolbar.m */,
+			);
+			name = LikeCommentToolbar;
+			sourceTree = "<group>";
+		};
+		ADD062F71DEB42990003433F /* LikeCommentView */ = {
+			isa = PBXGroup;
+			children = (
+				ADA941221DE98FBA00DE6B9E /* MLLabel+Size.h */,
+				ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */,
+				ADA941541DE9937000DE6B9E /* MLLinkClickLabel.h */,
+				ADA941551DE9937000DE6B9E /* MLLinkClickLabel.m */,
+				ADA941451DE9923A00DE6B9E /* DFLikeCommentView.h */,
+				ADA941461DE9923A00DE6B9E /* DFLikeCommentView.m */,
+				ADA941571DE9939A00DE6B9E /* MLClickColorLinkLabel.h */,
+				ADA941581DE9939A00DE6B9E /* MLClickColorLinkLabel.m */,
+			);
+			name = LikeCommentView;
+			sourceTree = "<group>";
+		};
+		ADD062F81DEB42B20003433F /* DFGridImageView */ = {
+			isa = PBXGroup;
+			children = (
+				ADA9416E1DE9992600DE6B9E /* DFImageUnitView.h */,
+				ADA9416F1DE9992600DE6B9E /* DFImageUnitView.m */,
+				ADA9416C1DE9992600DE6B9E /* DFGridImageView.h */,
+				ADA9416D1DE9992600DE6B9E /* DFGridImageView.m */,
+			);
+			name = DFGridImageView;
+			sourceTree = "<group>";
+		};
+		ADD062F91DEB42C20003433F /* LikeComment */ = {
+			isa = PBXGroup;
+			children = (
+				ADA941631DE9985700DE6B9E /* DFLineCellManager.h */,
+				ADA941641DE9985700DE6B9E /* DFLineCellManager.m */,
+				ADA941511DE992D400DE6B9E /* DFLineCommentItem.h */,
+				ADA941521DE992D500DE6B9E /* DFLineCommentItem.m */,
+				ADA9415A1DE9957800DE6B9E /* DFToolUtil.h */,
+				ADA9415B1DE9957800DE6B9E /* DFToolUtil.m */,
+				ADD062F01DEB3B260003433F /* Expression.plist */,
+			);
+			name = LikeComment;
+			sourceTree = "<group>";
+		};
+		ADD062FA1DEB42E90003433F /* BaseCell */ = {
+			isa = PBXGroup;
+			children = (
+				ADA9414E1DE9929100DE6B9E /* DFBaseLineItem.h */,
+				ADA9414F1DE9929100DE6B9E /* DFBaseLineItem.m */,
+				ADD062F21DEB3D8D0003433F /* DFBaseLineCell.h */,
+				ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */,
+				ADA9414B1DE9927F00DE6B9E /* DFLineLikeItem.h */,
+				ADA9414C1DE9927F00DE6B9E /* DFLineLikeItem.m */,
+				ADA941661DE998A200DE6B9E /* DFTextImageLineCell.h */,
+				ADA941671DE998A200DE6B9E /* DFTextImageLineCell.m */,
+				ADA941691DE998E200DE6B9E /* DFTextImageLineItem.h */,
+				ADA9416A1DE998E200DE6B9E /* DFTextImageLineItem.m */,
+			);
+			name = BaseCell;
+			sourceTree = "<group>";
+		};
+		ADD062FB1DEB431B0003433F /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				ADA941721DE9996100DE6B9E /* DFFaceManager.h */,
+				ADA941731DE9996100DE6B9E /* DFFaceManager.m */,
+			);
+			name = Lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1258,6 +1319,7 @@
 				ADC07F881DE5627E00B665CC /* SecondCommonVC.m in Sources */,
 				AD65A5E71DE436E6002C6364 /* JFImageCollectionViewController.m in Sources */,
 				AD65A5ED1DE436E6002C6364 /* JFPhotoView.m in Sources */,
+				AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */,
 				ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */,
 				ADC07F821DE559DF00B665CC /* CategoryCell.m in Sources */,
 				AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */,

@@ -12,16 +12,18 @@
 #import "DFLineCellManager.h"
 #import "DFLineCommentItem.h"
 #import "DFLineLikeItem.h"
-
+#import "CommentInputView.h"
 #import "DFBaseLineCell.h"
 
-@interface CommunityVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,DFLineCellDelegate>
+@interface CommunityVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,DFLineCellDelegate,CommentInputViewDelegate>
 
 
 @property (strong, nonatomic) UIView    *headView;
 @property (nonatomic, strong) NSMutableArray *items;
 
 @property (nonatomic, strong) NSMutableDictionary *itemDic;
+@property (strong, nonatomic) CommentInputView *commentInputView;
+@property (assign, nonatomic) long long currentItemId;
 
 @property (nonatomic, strong) NSMutableDictionary *commentDic;
 
@@ -59,9 +61,22 @@
     self.navigationItem.title = @"社区";
     UIImage *image = [UIImage imageNamed:@"图层-130"] ;
      [self setRightBarButtonWith:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]selector:@selector(barButtonAction)];
+    
     [self initData];
+    [self initCommentInputView];
 
     [self initUI];
+    
+}
+
+-(void) initCommentInputView
+{
+    if (_commentInputView == nil) {
+        _commentInputView = [[CommentInputView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        _commentInputView.hidden = YES;
+        _commentInputView.delegate = self;
+        [self.view addSubview:_commentInputView];
+    }
     
 }
 -(void) initData
@@ -102,7 +117,7 @@
     [thumbImages addObject:@"https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1479108586&di=c1243381373a079e9cc76ec88e77b48e&src=http://5.26923.com/download/pic/000/337/3cc141673013966cb8ded94d09e9b09f.jpg"];
     textImageItem.thumbImages = thumbImages;
     
-    textImageItem.location = @"中国 • 广州";
+//    textImageItem.location = @"中国 • 广州";
     textImageItem.ts = [[NSDate date] timeIntervalSince1970]*1000;
     
     
@@ -152,7 +167,7 @@
     textImageItem2.userId = 10088;
     textImageItem2.userAvatar = @"http://file-cdn.datafans.net/avatar/2.jpg";
     textImageItem2.userNick = @"奥巴马";
-    textImageItem2.title = @"发表了";
+    textImageItem2.title = @"";
     textImageItem2.text = @"京东JD.COM-专业的综合网上购物商城，销售超数万品牌、4020万种商品，http://jd.com 囊括家电、手机、电脑、服装、图书、母婴、个护、食品、旅游等13大品类。秉承客户为先的理念，京东所售商品为正品行货、全国联保、机打发票。@刘强东";
     
     NSMutableArray *srcImages2 = [NSMutableArray array];
@@ -160,6 +175,12 @@
     [srcImages2 addObject:@"http://file-cdn.datafans.net/temp/21.jpg"];
     [srcImages2 addObject:@"http://file-cdn.datafans.net/temp/22.jpg"];
     [srcImages2 addObject:@"http://file-cdn.datafans.net/temp/23.jpg"];
+    [srcImages2 addObject:@"http://file-cdn.datafans.net/temp/20.jpg"];
+    [srcImages2 addObject:@"http://file-cdn.datafans.net/temp/21.jpg"];
+    [srcImages2 addObject:@"http://file-cdn.datafans.net/temp/22.jpg"];
+    [srcImages2 addObject:@"http://file-cdn.datafans.net/temp/23.jpg"];
+    [srcImages2 addObject:@"http://file-cdn.datafans.net/temp/23.jpg"];
+
     textImageItem2.srcImages = srcImages2;
     
     
@@ -213,7 +234,7 @@
     textImageItem3.userId = 10088;
     textImageItem3.userAvatar = @"http://file-cdn.datafans.net/avatar/2.jpg";
     textImageItem3.userNick = @"奥巴马";
-    textImageItem3.title = @"发表了";
+    textImageItem3.title = @"";
     textImageItem3.text = @"京东JD.COM-专业的综合网上购物商城";
     
     NSMutableArray *srcImages3 = [NSMutableArray array];
@@ -229,7 +250,7 @@
     textImageItem3.width = 640;
     textImageItem3.height = 360;
     
-    textImageItem3.location = @"广州信息港";
+//    textImageItem3.location = @"";
     
     DFLineCommentItem *commentItem3_1 = [[DFLineCommentItem alloc] init];
     commentItem3_1.commentId = 78718789;
@@ -260,12 +281,12 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"1aaaaaa%ld",_items.count);
-    return 0;
+//    NSLog(@"1aaaaaa%ld",_items.count);
+    return _items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -273,7 +294,10 @@
     DFBaseLineItem *item = [_items objectAtIndex:indexPath.row];
     DFBaseLineCell *typeCell = [self getCell:[item class]];
     
+    
     NSString *reuseIdentifier = NSStringFromClass([typeCell class]);
+    
+    NSLog(@"class %@ ",NSStringFromClass([typeCell class]));
     DFBaseLineCell *cell = [tableView dequeueReusableCellWithIdentifier: reuseIdentifier];
     if (cell == nil ) {
         cell = [[[typeCell class] alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
@@ -313,9 +337,10 @@
 - (UITableView *)tableView{
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, -20, SCREEN_WIDTH, SCREEN_HIGHT+40) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-44) style:UITableViewStyleGrouped];
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
+        _tableView.backgroundColor = [UIColor whiteColor];
 //        [_tableView registerClass:[CommunityCell class] forCellReuseIdentifier:@"CommunityCell"];
 //        [_tableView registerClass:[ClassifyCell class] forCellReuseIdentifier:@"ClassifyCell"];
 //        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
@@ -323,7 +348,7 @@
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.tableHeaderView = self.headView;
-        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+//        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
         //        _tableView.header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeaderAction)];
@@ -551,6 +576,33 @@
         
         [item.commentStrArray addObject:commentStr];
     }
+}
+
+-(void)onCommentCreate:(long long)commentId text:(NSString *)text
+{
+    [self onCommentCreate:commentId text:text itemId:_currentItemId];
+}
+-(void)onCommentCreate:(long long)commentId text:(NSString *)text itemId:(long long) itemId
+{
+    DFLineCommentItem *commentItem = [[DFLineCommentItem alloc] init];
+    commentItem.commentId = [[NSDate date] timeIntervalSince1970];
+    commentItem.userId = 10098;
+    commentItem.userNick = @"金三胖";
+    commentItem.text = text;
+    [self addCommentItem:commentItem itemId:itemId replyCommentId:commentId];
+}
+
+#pragma mark - DFLineCellDelegate
+
+-(void)onComment:(long long)itemId
+{
+    _currentItemId = itemId;
+    
+    _commentInputView.commentId = 0;
+    
+    _commentInputView.hidden = NO;
+    
+    [_commentInputView show];
 }
 
 

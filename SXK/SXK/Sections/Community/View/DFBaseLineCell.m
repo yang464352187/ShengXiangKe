@@ -243,7 +243,7 @@
     width = _bodyView.frame.size.width;
     height = height;
     _bodyView.frame = CGRectMake(x, y, width, height);
-    
+//    _bodyView.backgroundColor =[UIColor greenColor];
     [self updateLocationLikeComment:height];
     
 }
@@ -311,8 +311,16 @@
         [_likeCommentView updateWithItem:self.item];
     }
     
-    
-    
+//    [_timeLabel removeFromSuperview];
+//    
+////    时间
+//    y = CGRectGetMaxY(_bodyView.frame) + sumHeight + Padding;
+//    width = 150;
+//    height = TimeLabelHeight;
+//    _timeLabel.hidden = NO;
+//    _timeLabel.frame = CGRectMake(x, 40, width, height);
+//    _timeLabel.text = [DFToolUtil preettyTime:self.item.ts];
+//    [self addSubview:_timeLabel];
 }
 
 -(CGFloat)getReuseableCellHeight:(DFBaseLineItem *)item

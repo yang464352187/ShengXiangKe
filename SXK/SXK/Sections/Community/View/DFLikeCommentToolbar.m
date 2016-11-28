@@ -92,6 +92,10 @@
 
 -(void) onComment:(id) sender
 {
+    
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [IQKeyboardManager sharedManager].enable = NO;
+
     if (_delegate != nil && [_delegate respondsToSelector:@selector(onComment)]) {
         [_delegate onComment];
     }

@@ -73,7 +73,7 @@
     
     CGFloat x, y, width, height;
     
-    
+//    NSLog(@"aaaaaa %@",NSStringFromCGRect(self.f));
     if (_maskView == nil) {
         _maskView = [[UIView alloc] initWithFrame:self.frame];
         [self addSubview:_maskView];
@@ -81,7 +81,7 @@
         _maskView.alpha = 0.4;
         _maskView.hidden = YES;
     }
-
+    
     
     
     width = CGRectGetWidth(self.frame);
@@ -149,7 +149,7 @@
         _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTableViewPanAndTap:)];
         [_maskView addGestureRecognizer:_tapGestureRecognizer];
     }
-
+    
     
 }
 
@@ -170,7 +170,7 @@
 
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-
+    
 }
 
 
@@ -248,7 +248,7 @@
     [UIView setAnimationDuration:_keyboardAnimationDuration];
     [UIView setAnimationCurve:_keyboardAnimationCurve];
     
-    _inputView.frame = CGRectMake(x, y, width, height);
+    _inputView.frame = CGRectMake(x, y-64, width, height);
     
     [UIView commitAnimations];
 }
@@ -258,11 +258,13 @@
 -(void) onTableViewPanAndTap:(UIGestureRecognizer *) gesture
 {
     [self hideInputView];
+    
 }
 
 
 -(void) onInputSendButtonClick:(UIButton *) button
 {
+    
     [self sendComment];
 }
 
@@ -271,7 +273,6 @@
     [self hideInputView];
     
     NSString *text = _inputTextView.text;
-    
     
     if ([text isEqualToString:@""]) {
         return;

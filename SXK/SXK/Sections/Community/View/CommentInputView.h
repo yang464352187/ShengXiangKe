@@ -14,7 +14,6 @@
 
 -(void) onCommentCreate:(long long ) commentId text:(NSString *) text;
 
-
 @end
 
 

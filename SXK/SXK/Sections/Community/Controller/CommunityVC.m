@@ -55,24 +55,48 @@
     }
     return self;
 }
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    
+    [_commentInputView addNotify];
+    
+    [_commentInputView addObserver];
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [_commentInputView removeNotify];
+    
+    [_commentInputView removeObserver];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"社区";
+    
     UIImage *image = [UIImage imageNamed:@"图层-130"] ;
      [self setRightBarButtonWith:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]selector:@selector(barButtonAction)];
-    
     [self initData];
-    [self initCommentInputView];
+
 
     [self initUI];
-    
+    [self initCommentInputView];
 }
 
 -(void) initCommentInputView
 {
     if (_commentInputView == nil) {
         _commentInputView = [[CommentInputView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        NSLog(@"aaaaaa %@",NSStringFromCGRect(_commentInputView.frame));
+
         _commentInputView.hidden = YES;
         _commentInputView.delegate = self;
         [self.view addSubview:_commentInputView];
@@ -597,16 +621,44 @@
 
 -(void)onComment:(long long)itemId
 {
+//    self.tabBarController.tabBar.hidden = YES;
+
     _currentItemId = itemId;
     
     _commentInputView.commentId = 0;
     
     _commentInputView.hidden = NO;
-    self.tabBarController.tabBar.hidden = YES;
     [_commentInputView show];
 }
 
 
+-(void)onClickComment:(long long)commentId itemId:(long long)itemId
+{
+    
+    _currentItemId = itemId;
+    
+    _commentInputView.hidden = NO;
+    
+    _commentInputView.commentId = commentId;
+    
+    [_commentInputView show];
+    
+    DFLineCommentItem *comment = [_commentDic objectForKey:[NSNumber numberWithLongLong:commentId]];
+    [_commentInputView setPlaceHolder:[NSString stringWithFormat:@"  回复: %@", comment.userNick]];
+    
+}
+
+-(void)onLike:(long long)itemId
+{
+    //点赞
+    NSLog(@"onLike: %lld", itemId);
+    
+    DFLineLikeItem *likeItem = [[DFLineLikeItem alloc] init];
+    likeItem.userId = 10092;
+    likeItem.userNick = @"琅琊榜";
+    [self addLikeItem:likeItem itemId:itemId];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

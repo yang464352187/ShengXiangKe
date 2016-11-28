@@ -257,15 +257,12 @@
 
 -(void) onTableViewPanAndTap:(UIGestureRecognizer *) gesture
 {
-    
     [self hideInputView];
-    
 }
 
 
 -(void) onInputSendButtonClick:(UIButton *) button
 {
-    
     [self sendComment];
 }
 

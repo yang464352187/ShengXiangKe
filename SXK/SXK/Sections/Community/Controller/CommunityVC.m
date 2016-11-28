@@ -590,6 +590,7 @@
     commentItem.userNick = @"金三胖";
     commentItem.text = text;
     [self addCommentItem:commentItem itemId:itemId replyCommentId:commentId];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 #pragma mark - DFLineCellDelegate
@@ -601,7 +602,7 @@
     _commentInputView.commentId = 0;
     
     _commentInputView.hidden = NO;
-    
+    self.tabBarController.tabBar.hidden = YES;
     [_commentInputView show];
 }
 

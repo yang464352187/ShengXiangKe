@@ -257,6 +257,7 @@
 
 -(void) onTableViewPanAndTap:(UIGestureRecognizer *) gesture
 {
+    
     [self hideInputView];
     
 }
@@ -273,6 +274,7 @@
     [self hideInputView];
     
     NSString *text = _inputTextView.text;
+    
     
     if ([text isEqualToString:@""]) {
         return;

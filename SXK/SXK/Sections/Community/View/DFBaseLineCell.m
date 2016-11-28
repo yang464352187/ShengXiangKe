@@ -62,6 +62,7 @@
 
 @property (nonatomic, strong) UIButton *likeCmtButton;
 
+@property (nonatomic, strong) UIButton *likeCmtButton1;
 
 
 @property (nonatomic, strong) DFLikeCommentView *likeCommentView;
@@ -106,6 +107,7 @@
         height = width;
         _userAvatarView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, width, height)];
         _userAvatarView.backgroundColor = [UIColor lightGrayColor];
+        ViewRadius(_userAvatarView, width/2);
         [self.contentView addSubview:_userAvatarView];
         
         _userAvatarButton = [[UIButton alloc] initWithFrame:_userAvatarView.frame];
@@ -170,12 +172,21 @@
     if (_likeCmtButton == nil) {
         _likeCmtButton = [[UIButton alloc] initWithFrame:CGRectZero];
         _likeCmtButton.hidden = YES;
-        [_likeCmtButton setImage:[UIImage imageNamed:@"AlbumOperateMore"] forState:UIControlStateNormal];
-        [_likeCmtButton setImage:[UIImage imageNamed:@"AlbumOperateMoreHL"] forState:UIControlStateHighlighted];
+        [_likeCmtButton setImage:[UIImage imageNamed:@"评论"] forState:UIControlStateNormal];
+//        [_likeCmtButton setImage:[UIImage imageNamed:@"AlbumOperateMoreHL"] forState:UIControlStateHighlighted];
         [_likeCmtButton addTarget:self action:@selector(onClickLikeCommentBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_likeCmtButton];
     }
     
+    if (_likeCmtButton1 == nil) {
+        _likeCmtButton1 = [[UIButton alloc] initWithFrame:CGRectZero];
+        _likeCmtButton1.hidden = YES;
+        [_likeCmtButton1 setImage:[UIImage imageNamed:@"图层-125"] forState:UIControlStateNormal];
+        //        [_likeCmtButton setImage:[UIImage imageNamed:@"AlbumOperateMoreHL"] forState:UIControlStateHighlighted];
+        [_likeCmtButton1 addTarget:self action:@selector(onClickLikeCommentBtn:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_likeCmtButton1];
+    }
+
     
     if (_likeCommentView == nil) {
         y = 0;
@@ -287,7 +298,9 @@
     x = CGRectGetMaxX(_bodyView.frame) - width;
     _likeCmtButton.hidden = NO;
     _likeCmtButton.frame = CGRectMake(x+2, y-7, width, height);
-    
+    _likeCmtButton1.hidden = NO;
+    _likeCmtButton1.frame = CGRectMake(x-30, y-7, width, height);
+
     
     //点赞和评论Toolbar
     width = _likeCommentToolbar.frame.size.width;

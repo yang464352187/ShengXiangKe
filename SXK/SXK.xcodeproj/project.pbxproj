@@ -700,8 +700,8 @@
 				AD861B781DDC513800BC657E /* 广告@2x.png */,
 				AD861B7C1DDC513800BC657E /* exit@2x.png */,
 				AD861B7D1DDC513800BC657E /* left@2x.png */,
-				AD861B7E1DDC513800BC657E /* weibo.PNG */,
 				AD861B7F1DDC513800BC657E /* remind@2x.png */,
+				AD861B7E1DDC513800BC657E /* weibo.PNG */,
 				ADB99C6F1DD567C400EC1DAD /* Assets.xcassets */,
 			);
 			path = Resources;

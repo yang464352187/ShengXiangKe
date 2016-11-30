@@ -21,11 +21,10 @@
 @end
 
 @implementation HomeVC
--(void)viewDidAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
     self.jt_navigationController.line.backgroundColor = [UIColor clearColor];
+
 }
 
 - (void)viewDidLoad {
@@ -34,7 +33,6 @@
     self.view.backgroundColor = [UIColor redColor];
     self.navigationController.navigationBar.hidden = YES;
     [self.view addSubview:self.tableView];
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -238,17 +236,12 @@
         [rightBtn setImage:[image2 imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
         //        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:rightBtn];
-
-
-        
-
     }
     return _headView;
 }
 
 - (SDCycleScrollView *)cycleScrollView{
     if (!_cycleScrollView) {
-        
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 274.0000/667*SCREEN_HIGHT) imageNamesGroup:@[@"背景",@"图层-1-副本-2"]];
         _cycleScrollView.showPageControl = YES;
         _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;

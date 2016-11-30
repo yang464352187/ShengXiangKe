@@ -17,12 +17,18 @@
 #import "VTingSeaPopView.h"
 
 
-@interface SXKViewController ()<ZTTabBarDelegate,VTingPopItemSelectDelegate>
+@interface SXKViewController ()<ZTTabBarDelegate,VTingPopItemSelectDelegate,UIScrollViewDelegate>
 {
     NSMutableArray *images;
     NSMutableArray *titles;
     VTingSeaPopView *pop;
 }
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) UIPageControl *pageControl;
+
+
+@property (nonatomic, strong) UIButton *beginButton;
 
 
 @end
@@ -32,6 +38,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    
+    
+    
+    
     [self initVCS];
       images = [NSMutableArray array];
     titles = [NSMutableArray arrayWithObjects:@"发布",@"养护",@"鉴定", nil];
@@ -43,6 +54,28 @@
             [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"remind"]]];
         }
     }
+    
+    [self setupData];
+
+        if (DEFAULTS_GET_INTEGER(@"launchInteger") == 0) {
+            NSInteger currentInt = DEFAULTS_GET_INTEGER(@"launchInteger");
+            currentInt += 1;
+            DEFAULTS_SET_INTEGER(currentInt, @"launchInteger");
+            [self.view addSubview:self.scrollView];
+            [self.view addSubview:self.pageControl];
+        }
+
+
+}
+- (void)setupData{
+    NSArray *imageNames = @[@"背景", @"背景", @"背景"];
+    for (int i = 0; i < imageNames.count; i++) {
+        UIImage *image = [UIImage imageNamed:imageNames[i]];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * ViewWidth(self.scrollView), 0, ViewWidth(self.scrollView), ViewHeight(self.scrollView))];
+        imageView.image = image;
+        [self.scrollView addSubview:imageView];
+    }
+    self.scrollView.contentSize = CGSizeMake(imageNames.count * ViewWidth(self.scrollView), ViewHeight(self.scrollView));
     
 }
 
@@ -146,7 +179,99 @@
     if (index == 0) {
         [[PushManager sharedManager] pushToVCWithClassName:@"PromulgateVC" info:nil];
     }
+    if (index == 2) {
+        [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];
+    }
     [pop disMiss];
+    
+}
+
+
+#pragma mark -- UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    int itemIndex = (scrollView.contentOffset.x + ViewWidth(scrollView) * 0.5) / ViewWidth(scrollView);
+    self.pageControl.currentPage = itemIndex;
+    if (itemIndex == 2) {
+        [self initButton];
+        
+        
+    }else{
+        [self.view bringSubviewToFront:self.scrollView];
+        [self.view bringSubviewToFront:self.pageControl];
+        
+        [_beginButton removeFromSuperview];
+    }
+}
+
+#pragma mark -- Setter & Getter
+- (UIScrollView *)scrollView{
+    if (!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:self.view.frame];
+        _scrollView.delegate = self;
+        _scrollView.pagingEnabled = YES;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+    }
+    return _scrollView;
+}
+
+- (UIPageControl *)pageControl{
+    if (!_pageControl) {
+        _pageControl = [[UIPageControl alloc]initWithFrame:CGRectZero];
+        _pageControl.numberOfPages = 3;
+        //        _pageControl.currentPageIndicatorTintColor = App_COLOR_PAGECONTROL_CUREENTCOLOR;
+        //        _pageControl.pageIndicatorTintColor = App_COLOR_PAGECONTROL_PAGECOLOR;
+    }
+    return _pageControl;
+}
+
+
+- (void)initButton{
+    _beginButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_beginButton setTitle:@"进入" forState:UIControlStateNormal];
+    //    [_beginButton setBackgroundColor:App_COLOR_PAGECONTROL_PAGECOLOR];
+    //    [_beginButton setTitleColor:APP_COLOR_BASE_Text_DarkGray forState:UIControlStateNormal];
+    [_beginButton addTarget:self action:@selector(buttonCliked:) forControlEvents:UIControlEventTouchUpInside];
+    ViewRadius(_beginButton, 3.0);
+    [self.view addSubview:_beginButton];
+    
+    [_beginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(0);
+        make.top.equalTo(self.view).offset(40);
+        make.width.equalTo(@60);
+        make.height.equalTo(@35);
+    }];
+    
+}
+
+- (void)viewWillLayoutSubviews{
+    _pageControl.frame = CGRectMake(0, ViewHeight(self.scrollView) -50, ViewWidth(self.scrollView), 40);
+}
+
+- (void)buttonCliked:(UIButton *)sender{
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    
+    dispatch_async(queue, ^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            [UIView animateWithDuration:1.0 animations:^{
+                self.scrollView.alpha = 0 ;
+                
+            } completion:^(BOOL finished) {
+                [self.scrollView removeFromSuperview];
+                [self.pageControl removeFromSuperview];
+                [_beginButton removeFromSuperview];
+            }];
+            
+            
+            
+            
+        });
+    });
+    
     
 }
 

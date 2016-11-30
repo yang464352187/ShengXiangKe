@@ -8,6 +8,7 @@
 
 #import "MeVC.h"
 #import "LoginBtn.h"
+#import "MeCell.h"
 
 @interface MeVC ()
 
@@ -16,36 +17,43 @@
 @property(nonatomic, strong)UILabel *secondLab;
 @property(nonatomic, strong)UILabel *thirdLab;
 @property(nonatomic, strong)UIView *loginView;
+@property (strong, nonatomic)UIView *headView;
+@property (nonatomic, strong)NSMutableArray *titleArr;
+@property (nonatomic, strong)NSMutableArray *imageArr;
 
 
 @end
 
 @implementation MeVC
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.jt_navigationController.line.backgroundColor = [UIColor clearColor];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];//设置电池条颜色为白色
 
+
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     //判断是否登录
-    
-    
-    
-    if(0){
-        
+    self.navigationController.navigationBar.hidden = YES;
+
+    int login = 1;
+    if(login){
+        [self.view addSubview:self.tableView];
     }else{
         [self initLoginView];
     }
     
-    
-    
-    
-    
-
-
 }
 
+-(void)initData
+{
+    
+}
 -(void)initLoginView
 {
-    self.navigationController.navigationBar.hidden = YES;
     
     UIImageView *backGroundImage = [[UIImageView alloc] initWithFrame:APP_BOUNDS];
     backGroundImage.image = [UIImage imageNamed:@"图层-1"];
@@ -271,10 +279,199 @@
     }
 }
 
+#pragma mark -- getters and setters
+
+
+- (UITableView *)tableView{
+    if (!_tableView) {
+        
+        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, -20, SCREEN_WIDTH, SCREEN_HIGHT+40) style:UITableViewStyleGrouped];
+        _tableView.dataSource      = self;
+        _tableView.delegate        = self;
+        [_tableView registerClass:[MeCell class] forCellReuseIdentifier:@"meCell"];
+//        [_tableView registerClass:[ClassifyCell class] forCellReuseIdentifier:@"ClassifyCell"];
+//        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
+        
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.tableHeaderView = self.headView;
+        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        _tableView.sectionHeaderHeight = 0.0;
+        _tableView.sectionFooterHeight = 0.0;
+        //        _tableView.header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeaderAction)];
+        //        _tableView.footer = [MJChiBaoZiFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshFooterAction)];
+    }
+    return _tableView;
+}
+
+- (UIView *)headView{
+    if (!_headView) {
+        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 314.0000/667*SCREEN_HIGHT)];
+        _headView.backgroundColor = [UIColor whiteColor];
+        
+        UIImageView *BGImage = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 236.0000/667*SCREEN_HIGHT)];
+        BGImage.image = [UIImage imageNamed:@"背景1"];
+        
+        UIImageView *headImage = [[UIImageView alloc] initWithFrame:VIEWFRAME( (SCREEN_WIDTH - CommonHight(86))/2, CommonHight(59.5), CommonHight(86), CommonHight(86))];
+        headImage.image = [UIImage imageNamed:@"广告"];
+        ViewRadius(headImage, headImage.frame.size.width/2);
+        
+        UIImageView *sexImage = [[UIImageView alloc] initWithFrame:VIEWFRAME(CommonWidth(205), CommonHight(125), CommonHight(18), CommonHight(18))];
+        sexImage.image = [UIImage imageNamed:@"女生"];
+        ViewRadius(sexImage, CommonHight(18)/2);
+        
+        UILabel *nickLab = [UILabel createLabelWithFrame:CommonVIEWFRAME(0, 161, 375, 14)
+                                          andText:@"好肥一只鱼"
+                                     andTextColor:[UIColor colorWithHexColorString:@"4e817f"]
+                                       andBgColor:[UIColor clearColor]
+                                          andFont:SYSTEMFONT(14)
+                                 andTextAlignment:NSTextAlignmentCenter];
+        UIFont *font;
+        if (SCREEN_HIGHT < 568) {
+            font = SYSTEMFONT(10);
+        }else{
+            font = SYSTEMFONT(12);
+        }
+        
+        UIButton *followBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [followBtn setTitle:@"我的关注" forState:UIControlStateNormal];
+        [followBtn setTintColor:[UIColor whiteColor]];
+        followBtn.titleLabel.font = font;
+        followBtn.frame = CommonVIEWFRAME(82, 185.5, 79, 26);
+        ViewBorderRadius(followBtn, CommonHight(26)/2, 1, [UIColor whiteColor]);
+        
+        UIButton *identifyBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [identifyBtn setTitle:@"身份认证" forState:UIControlStateNormal];
+        [identifyBtn setTintColor:[UIColor whiteColor]];
+        identifyBtn.titleLabel.font = font;
+        identifyBtn.frame = CommonVIEWFRAME(212, 185.5, 79, 26);
+        ViewBorderRadius(identifyBtn, CommonHight(26)/2, 1, [UIColor whiteColor]);
+        
+        UIButton *personBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [personBtn setTitle:@"个人资料" forState:UIControlStateNormal];
+        [personBtn setTintColor:[UIColor whiteColor]];
+        personBtn.tag = 103;
+        [personBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+        personBtn.titleLabel.font = SYSTEMFONT(14);
+        personBtn.frame = VIEWFRAME(CommonWidth(375-90), CommonHight(50), 80, 14);
+        
+        NSArray *titleArray = @[@"我的发布",@"我的租赁",@"我的养护",@"我的鉴定"];
+        NSArray *imageArray = @[@"发布",@"图层-114",@"养护",@"图层-118"];
+        CGFloat width = (SCREEN_WIDTH - 160)/5;
+        NSLog(@"width %lf",width);
+        int k = 0;
+        for (int i = 0; i < 4 ; i++) {
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+            btn.frame = CGRectMake(width + i * (40 + width), CommonHight(236)+(CommonHight(78)-40)/2, 40, 40);
+            UIImage *image = [UIImage imageNamed:imageArray[k]];
+            [btn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
+            [btn setTitle:titleArray[k] forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:11];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            //        CGSize titleSize = btn.titleLabel.bounds.size;
+            CGSize imageSize = btn.imageView.bounds.size;
+            if (k == 0 || k == 1) {
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0,10,21,0);
+                btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-25, 0, -4);
+            }
+            if (k == 2) {
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0,10,21,0);
+                btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+15,-25, 0, -4);
+            }
+            if (k == 3) {
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0,10,21,0);
+                btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+3,-25, 0, -4);
+            }
+
+            [_headView addSubview:btn];
+            k++;
+        }
+        
+        [_headView addSubview:BGImage];
+        [_headView addSubview:headImage];
+        [_headView addSubview:sexImage];
+        [_headView addSubview:nickLab];
+        [_headView addSubview:followBtn];
+        [_headView addSubview:identifyBtn];
+        [_headView addSubview:personBtn];
+        
+        [personBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(80, 14));
+            make.top.equalTo(_headView.mas_top).offset(CommonHight(45));
+            make.right.equalTo(_headView.mas_right).offset(CommonWidth(-10));
+        }];
+    }
+    return _headView;
+}
+
+#pragma mark -- UITabelViewDelegate And DataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 9;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    MeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"meCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell fillTitle:self.titleArr[indexPath.row] andImage:self.imageArr[indexPath.row]];
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 52;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 15;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithHexColorString:@"f7f7f7"];
+    return view;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 8) {
+        [self PushViewControllerByClassName:@"SetVC" info:nil];
+    }
+}
+
+-(NSMutableArray *)titleArr
+{
+    if (!_titleArr) {
+        _titleArr = [[NSMutableArray alloc] initWithObjects:@"我的钱包",@"我的积分",@"分享奖励",@"我的信用",@"服务中心",@"我的买卖",@"我的收藏",@"联系客服",@"设置", nil];
+    }
+    return _titleArr;
+}
+
+-(NSMutableArray *)imageArr
+{
+    if (!_imageArr) {
+        _imageArr = [[NSMutableArray alloc] initWithObjects:@"钱包",@"积分",@"奖励",@"信用",@"服务-(3)",@"买买买买",@"收藏",@"联系客服",@"设置-(1)", nil];
+    }
+    return _imageArr;
+}
+
+
 -(void)viewDidDisappear:(BOOL)animated
 {
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];//设置电池条颜色为黑色
+}
 
+-(void)btnAction:(UIButton *)sender
+{
+    if (sender.tag == 103) {
+        [self PushViewControllerByClassName:@"PersonalInfoVC" info:nil];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

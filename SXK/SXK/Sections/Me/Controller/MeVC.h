@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface MeVC : YTBaseVC
+@interface MeVC : YTBaseTableVC
 
 @end

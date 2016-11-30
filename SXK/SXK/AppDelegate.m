@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "RootViewController.h"
 #import "HomeVC.h"
 #import "ClassifyVC.h"
 #import "PromulgateVC.h"
@@ -29,12 +28,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    RootViewController *rootVC = [[RootViewController alloc] init];
-    self.window.rootViewController = rootVC;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    [self.window makeKeyWindow];
+
+        self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        RootViewController *rootVC = [[RootViewController alloc] init];
+        self.window.rootViewController = rootVC;
+        self.window.backgroundColor = [UIColor whiteColor];
+        [NSThread sleepForTimeInterval:1.0];
+        [self.window makeKeyAndVisible];
+        [self.window makeKeyWindow];
     
 
     return YES;

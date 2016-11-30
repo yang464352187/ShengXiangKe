@@ -70,6 +70,7 @@
         MJPhoto *photo = _photos[_currentPhotoIndex];
         photo.save = YES;
         _saveImageBtn.enabled = NO;
+        [SVProgressHUD setMinimumDismissTimeInterval:0.5];
         [SVProgressHUD showSuccessWithStatus:@"成功保存到相册"];
     }
 }

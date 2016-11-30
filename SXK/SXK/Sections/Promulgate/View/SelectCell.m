@@ -52,6 +52,7 @@
         [self addSubview:_line];
         [self addSubview:_title];
         [self addSubview:_select];
+        
         [_select mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(0);
             //            make.bottom.equalTo(self.mas_bottom).offset(-18);

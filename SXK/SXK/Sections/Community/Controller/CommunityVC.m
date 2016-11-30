@@ -81,7 +81,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"社区";
-    
     UIImage *image = [UIImage imageNamed:@"图层-130"] ;
      [self setRightBarButtonWith:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]selector:@selector(barButtonAction)];
     [self initData];

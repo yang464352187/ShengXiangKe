@@ -17,6 +17,7 @@
 
 @implementation RootViewController
 
+//预留动画活动页
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
@@ -27,9 +28,7 @@
 #pragma mark -- UI
 - (void)initUI{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
     appDelegate.window.rootViewController = self.tabbarVC;
-    
 }
 
 #pragma mark -- getters and setters
@@ -37,13 +36,9 @@
 - (SXKViewController *)tabbarVC{
     if (!_tabbarVC) {
         _tabbarVC = [[SXKViewController alloc] init];
-        
     }
     return _tabbarVC;
 }
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7F55C71C3467914DCE5D65D7 /* libPods-SXK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEF36623432472EDA20ED53 /* libPods-SXK.a */; };
+		AD1B92611DEEBDD400B1A92E /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92601DEEBDD400B1A92E /* SetVC.m */; };
+		AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */; };
+		AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92661DEECB8C00B1A92E /* CommonCell.m */; };
 		AD2558921DE7D7B800E34CF7 /* LeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558911DE7D7B800E34CF7 /* LeftCell.m */; };
 		AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558991DE802A500E34CF7 /* RightCell.m */; };
 		AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558A41DE8100E00E34CF7 /* ClassCollectionViewCell.m */; };
@@ -64,6 +67,7 @@
 		AD861B891DDC513800BC657E /* weibo.PNG in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7E1DDC513800BC657E /* weibo.PNG */; };
 		AD861B8A1DDC513800BC657E /* remind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7F1DDC513800BC657E /* remind@2x.png */; };
 		AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD91883B1DEBD02400694D92 /* CommentInputView.m */; };
+		AD9407701DEC85F00075620F /* MeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD94076F1DEC85F00075620F /* MeCell.m */; };
 		ADA93FD21DE9368200DE6B9E /* CommunityCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */; };
 		ADA941241DE98FBA00DE6B9E /* MLLabel+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */; };
 		ADA941351DE9910E00DE6B9E /* AlbumAddBtn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA941251DE9910E00DE6B9E /* AlbumAddBtn@2x.png */; };
@@ -125,6 +129,9 @@
 		ADC07F8B1DE5678A00B665CC /* SelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC07F8A1DE5678A00B665CC /* SelectCell.m */; };
 		ADD062F11DEB3B260003433F /* Expression.plist in Resources */ = {isa = PBXBuildFile; fileRef = ADD062F01DEB3B260003433F /* Expression.plist */; };
 		ADD062F41DEB3D8D0003433F /* DFBaseLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */; };
+		ADDD4D511DED5A61009C19B8 /* AppraiseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D501DED5A61009C19B8 /* AppraiseVC.m */; };
+		ADDD4D571DED6FC2009C19B8 /* ConsigneeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D561DED6FC1009C19B8 /* ConsigneeCell.m */; };
+		ADDD4D5A1DED74A1009C19B8 /* PayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D591DED74A1009C19B8 /* PayCell.m */; };
 		ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE9C3BD1DE5E192004E172C /* qualityVC.m */; };
 		ADFA8BE01DE4BB2800F992DA /* BrandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFA8BDF1DE4BB2800F992DA /* BrandVC.m */; };
 		ADFAB8AD1DE602C1005BEAF9 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFAB8AC1DE602C1005BEAF9 /* RegisterVC.m */; };
@@ -152,6 +159,12 @@
 		0DEF36623432472EDA20ED53 /* libPods-SXK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SXK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EAC5BC4BDD7C045C7BE1066 /* Pods-SXK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.debug.xcconfig"; sourceTree = "<group>"; };
 		A5C516769DD62A7AC259CF26 /* Pods-SXK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.release.xcconfig"; sourceTree = "<group>"; };
+		AD1B925F1DEEBDD400B1A92E /* SetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
+		AD1B92601DEEBDD400B1A92E /* SetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
+		AD1B92621DEEC55D00B1A92E /* PersonalInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoVC.h; sourceTree = "<group>"; };
+		AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoVC.m; sourceTree = "<group>"; };
+		AD1B92651DEECB8C00B1A92E /* CommonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCell.h; sourceTree = "<group>"; };
+		AD1B92661DEECB8C00B1A92E /* CommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCell.m; sourceTree = "<group>"; };
 		AD2558901DE7D7B800E34CF7 /* LeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftCell.h; sourceTree = "<group>"; };
 		AD2558911DE7D7B800E34CF7 /* LeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftCell.m; sourceTree = "<group>"; };
 		AD2558981DE802A500E34CF7 /* RightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightCell.h; sourceTree = "<group>"; };
@@ -254,6 +267,8 @@
 		AD861B7F1DDC513800BC657E /* remind@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remind@2x.png"; sourceTree = "<group>"; };
 		AD91883A1DEBD02400694D92 /* CommentInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentInputView.h; sourceTree = "<group>"; };
 		AD91883B1DEBD02400694D92 /* CommentInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentInputView.m; sourceTree = "<group>"; };
+		AD94076E1DEC85F00075620F /* MeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCell.h; sourceTree = "<group>"; };
+		AD94076F1DEC85F00075620F /* MeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCell.m; sourceTree = "<group>"; };
 		ADA93FD01DE9368200DE6B9E /* CommunityCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityCollectionCell.h; sourceTree = "<group>"; };
 		ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityCollectionCell.m; sourceTree = "<group>"; };
 		ADA941221DE98FBA00DE6B9E /* MLLabel+Size.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MLLabel+Size.h"; sourceTree = "<group>"; };
@@ -361,6 +376,12 @@
 		ADD062F01DEB3B260003433F /* Expression.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expression.plist; sourceTree = "<group>"; };
 		ADD062F21DEB3D8D0003433F /* DFBaseLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFBaseLineCell.h; sourceTree = "<group>"; };
 		ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFBaseLineCell.m; sourceTree = "<group>"; };
+		ADDD4D4F1DED5A61009C19B8 /* AppraiseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppraiseVC.h; sourceTree = "<group>"; };
+		ADDD4D501DED5A61009C19B8 /* AppraiseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppraiseVC.m; sourceTree = "<group>"; };
+		ADDD4D551DED6FC1009C19B8 /* ConsigneeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeCell.h; sourceTree = "<group>"; };
+		ADDD4D561DED6FC1009C19B8 /* ConsigneeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsigneeCell.m; sourceTree = "<group>"; };
+		ADDD4D581DED74A1009C19B8 /* PayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayCell.h; sourceTree = "<group>"; };
+		ADDD4D591DED74A1009C19B8 /* PayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayCell.m; sourceTree = "<group>"; };
 		ADE9C3BC1DE5E192004E172C /* qualityVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qualityVC.h; sourceTree = "<group>"; };
 		ADE9C3BD1DE5E192004E172C /* qualityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = qualityVC.m; sourceTree = "<group>"; };
 		ADFA8BDE1DE4BB2800F992DA /* BrandVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandVC.h; sourceTree = "<group>"; };
@@ -864,6 +885,8 @@
 				ADC07F7B1DE54A6C00B665CC /* CommonVC.m */,
 				ADC07F861DE5627E00B665CC /* SecondCommonVC.h */,
 				ADC07F871DE5627E00B665CC /* SecondCommonVC.m */,
+				ADDD4D4F1DED5A61009C19B8 /* AppraiseVC.h */,
+				ADDD4D501DED5A61009C19B8 /* AppraiseVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -898,6 +921,10 @@
 				ADC07F8A1DE5678A00B665CC /* SelectCell.m */,
 				ADE9C3BC1DE5E192004E172C /* qualityVC.h */,
 				ADE9C3BD1DE5E192004E172C /* qualityVC.m */,
+				ADDD4D551DED6FC1009C19B8 /* ConsigneeCell.h */,
+				ADDD4D561DED6FC1009C19B8 /* ConsigneeCell.m */,
+				ADDD4D581DED74A1009C19B8 /* PayCell.h */,
+				ADDD4D591DED74A1009C19B8 /* PayCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -939,6 +966,10 @@
 			children = (
 				ADB99CD81DD5BB1300EC1DAD /* MeVC.h */,
 				ADB99CD91DD5BB1300EC1DAD /* MeVC.m */,
+				AD1B925F1DEEBDD400B1A92E /* SetVC.h */,
+				AD1B92601DEEBDD400B1A92E /* SetVC.m */,
+				AD1B92621DEEC55D00B1A92E /* PersonalInfoVC.h */,
+				AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -955,6 +986,10 @@
 			children = (
 				AD40A30F1DDDB4ED006C5576 /* LoginBtn.h */,
 				AD40A3101DDDB4ED006C5576 /* LoginBtn.m */,
+				AD94076E1DEC85F00075620F /* MeCell.h */,
+				AD94076F1DEC85F00075620F /* MeCell.m */,
+				AD1B92651DEECB8C00B1A92E /* CommonCell.h */,
+				AD1B92661DEECB8C00B1A92E /* CommonCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1274,6 +1309,7 @@
 				ADB99C681DD567C400EC1DAD /* ViewController.m in Sources */,
 				ADA941241DE98FBA00DE6B9E /* MLLabel+Size.m in Sources */,
 				ADB99CA91DD56D0300EC1DAD /* Describe.m in Sources */,
+				AD1B92611DEEBDD400B1A92E /* SetVC.m in Sources */,
 				ADA9414D1DE9927F00DE6B9E /* DFLineLikeItem.m in Sources */,
 				AD6BE9421DDEF44B00DFEA92 /* LoginVCViewController.m in Sources */,
 				ADFAB8AD1DE602C1005BEAF9 /* RegisterVC.m in Sources */,
@@ -1289,6 +1325,7 @@
 				AD6BE9451DDEF5F300DFEA92 /* UIColor+Extend.m in Sources */,
 				ADB99CCE1DD5BABC00EC1DAD /* HomeVC.m in Sources */,
 				ADA93FD21DE9368200DE6B9E /* CommunityCollectionCell.m in Sources */,
+				ADDD4D511DED5A61009C19B8 /* AppraiseVC.m in Sources */,
 				AD5CD4AC1DE2B75000FA659D /* FirstTableViewCell.m in Sources */,
 				AD40A30E1DDD98C6006C5576 /* UILabel+Handy.m in Sources */,
 				ADA941651DE9985700DE6B9E /* DFLineCellManager.m in Sources */,
@@ -1312,12 +1349,14 @@
 				AD65A5EC1DE436E6002C6364 /* JFPhotoBrowserViewController.m in Sources */,
 				ADA941681DE998A200DE6B9E /* DFTextImageLineCell.m in Sources */,
 				ADA9414A1DE9925200DE6B9E /* DFLikeCommentToolbar.m in Sources */,
+				ADDD4D571DED6FC2009C19B8 /* ConsigneeCell.m in Sources */,
 				ADA941561DE9937000DE6B9E /* MLLinkClickLabel.m in Sources */,
 				AD65A5F41DE43E7C002C6364 /* WSImagePickerView.m in Sources */,
 				AD65A5C51DE3EA8C002C6364 /* FEPlaceHolderTextView.m in Sources */,
 				ADC07F791DE53D6900B665CC /* BrandCell.m in Sources */,
 				ADC07F881DE5627E00B665CC /* SecondCommonVC.m in Sources */,
 				AD65A5E71DE436E6002C6364 /* JFImageCollectionViewController.m in Sources */,
+				AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */,
 				AD65A5ED1DE436E6002C6364 /* JFPhotoView.m in Sources */,
 				AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */,
 				ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */,
@@ -1333,6 +1372,7 @@
 				AD40A3111DDDB4ED006C5576 /* LoginBtn.m in Sources */,
 				ADB99CB51DD5853900EC1DAD /* BaseRequest.m in Sources */,
 				AD2558AF1DE8516E00E34CF7 /* ClassifyCollectionHeader.m in Sources */,
+				AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */,
 				AD40A3011DDD5EFE006C5576 /* UIBarButtonItem+Extension.m in Sources */,
 				ADB99CAC1DD576BB00EC1DAD /* NetworkClient.m in Sources */,
 				AD861B6B1DDC3C4700BC657E /* UIViewController+JTNavigationExtension.m in Sources */,
@@ -1344,10 +1384,12 @@
 				AD65A5EA1DE436E6002C6364 /* JFImagePickerController.m in Sources */,
 				AD6BE93F1DDEE8EE00DFEA92 /* NoDataView.m in Sources */,
 				ADA941501DE9929100DE6B9E /* DFBaseLineItem.m in Sources */,
+				ADDD4D5A1DED74A1009C19B8 /* PayCell.m in Sources */,
 				ADFA8BE01DE4BB2800F992DA /* BrandVC.m in Sources */,
 				AD65A5F11DE436E6002C6364 /* WSPhotosBroseVC.m in Sources */,
 				AD65A5EB1DE436E6002C6364 /* JFImagePickerViewCell.m in Sources */,
 				AD65A5EF1DE436E6002C6364 /* WSImageBroswerVC.m in Sources */,
+				AD9407701DEC85F00075620F /* MeCell.m in Sources */,
 				AD65A5E91DE436E6002C6364 /* JFImageManager.m in Sources */,
 				ADB99CD41DD5BAF300EC1DAD /* PromulgateVC.m in Sources */,
 				AD40A2FC1DDD5E43006C5576 /* ZTTabBar.m in Sources */,

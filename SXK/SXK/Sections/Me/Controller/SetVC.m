@@ -17,11 +17,6 @@
 
 @implementation SetVC
 
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.jt_navigationController.line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -24,7 +24,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"找回密码";
-    self.jt_navigationController.line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
     [self initUI];
 
 }

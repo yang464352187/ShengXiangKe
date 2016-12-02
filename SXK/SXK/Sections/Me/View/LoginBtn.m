@@ -29,14 +29,13 @@
 -(instancetype)initWithFrame:(CGRect)frame andImage:(UIImage *)image andTitle:(NSString *)title{
     self = [super initWithFrame:frame];
     if (self) {
-        
         self.backgroundColor = APP_COLOR_GRAY_333333;
         self.frame = frame;
         [self loadSubViewWithImage:image andTitle:title];
     }
     return self;
-
 }
+
 -(void)loadSubViewWithImage:(UIImage *)image andTitle:(NSString *)title
 {
 

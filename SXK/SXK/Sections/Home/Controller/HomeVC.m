@@ -21,11 +21,6 @@
 @end
 
 @implementation HomeVC
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.jt_navigationController.line.backgroundColor = [UIColor clearColor];
-
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -193,7 +188,7 @@
             
             for (int i = 0; i < 4 ; i++) {
                 UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-                btn.frame = CGRectMake(40 + i * (20 + 70)/375.0000*SCREEN_WIDTH, 301.0000/667*SCREEN_HIGHT + j * 70.0000/667*SCREEN_HIGHT, 20, 40);
+                btn.frame = CGRectMake(40 + i * (20 + 70)/375.0000*SCREEN_WIDTH, 301.0000/667*SCREEN_HIGHT + j * 70.0000/667*SCREEN_HIGHT, 24, 40);
                 UIImage *image = [UIImage imageNamed:imageArray[k]];
                 [btn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
                 [btn setTitle:titleArray[k] forState:UIControlStateNormal];
@@ -203,6 +198,21 @@
                 CGSize imageSize = btn.imageView.bounds.size;
                 btn.imageEdgeInsets = UIEdgeInsetsMake(0,0,21,0);
                 btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-25, 0, -4);
+                if (k == 1) {
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+5,-25, 0, -4);
+                }
+                if (k == 2) {
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+5,-25, 0, -4);
+                }
+                if (k == 3) {
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+13,-25, 0, -4);
+                }
+                if (k == 5) {
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+7,-25, 0, -4);
+                }
+                if (k == 7) {
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+8,-25, 0, -4);
+                }
                 [_headView addSubview:btn];
                 k++;
             }

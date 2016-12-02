@@ -36,9 +36,8 @@
     }
 
 //    [self.view addSubview:self.tableView];
-    self.jt_navigationController.line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
     [self initUI];
-    NSLog(@"%@",self.myDict);
+//    NSLog(@"%@",self.myDict);
 }
 
 #pragma mark -- getters and setters

@@ -118,11 +118,12 @@
     //加载自定义TabBar
     ZTTabBar *tabBar = [[ZTTabBar alloc] init];
     tabBar.delegate = self;
+    tabBar.backgroundColor = [UIColor colorWithHexColorString:@"000000"];
     [self setValue:tabBar forKey:@"tabBar"];
     
     //设置tabbar颜色，防止渲染
-    [[UITabBar appearance] setBarTintColor:[UIColor blackColor]];
-    [[UITabBar appearance] setBackgroundColor:[UIColor blackColor]];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexColorString:@"000000"]];
+    [[UITabBar appearance] setBackgroundColor:[UIColor colorWithHexColorString:@"000000"]];
 
     //设置tabbar Title 字体颜色
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:APP_COLOR_GRAY_333333, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];

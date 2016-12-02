@@ -32,6 +32,11 @@
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor],
                                                  NSFontAttributeName:[UIFont boldSystemFontOfSize:17]
                                                  }];
+    
+    UIView *view = [[UIView alloc] initWithFrame:VIEWFRAME(0, 43.5, SCREEN_WIDTH, 0.5)];
+    view.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
+
+    [self.navigationBar addSubview:view];
 }
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
@@ -179,9 +184,9 @@ static NSValue *jt_tabBarRectValue;
     [self setNavigationBarHidden:YES];
     self.delegate = self;
     
-    self.line = [[UIView alloc] initWithFrame:VIEWFRAME(0, 63.5, SCREEN_WIDTH, 0.5)];
-    self.line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
-    [self.view addSubview:self.line];
+//    self.line = [[UIView alloc] initWithFrame:VIEWFRAME(0, 63.5, SCREEN_WIDTH, 0.5)];
+//    self.line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
+//    [self.view addSubview:self.line];
 
     self.popGestureDelegate = self.interactivePopGestureRecognizer.delegate;
     SEL action = NSSelectorFromString(@"handleNavigationTransition:");

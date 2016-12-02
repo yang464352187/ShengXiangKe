@@ -252,8 +252,6 @@
         _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, (200.0000/667*SCREEN_HIGHT))];
         _headView.backgroundColor = [UIColor whiteColor];
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
-        line.backgroundColor = [UIColor colorWithHexColorString:@"f7f7f7"];
         
         UIButton *shootBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         shootBtn.frame = VIEWFRAME(CommonWidth(15), CommonHight(105), CommonHight(111.5), CommonHight(111.5));
@@ -267,40 +265,7 @@
         [HshootBtn setImage:[image1 imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
         [HshootBtn addTarget:self action:@selector(BtnAction:) forControlEvents:UIControlEventTouchUpInside];
         
-//        UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(CommonWidth(263), CommonHight(202.5), 100, 12)                                                                 andText:@"必须9张图"
-//                                          andTextColor:[UIColor colorWithHexColorString:@"b6b6b6"]
-//                                            andBgColor:[UIColor clearColor]
-//                                               andFont:SYSTEMFONT(12)
-//                                      andTextAlignment:NSTextAlignmentLeft];
-
-        
-        
-        [_headView addSubview:line];
         [_headView addSubview:self.content];
-//        [_headView addSubview:shootBtn];
-//        [_headView addSubview:HshootBtn];
-//        [_headView addSubview:title];
-        
-//        [shootBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(_headView.mas_left).offset(15);
-//            make.bottom.equalTo(_headView.mas_bottom).offset(-CommonHight(11.5));
-//            make.size.mas_equalTo(CGSizeMake(CommonHight(111.5), CommonHight(111.5)));
-//            
-//        }];
-//        
-//        [HshootBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(shootBtn.mas_right).offset(12.5);
-//            make.bottom.equalTo(_headView.mas_bottom).offset(-CommonHight(11.5));
-//            make.size.mas_equalTo(CGSizeMake(CommonHight(111.5), CommonHight(111.5)));
-//            
-//        }];
-//        
-//        [title mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.equalTo(HshootBtn.mas_right).offset(12.5);
-//            make.bottom.equalTo(_headView.mas_bottom).offset(-CommonHight(11.5));
-//            make.size.mas_equalTo(CGSizeMake(100, 12));
-//            
-//        }];
         
         
         WSImagePickerConfig *config = [WSImagePickerConfig new];
@@ -309,8 +274,6 @@
         
         WSImagePickerView *pickerView = [[WSImagePickerView alloc] initWithFrame:CGRectMake(0, CommonHight(100), SCREEN_WIDTH, 0) config:config];
         pickerView.delegate = self;
-//        pickerView.backgroundColor = [UIColor redColor];
-        //Height changed with photo selection
         __weak typeof(self) weakSelf = self;
         pickerView.viewHeightChanged = ^(CGFloat height) {
             weakSelf.photoViewHieghtConstraint.constant = height;

@@ -38,6 +38,7 @@
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(14)
                               andTextAlignment:NSTextAlignmentLeft];
+        
         _content = [UILabel createLabelWithFrame:VIEWFRAME(23, 40, 200, 12)                                                 andText:@"未使用，包装配件齐全"
                                   andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]
                                     andBgColor:[UIColor clearColor]

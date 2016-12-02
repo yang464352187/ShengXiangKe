@@ -122,10 +122,10 @@
         _imageView3.image = [UIImage imageNamed:@"图层-155"];
 
         _line1 =[[UIView alloc] initWithFrame:CommonVIEWFRAME(139.5, 0, 0.5, 173)];
-        _line1.backgroundColor = [UIColor colorWithHexColorString:@"a1a1a1"];
+        _line1.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
         
         _line2 =[[UIView alloc] initWithFrame:CommonVIEWFRAME(0, 86, 235, 0.5)];
-        _line2.backgroundColor = [UIColor colorWithHexColorString:@"a1a1a1"];
+        _line2.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
 
         [_view1 addSubview:_title1_1];
         [_view1 addSubview:_title1_2];

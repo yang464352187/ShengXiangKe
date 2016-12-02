@@ -387,6 +387,10 @@
         UIImageView *image = [[UIImageView alloc] initWithFrame:CommonVIEWFRAME(0, 0, 375, 219)];
         image.image = [UIImage imageNamed:@"背景"];
         
+        UIImageView *image1 = [[UIImageView alloc] initWithFrame:CommonVIEWFRAME(178, 207, 19, 12)];
+        image1.image = [UIImage imageNamed:@"多边形-1"];
+
+        
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CommonVIEWFRAME(0, 219, 375, 108) collectionViewLayout:layout];
@@ -398,6 +402,7 @@
         [collectionView registerClass:[CommunityCollectionCell class] forCellWithReuseIdentifier:@"cell"];
         
         [_headView addSubview: image];
+        [_headView addSubview:image1];
         [_headView addSubview:collectionView];
     }
     return _headView;

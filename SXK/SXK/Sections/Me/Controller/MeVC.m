@@ -25,10 +25,9 @@
 @end
 
 @implementation MeVC
--(void)viewDidAppear:(BOOL)animated
-{
+-(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.jt_navigationController.line.backgroundColor = [UIColor clearColor];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];//设置电池条颜色为白色
 
 
@@ -289,9 +288,6 @@
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
         [_tableView registerClass:[MeCell class] forCellReuseIdentifier:@"meCell"];
-//        [_tableView registerClass:[ClassifyCell class] forCellReuseIdentifier:@"ClassifyCell"];
-//        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
-        
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -299,15 +295,14 @@
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
-        //        _tableView.header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeaderAction)];
-        //        _tableView.footer = [MJChiBaoZiFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshFooterAction)];
+
     }
     return _tableView;
 }
 
 - (UIView *)headView{
     if (!_headView) {
-        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 314.0000/667*SCREEN_HIGHT)];
+        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 324.0000/667*SCREEN_HIGHT)];
         _headView.backgroundColor = [UIColor whiteColor];
         
         UIImageView *BGImage = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 236.0000/667*SCREEN_HIGHT)];
@@ -358,16 +353,16 @@
         
         NSArray *titleArray = @[@"我的发布",@"我的租赁",@"我的养护",@"我的鉴定"];
         NSArray *imageArray = @[@"发布",@"图层-114",@"养护",@"图层-118"];
-        CGFloat width = (SCREEN_WIDTH - 160)/5;
+        CGFloat width = (SCREEN_WIDTH - 192)/5;
         NSLog(@"width %lf",width);
         int k = 0;
         for (int i = 0; i < 4 ; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-            btn.frame = CGRectMake(width + i * (40 + width), CommonHight(236)+(CommonHight(78)-40)/2, 40, 40);
+            btn.frame = CGRectMake(width + i * (48 + width), CommonHight(236)+(CommonHight(78)-48)/2, 48, 48);
             UIImage *image = [UIImage imageNamed:imageArray[k]];
             [btn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
             [btn setTitle:titleArray[k] forState:UIControlStateNormal];
-            btn.titleLabel.font = [UIFont systemFontOfSize:11];
+            btn.titleLabel.font = [UIFont systemFontOfSize:13];
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             //        CGSize titleSize = btn.titleLabel.bounds.size;
             CGSize imageSize = btn.imageView.bounds.size;
@@ -376,7 +371,7 @@
                 btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-25, 0, -4);
             }
             if (k == 2) {
-                btn.imageEdgeInsets = UIEdgeInsetsMake(0,10,21,0);
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0,4,21,0);
                 btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+15,-25, 0, -4);
             }
             if (k == 3) {

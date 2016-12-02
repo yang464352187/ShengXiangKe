@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SXK/Sections/Promulgate/Controller/BrandVC.m"
-            timestampString = "501587717.454327"
+            timestampString = "502191975.639658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "-tableView:heightForHeaderInSection:"
             landmarkType = "7">
          </BreakpointContent>
@@ -145,6 +145,20 @@
             endingLineNumber = "86"
             landmarkName = "-tableView:numberOfRowsInSection:"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SXK/Sections/Me/View/PopView.m"
+            timestampString = "502352522.925191"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

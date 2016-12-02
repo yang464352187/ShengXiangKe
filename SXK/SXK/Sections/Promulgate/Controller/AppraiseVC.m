@@ -24,11 +24,6 @@
 
 @implementation AppraiseVC
 
--(void)viewDidAppear:(BOOL)animated
-{
-    self.jt_navigationController.line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
-
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

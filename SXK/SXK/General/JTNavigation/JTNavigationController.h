@@ -24,6 +24,5 @@
 
 @property (nonatomic, copy, readonly) NSArray *jt_viewControllers;
 
-@property (nonatomic, strong)UIView *line;
 
 @end

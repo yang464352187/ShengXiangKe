@@ -31,6 +31,7 @@
 #define APP_COLOR_GRAY_999999           HEXCOLOR(0x999999)
 #define APP_COLOR_GRAY_eeeeee           HEXCOLOR(0xeeeeee)
 #define APP_COLOR_GRAY_cccccc           HEXCOLOR(0xcccccc)
+#define APP_COLOR_GREEN                 HEXCOLOR(0x14abad)
 
 
 //红色

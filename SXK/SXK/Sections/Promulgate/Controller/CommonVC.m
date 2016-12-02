@@ -39,7 +39,6 @@
         [self setRightBarButtonWith:[NSString stringWithFormat:@"保存"] selector:@selector(barButtonAction)];
     }
     
-    self.jt_navigationController.line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
     [self initData];
     [self.view addSubview:self.tableView];
 }

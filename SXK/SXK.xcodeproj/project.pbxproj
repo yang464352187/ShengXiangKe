@@ -11,6 +11,7 @@
 		AD1B92611DEEBDD400B1A92E /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92601DEEBDD400B1A92E /* SetVC.m */; };
 		AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */; };
 		AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92661DEECB8C00B1A92E /* CommonCell.m */; };
+		AD1F7EED1DEFD12E007BB3DC /* PopView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1F7EEC1DEFD12E007BB3DC /* PopView.m */; };
 		AD2558921DE7D7B800E34CF7 /* LeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558911DE7D7B800E34CF7 /* LeftCell.m */; };
 		AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558991DE802A500E34CF7 /* RightCell.m */; };
 		AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558A41DE8100E00E34CF7 /* ClassCollectionViewCell.m */; };
@@ -165,6 +166,8 @@
 		AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoVC.m; sourceTree = "<group>"; };
 		AD1B92651DEECB8C00B1A92E /* CommonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCell.h; sourceTree = "<group>"; };
 		AD1B92661DEECB8C00B1A92E /* CommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCell.m; sourceTree = "<group>"; };
+		AD1F7EEB1DEFD12E007BB3DC /* PopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopView.h; sourceTree = "<group>"; };
+		AD1F7EEC1DEFD12E007BB3DC /* PopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopView.m; sourceTree = "<group>"; };
 		AD2558901DE7D7B800E34CF7 /* LeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftCell.h; sourceTree = "<group>"; };
 		AD2558911DE7D7B800E34CF7 /* LeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftCell.m; sourceTree = "<group>"; };
 		AD2558981DE802A500E34CF7 /* RightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightCell.h; sourceTree = "<group>"; };
@@ -990,6 +993,8 @@
 				AD94076F1DEC85F00075620F /* MeCell.m */,
 				AD1B92651DEECB8C00B1A92E /* CommonCell.h */,
 				AD1B92661DEECB8C00B1A92E /* CommonCell.m */,
+				AD1F7EEB1DEFD12E007BB3DC /* PopView.h */,
+				AD1F7EEC1DEFD12E007BB3DC /* PopView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1381,6 +1386,7 @@
 				ADB99C6E1DD567C400EC1DAD /* SXK.xcdatamodeld in Sources */,
 				AD861B711DDC50FA00BC657E /* VTingSeaPopView.m in Sources */,
 				ADB99CAF1DD576D000EC1DAD /* NetworkErrorHandler.m in Sources */,
+				AD1F7EED1DEFD12E007BB3DC /* PopView.m in Sources */,
 				AD65A5EA1DE436E6002C6364 /* JFImagePickerController.m in Sources */,
 				AD6BE93F1DDEE8EE00DFEA92 /* NoDataView.m in Sources */,
 				ADA941501DE9929100DE6B9E /* DFBaseLineItem.m in Sources */,

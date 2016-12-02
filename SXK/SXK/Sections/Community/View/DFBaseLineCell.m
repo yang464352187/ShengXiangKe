@@ -293,13 +293,13 @@
     
     
     //点赞评论按钮
-    width = 25;
-    height = 25;
+    width = 15;
+    height = 15;
     x = CGRectGetMaxX(_bodyView.frame) - width;
     _likeCmtButton.hidden = NO;
-    _likeCmtButton.frame = CGRectMake(x+2, y-7, width, height);
+    _likeCmtButton.frame = CGRectMake(x, y, width, height);
     _likeCmtButton1.hidden = NO;
-    _likeCmtButton1.frame = CGRectMake(x-30, y-7, width, height);
+    _likeCmtButton1.frame = CGRectMake(x-30, y, width, height);
 
     
     //点赞和评论Toolbar

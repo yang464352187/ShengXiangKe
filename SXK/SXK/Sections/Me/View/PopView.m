@@ -37,6 +37,14 @@
 
 @property (nonatomic, strong)NSMutableArray *monthArr;
 
+@property (nonatomic, strong)UIButton *manBtn;
+
+@property (nonatomic, strong)UIButton *womanBtn;
+
+@property (nonatomic, strong)NSString *year;
+
+@property (nonatomic, strong)NSString *month;
+
 @end
 
 
@@ -97,9 +105,9 @@
     
     UIButton *cancelBtn =[UIButton buttonWithType:UIButtonTypeSystem];
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelBtn setTitleColor:[UIColor colorWithHexColorString:@"a1a1a1"] forState:UIControlStateNormal];
+    [cancelBtn setTitleColor:[UIColor colorWithHexColorString:@"aaaaaa"] forState:UIControlStateNormal];
     cancelBtn.frame = VIEWFRAME(CommonWidth(57), 131, 81, 27);
-    ViewBorderRadius(cancelBtn, 27/2, 0.5, [UIColor colorWithHexColorString:@"dfdfdf"]);
+    ViewBorderRadius(cancelBtn, 27/2, 0.5, [UIColor colorWithHexColorString:@"aaaaaa"]);
     
     UIButton *certainBtn =[UIButton buttonWithType:UIButtonTypeSystem];
     [certainBtn setTitle:@"确定" forState:UIControlStateNormal];
@@ -138,15 +146,20 @@
     [backBtn1 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
 
     
-    UIButton * firstBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [firstBtn setImage:[firstImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-    [firstBtn setImage:[secondImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+    self.manBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.manBtn setImage:[firstImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [self.manBtn setImage:[secondImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+    [self.manBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.manBtn setTintColor:[UIColor whiteColor]];
+    self.manBtn.tag = 201;
     
+    self.womanBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.womanBtn setImage:[firstImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [self.womanBtn setImage:[secondImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
+    [self.womanBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.womanBtn setTintColor:[UIColor whiteColor]];
+    self.womanBtn.tag = 202;
     
-    UIButton * secondBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [secondBtn setImage:[firstImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-    [secondBtn setImage:[secondImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
-
     UILabel *manLab = [UILabel createLabelWithFrame:VIEWFRAME((self.alertView.frame.size.width - 100)/2, 18, 100, 14)                                                 andText:@"男"
                                      andTextColor:[UIColor blackColor]
                                        andBgColor:[UIColor clearColor]
@@ -169,10 +182,10 @@
     [self.alertView1 addSubview:womanLab];
     [self.alertView1 addSubview:manImage];
     [self.alertView1 addSubview:womanImage];
-    [self.alertView1 addSubview:firstBtn];
-    [self.alertView1 addSubview:secondBtn];
+    [self.alertView1 addSubview:self.manBtn];
+    [self.alertView1 addSubview:self.womanBtn];
 
-    [firstBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.manBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(line1.mas_bottom).offset(41);
         make.left.equalTo(self.alertView1.mas_left).offset(CommonWidth(64));
         make.size.mas_equalTo(CGSizeMake(19, 19));
@@ -180,7 +193,7 @@
     
     [manLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(line1.mas_bottom).offset(41);
-        make.left.equalTo(firstBtn.mas_right).offset(CommonWidth(5));
+        make.left.equalTo(self.manBtn.mas_right).offset(CommonWidth(5));
         make.size.mas_equalTo(CGSizeMake(20, 19));
     }];
     
@@ -202,7 +215,7 @@
         make.size.mas_equalTo(CGSizeMake(19, 19));
     }];
 
-    [secondBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.womanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(line1.mas_bottom).offset(41);
         make.right.equalTo(womanLab.mas_left).offset(CommonWidth(-5));
         make.size.mas_equalTo(CGSizeMake(19, 19));
@@ -270,23 +283,9 @@
     [self.alertView2 addSubview:self.monthPick];
     [self.alertView2 addSubview:certainBtn1];
     
-//    self.yearPick.backgroundColor = [UIColor greenColor];
-//    self.monthPick.backgroundColor = [UIColor greenColor];
+    [self.yearPick selectRow:16 inComponent:0 animated:NO];
+    [self.monthPick selectRow:5 inComponent:0 animated:NO];
     
-//    [self.yearPick mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(line2.mas_bottom).offset(0);
-//        make.left.equalTo(self.alertView2.mas_left).offset((self.alertView2.size.width - 86-86-CommonWidth(50))/2);
-//        make.size.mas_equalTo(CGSizeMake(86, CommonHight(120)));
-//    }];
-//    
-//    [self.monthPick mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(line2.mas_bottom).offset(0);
-//        make.left.equalTo(self.yearPick.mas_right).offset(CommonWidth(50));
-//        make.size.mas_equalTo(CGSizeMake(86, CommonHight(120)));
-//    }];
-
-//    [self.yearPick selectRow:10 inComponent:0 animated:YES];
-
     
     [[NSNotificationCenter defaultCenter] addObserver:self
      
@@ -386,27 +385,15 @@
 
 -(void)tapAction:(UITapGestureRecognizer *)tap
 {
-    [self.text resignFirstResponder];
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    
-    dispatch_async(queue, ^{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                    self.mainView.frame = VIEWFRAME(30, SCREEN_HIGHT,CommonWidth(315), CommonHight(190));
-                
-            } completion:^(BOOL finished) {
-                    [self.backGroundView removeFromSuperview];
-                    [self.mainView removeFromSuperview];
-                
-            }];
-        });
-    });
+    [self disMiss];
 }
 
 -(void)btnAction:(UIButton *)sender
+{
+    [self disMiss];
+}
+
+-(void)disMiss
 {
     [self.text resignFirstResponder];
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
@@ -420,6 +407,7 @@
                 self.mainView.frame = VIEWFRAME(30, SCREEN_HIGHT,CommonWidth(315), CommonHight(190));
                 
             } completion:^(BOOL finished) {
+                
                 [self.backGroundView removeFromSuperview];
                 [self.mainView removeFromSuperview];
                 
@@ -454,8 +442,6 @@
 -(void)keyboardWillBeHidden:(NSNotification*)aNotification
 
 {
-    
-    
             [UIView animateWithDuration:0.5 animations:^{
                 
                 self.mainView.frame = VIEWFRAME(CommonWidth(30), CommonHight(294), CommonWidth(315), 190);
@@ -537,10 +523,30 @@
             singleLine.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
         }
     }
-    
-//    [view addSubview:text];
-    
+
     return text;
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    NSLog(@"%@",self.yearArr[row]);
+}
+
+-(void)btnClick:(UIButton *)sender
+{
+    if (!sender.isSelected) {
+        [sender setSelected:YES];
+ 
+        if ([_delegate respondsToSelector:@selector(sexual:)]) {
+            [_delegate sexual:sender.tag];
+        }
+        if (sender == self.manBtn) {
+            [self.womanBtn setSelected:NO];
+        }else{
+            [self.manBtn setSelected:NO];
+        }
+        [self disMiss];
+    }
 }
 
 @end

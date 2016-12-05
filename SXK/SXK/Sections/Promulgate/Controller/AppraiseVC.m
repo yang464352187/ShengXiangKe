@@ -84,7 +84,7 @@
     }
     
     TypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TypeCell"];
-    [cell fillWithTitle:self.firstArr[indexPath.row]];
+    [cell fillWithTitle:self.firstArr[indexPath.row] andType:0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
    
     return cell;

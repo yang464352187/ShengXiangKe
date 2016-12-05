@@ -154,11 +154,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SXK/Sections/Me/View/PopView.m"
-            timestampString = "502352522.925191"
+            timestampString = "502365068.84598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41">
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "year"
+            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

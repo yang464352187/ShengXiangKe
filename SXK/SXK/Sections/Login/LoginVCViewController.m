@@ -82,13 +82,41 @@
 
 -(void)btnAction:(UIButton *)sender
 {
-    if (sender.tag == 102) {
-        [self PushViewControllerByClassName:@"RegisterVC" info:nil];
-    }
-    if (sender.tag == 103) {
-        [self PushViewControllerByClassName:@"ForgetVC" info:nil];
+    switch (sender.tag) {
+        case 101:{
+            _weekSelf(weakSelf);
+            if ([self.userName validate] && [self.passWord validate]) {
+                [ProgressHUDHandler showProgressHUD];
+                [BaseRequest loginWithUserName:self.userName.text password:self.passWord.text succesBlock:^(id data) {
+                    [ProgressHUDHandler showHudTipStr:@"登录成功"];
+                    [weakSelf popGoBack];
+                    [ProgressHUDHandler dismissProgressHUD];
 
+                } failue:^(id data, NSError *error) {
+                    if (error.code == 2000) {
+                        [ProgressHUDHandler showHudTipStr:@"账户或密码错误"];
+                    }
+                    [ProgressHUDHandler dismissProgressHUD];
+                }];
+            }
+            break;
+        }
+            
+        case 102:
+            [self PushViewControllerByClassName:@"RegisterVC" info:nil];
+            break;
+        case 103:
+        {
+            NSDictionary *dic = @{@"title":@"忘记密码"};
+            [self PushViewControllerByClassName:@"ForgetVC" info:dic];
+
+        }
+            break;
+            
+        default:
+            break;
     }
+    
 }
 
 - (CustomField *)userName{

@@ -52,6 +52,66 @@
 
 
 
+/**
+ *  注册
+ *
+ *  @param userName     账号
+ *  @param psw          密码
+ *  @param verify       验证码
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)registerWithUserName:(NSString *)userName
+                    password:(NSString *)psw
+                      verify:(NSString *)verify
+                 succesBlock:(SuccessBlock)successBlock
+                      failue:(FailureBlock)failueBlock{
+    NSDictionary *params = @{@"mobile"   : userName,
+                             @"password" : psw,
+                             @"code"   : verify};
+    
+    [self requestPostCommonWithPath:APPINTERFACE_Register Params:params succesBlock:^(id data) {
+        
+        [self loginWithUserName:userName password:psw succesBlock:^(id data) {
+            
+            if (successBlock) {
+                successBlock(data);
+            }
+
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
+    } failue:failueBlock];
+}
+
+
+/**
+ *  登陆
+ *
+ *  @param userName     账号
+ *  @param psw          密码
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)loginWithUserName:(NSString *)userName
+                 password:(NSString *)psw
+              succesBlock:(SuccessBlock)successBlock
+                   failue:(FailureBlock)failueBlock{
+    NSMutableDictionary *params = [@{@"mobile"   : userName,
+                                     @"password" : psw,
+                                     } mutableCopy];
+    
+    [self requestPostCommonWithPath:APPINTERFACE_Login Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        [LoginModel doLogin:data];
+
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
 
 
 

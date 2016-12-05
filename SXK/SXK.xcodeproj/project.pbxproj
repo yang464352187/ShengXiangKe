@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7F55C71C3467914DCE5D65D7 /* libPods-SXK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEF36623432472EDA20ED53 /* libPods-SXK.a */; };
+		AD195C0A1DF171E70090715D /* PersonalSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD195C091DF171E70090715D /* PersonalSummaryVC.m */; };
 		AD1B92611DEEBDD400B1A92E /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92601DEEBDD400B1A92E /* SetVC.m */; };
 		AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */; };
 		AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92661DEECB8C00B1A92E /* CommonCell.m */; };
@@ -44,6 +45,12 @@
 		AD65A5F01DE436E6002C6364 /* WSImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD65A5E31DE436E6002C6364 /* WSImageModel.m */; };
 		AD65A5F11DE436E6002C6364 /* WSPhotosBroseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD65A5E51DE436E6002C6364 /* WSPhotosBroseVC.m */; };
 		AD65A5F41DE43E7C002C6364 /* WSImagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD65A5F31DE43E7C002C6364 /* WSImagePickerView.m */; };
+		AD67359E1DF52B7200B8D2FB /* Constant.m in Sources */ = {isa = PBXBuildFile; fileRef = AD67359D1DF52B7200B8D2FB /* Constant.m */; };
+		AD6735A11DF536DD00B8D2FB /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6735A01DF536DD00B8D2FB /* BaseModel.m */; };
+		AD6735A71DF537BD00B8D2FB /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6735A61DF537BD00B8D2FB /* LoginModel.m */; };
+		AD6735AA1DF5387D00B8D2FB /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6735A91DF5387D00B8D2FB /* UserModel.m */; };
+		AD6735AE1DF54DBB00B8D2FB /* AddressManagerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6735AD1DF54DBB00B8D2FB /* AddressManagerVC.m */; };
+		AD6735B11DF54EE900B8D2FB /* AddressManagerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6735B01DF54EE900B8D2FB /* AddressManagerCell.m */; };
 		AD6BE9331DDEE40C00DFEA92 /* PushManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6BE9321DDEE40C00DFEA92 /* PushManager.m */; };
 		AD6BE9361DDEE49300DFEA92 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6BE9351DDEE49300DFEA92 /* BaseViewController.m */; };
 		AD6BE93B1DDEE8AD00DFEA92 /* YTBaseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6BE9381DDEE8AD00DFEA92 /* YTBaseTableVC.m */; };
@@ -160,6 +167,8 @@
 		0DEF36623432472EDA20ED53 /* libPods-SXK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SXK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EAC5BC4BDD7C045C7BE1066 /* Pods-SXK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.debug.xcconfig"; sourceTree = "<group>"; };
 		A5C516769DD62A7AC259CF26 /* Pods-SXK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.release.xcconfig"; sourceTree = "<group>"; };
+		AD195C081DF171E70090715D /* PersonalSummaryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalSummaryVC.h; sourceTree = "<group>"; };
+		AD195C091DF171E70090715D /* PersonalSummaryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalSummaryVC.m; sourceTree = "<group>"; };
 		AD1B925F1DEEBDD400B1A92E /* SetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
 		AD1B92601DEEBDD400B1A92E /* SetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetVC.m; sourceTree = "<group>"; };
 		AD1B92621DEEC55D00B1A92E /* PersonalInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoVC.h; sourceTree = "<group>"; };
@@ -230,6 +239,18 @@
 		AD65A5E51DE436E6002C6364 /* WSPhotosBroseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSPhotosBroseVC.m; sourceTree = "<group>"; };
 		AD65A5F21DE43E7C002C6364 /* WSImagePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSImagePickerView.h; sourceTree = "<group>"; };
 		AD65A5F31DE43E7C002C6364 /* WSImagePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSImagePickerView.m; sourceTree = "<group>"; };
+		AD67359C1DF52B7200B8D2FB /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		AD67359D1DF52B7200B8D2FB /* Constant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constant.m; sourceTree = "<group>"; };
+		AD67359F1DF536DD00B8D2FB /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		AD6735A01DF536DD00B8D2FB /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		AD6735A51DF537BD00B8D2FB /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
+		AD6735A61DF537BD00B8D2FB /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
+		AD6735A81DF5387D00B8D2FB /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		AD6735A91DF5387D00B8D2FB /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		AD6735AC1DF54DBB00B8D2FB /* AddressManagerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressManagerVC.h; sourceTree = "<group>"; };
+		AD6735AD1DF54DBB00B8D2FB /* AddressManagerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressManagerVC.m; sourceTree = "<group>"; };
+		AD6735AF1DF54EE900B8D2FB /* AddressManagerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressManagerCell.h; sourceTree = "<group>"; };
+		AD6735B01DF54EE900B8D2FB /* AddressManagerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressManagerCell.m; sourceTree = "<group>"; };
 		AD6BE9311DDEE40C00DFEA92 /* PushManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushManager.h; sourceTree = "<group>"; };
 		AD6BE9321DDEE40C00DFEA92 /* PushManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushManager.m; sourceTree = "<group>"; };
 		AD6BE9341DDEE49300DFEA92 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -441,12 +462,9 @@
 		AD40A3031DDD8CBA006C5576 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				AD6BE9401DDEF44B00DFEA92 /* LoginVCViewController.h */,
-				AD6BE9411DDEF44B00DFEA92 /* LoginVCViewController.m */,
-				ADFAB8AB1DE602C1005BEAF9 /* RegisterVC.h */,
-				ADFAB8AC1DE602C1005BEAF9 /* RegisterVC.m */,
-				ADFAB8AE1DE60B1E005BEAF9 /* ForgetVC.h */,
-				ADFAB8AF1DE60B1E005BEAF9 /* ForgetVC.m */,
+				AD6735A41DF537AD00B8D2FB /* View */,
+				AD6735A31DF537A400B8D2FB /* Model */,
+				AD6735A21DF5377700B8D2FB /* Controller */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -489,6 +507,35 @@
 			path = WSImagebroswerVC;
 			sourceTree = "<group>";
 		};
+		AD6735A21DF5377700B8D2FB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				AD6BE9401DDEF44B00DFEA92 /* LoginVCViewController.h */,
+				AD6BE9411DDEF44B00DFEA92 /* LoginVCViewController.m */,
+				ADFAB8AB1DE602C1005BEAF9 /* RegisterVC.h */,
+				ADFAB8AC1DE602C1005BEAF9 /* RegisterVC.m */,
+				ADFAB8AE1DE60B1E005BEAF9 /* ForgetVC.h */,
+				ADFAB8AF1DE60B1E005BEAF9 /* ForgetVC.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		AD6735A31DF537A400B8D2FB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AD6735A51DF537BD00B8D2FB /* LoginModel.h */,
+				AD6735A61DF537BD00B8D2FB /* LoginModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		AD6735A41DF537AD00B8D2FB /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		AD861B5A1DDC3A7400BC657E /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +552,10 @@
 		AD861B641DDC3BF900BC657E /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD67359F1DF536DD00B8D2FB /* BaseModel.h */,
+				AD6735A01DF536DD00B8D2FB /* BaseModel.m */,
+				AD6735A81DF5387D00B8D2FB /* UserModel.h */,
+				AD6735A91DF5387D00B8D2FB /* UserModel.m */,
 				AD6BE9341DDEE49300DFEA92 /* BaseViewController.h */,
 				AD6BE9351DDEE49300DFEA92 /* BaseViewController.m */,
 				AD861B6C1DDC3C9100BC657E /* BaseNavigationVC.h */,
@@ -662,6 +713,8 @@
 		ADB99C9B1DD569FA00EC1DAD /* Constant */ = {
 			isa = PBXGroup;
 			children = (
+				AD67359C1DF52B7200B8D2FB /* Constant.h */,
+				AD67359D1DF52B7200B8D2FB /* Constant.m */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -973,6 +1026,10 @@
 				AD1B92601DEEBDD400B1A92E /* SetVC.m */,
 				AD1B92621DEEC55D00B1A92E /* PersonalInfoVC.h */,
 				AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */,
+				AD195C081DF171E70090715D /* PersonalSummaryVC.h */,
+				AD195C091DF171E70090715D /* PersonalSummaryVC.m */,
+				AD6735AC1DF54DBB00B8D2FB /* AddressManagerVC.h */,
+				AD6735AD1DF54DBB00B8D2FB /* AddressManagerVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -995,6 +1052,8 @@
 				AD1B92661DEECB8C00B1A92E /* CommonCell.m */,
 				AD1F7EEB1DEFD12E007BB3DC /* PopView.h */,
 				AD1F7EEC1DEFD12E007BB3DC /* PopView.m */,
+				AD6735AF1DF54EE900B8D2FB /* AddressManagerCell.h */,
+				AD6735B01DF54EE900B8D2FB /* AddressManagerCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1341,9 +1400,11 @@
 				ADB99CB21DD5787D00EC1DAD /* ProgressHUDHandler.m in Sources */,
 				AD861B6A1DDC3C4700BC657E /* JTNavigationController.m in Sources */,
 				AD5CD4C41DE2F2DD00FA659D /* SpecialCell.m in Sources */,
+				AD6735B11DF54EE900B8D2FB /* AddressManagerCell.m in Sources */,
 				ADC07F751DE536C000B665CC /* BATableViewIndex.m in Sources */,
 				ADA941711DE9992600DE6B9E /* DFImageUnitView.m in Sources */,
 				AD65A5EE1DE436E6002C6364 /* WSImageBroserCell.m in Sources */,
+				AD6735A11DF536DD00B8D2FB /* BaseModel.m in Sources */,
 				ADB99CDA1DD5BB1300EC1DAD /* MeVC.m in Sources */,
 				ADA941701DE9992600DE6B9E /* DFGridImageView.m in Sources */,
 				ADA941591DE9939A00DE6B9E /* MLClickColorLinkLabel.m in Sources */,
@@ -1356,9 +1417,11 @@
 				ADA9414A1DE9925200DE6B9E /* DFLikeCommentToolbar.m in Sources */,
 				ADDD4D571DED6FC2009C19B8 /* ConsigneeCell.m in Sources */,
 				ADA941561DE9937000DE6B9E /* MLLinkClickLabel.m in Sources */,
+				AD6735A71DF537BD00B8D2FB /* LoginModel.m in Sources */,
 				AD65A5F41DE43E7C002C6364 /* WSImagePickerView.m in Sources */,
 				AD65A5C51DE3EA8C002C6364 /* FEPlaceHolderTextView.m in Sources */,
 				ADC07F791DE53D6900B665CC /* BrandCell.m in Sources */,
+				AD67359E1DF52B7200B8D2FB /* Constant.m in Sources */,
 				ADC07F881DE5627E00B665CC /* SecondCommonVC.m in Sources */,
 				AD65A5E71DE436E6002C6364 /* JFImageCollectionViewController.m in Sources */,
 				AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */,
@@ -1366,6 +1429,7 @@
 				AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */,
 				ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */,
 				ADC07F821DE559DF00B665CC /* CategoryCell.m in Sources */,
+				AD6735AA1DF5387D00B8D2FB /* UserModel.m in Sources */,
 				AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */,
 				AD861B6E1DDC3C9100BC657E /* BaseNavigationVC.m in Sources */,
 				ADA941471DE9923A00DE6B9E /* DFLikeCommentView.m in Sources */,
@@ -1373,11 +1437,13 @@
 				ADC07F741DE536C000B665CC /* BATableView.m in Sources */,
 				AD65A5E61DE436E6002C6364 /* JFAssetHelper.m in Sources */,
 				ADB99CD11DD5BAD200EC1DAD /* ClassifyVC.m in Sources */,
+				AD6735AE1DF54DBB00B8D2FB /* AddressManagerVC.m in Sources */,
 				AD65A5F01DE436E6002C6364 /* WSImageModel.m in Sources */,
 				AD40A3111DDDB4ED006C5576 /* LoginBtn.m in Sources */,
 				ADB99CB51DD5853900EC1DAD /* BaseRequest.m in Sources */,
 				AD2558AF1DE8516E00E34CF7 /* ClassifyCollectionHeader.m in Sources */,
 				AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */,
+				AD195C0A1DF171E70090715D /* PersonalSummaryVC.m in Sources */,
 				AD40A3011DDD5EFE006C5576 /* UIBarButtonItem+Extension.m in Sources */,
 				ADB99CAC1DD576BB00EC1DAD /* NetworkClient.m in Sources */,
 				AD861B6B1DDC3C4700BC657E /* UIViewController+JTNavigationExtension.m in Sources */,

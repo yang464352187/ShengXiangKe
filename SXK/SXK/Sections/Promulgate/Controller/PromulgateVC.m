@@ -111,7 +111,7 @@
     if (!cell) {
         cell = [[TypeCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
-    [cell fillWithTitle:self.SecondArr[indexPath.row]];
+    [cell fillWithTitle:self.SecondArr[indexPath.row] andType:0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [self.cellDic setObject:cell forKey:self.SecondArr[indexPath.row]];
     return cell;

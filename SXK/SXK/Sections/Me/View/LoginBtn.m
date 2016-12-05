@@ -75,7 +75,6 @@
         }];
     }
 
-  
     
     [title1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.mas_top).offset(16.0000/667*SCREEN_HIGHT);

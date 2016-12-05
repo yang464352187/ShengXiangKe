@@ -7,16 +7,17 @@
 //
 
 #import "PersonalInfoVC.h"
-#import "CategoryCell.h"
+#import "TypeCell.h"
 #import "PopView.h"
 #import "AppDelegate.h"
 
-@interface PersonalInfoVC ()
+@interface PersonalInfoVC ()<PopViewDelegate>
 
 @property (strong, nonatomic) UIView  *headView;
 @property (strong, nonatomic) NSArray *firstArr;
 @property (strong, nonatomic) NSArray *secondArr;
 @property (strong, nonatomic) PopView *popView;
+@property (strong, nonatomic) TypeCell *sexCell;
 
 @end
 
@@ -51,7 +52,7 @@
         _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-44) style:UITableViewStyleGrouped];
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
-        [_tableView registerClass:[CategoryCell class] forCellReuseIdentifier:@"CategoryCell"];
+        [_tableView registerClass:[TypeCell class] forCellReuseIdentifier:@"TypeCell"];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -114,12 +115,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell"];
+    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",indexPath.section,indexPath.row];//不使用复用
+    
+    TypeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!cell) {
+        cell = [[TypeCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     if (indexPath.section == 0) {
-        [cell fillTitle:self.firstArr[indexPath.row]];
+        [cell fillWithTitle:self.firstArr[indexPath.row] andType:1];
     }else{
-        [cell fillTitle:self.secondArr[indexPath.row]];
+        [cell fillWithTitle:self.secondArr[indexPath.row] andType:1];
+    }
+    
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        self.sexCell = cell;
     }
     return cell;
     
@@ -159,12 +170,21 @@
         [self.popView fillWithTitle:@"出生年月"];
         [self.popView show2];
     }
-
+    
+    if (indexPath.section == 0 && indexPath.row == 3) {
+        [self PushViewControllerByClassName:@"PersonalSummaryVC" info:nil];
+    }
     
     if (indexPath.section == 1 && indexPath.row == 0) {
         [self.popView fillWithTitle:@"手机号码"];
         [self.popView show];
     }
+    
+    if (indexPath.section == 1 && indexPath.row == 1) {
+        NSDictionary *dic = @{@"title":@"修改密码"};
+        [self PushViewControllerByClassName:@"ForgetVC" info:dic];
+    }
+
 
 }
 
@@ -172,8 +192,19 @@
 {
     if (!_popView) {
         _popView =  [[PopView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+        _popView.delegate =self;
     }
     return _popView;
+}
+
+-(void)sexual:(NSInteger)tag
+{
+    
+    if (tag == 201) {
+        [self.sexCell changeTitle:@"男"];
+    }else{
+        [self.sexCell changeTitle:@"女"];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

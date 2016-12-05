@@ -158,6 +158,27 @@
 }
 -(void)btnAction:(UIButton *)sender
 {
+    if (sender.tag == 101) {
+        if ([self.userName validate] && [self.passWord validate] && [self.identifying validate]) {
+            if (self.identifying.text.length !=6 ) {
+                [self.identifying becomeFirstResponder];
+                [ProgressHUDHandler showHudTipStr:@"请输入验证码"];
+            }else{
+                [ProgressHUDHandler showProgressHUD];
+                _weekSelf(weakSelf);
+                [BaseRequest registerWithUserName:self.userName.text password:self.passWord.text verify:self.identifying.text succesBlock:^(id data) {
+                    NSLog(@"%@",data);
+                    [ProgressHUDHandler showHudTipStr:@"注册成功"];
+                    [weakSelf PopToRootViewController];
+                    [ProgressHUDHandler dismissProgressHUD];
+                } failue:^(id data, NSError *error) {
+                    [ProgressHUDHandler dismissProgressHUD];
+                }];
+
+            }
+        }
+    }
+    
 }
 
 

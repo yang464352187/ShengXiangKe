@@ -55,7 +55,6 @@
             make.height.equalTo(@13);
         }];
 
-        
     }
     return  self;
 }

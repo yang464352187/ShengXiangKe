@@ -68,7 +68,7 @@
     return  self;
 }
 
--(void)fillWithTitle:(NSString *)title
+-(void)fillWithTitle:(NSString *)title andType:(NSInteger)type
 {
     if ([title isEqualToString:@"颜色"]) {
         [_select removeFromSuperview];
@@ -79,6 +79,10 @@
     if ([title isEqualToString:@"附件"]) {
         _select.text = @"";
     }
+    
+    if (type == 1) {
+        _select.text = @"";
+    }
     _title.text = title;
 
 }
@@ -86,6 +90,7 @@
 -(void)changeTitle:(NSString *)title
 {
     _select.text = title;
+    
 }
 
 

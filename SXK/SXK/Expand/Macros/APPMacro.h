@@ -11,8 +11,7 @@
 
 
 // 接口链接地址
-#define APP_BASEURL @"http://www.arogo.cn"
-
+#define APP_BASEURL @"http://shexiangke.jcq.tbapps.cn"
 
 #pragma mark - BaseColor
 // 基本颜色
@@ -52,5 +51,9 @@
 
 // APP内部使用宏定义名称
 
+#pragma mark - Url Path
+
+#define APPINTERFACE_Register           @"/app/applogin/registerpost"
+#define APPINTERFACE_Login              @"/app/applogin/loginpost"
 
 #endif /* APPMacro_h */

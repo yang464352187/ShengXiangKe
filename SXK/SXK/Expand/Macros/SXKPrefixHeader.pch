@@ -16,6 +16,9 @@
 #import "APPMacro.h"
 #import "UtilsMacro.h"
 #import "DebugMacro.h"
+#import "BaseRequest.h"
+#import "Constant.h"
+
 
 //Categories
 #import "UIBarButtonItem+Extension.h"
@@ -36,7 +39,9 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDCycleScrollView/SDCycleScrollView.h>
 #import <AFNetworking/AFNetworking.h>
-
+// Model
+#import "UserModel.h"
+#import "LoginModel.h"
 
 //BaseVC
 #import "BaseNavigationVC.h"

@@ -11,7 +11,7 @@
 @interface TypeCell : UITableViewCell
 
 
--(void)fillWithTitle:(NSString *)title;
+-(void)fillWithTitle:(NSString *)title andType:(NSInteger) type;
 
 -(void)changeTitle:(NSString *)title;
 @end

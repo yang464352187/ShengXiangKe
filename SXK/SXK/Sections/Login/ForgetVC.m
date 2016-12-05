@@ -23,7 +23,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigationItem.title = @"找回密码";
+    
+    self.navigationItem.title = self.myDict[@"title"];
     [self initUI];
 
 }

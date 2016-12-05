@@ -17,9 +17,11 @@
 @property(nonatomic, strong)UILabel *secondLab;
 @property(nonatomic, strong)UILabel *thirdLab;
 @property(nonatomic, strong)UIView *loginView;
+@property(nonatomic, strong)UIImageView *backgroundImage;
 @property (strong, nonatomic)UIView *headView;
 @property (nonatomic, strong)NSMutableArray *titleArr;
 @property (nonatomic, strong)NSMutableArray *imageArr;
+@property (nonatomic, strong)UIView *backgroundView;
 
 
 @end
@@ -29,8 +31,25 @@
     [super viewWillAppear:animated];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];//设置电池条颜色为白色
+    if ([LoginModel isLogin]) {
+        for(UIView *view in [self.view subviews])
+        {
+            [view removeFromSuperview];
+        }
+        
+        [self.view addSubview:self.tableView];
+        
+    }else{
+        [self initLoginView];
+        
+    }
+
+}
 
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -38,12 +57,12 @@
     //判断是否登录
     self.navigationController.navigationBar.hidden = YES;
 
-    int login = 1;
-    if(login){
-        [self.view addSubview:self.tableView];
-    }else{
-        [self initLoginView];
-    }
+//    int login = 0;
+//    if(login){
+//        [self.view addSubview:self.tableView];
+//    }else{
+//        [self initLoginView];
+//    }
     
 }
 
@@ -53,10 +72,12 @@
 }
 -(void)initLoginView
 {
-    
+ 
+
     UIImageView *backGroundImage = [[UIImageView alloc] initWithFrame:APP_BOUNDS];
     backGroundImage.image = [UIImage imageNamed:@"图层-1"];
     [self.view addSubview:backGroundImage];
+    self.backgroundView = backGroundImage;
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     loginBtn.frame = CGRectMake(100, 100, 0, 0);
@@ -121,6 +142,8 @@
 
 -(void)loginBtnAction
 {
+    
+
     
     self.loginBtn.alpha = 0;
     self.firstLab.alpha = 0;

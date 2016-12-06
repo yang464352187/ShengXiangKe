@@ -19,6 +19,8 @@
 		AD2558A71DE8100E00E34CF7 /* ClassCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD2558A51DE8100E00E34CF7 /* ClassCollectionViewCell.xib */; };
 		AD2558AF1DE8516E00E34CF7 /* ClassifyCollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558AE1DE8516E00E34CF7 /* ClassifyCollectionHeader.m */; };
 		AD2558B21DE8562F00E34CF7 /* ClassifyCollectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558B11DE8562F00E34CF7 /* ClassifyCollectionFooter.m */; };
+		AD269CD31DF5BAA3002E47F2 /* NSTimer+Addtions.m in Sources */ = {isa = PBXBuildFile; fileRef = AD269CD21DF5BAA3002E47F2 /* NSTimer+Addtions.m */; };
+		AD269CD61DF5D558002E47F2 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD269CD51DF5D558002E47F2 /* AddressModel.m */; };
 		AD40A2FC1DDD5E43006C5576 /* ZTTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A2FB1DDD5E43006C5576 /* ZTTabBar.m */; };
 		AD40A3011DDD5EFE006C5576 /* UIBarButtonItem+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A2FE1DDD5EFE006C5576 /* UIBarButtonItem+Extension.m */; };
 		AD40A3021DDD5EFE006C5576 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A3001DDD5EFE006C5576 /* UIView+Extension.m */; };
@@ -127,6 +129,9 @@
 		ADB99CD41DD5BAF300EC1DAD /* PromulgateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB99CD31DD5BAF300EC1DAD /* PromulgateVC.m */; };
 		ADB99CD71DD5BB0300EC1DAD /* CommunityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB99CD61DD5BB0300EC1DAD /* CommunityVC.m */; };
 		ADB99CDA1DD5BB1300EC1DAD /* MeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB99CD91DD5BB1300EC1DAD /* MeVC.m */; };
+		ADBF3DE61DF6488100A287A8 /* BaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBF3DE51DF6488100A287A8 /* BaseCell.m */; };
+		ADBF3DE91DF6594D00A287A8 /* AddAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBF3DE81DF6594D00A287A8 /* AddAddress.m */; };
+		ADBF3DEC1DF6605B00A287A8 /* AddAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADBF3DEB1DF6605B00A287A8 /* AddAddressCell.m */; };
 		ADC07F741DE536C000B665CC /* BATableView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC07F701DE536C000B665CC /* BATableView.m */; };
 		ADC07F751DE536C000B665CC /* BATableViewIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC07F721DE536C000B665CC /* BATableViewIndex.m */; };
 		ADC07F761DE536C000B665CC /* flotageBackgroud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = ADC07F731DE536C000B665CC /* flotageBackgroud@2x.png */; };
@@ -188,6 +193,10 @@
 		AD2558AE1DE8516E00E34CF7 /* ClassifyCollectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifyCollectionHeader.m; sourceTree = "<group>"; };
 		AD2558B01DE8562F00E34CF7 /* ClassifyCollectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifyCollectionFooter.h; sourceTree = "<group>"; };
 		AD2558B11DE8562F00E34CF7 /* ClassifyCollectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifyCollectionFooter.m; sourceTree = "<group>"; };
+		AD269CD11DF5BAA3002E47F2 /* NSTimer+Addtions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addtions.h"; sourceTree = "<group>"; };
+		AD269CD21DF5BAA3002E47F2 /* NSTimer+Addtions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addtions.m"; sourceTree = "<group>"; };
+		AD269CD41DF5D558002E47F2 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
+		AD269CD51DF5D558002E47F2 /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
 		AD40A2FA1DDD5E43006C5576 /* ZTTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZTTabBar.h; sourceTree = "<group>"; };
 		AD40A2FB1DDD5E43006C5576 /* ZTTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZTTabBar.m; sourceTree = "<group>"; };
 		AD40A2FD1DDD5EFE006C5576 /* UIBarButtonItem+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extension.h"; sourceTree = "<group>"; };
@@ -382,6 +391,12 @@
 		ADB99CD61DD5BB0300EC1DAD /* CommunityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityVC.m; sourceTree = "<group>"; };
 		ADB99CD81DD5BB1300EC1DAD /* MeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeVC.h; sourceTree = "<group>"; };
 		ADB99CD91DD5BB1300EC1DAD /* MeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeVC.m; sourceTree = "<group>"; };
+		ADBF3DE41DF6488100A287A8 /* BaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCell.h; sourceTree = "<group>"; };
+		ADBF3DE51DF6488100A287A8 /* BaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCell.m; sourceTree = "<group>"; };
+		ADBF3DE71DF6594D00A287A8 /* AddAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddress.h; sourceTree = "<group>"; };
+		ADBF3DE81DF6594D00A287A8 /* AddAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddress.m; sourceTree = "<group>"; };
+		ADBF3DEA1DF6605B00A287A8 /* AddAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressCell.h; sourceTree = "<group>"; };
+		ADBF3DEB1DF6605B00A287A8 /* AddAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressCell.m; sourceTree = "<group>"; };
 		ADC07F6F1DE536C000B665CC /* BATableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BATableView.h; sourceTree = "<group>"; };
 		ADC07F701DE536C000B665CC /* BATableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BATableView.m; sourceTree = "<group>"; };
 		ADC07F711DE536C000B665CC /* BATableViewIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BATableViewIndex.h; sourceTree = "<group>"; };
@@ -552,6 +567,8 @@
 		AD861B641DDC3BF900BC657E /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
+				ADBF3DE41DF6488100A287A8 /* BaseCell.h */,
+				ADBF3DE51DF6488100A287A8 /* BaseCell.m */,
 				AD67359F1DF536DD00B8D2FB /* BaseModel.h */,
 				AD6735A01DF536DD00B8D2FB /* BaseModel.m */,
 				AD6735A81DF5387D00B8D2FB /* UserModel.h */,
@@ -696,6 +713,8 @@
 		ADB99C9A1DD569FA00EC1DAD /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				AD269CD11DF5BAA3002E47F2 /* NSTimer+Addtions.h */,
+				AD269CD21DF5BAA3002E47F2 /* NSTimer+Addtions.m */,
 				AD6BE9461DDEF61400DFEA92 /* CustomField.h */,
 				AD6BE9471DDEF61400DFEA92 /* CustomField.m */,
 				AD6BE9431DDEF5F300DFEA92 /* UIColor+Extend.h */,
@@ -1030,6 +1049,8 @@
 				AD195C091DF171E70090715D /* PersonalSummaryVC.m */,
 				AD6735AC1DF54DBB00B8D2FB /* AddressManagerVC.h */,
 				AD6735AD1DF54DBB00B8D2FB /* AddressManagerVC.m */,
+				ADBF3DE71DF6594D00A287A8 /* AddAddress.h */,
+				ADBF3DE81DF6594D00A287A8 /* AddAddress.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1037,6 +1058,8 @@
 		ADB99CCA1DD5BA4A00EC1DAD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AD269CD41DF5D558002E47F2 /* AddressModel.h */,
+				AD269CD51DF5D558002E47F2 /* AddressModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1054,6 +1077,8 @@
 				AD1F7EEC1DEFD12E007BB3DC /* PopView.m */,
 				AD6735AF1DF54EE900B8D2FB /* AddressManagerCell.h */,
 				AD6735B01DF54EE900B8D2FB /* AddressManagerCell.m */,
+				ADBF3DEA1DF6605B00A287A8 /* AddAddressCell.h */,
+				ADBF3DEB1DF6605B00A287A8 /* AddAddressCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1405,6 +1430,7 @@
 				ADA941711DE9992600DE6B9E /* DFImageUnitView.m in Sources */,
 				AD65A5EE1DE436E6002C6364 /* WSImageBroserCell.m in Sources */,
 				AD6735A11DF536DD00B8D2FB /* BaseModel.m in Sources */,
+				ADBF3DE61DF6488100A287A8 /* BaseCell.m in Sources */,
 				ADB99CDA1DD5BB1300EC1DAD /* MeVC.m in Sources */,
 				ADA941701DE9992600DE6B9E /* DFGridImageView.m in Sources */,
 				ADA941591DE9939A00DE6B9E /* MLClickColorLinkLabel.m in Sources */,
@@ -1422,9 +1448,11 @@
 				AD65A5C51DE3EA8C002C6364 /* FEPlaceHolderTextView.m in Sources */,
 				ADC07F791DE53D6900B665CC /* BrandCell.m in Sources */,
 				AD67359E1DF52B7200B8D2FB /* Constant.m in Sources */,
+				AD269CD61DF5D558002E47F2 /* AddressModel.m in Sources */,
 				ADC07F881DE5627E00B665CC /* SecondCommonVC.m in Sources */,
 				AD65A5E71DE436E6002C6364 /* JFImageCollectionViewController.m in Sources */,
 				AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */,
+				ADBF3DE91DF6594D00A287A8 /* AddAddress.m in Sources */,
 				AD65A5ED1DE436E6002C6364 /* JFPhotoView.m in Sources */,
 				AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */,
 				ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */,
@@ -1447,12 +1475,14 @@
 				AD40A3011DDD5EFE006C5576 /* UIBarButtonItem+Extension.m in Sources */,
 				ADB99CAC1DD576BB00EC1DAD /* NetworkClient.m in Sources */,
 				AD861B6B1DDC3C4700BC657E /* UIViewController+JTNavigationExtension.m in Sources */,
+				AD269CD31DF5BAA3002E47F2 /* NSTimer+Addtions.m in Sources */,
 				AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */,
 				AD5CD4C01DE2E4EB00FA659D /* ClaasifyCollectionViewCell.m in Sources */,
 				ADB99C6E1DD567C400EC1DAD /* SXK.xcdatamodeld in Sources */,
 				AD861B711DDC50FA00BC657E /* VTingSeaPopView.m in Sources */,
 				ADB99CAF1DD576D000EC1DAD /* NetworkErrorHandler.m in Sources */,
 				AD1F7EED1DEFD12E007BB3DC /* PopView.m in Sources */,
+				ADBF3DEC1DF6605B00A287A8 /* AddAddressCell.m in Sources */,
 				AD65A5EA1DE436E6002C6364 /* JFImagePickerController.m in Sources */,
 				AD6BE93F1DDEE8EE00DFEA92 /* NoDataView.m in Sources */,
 				ADA941501DE9929100DE6B9E /* DFBaseLineItem.m in Sources */,

@@ -113,8 +113,104 @@
     } failue:failueBlock];
 }
 
+/**
+ *  添加收货地址
+ *
+ *  @param name         姓名
+ *  @param phone        电话
+ *  @param address      地址
+ *  @param state        省份
+ *  @param city         城市
+ *  @param district      区
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
 
++ (void)addAddressWithname:(NSString *)name
+                     phone:(NSString *)phone
+                     state:(NSString *)state
+                      city:(NSString *)city
+                  district:(NSString *)district
+                   address:(NSString *)address
+               succesBlock:(SuccessBlock)successBlock
+                    failue:(FailureBlock)failueBlock{
+    NSMutableDictionary *params = [@{@"name":name,@"mobile":phone,@"state":state,@"city":city,@"district":district,@"address":address} mutableCopy];
+    
+    
+    [self requestPostCommonWithPath:APPINTERFACE__AddAddress Params:params succesBlock:^(id data) {
+        //        //登录成功
+                
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
 
+/**
+ *  发送验证码
+ *
+ *  @param mobile       手机号
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++ (void)sendSmsWithmobile:(NSString *)mobile
+              succesBlock:(SuccessBlock)successBlock
+                   failue:(FailureBlock)failueBlock{
+    NSDictionary *params = @{@"mobile" : mobile};
+    [self requestPostCommonWithPath:APPINTERFACE_SendMob Params:params succesBlock:successBlock failue:failueBlock];
+}
+
+/**
+ *  忘记密码
+ *
+ *  @param mobile       手机号
+ *  @param psw          密码
+ *  @param verify       验证码
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)resetPassWordWithmobile:(NSString *)mobile
+                       password:(NSString *)psw
+                         verify:(NSString *)verify
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock{
+    NSDictionary *params = @{@"mobile"      : mobile,
+                             @"password"    : psw,
+                             @"code"      : verify};
+    [self requestPostCommonWithPath:APPINTERFACE_ForgetUserPwd Params:params succesBlock:successBlock failue:failueBlock];
+}
+
+/**
+ *  获取收获地址
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)getAddressWithPageNo:(NSInteger)pageNo
+                    PageSize:(NSInteger)pageSize
+                       order:(NSDictionary *)order
+                 succesBlock:(SuccessBlock)successBlock
+                      failue:(FailureBlock)failueBlock;{
+    
+    NSNumber *i = [NSNumber numberWithInteger:pageNo];
+    NSNumber *j = [NSNumber numberWithInteger:pageSize];
+    NSDictionary *dic = @{@"receiverid":@1};
+    NSDictionary *params = @{@"pageNo":i,
+                             @"pageSize":j,
+                             @"order":dic};
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetAddressList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
 
 
 @end

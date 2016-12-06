@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AddressManagerCell : UITableViewCell
+@interface AddressManagerCell : BaseCell
 
 
 

@@ -55,5 +55,8 @@
 
 #define APPINTERFACE_Register           @"/app/applogin/registerpost"
 #define APPINTERFACE_Login              @"/app/applogin/loginpost"
-
+#define APPINTERFACE__AddAddress        @"/app/receiver/addpost"
+#define APPINTERFACE_SendMob            @"/app/sms/addpost"
+#define APPINTERFACE_ForgetUserPwd      @"/app/applogin/forgetpost"
+#define APPINTERFACE__GetAddressList    @"/app/receiver/listpost"                     
 #endif /* APPMacro_h */

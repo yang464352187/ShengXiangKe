@@ -35,6 +35,7 @@
     if ([self.tableView.header isRefreshing]) {
         [self.tableView.header endRefreshing];
     }
+    
     _pageNo ++;
     [self getDataByNetwork];
 }

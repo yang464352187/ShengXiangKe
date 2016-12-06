@@ -8,8 +8,10 @@
 
 #import "AddressManagerVC.h"
 #import "AddressManagerCell.h"
+#import "AddressModel.h"
 
-@interface AddressManagerVC ()
+@interface AddressManagerVC ()<UITableViewDataSource,UITableViewDelegate>
+
 
 @property (nonatomic, strong) UIView *footerView;
 
@@ -22,6 +24,23 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"常用地址";
     [self.view addSubview:self.tableView];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadingRequest];
+}
+- (void)loadingRequest{
+//    [self startLoadingView:self.tableView.frame];
+    _weekSelf(weakSelf);
+    [BaseRequest getAddressWithPageNo:1 PageSize:10 order:nil succesBlock:^(id data) {
+        NSArray *models = [AddressModel modelsFromArray:data[@"receiverList"]];
+        [weakSelf handleModels:models total:0];
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
 }
 
 #pragma mark -- getters and setters
@@ -39,7 +58,8 @@
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
-        
+        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeaderAction)];
+        _tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshFooterAction)];
     }
     return _tableView;
 }
@@ -53,7 +73,9 @@
         UIButton *addBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [addBtn setTitle:@"增加收货地址" forState:UIControlStateNormal];
         addBtn.backgroundColor = APP_COLOR_GREEN;
+        [addBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        addBtn.tag = 101;
         addBtn.titleLabel.font = SYSTEMFONT(14);
         addBtn.frame = VIEWFRAME(15, 20, CommonWidth(335), 40);
         ViewRadius(addBtn, addBtn.frame.size.height/2);
@@ -66,7 +88,7 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 10;
+    return self.listData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -81,7 +103,7 @@
         cell = [[AddressManagerCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    [cell setModel:self.listData[indexPath.section]];
 //    if (indexPath.row % 2  == 0) {
 //        cell.backgroundColor =[UIColor greenColor];
 //    }
@@ -136,8 +158,29 @@
     
     return footer;
 }
+- (void)getDataByNetwork{
+    _weekSelf(weakSelf);
+    [BaseRequest getAddressWithPageNo:1 PageSize:5 order:nil succesBlock:^(id data) {
+        [weakSelf stopRefresh];
+        NSArray *models = [AddressModel modelsFromArray:data[@"receiverList"]];
+        [weakSelf handleModels:models total:0];
+    } failue:^(id data, NSError *error) {
+        [weakSelf stopRefresh];
+    }];
+}
 
 
+-(void)buttonAction:(UIButton *)sender{
+    switch (sender.tag) {
+        case 101:{
+            [self PushViewControllerByClassName:@"AddAddress" info:nil];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

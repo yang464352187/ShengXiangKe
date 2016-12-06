@@ -46,6 +46,7 @@ static const NSTimeInterval kRequestTimeoutInterval = 15; // 网络请求超时�
         _netManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/plain", @"text/javascript", @"text/json", @"text/html", nil];
         [_netManager.requestSerializer setValue:@"application/json;chartset=utf-8" forHTTPHeaderField:@"Content-Type"];
         [_netManager.requestSerializer setValue:@"XMLHttpRequest" forHTTPHeaderField:@"X-Requested-With"];
+        
     }
     return self;
 }
@@ -59,10 +60,10 @@ static const NSTimeInterval kRequestTimeoutInterval = 15; // 网络请求超时�
     if (!aPath || aPath.length <= 0) {
         return;
     }
-//    if ([LoginModel isLogin]) {
-//        [_netManager.requestSerializer setValue:[LoginModel curUserToken] forHTTPHeaderField:@"PHPSESSID"];
-//        //NSLog(@"已登录的请求头 %@",_netManager.requestSerializer.HTTPRequestHeaders);
-//    }
+    if ([LoginModel isLogin]) {
+        [_netManager.requestSerializer setValue:[LoginModel curUserToken] forHTTPHeaderField:@"PHPSESSID"];
+        //NSLog(@"已登录的请求头 %@",_netManager.requestSerializer.HTTPRequestHeaders);
+    }
     
     //打印请求数据
     DebugLog(@"\nDescribe:\n==============Request===============\n%@\n%@:\n%@\n\n\n", mNetworkTypeNames[networkType], aPath, describe(params));
@@ -160,6 +161,8 @@ static const NSTimeInterval kRequestTimeoutInterval = 15; // 网络请求超时�
     //开始监听
     [manager startMonitoring];
 }
+
+
 
 - (AFNetworkReachabilityStatus)getStatus{
     return self.status;

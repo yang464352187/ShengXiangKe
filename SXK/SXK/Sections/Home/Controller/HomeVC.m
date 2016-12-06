@@ -30,7 +30,7 @@
     [self.view addSubview:self.tableView];
 //    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 //    [userDefaults setBool:NO forKey:kLoginState];
-
+//
 }
 
 - (void)didReceiveMemoryWarning {

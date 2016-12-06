@@ -7,6 +7,7 @@
 //
 
 #import "ForgetVC.h"
+#import "NSTimer+Addtions.h"
 
 @interface ForgetVC ()
 
@@ -15,6 +16,11 @@
 @property (strong, nonatomic) CustomField *passWord;
 @property (strong, nonatomic) CustomField *rePassWord;
 @property (strong, nonatomic) CustomField *identifying;
+
+@property (strong, nonatomic)UIButton    *verifybtn;
+@property (assign, nonatomic) NSInteger   secs;
+@property (strong, nonatomic) NSTimer     *timer;
+
 
 @end
 
@@ -70,6 +76,7 @@
     [identify setTitleColor:APP_COLOR_GRAY_333333 forState:UIControlStateNormal];
     [identify addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     identify.titleLabel.font = [UIFont systemFontOfSize:16];
+    self.verifybtn = identify;
     
     UIButton *seeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     UIImage *image = [UIImage imageNamed:@"眼睛"];
@@ -130,7 +137,8 @@
                                            andPlaceholder:@"请输入验证码"
                                          andLeftViewImage:[UIImage imageNamed:@"验证码"]
                                           AndValidateType:validateTypePassWord];
-        
+        _identifying.clearButtonMode = UITextFieldViewModeNever;
+
         //        ViewBorderRadius(_passWord, 7, SINGLE_LINE_WIDTH, [UIColor grayColor]);
     }
     return _identifying;
@@ -150,7 +158,68 @@
 
 -(void)btnAction:(UIButton *)sender
 {
+    if (sender.tag == 101) {
+        if ([self.userName validate] && [self.passWord validate] && [self.rePassWord validate] && [self.identifying validate]) {
+            if (![self.passWord.text isEqualToString:self.rePassWord.text]) {
+                [ProgressHUDHandler showHudTipStr:@"两次密码不一致"];
+            }else if (self.identifying.text.length != 6){
+                [self.identifying becomeFirstResponder];
+                [ProgressHUDHandler showHudTipStr:@"请输入验证码"];
+            }else{
+                [ProgressHUDHandler showProgressHUD];
+                _weekSelf(weakSelf);
+                [BaseRequest resetPassWordWithmobile:self.userName.text
+                                            password:self.rePassWord.text
+                                              verify:self.identifying.text
+                                         succesBlock:^(id data) {
+                                             [ProgressHUDHandler dismissProgressHUD];
+                                             [ProgressHUDHandler showHudTipStr:@"重置成功"];
+                                             [weakSelf popGoBack];
+                                         } failue:^(id data, NSError *error) {
+                                             [ProgressHUDHandler dismissProgressHUD];
+                                         }];
+
+            }
+        }
+    }
+    
+    
+    if (sender.tag == 103) {
+        if ([self.userName validate]) {
+            [ProgressHUDHandler showProgressHUD];
+            [BaseRequest sendSmsWithmobile:self.userName.text succesBlock:^(id data) {
+                _weekSelf(weakSelf);
+                self.timer = [NSTimer sf_scheduledTimerWithTimeInterval:1.0 block:^{
+                    _strongSelf(self);
+                    [self timerAction];
+                } repeats:YES];
+                
+                _secs = 60;
+                [self.verifybtn setTitle:@"发送中(60s)" forState:UIControlStateNormal];
+                self.verifybtn.userInteractionEnabled = NO;
+                [ProgressHUDHandler dismissProgressHUD];
+            } failue:^(id data, NSError *error) {
+                [ProgressHUDHandler dismissProgressHUD];
+            }];
+        }
+
+    }
 }
+
+- (void)timerAction{
+    _secs -- ;
+    
+    if (_secs == 0) {
+        [self.verifybtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+        //        self.verifybtn.backgroundColor = APP_COLOR_BASE_YELLOW;
+        self.verifybtn.userInteractionEnabled = YES;
+        [self.timer invalidate];
+    }else{
+        [self.verifybtn setTitle:[NSString stringWithFormat:@"发送中(%2ds)",(int)_secs] forState:UIControlStateNormal];
+    }
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning {

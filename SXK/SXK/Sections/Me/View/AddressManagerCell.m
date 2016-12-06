@@ -7,6 +7,7 @@
 //
 
 #import "AddressManagerCell.h"
+#import "AddressModel.h"
 
 @implementation AddressManagerCell{
     UIButton *_selectBtn;
@@ -76,6 +77,15 @@
 
 -(void)selectAction:(UIButton *)sender
 {
+    
+}
+
+- (void)setModel:(id)model{
+    
+     AddressModel *_model = model;
+    _nameLab.text = _model.name;
+    _phoneLab.text = _model.mobile;
+    _addressLab.text = [NSString stringWithFormat:@"%@%@%@%@",_model.state,_model.city,_model.district,_model.address];
     
 }
 

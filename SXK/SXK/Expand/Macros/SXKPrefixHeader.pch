@@ -50,6 +50,7 @@
 #import "YTBaseVC.h"
 #import "JTNavigationController.h"
 #import "UIViewController+JTNavigationExtension.h"
+#import "BaseCell.h"
 
 //网络和API
 #import "PushManager.h"

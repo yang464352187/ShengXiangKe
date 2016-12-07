@@ -11,6 +11,7 @@
 @implementation NoDataView{
     UILabel *_titleLabel;
     UIImageView *_logo;
+    UIButton *_addBtn;
 }
 
 - (instancetype)initWithTitle:(NSString *)title{
@@ -27,19 +28,37 @@
                                             andFont:SYSTEMFONT(14)
                                    andTextAlignment:NSTextAlignmentCenter];
         
+        _addBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_addBtn setTitle:@"增加收货地址" forState:UIControlStateNormal];
+        _addBtn.backgroundColor = APP_COLOR_GREEN;
+        [_addBtn addTarget:self action:@selector(addBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _addBtn.tag = 1001;
+        _addBtn.titleLabel.font = SYSTEMFONT(14);
+        _addBtn.frame = VIEWFRAME(15, 20, SCREEN_WIDTH - 30, 40);
+        ViewRadius(_addBtn, _addBtn.frame.size.height/2);
+        
+        [self addSubview:_addBtn];
         [self addSubview:_logo];
         [self addSubview:_titleLabel];
         
         [_logo mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(110, 130));
+            make.size.mas_equalTo(CGSizeMake(55, 65));
             make.centerX.equalTo(self.mas_centerX);
-            make.centerY.equalTo(self.mas_centerY).offset(-75);
+            make.centerY.equalTo(self.mas_centerY).offset(-145);
         }];
         
         [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_offset(20);
             make.top.equalTo(_logo.mas_bottom).offset(20);
             make.centerX.equalTo(_logo.mas_centerX);
+        }];
+        
+        [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset(40);
+            make.top.equalTo(_titleLabel.mas_bottom).offset(100);
+            make.left.equalTo(self.mas_left).offset(15);
+            make.width.mas_offset(SCREEN_WIDTH - 30);
         }];
     }
     return self;
@@ -54,4 +73,10 @@
     _titleLabel.text = title;
 }
 
+-(void)addBtnAction:(UIButton *)sender
+{
+    NSDictionary *dic = @{@"title":@"添加地址"};
+
+    [[PushManager sharedManager] pushToVCWithClassName:@"AddAddress" info:dic];
+}
 @end

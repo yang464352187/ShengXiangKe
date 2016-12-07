@@ -460,10 +460,6 @@
     if (indexPath.row == 8) {
         [self PushViewControllerByClassName:@"SetVC" info:nil];
     }
-//    [BaseRequest addAddressWithname:@"杨伟康" phone:@"15659568279" state:@"福建省" city:@"厦门市" district:@"思明区" address:@"软件园二期" succesBlock:^(id data) {
-//    } failue:^(id data, NSError *error) {
-//        
-//    }];
 
     
 

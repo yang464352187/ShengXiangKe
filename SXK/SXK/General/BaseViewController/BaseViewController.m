@@ -199,17 +199,17 @@
         self.waitView.frame = frame;
     }
     [self.view bringSubviewToFront:self.waitView];
-    [self.loading startAnimating];
+//    [self.loading startAnimating];
 }
 
 /**
  *  结束加载界面
  */
 - (void)stopLoadingView{
-    [self.loading stopAnimating];
+//    [self.loading stopAnimating];
     [self.waitView removeFromSuperview];
     self.waitView = nil;
-    self.loading  = nil;
+//    self.loading  = nil;
     if (_failView) {
         [self.failView removeFromSuperview];
         self.failView = nil;
@@ -226,7 +226,7 @@
  *  请求失败时 出现的界面
  */
 - (void)showFailView{
-    [self.loading stopAnimating];
+//    [self.loading stopAnimating];
     if ([self.failView superview]) {
         [self.view bringSubviewToFront:self.failView];
     }else{
@@ -267,20 +267,20 @@
                                                andFont:SYSTEMFONT(15)
                                       andTextAlignment:NSTextAlignmentCenter];
         
-        [_waitView addSubview:self.loading];
+//        [_waitView addSubview:self.loading];
         [_waitView addSubview:label];
         
-        [self.loading mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(50, 50));
-            make.centerX.equalTo(_waitView.mas_centerX);
-            make.centerY.equalTo(_waitView.mas_centerY).offset(-75);
-        }];
-        
-        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_offset(20);
-            make.top.equalTo(_loading.mas_bottom).offset(5);
-            make.centerX.equalTo(_loading.mas_centerX);
-        }];
+//        [self.loading mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.size.mas_equalTo(CGSizeMake(50, 50));
+//            make.centerX.equalTo(_waitView.mas_centerX);
+//            make.centerY.equalTo(_waitView.mas_centerY).offset(-75);
+//        }];
+//        
+//        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.height.mas_offset(20);
+//            make.top.equalTo(_loading.mas_bottom).offset(5);
+//            make.centerX.equalTo(_loading.mas_centerX);
+//        }];
         
     }
     return _waitView;

@@ -58,5 +58,8 @@
 #define APPINTERFACE__AddAddress        @"/app/receiver/addpost"
 #define APPINTERFACE_SendMob            @"/app/sms/addpost"
 #define APPINTERFACE_ForgetUserPwd      @"/app/applogin/forgetpost"
-#define APPINTERFACE__GetAddressList    @"/app/receiver/listpost"                     
+#define APPINTERFACE__GetAddressList    @"/app/receiver/listpost"  
+#define APPINTERFACE__DelAddress        @"/app/receiver/delpost"
+#define APPINTERFACE__ChangeAddress     @"/app/receiver/setpost"
+
 #endif /* APPMacro_h */

@@ -117,5 +117,54 @@
                  succesBlock:(SuccessBlock)successBlock
                       failue:(FailureBlock)failueBlock;
 
+/**
+ *  删除收货地址
+ *
+ *  @param index        位置
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)deleteAddressWithindex:(NSNumber *)index
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+
+
+
+/**
+ *  添加收货地址
+ *
+ *  @param name         姓名
+ *  @param phone        电话
+ *  @param address      地址
+ *  @param state        省份
+ *  @param city         城市
+ *  @param district      区
+ *  @param index        地址标示
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++ (void)ChangeAddressWithname:(NSString *)name
+                        phone:(NSString *)phone
+                        state:(NSString *)state
+                         city:(NSString *)city
+                     district:(NSString *)district
+                      address:(NSString *)address
+                        index:(NSNumber *)index
+                  succesBlock:(SuccessBlock)successBlock
+                       failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  添加收货地址
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)ChangeAddressWithParams:(NSDictionary *)params
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
 
 @end

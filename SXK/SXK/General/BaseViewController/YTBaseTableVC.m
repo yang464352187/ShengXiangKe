@@ -20,7 +20,7 @@
     [super viewDidLoad];
     self.listData = [NSMutableArray array];
     self.pageNo = 1;
-    self.pageSize = 15;
+    self.pageSize = 10;
     //self.tableView = _tableView;
 }
 
@@ -35,7 +35,6 @@
     if ([self.tableView.header isRefreshing]) {
         [self.tableView.header endRefreshing];
     }
-    
     _pageNo ++;
     [self getDataByNetwork];
 }

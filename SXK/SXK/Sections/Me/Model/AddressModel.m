@@ -13,10 +13,10 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
              @"address"        :@"address",
-             @"city"       :@"city",
-             @"district"     :@"district",
+             @"city"            :@"city",
+             @"district"        :@"district",
              @"mobile"    :@"mobile",
-             @"name":@"name",
+             @"name":           @"name",
              @"receiverid":@"receiverid",
              @"state":@"state",
              @"userid":@"userid"

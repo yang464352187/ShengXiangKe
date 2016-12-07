@@ -19,6 +19,8 @@
 
 @property (nonatomic, strong)UIView *alertView2;
 
+@property (nonatomic, strong)UIView *alertView3;
+
 @property (nonatomic, strong)UILabel *titleLab;
 
 @property (nonatomic, strong)UILabel *titleLab1;
@@ -287,6 +289,10 @@
     [self.monthPick selectRow:5 inComponent:0 animated:NO];
     
     
+    
+    
+    
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
      
                                              selector:@selector(keyboardWasShown:)
@@ -309,7 +315,6 @@
     [appDelegate.window addSubview:self.alertView2];
     self.mainView = self.alertView2;
     self.backGroundView.alpha = 0.5;
-    
     
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
     

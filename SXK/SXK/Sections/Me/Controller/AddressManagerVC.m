@@ -9,12 +9,16 @@
 #import "AddressManagerVC.h"
 #import "AddressManagerCell.h"
 #import "AddressModel.h"
+#import "DeleteView.h"
 
-@interface AddressManagerVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface AddressManagerVC ()<UITableViewDataSource,UITableViewDelegate,DeleteAddressDelegate>
 
 
 @property (nonatomic, strong) UIView *footerView;
 
+@property (nonatomic, strong) DeleteView *delete;
+
+@property (nonatomic, assign) NSInteger index;
 @end
 
 @implementation AddressManagerVC
@@ -24,7 +28,9 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"常用地址";
     [self.view addSubview:self.tableView];
-    
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"您还没有添加收货地址哦～"];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -33,12 +39,14 @@
 }
 - (void)loadingRequest{
 //    [self startLoadingView:self.tableView.frame];
+    [self startLoadingView:self.tableView.frame];
     _weekSelf(weakSelf);
-    [BaseRequest getAddressWithPageNo:1 PageSize:10 order:nil succesBlock:^(id data) {
+    [BaseRequest getAddressWithPageNo:self.pageNo PageSize:self.pageSize order:nil succesBlock:^(id data) {
+        [weakSelf stopLoadingView];
         NSArray *models = [AddressModel modelsFromArray:data[@"receiverList"]];
-        [weakSelf handleModels:models total:0];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
     } failue:^(id data, NSError *error) {
-        
+        [weakSelf showFailView];
     }];
 
 }
@@ -75,7 +83,7 @@
         addBtn.backgroundColor = APP_COLOR_GREEN;
         [addBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        addBtn.tag = 101;
+        addBtn.tag = 1001;
         addBtn.titleLabel.font = SYSTEMFONT(14);
         addBtn.frame = VIEWFRAME(15, 20, CommonWidth(335), 40);
         ViewRadius(addBtn, addBtn.frame.size.height/2);
@@ -83,6 +91,15 @@
         [_footerView addSubview:addBtn];
     }
     return _footerView;
+}
+
+-(UIView *)delete
+{
+    if (!_delete) {
+        _delete = [[DeleteView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+        _delete.delegate = self;
+    }
+    return _delete;
 }
 
 #pragma mark -- UITabelViewDelegate And DataSource
@@ -96,7 +113,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",indexPath.section,indexPath.row];//不使用复用
+    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",indexPath.section,(long)indexPath.row];//不使用复用
     
     AddressManagerCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
@@ -143,6 +160,8 @@
     deleteBtn.frame = VIEWFRAME(SCREEN_WIDTH - 65, 11, 50, 15);
     deleteBtn.titleLabel.font = SYSTEMFONT(12);
     deleteBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
+    deleteBtn.tag = section+100;
+    [deleteBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [deleteBtn setTintColor:[UIColor blackColor]];
     
     UIButton *editBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -151,6 +170,8 @@
     editBtn.frame = VIEWFRAME(SCREEN_WIDTH - 130, 11, 50, 15);
     editBtn.titleLabel.font = SYSTEMFONT(12);
     editBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
+    editBtn.tag = section + 500;
+    [editBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [editBtn setTintColor:[UIColor blackColor]];
     
     [footer addSubview: deleteBtn];
@@ -160,10 +181,10 @@
 }
 - (void)getDataByNetwork{
     _weekSelf(weakSelf);
-    [BaseRequest getAddressWithPageNo:1 PageSize:5 order:nil succesBlock:^(id data) {
+    [BaseRequest getAddressWithPageNo:self.pageNo PageSize:self.pageSize order:nil succesBlock:^(id data) {
         [weakSelf stopRefresh];
         NSArray *models = [AddressModel modelsFromArray:data[@"receiverList"]];
-        [weakSelf handleModels:models total:0];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
     } failue:^(id data, NSError *error) {
         [weakSelf stopRefresh];
     }];
@@ -171,16 +192,40 @@
 
 
 -(void)buttonAction:(UIButton *)sender{
-    switch (sender.tag) {
-        case 101:{
-            [self PushViewControllerByClassName:@"AddAddress" info:nil];
-            break;
-        }
-            
-        default:
-            break;
+
+    
+    if (sender.tag == 1001) {
+        NSDictionary *dic = @{@"title":@"添加地址"};
+         [self PushViewControllerByClassName:@"AddAddress" info:dic];
+    }
+    if (sender.tag < 500) {
+        [self.delete show];
+        self.index = sender.tag - 100;
+    }
+    if (sender.tag >= 500 && sender.tag < 1001) {
+        self.index = sender.tag - 500;
+        AddressModel *model = self.listData[self.index];
+        NSDictionary *dic = @{@"title":@"修改地址",@"model":model};
+        [self PushViewControllerByClassName:@"AddAddress" info:dic];
     }
 }
+
+-(void)deleteAddress
+{
+    AddressModel *model  = self.listData[self.index];
+    
+    _weekSelf(weakSelf);
+    [BaseRequest deleteAddressWithindex:model.receiverid succesBlock:^(id data) {
+        [weakSelf getDataByNetwork];
+//        [weakSelf.listData removeObjectAtIndex:self.index];
+//        [weakSelf.tableView reloadData];
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

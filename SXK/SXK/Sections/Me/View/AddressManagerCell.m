@@ -47,13 +47,13 @@
     [_selectBtn setTintColor:[UIColor whiteColor]];
     _selectBtn.frame = VIEWFRAME(17.5,36, 18, 18);
     
-    _nameLab = [UILabel createLabelWithFrame:VIEWFRAME(56, 15, 100, 14)                                                 andText:@"好肥一只鱼"
+    _nameLab = [UILabel createLabelWithFrame:VIEWFRAME(56, 14, 100, 16)                                                 andText:@"好肥一只鱼"
                               andTextColor:[UIColor blackColor]
                                 andBgColor:[UIColor clearColor]
                                    andFont:SYSTEMFONT(14)
                           andTextAlignment:NSTextAlignmentLeft];
 
-    _phoneLab = [UILabel createLabelWithFrame:VIEWFRAME(156, 15, 100, 14)                                                 andText:@"18659847929"
+    _phoneLab = [UILabel createLabelWithFrame:VIEWFRAME(156, 14, 100, 16)                                                 andText:@"18659847929"
                                 andTextColor:[UIColor blackColor]
                                   andBgColor:[UIColor clearColor]
                                      andFont:SYSTEMFONT(14)
@@ -86,7 +86,7 @@
     _nameLab.text = _model.name;
     _phoneLab.text = _model.mobile;
     _addressLab.text = [NSString stringWithFormat:@"%@%@%@%@",_model.state,_model.city,_model.district,_model.address];
-    
+//    NSLog(@"%lf",[_model.receiverid floatValue]);
 }
 
 @end

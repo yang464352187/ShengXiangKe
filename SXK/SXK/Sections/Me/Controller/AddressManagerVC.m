@@ -213,7 +213,6 @@
 -(void)deleteAddress
 {
     AddressModel *model  = self.listData[self.index];
-    
     _weekSelf(weakSelf);
     [BaseRequest deleteAddressWithindex:model.receiverid succesBlock:^(id data) {
         [weakSelf getDataByNetwork];

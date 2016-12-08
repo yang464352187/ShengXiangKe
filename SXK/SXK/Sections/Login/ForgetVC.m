@@ -178,7 +178,6 @@
                                          } failue:^(id data, NSError *error) {
                                              [ProgressHUDHandler dismissProgressHUD];
                                          }];
-
             }
         }
     }
@@ -193,7 +192,6 @@
                     _strongSelf(self);
                     [self timerAction];
                 } repeats:YES];
-                
                 _secs = 60;
                 [self.verifybtn setTitle:@"发送中(60s)" forState:UIControlStateNormal];
                 self.verifybtn.userInteractionEnabled = NO;
@@ -202,13 +200,11 @@
                 [ProgressHUDHandler dismissProgressHUD];
             }];
         }
-
     }
 }
 
 - (void)timerAction{
     _secs -- ;
-    
     if (_secs == 0) {
         [self.verifybtn setTitle:@"发送验证码" forState:UIControlStateNormal];
         //        self.verifybtn.backgroundColor = APP_COLOR_BASE_YELLOW;
@@ -217,7 +213,6 @@
     }else{
         [self.verifybtn setTitle:[NSString stringWithFormat:@"发送中(%2ds)",(int)_secs] forState:UIControlStateNormal];
     }
-    
 }
 
 

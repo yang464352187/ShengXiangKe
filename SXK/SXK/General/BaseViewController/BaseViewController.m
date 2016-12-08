@@ -199,17 +199,17 @@
         self.waitView.frame = frame;
     }
     [self.view bringSubviewToFront:self.waitView];
-//    [self.loading startAnimating];
+    [self.loading startAnimating];
 }
 
 /**
  *  结束加载界面
  */
 - (void)stopLoadingView{
-//    [self.loading stopAnimating];
+    [self.loading stopAnimating];
     [self.waitView removeFromSuperview];
     self.waitView = nil;
-//    self.loading  = nil;
+    self.loading  = nil;
     if (_failView) {
         [self.failView removeFromSuperview];
         self.failView = nil;
@@ -261,26 +261,26 @@
         _waitView = [[UIView alloc] init];
         _waitView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         UILabel *label = [UILabel createLabelWithFrame:VIEWFRAME(0, 25, SCREEN_WIDTH, 25)
-                                               andText:@"正在加载..."
+                                               andText:@"正在努力加载中..."
                                           andTextColor:APP_COLOR_GRAY_333333
                                             andBgColor:[UIColor clearColor]
                                                andFont:SYSTEMFONT(15)
                                       andTextAlignment:NSTextAlignmentCenter];
-        
-//        [_waitView addSubview:self.loading];
+//        _waitView.alpha=0;
+        [_waitView addSubview:self.loading];
         [_waitView addSubview:label];
         
-//        [self.loading mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.size.mas_equalTo(CGSizeMake(50, 50));
-//            make.centerX.equalTo(_waitView.mas_centerX);
-//            make.centerY.equalTo(_waitView.mas_centerY).offset(-75);
-//        }];
-//        
-//        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.height.mas_offset(20);
-//            make.top.equalTo(_loading.mas_bottom).offset(5);
-//            make.centerX.equalTo(_loading.mas_centerX);
-//        }];
+        [self.loading mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(100, 100));
+            make.centerX.equalTo(_waitView.mas_centerX);
+            make.centerY.equalTo(_waitView.mas_centerY).offset(-75);
+        }];
+        
+        [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_offset(20);
+            make.top.equalTo(_loading.mas_bottom).offset(5);
+            make.centerX.equalTo(_loading.mas_centerX);
+        }];
         
     }
     return _waitView;
@@ -304,7 +304,7 @@
         request.titleLabel.font = SYSTEMFONT(15);
         [request setTitle:@"重新加载" forState:UIControlStateNormal];
         [request setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [request setBackgroundColor:APP_COLOR_BASE_YELLOW];
+        [request setBackgroundColor:APP_COLOR_GREEN];
         [request addTarget:self action:@selector(loadingRequest) forControlEvents:UIControlEventTouchUpInside];
         ViewRadius(request, 7);
         
@@ -313,7 +313,7 @@
         [_failView addSubview:label];
         
         [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(100, 100*421/460.0));
+            make.size.mas_equalTo(CGSizeMake(55, 65));
             make.centerX.equalTo(_failView.mas_centerX);
             make.centerY.equalTo(_failView.mas_centerY).offset(-100);
         }];
@@ -339,12 +339,12 @@
     if (!_loading) {
         _loading = [[UIImageView alloc] init];
         NSMutableArray *refreshingImages = [NSMutableArray array];
-        for (NSUInteger i = 1; i<=3; i++) {
-            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"dropdown_loading_0%zd", i]];
+        for (NSUInteger i = 0; i<=7; i++) {
+            UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"Sources4_0%zd", i]];
             [refreshingImages addObject:image];
         }
         _loading.animationImages = refreshingImages;
-        _loading.animationDuration = 0.22;
+        _loading.animationDuration = 1;
 
     }
     return _loading;

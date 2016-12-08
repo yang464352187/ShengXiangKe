@@ -1,9 +1,9 @@
 //
 //  UILabel+Handy.m
-//  PaperSource
+//  SXK
 //
-//  Created by Yhoon on 15/10/21.
-//  Copyright © 2015年 yhoon. All rights reserved.
+//  Created by 杨伟康 on 2016/11/24.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
 
 #import "UILabel+Handy.h"

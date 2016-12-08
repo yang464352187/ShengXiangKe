@@ -1,9 +1,9 @@
 //
 //  UIView+Extension.h
-//  SinaWeibo
+//  SXK
 //
-//  Created by chensir on 15/10/13.
-//  Copyright (c) 2015年 ZT. All rights reserved.
+//  Created by 杨伟康 on 2016/11/24.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

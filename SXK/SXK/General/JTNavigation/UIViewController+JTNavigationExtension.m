@@ -1,10 +1,11 @@
 //
 //  UIViewController+JTNavigationExtension.m
-//  JTNavigationController
+//  SXK
 //
-//  Created by Tian on 16/2/17.
-//  Copyright © 2016年 JiananTian. All rights reserved.
+//  Created by 杨伟康 on 2016/11/24.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
+
 
 #import "UIViewController+JTNavigationExtension.h"
 #import <objc/runtime.h>

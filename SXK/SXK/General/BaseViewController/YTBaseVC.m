@@ -1,9 +1,9 @@
 //
 //  YTBaseVC.m
-//  YunTShop
+//  SXK
 //
-//  Created by sfgod on 16/3/31.
-//  Copyright © 2016年 sufan. All rights reserved.
+//  Created by 杨伟康 on 2016/11/24.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
 
 #import "YTBaseVC.h"

@@ -39,10 +39,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    
-    
-    
     [self initVCS];
       images = [NSMutableArray array];
     titles = [NSMutableArray arrayWithObjects:@"发布",@"养护",@"鉴定", nil];

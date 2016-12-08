@@ -1,9 +1,9 @@
 //
 //  UIColor+Extend.m
-//  Wifi
+//  SXK
 //
-//  Created by muxi on 14/11/19.
-//  Copyright (c) 2014年 muxi. All rights reserved.
+//  Created by 杨伟康 on 2016/11/24.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
 
 #import "UIColor+Extend.h"

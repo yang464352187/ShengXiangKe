@@ -1,9 +1,9 @@
 //
 //  BaseModel.h
-//  YuanChenKeeper
+//  SXK
 //
-//  Created by Yhoon on 16/1/27.
-//  Copyright © 2016年 com.Qingye.YuanChenKeeper. All rights reserved.
+//  Created by 杨伟康 on 2016/11/24.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
 
 #import <Mantle/Mantle.h>

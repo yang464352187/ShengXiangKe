@@ -1,9 +1,9 @@
 //
 //  UIBarButtonItem+Extension.m
-//  SinaWeibo
+//  SXK
 //
-//  Created by user on 15/10/14.
-//  Copyright © 2015年 ZT. All rights reserved.
+//  Created by 杨伟康 on 2016/11/24.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
 
 #import "UIBarButtonItem+Extension.h"

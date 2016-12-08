@@ -1,9 +1,9 @@
 //
 //  JTNavigationController.h
-//  JTNavigationController
+//  SXK
 //
-//  Created by Tian on 16/1/23.
-//  Copyright © 2016年 TianJiaNan. All rights reserved.
+//  Created by 杨伟康 on 2016/11/24.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

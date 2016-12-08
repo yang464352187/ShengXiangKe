@@ -196,11 +196,9 @@
                  succesBlock:(SuccessBlock)successBlock
                       failue:(FailureBlock)failueBlock;{
     
-    NSNumber *i = [NSNumber numberWithInteger:pageNo];
-    NSNumber *j = [NSNumber numberWithInteger:pageSize];
-    NSDictionary *dic = @{@"receiverid":@1};
-    NSDictionary *params = @{@"pageNo":i,
-                             @"pageSize":j,
+    NSDictionary *dic = @{@"receiverid":@-1};
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
                              @"order":dic};
     
     [self requestPostCommonWithPath:APPINTERFACE__GetAddressList Params:params succesBlock:^(id data) {
@@ -297,6 +295,67 @@
 
 }
 
+
+/**
+ *  获取全部品牌
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetBrandListWithPageNo:(NSInteger)pageNo
+                      PageSize:(NSInteger)pageSize
+                         order:(NSInteger)order
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock
+{
+    
+    NSDictionary *dic = @{
+                          @"name":@(order)
+                        };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic};
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetBrandlist Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+/**
+ *  获取热门品牌
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetBrandHotListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"sort":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic};
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetBrandHotlist Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
 
 
 @end

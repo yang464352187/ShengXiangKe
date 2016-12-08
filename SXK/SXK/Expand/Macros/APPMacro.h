@@ -61,5 +61,8 @@
 #define APPINTERFACE__GetAddressList    @"/app/receiver/listpost"  
 #define APPINTERFACE__DelAddress        @"/app/receiver/delpost"
 #define APPINTERFACE__ChangeAddress     @"/app/receiver/setpost"
+#define APPINTERFACE__GetBrandlist      @"/app/brand/listpost"
+#define APPINTERFACE__GetBrandHotlist   @"/app/brandhot/listpost"
+
 
 #endif /* APPMacro_h */

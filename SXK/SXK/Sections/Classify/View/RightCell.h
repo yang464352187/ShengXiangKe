@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RightCell : UITableViewCell
+@interface RightCell : BaseCell
 
+
+-(void)isNone;
 @end

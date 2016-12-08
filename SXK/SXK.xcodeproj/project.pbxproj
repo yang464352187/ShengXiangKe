@@ -8,11 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		7F55C71C3467914DCE5D65D7 /* libPods-SXK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEF36623432472EDA20ED53 /* libPods-SXK.a */; };
+		AD0B5D981DF92E7300ACA080 /* BrandHotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0B5D971DF92E7300ACA080 /* BrandHotModel.m */; };
 		AD195C0A1DF171E70090715D /* PersonalSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD195C091DF171E70090715D /* PersonalSummaryVC.m */; };
 		AD1B92611DEEBDD400B1A92E /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92601DEEBDD400B1A92E /* SetVC.m */; };
 		AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */; };
 		AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92661DEECB8C00B1A92E /* CommonCell.m */; };
 		AD1F7EED1DEFD12E007BB3DC /* PopView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1F7EEC1DEFD12E007BB3DC /* PopView.m */; };
+		AD207DE91DF90C9A00E8E331 /* BrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD207DE81DF90C9A00E8E331 /* BrandModel.m */; };
 		AD2558921DE7D7B800E34CF7 /* LeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558911DE7D7B800E34CF7 /* LeftCell.m */; };
 		AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558991DE802A500E34CF7 /* RightCell.m */; };
 		AD2558A61DE8100E00E34CF7 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558A41DE8100E00E34CF7 /* ClassCollectionViewCell.m */; };
@@ -182,6 +184,8 @@
 		0DEF36623432472EDA20ED53 /* libPods-SXK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SXK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EAC5BC4BDD7C045C7BE1066 /* Pods-SXK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.debug.xcconfig"; sourceTree = "<group>"; };
 		A5C516769DD62A7AC259CF26 /* Pods-SXK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.release.xcconfig"; sourceTree = "<group>"; };
+		AD0B5D961DF92E7300ACA080 /* BrandHotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandHotModel.h; sourceTree = "<group>"; };
+		AD0B5D971DF92E7300ACA080 /* BrandHotModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandHotModel.m; sourceTree = "<group>"; };
 		AD195C081DF171E70090715D /* PersonalSummaryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalSummaryVC.h; sourceTree = "<group>"; };
 		AD195C091DF171E70090715D /* PersonalSummaryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalSummaryVC.m; sourceTree = "<group>"; };
 		AD1B925F1DEEBDD400B1A92E /* SetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetVC.h; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 		AD1B92661DEECB8C00B1A92E /* CommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCell.m; sourceTree = "<group>"; };
 		AD1F7EEB1DEFD12E007BB3DC /* PopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopView.h; sourceTree = "<group>"; };
 		AD1F7EEC1DEFD12E007BB3DC /* PopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopView.m; sourceTree = "<group>"; };
+		AD207DE71DF90C9A00E8E331 /* BrandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandModel.h; sourceTree = "<group>"; };
+		AD207DE81DF90C9A00E8E331 /* BrandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandModel.m; sourceTree = "<group>"; };
 		AD2558901DE7D7B800E34CF7 /* LeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftCell.h; sourceTree = "<group>"; };
 		AD2558911DE7D7B800E34CF7 /* LeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftCell.m; sourceTree = "<group>"; };
 		AD2558981DE802A500E34CF7 /* RightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightCell.h; sourceTree = "<group>"; };
@@ -965,6 +971,10 @@
 		ADB99CC11DD5BA2500EC1DAD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AD207DE71DF90C9A00E8E331 /* BrandModel.h */,
+				AD207DE81DF90C9A00E8E331 /* BrandModel.m */,
+				AD0B5D961DF92E7300ACA080 /* BrandHotModel.h */,
+				AD0B5D971DF92E7300ACA080 /* BrandHotModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1506,6 +1516,7 @@
 				AD65A5F41DE43E7C002C6364 /* WSImagePickerView.m in Sources */,
 				AD65A5C51DE3EA8C002C6364 /* FEPlaceHolderTextView.m in Sources */,
 				ADC07F791DE53D6900B665CC /* BrandCell.m in Sources */,
+				AD207DE91DF90C9A00E8E331 /* BrandModel.m in Sources */,
 				AD67359E1DF52B7200B8D2FB /* Constant.m in Sources */,
 				AD269CD61DF5D558002E47F2 /* AddressModel.m in Sources */,
 				ADC07F881DE5627E00B665CC /* SecondCommonVC.m in Sources */,
@@ -1530,6 +1541,7 @@
 				AD40A3111DDDB4ED006C5576 /* LoginBtn.m in Sources */,
 				ADB99CB51DD5853900EC1DAD /* BaseRequest.m in Sources */,
 				AD2558AF1DE8516E00E34CF7 /* ClassifyCollectionHeader.m in Sources */,
+				AD0B5D981DF92E7300ACA080 /* BrandHotModel.m in Sources */,
 				ADBF3DFF1DF6A38F00A287A8 /* ProvinceModel.m in Sources */,
 				AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */,
 				AD195C0A1DF171E70090715D /* PersonalSummaryVC.m in Sources */,

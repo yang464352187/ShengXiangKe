@@ -167,4 +167,36 @@
                    succesBlock:(SuccessBlock)successBlock
                         failue:(FailureBlock)failueBlock;
 
+
+
+/**
+ *  获取所有品牌
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetBrandListWithPageNo:(NSInteger)pageNo
+                    PageSize:(NSInteger)pageSize
+                       order:(NSInteger)order
+                 succesBlock:(SuccessBlock)successBlock
+                      failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  获取热门品牌
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetBrandHotListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+
+
 @end

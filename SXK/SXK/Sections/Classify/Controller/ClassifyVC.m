@@ -13,20 +13,50 @@
 #import "BATableView.h"
 #import "ClassifyCollectionHeader.h"
 #import "ClassifyCollectionFooter.h"
+#import "BrandModel.h"
+#import "BrandHotModel.h"
 
 
 @interface ClassifyVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,BATableViewDelegate>
 
 @property (nonatomic, strong)NSMutableArray *dataArr;
+@property (nonatomic, strong)NSArray *BrandHotArr;
 @property (nonatomic, strong)UITableView *selectView;
 @property (nonatomic, strong) UIView *headView;
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property (nonatomic, strong)UICollectionView *listCollectionView;
 @property (nonatomic, strong) BATableView *contactTableView;
+@property (nonatomic, strong)NSMutableDictionary *BrandDic;
+
 
 @end
 
 @implementation ClassifyVC
+
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadingRequest];
+}
+
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf);
+    [BaseRequest GetBrandListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
+        NSArray *models = [BrandModel modelsFromArray:data[@"brandList"]];
+        [weakSelf handleModels:models];
+    } failue:^(id data, NSError *error) {
+    }];
+    
+    [BaseRequest GetBrandHotListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
+        NSArray *models = [BrandHotModel modelsFromArray:data[@"hotList"]];
+        weakSelf.BrandHotArr = models;
+//        [weakSelf.collectionView reloadData];
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,23 +65,27 @@
     self.navigationItem.title = @"分类";
     [self loadData];
     [self initUI];
+    
+//    [BaseRequest GetBrandListWithPageNo:0 PageSize:0 order:nil succesBlock:^(id data) {
+//        
+//        NSLog(@"data %@",data);
+//    } failue:^(id data, NSError *error) {
+//        
+//    }];
+    
+    
+    
     //2c2b30
 }
 
 -(void)loadData
 {
+    self.BrandDic = [[NSMutableDictionary alloc] init];
+    for (int i = 0; i < 26; i++) {
+        NSMutableArray *array = [NSMutableArray new];
+        [self.BrandDic setObject:array forKey:[NSString stringWithFormat:@"%c", 65+i]];
+    }
     self.dataArr = [[NSMutableArray alloc] initWithObjects:@"品牌",@"包袋",@"腕表" ,nil];
-//    self.dataArray = [NSMutableArray array];
-//    for (int i = 0; i < 26; i++) {
-//        //         循环段数据
-//        NSMutableArray *sectionArr = [NSMutableArray array];
-//        for (int j = 0; j < 5; j++) {
-//            //            循环行数据
-//            NSString *rowStr = [NSString stringWithFormat:@"第%d段，%d行", i, j];
-//            [sectionArr addObject:rowStr];
-//        }
-//        [self.dataArray addObject:sectionArr];
-//    }
 
 }
 
@@ -84,20 +118,39 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView == _contactTableView.tableView) {
-        return 5;
+        
+        if (section > 0) {
+            NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+section-1]];
+            if (array.count == 0) {
+                return 1;
+            }
+            else{
+                return array.count;
+            }
+        }
+        return 1;
     }
     return 13;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _contactTableView.tableView) {
-            RightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"rightCell"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
+        
+        RightCell *cell = [tableView dequeueReusableCellWithIdentifier:@"rightCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        if (indexPath.section > 0) {
+            NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+indexPath.section-1]];
+            if (array.count > 0) {
+                [cell setModel:array[indexPath.row]];
+                return cell;
+            }
+        }
+        [cell isNone];
+        return cell;
     
     }
 
-    
     LeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftCell"];
     cell.backgroundColor = [UIColor colorWithHexColorString:@"eeeeee"];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
@@ -166,6 +219,8 @@
         [self.contactTableView removeFromSuperview];
         [self.view addSubview: self.listCollectionView];
     }
+    
+
 
 }
 
@@ -387,6 +442,24 @@
     
     return titles;
 }
+
+-(void)handleModels:(NSArray *)models
+{
+    
+    for (BrandModel * model in models) {
+        NSString *firstChar = [model.name substringToIndex:1];
+        for (int i = 0; i < 26; i++) {
+            if ([firstChar isEqualToString:[NSString stringWithFormat:@"%c", 65+i]]) {
+                NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+i]];
+                [array addObject:model];
+                [self.BrandDic setObject:array forKey:[NSString stringWithFormat:@"%c", 65+i]];
+            }
+        }
+    }
+    [self.contactTableView.tableView reloadData];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

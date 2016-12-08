@@ -137,22 +137,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SXK/Sections/Classify/Controller/ClassifyVC.m"
-            timestampString = "502042007.05571"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "-tableView:numberOfRowsInSection:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SXK/Sections/Me/View/PopView.m"
             timestampString = "502767050.941752"
             startingColumnNumber = "9223372036854775807"
@@ -186,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SXK/APIManager/Network/BaseRequest.m"
-            timestampString = "502649309.573062"
+            timestampString = "502856894.759939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "+getAddressWithPageNo:PageSize:order:succesBlock:failue:"
             landmarkType = "7">
          </BreakpointContent>

@@ -7,6 +7,7 @@
 //
 
 #import "RightCell.h"
+#import "BrandModel.h"
 
 @implementation RightCell{
     UILabel *_title;
@@ -29,7 +30,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
   
         
-        _title = [UILabel createLabelWithFrame:VIEWFRAME(16, 0, SCREEN_WIDTH- CommonWidth(72)-5, CommonHight(51.5))                                                 andText:@"A.Lange&Shone/朗格"
+        _title = [UILabel createLabelWithFrame:VIEWFRAME(16, 0, SCREEN_WIDTH- CommonWidth(72)-5, CommonHight(51.5))                                                 andText:@"暂未收录相关品牌"
                                   andTextColor:[UIColor blackColor]
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(14)
@@ -43,6 +44,17 @@
         [self addSubview:_title];
     }
     return  self;
+}
+
+-(void)setModel:(id)model
+{
+    BrandModel *_model = model;
+    _title.text = _model.name;
+}
+
+-(void)isNone
+{
+    _title.text = @"暂未收录相关品牌";
 }
 
 @end

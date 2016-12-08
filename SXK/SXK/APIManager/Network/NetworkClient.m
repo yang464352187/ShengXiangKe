@@ -74,7 +74,8 @@ static const NSTimeInterval kRequestTimeoutInterval = 15; // 网络请求超时�
             [_netManager GET:aPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
                 DebugLog(@"\nDescribe\n==============Response==============\n%@:\n%@\n\n\n", aPath, responseObject);
-
+                
+                
                 id error = [NetworkErrorHandler handleResponse:responseObject autoShowError:autoShowError];
                 
                 if (error) {
@@ -95,7 +96,8 @@ static const NSTimeInterval kRequestTimeoutInterval = 15; // 网络请求超时�
             [_netManager POST:aPath parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
                 DebugLog(@"\nDescribe:\n==============Response Success==============\n%@:\n%@\n\n\n", aPath, describe(responseObject));
-
+                
+//                NSLog(@"%@",responseObject);
                 id error = [NetworkErrorHandler handleResponse:responseObject autoShowError:autoShowError];
                 
                 if (error) {

@@ -7,7 +7,7 @@
 //
 
 #import "LeftCell.h"
-
+#import "CategoryListModel.h"
 
 @implementation LeftCell{
     UILabel *_title;
@@ -44,6 +44,17 @@
         }];
     }
     return  self;
+}
+
+-(void)setModel:(id)model
+{
+    CategoryListModel *_model = model;
+    _title.text = _model.name;
+}
+
+-(void)fillTitle
+{
+    _title.text = @"品牌";
 }
 
 @end

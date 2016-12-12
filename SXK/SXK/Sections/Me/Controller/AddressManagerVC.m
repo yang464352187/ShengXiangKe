@@ -113,7 +113,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",indexPath.section,(long)indexPath.row];//不使用复用
+    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",(long)indexPath.section,(long)indexPath.row];//不使用复用
     
     AddressManagerCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {

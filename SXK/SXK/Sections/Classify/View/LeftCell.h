@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LeftCell : UITableViewCell
+@interface LeftCell : BaseCell
 
+
+-(void)fillTitle;
 @end

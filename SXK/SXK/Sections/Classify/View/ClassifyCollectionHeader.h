@@ -10,4 +10,6 @@
 
 @interface ClassifyCollectionHeader : UICollectionReusableView
 
+
+-(void)changeTitle:(NSString *)title andImg:(NSString *)image;
 @end

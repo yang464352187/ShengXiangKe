@@ -15,6 +15,8 @@
 #import "ClassifyCollectionFooter.h"
 #import "BrandModel.h"
 #import "BrandHotModel.h"
+#import "CategoryListModel.h"
+#import "CategoryViewCell.h"
 
 
 @interface ClassifyVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,BATableViewDelegate>
@@ -22,12 +24,16 @@
 @property (nonatomic, strong)NSMutableArray *dataArr;
 @property (nonatomic, strong)NSArray *BrandHotArr;
 @property (nonatomic, strong)UITableView *selectView;
-@property (nonatomic, strong) UIView *headView;
+@property (nonatomic, strong)UIView *headView;
 @property (nonatomic, strong)UICollectionView *collectionView;
 @property (nonatomic, strong)UICollectionView *listCollectionView;
-@property (nonatomic, strong) BATableView *contactTableView;
+@property (nonatomic, strong)BATableView *contactTableView;
 @property (nonatomic, strong)NSMutableDictionary *BrandDic;
-
+@property (nonatomic, strong)NSArray *CategoryListArr;
+@property (nonatomic, strong)LeftCell *firstCell;
+@property (nonatomic, assign)NSInteger isSelect;
+@property (nonatomic, strong)NSString *collectionHeaderImg;
+@property (nonatomic, strong)NSArray *CategoryArr;
 
 @end
 
@@ -36,11 +42,11 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadingRequest];
 }
 
 -(void)loadingRequest
 {
+
     _weekSelf(weakSelf);
     [BaseRequest GetBrandListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
         NSArray *models = [BrandModel modelsFromArray:data[@"brandList"]];
@@ -51,36 +57,67 @@
     [BaseRequest GetBrandHotListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
         NSArray *models = [BrandHotModel modelsFromArray:data[@"hotList"]];
         weakSelf.BrandHotArr = models;
-//        [weakSelf.collectionView reloadData];
+        [weakSelf changeFrame];
+        [weakSelf.collectionView reloadData];
+        [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:0 succesBlock:^(id data) {
+            NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
+            weakSelf.CategoryListArr = models;
+            [weakSelf.tableView reloadData];
+            [weakSelf stopLoadingView];
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
     } failue:^(id data, NSError *error) {
-        
+    }];
+
+    
+}
+
+
+-(void)loadCategoryData:(CategoryListModel *)model
+{
+    _weekSelf(weakSelf);
+    self.collectionHeaderImg = model.img;
+    [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:[model.categoryid integerValue] succesBlock:^(id data) {
+        NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
+        weakSelf.CategoryArr = models;
+        [weakSelf.listCollectionView reloadData];
+    } failue:^(id data, NSError *error) {
     }];
 
 }
 
+-(void)changeFrame
+{
+    NSInteger count = 0;
+    if (self.BrandHotArr.count % 3 == 0) {
+        count = self.BrandHotArr.count / 3;
+    }else{
+        count = self.BrandHotArr.count / 3 + 1;
+    }
+    CGRect frame = self.collectionView.frame;
+    frame.size.height = (CommonHight(60) + CommonWidth(7)) * count + 70;
+    self.collectionView.frame = frame;
+    self.headView.frame = frame;
+    self.contactTableView.tableView.tableHeaderView = self.headView;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.view.backgroundColor = [UIColor greenColor];
     self.navigationItem.title = @"分类";
     [self loadData];
+    [self loadingRequest];
     [self initUI];
-    
-//    [BaseRequest GetBrandListWithPageNo:0 PageSize:0 order:nil succesBlock:^(id data) {
-//        
-//        NSLog(@"data %@",data);
-//    } failue:^(id data, NSError *error) {
-//        
-//    }];
-    
-    
-    
-    //2c2b30
+    [self startLoadingView:self.view.frame];
+
 }
 
 -(void)loadData
 {
     self.BrandDic = [[NSMutableDictionary alloc] init];
+
     for (int i = 0; i < 26; i++) {
         NSMutableArray *array = [NSMutableArray new];
         [self.BrandDic setObject:array forKey:[NSString stringWithFormat:@"%c", 65+i]];
@@ -130,7 +167,8 @@
         }
         return 1;
     }
-    return 13;
+    
+    return self.CategoryListArr.count+1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -152,7 +190,16 @@
     }
 
     LeftCell *cell = [tableView dequeueReusableCellWithIdentifier:@"leftCell"];
-    cell.backgroundColor = [UIColor colorWithHexColorString:@"eeeeee"];
+    if (indexPath.row < 1) {
+        self.firstCell = cell;
+        [cell fillTitle];
+        
+        cell.backgroundColor = [UIColor whiteColor];
+    }else{
+        [cell setModel:self.CategoryListArr[indexPath.row-1]];
+        cell.backgroundColor = [UIColor colorWithHexColorString:@"eeeeee"];
+
+    }
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
     cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
     return cell;
@@ -177,7 +224,6 @@
         }
         return CommonHight(52);
     }
-
     return 0.00001;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -191,7 +237,6 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     if (tableView == _contactTableView.tableView && section != 0) {
         view.backgroundColor = [UIColor whiteColor];
-        
         UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(16,0 ,  SCREEN_WIDTH- CommonWidth(72)-5, CommonHight(51.5))
                                                andText:[NSString stringWithFormat:@"%c", (int)(section + 64)]
                                           andTextColor:[UIColor blackColor]
@@ -200,10 +245,9 @@
                                       andTextAlignment:NSTextAlignmentLeft];
         UIView *line = [[UIView alloc] initWithFrame:VIEWFRAME(0, CommonHight(52)-0.5, SCREEN_WIDTH, 0.5)];
         line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
-        
+    
         [view addSubview:title];
         [view addSubview:line];
-
     }
   
     return view;
@@ -215,9 +259,14 @@
     if (indexPath.row == 0) {
         [self.listCollectionView removeFromSuperview];
         [self.view addSubview:self.contactTableView];
+
     }else{
+        self.firstCell.backgroundColor = [UIColor colorWithHexColorString:@"eeeeee"];
+        CategoryListModel *model = self.CategoryListArr[indexPath.row - 1];
+        [self loadCategoryData:model];
         [self.contactTableView removeFromSuperview];
         [self.view addSubview: self.listCollectionView];
+        
     }
     
 
@@ -242,21 +291,45 @@
             return 1;
         }
         if (section == 1) {
-            return 9;
+            return self.BrandHotArr.count;
         }
         if (section == 2) {
-            return 15;
+            return self.CategoryArr.count;
         }
         return 3;
     }
     
-    return 15;
+    return self.BrandHotArr.count;
 }
 
 //每个item应该如何展示
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ClassCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+    if (collectionView == _collectionView) {
+        if (indexPath.row < self.BrandHotArr.count) {
+            BrandHotModel *model = self.BrandHotArr[indexPath.row];
+            [cell fillWithImage:model.img];
+        }
+    }else{
+        
+        if (indexPath.section == 0) {
+            if (self.collectionHeaderImg.length > 0) {
+                [cell fillWithImage:self.collectionHeaderImg];
+            }
+        }
+        if (indexPath.section == 1) {
+            BrandHotModel *model = self.BrandHotArr[indexPath.row];
+            [cell fillWithImage:model.img];
+        }
+        if (indexPath.section == 2) {
+            CategoryViewCell *CategoryCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CategoryViewCell" forIndexPath:indexPath];
+            BrandHotModel *model = self.CategoryArr[indexPath.row];
+            [CategoryCell fillWithImage:model.img andTitle:model.name];
+            return CategoryCell;
+        }
+        
+    }
     return cell;
 }
 
@@ -268,6 +341,11 @@
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
+    if (collectionView == _listCollectionView) {
+        if (section == 2) {
+            return CommonWidth(15);
+        }
+    }
     return CommonWidth(7);
 }
 
@@ -277,17 +355,26 @@
         if (indexPath.section == 0) {
             return CGSizeMake(CommonWidth(280), CommonHight(108));
         }
+        if (indexPath.section == 2) {
+            return CGSizeMake(CommonWidth(63), CommonHight(85));
+        }
     }
+    
+    
     return CGSizeMake(CommonWidth(88), CommonHight(60));
 }
 //设置段落的内边距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     if (collectionView == _listCollectionView) {
+        if (section == 2) {
+            return UIEdgeInsetsMake(0, 15, 0, self.listCollectionView.size.width-CommonWidth(280)+15);
+        }
         return UIEdgeInsetsMake(0, 0, 0, self.listCollectionView.size.width-CommonWidth(280));
+        
     }
     
-        return UIEdgeInsetsMake(0, 0, 0, 0);
+        return UIEdgeInsetsMake(0, 0, 0, self.listCollectionView.size.width-CommonWidth(280));
 }
 
 
@@ -338,20 +425,8 @@
 
 - (UIView *)headView{
     if (!_headView) {
-        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0,  SCREEN_WIDTH- CommonWidth(72)-5, 400.0000/667*SCREEN_HIGHT)];
+        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0,  SCREEN_WIDTH- CommonWidth(72)-5, 100.0000/667*SCREEN_HIGHT)];
         _headView.backgroundColor = [UIColor whiteColor];
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = VIEWFRAME((SCREEN_WIDTH- CommonWidth(72)-5-75)/2,  381.0000/667*SCREEN_HIGHT, 75, 15);
-        UIImage *image = [UIImage imageNamed:@"矩形-9-拷贝-2"];
-        [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-//        [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTitle:@"全部分类" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        btn.titleLabel.font = SYSTEMFONT(13);
-        btn.imageEdgeInsets = UIEdgeInsetsMake(0,-10,0,0);
-//        btn.backgroundColor = [UIColor greenColor];
-        [_headView addSubview:btn];
         [_headView addSubview:self.collectionView];
     }
     return _headView;
@@ -360,24 +435,23 @@
 - (UICollectionView *)collectionView{
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH- CommonWidth(72)-5, 340.0000/667*SCREEN_HIGHT ) collectionViewLayout:layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH- CommonWidth(72)-5, 100.0000/667*SCREEN_HIGHT ) collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.backgroundColor = [UIColor whiteColor];
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
-        [_collectionView registerNib:[UINib nibWithNibName:@"ClassCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-        [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
-        [_collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+        [_collectionView registerClass:[ClassCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+        [_collectionView registerClass:[ClassifyCollectionFooter class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     }
     return _collectionView;
 }
 - (UICollectionView *)listCollectionView{
     if (!_listCollectionView) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
         _listCollectionView = [[UICollectionView alloc] initWithFrame:VIEWFRAME(CommonWidth(72)+5, CommonHight(68), SCREEN_WIDTH- CommonWidth(72)-5,SCREEN_HIGHT - CommonHight(68)-64-44-6) collectionViewLayout:layout];
         _listCollectionView.delegate = self;
@@ -385,8 +459,11 @@
         _listCollectionView.backgroundColor = [UIColor whiteColor];
         _listCollectionView.showsVerticalScrollIndicator = NO;
         _listCollectionView.showsHorizontalScrollIndicator = NO;
-        [_listCollectionView registerNib:[UINib nibWithNibName:@"ClassCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
+        [_listCollectionView registerClass:[ClassCollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+        [_listCollectionView registerClass:[CategoryViewCell class ] forCellWithReuseIdentifier:@"CategoryViewCell"];
+
         [_listCollectionView registerClass:[ClassifyCollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+         [_listCollectionView registerClass:[ClassifyCollectionHeader class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header1"];
         [_listCollectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     }
     return _listCollectionView;
@@ -398,15 +475,24 @@
     
     if ([kind isEqualToString:UICollectionElementKindSectionHeader] ) {
         
-        UICollectionReusableView *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
+        if (indexPath.section == 1) {
+            ClassifyCollectionHeader *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header" forIndexPath:indexPath];
+            headerView.backgroundColor = [UIColor whiteColor];
+            [headerView changeTitle:@"热门品牌" andImg:@"标签"];
+            return headerView;
+        }
+  
+        ClassifyCollectionHeader *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header1" forIndexPath:indexPath];
         headerView.backgroundColor = [UIColor whiteColor];
+        [headerView changeTitle:@"全部分类" andImg:@"分类"];
+
+        
         return headerView;
     }
     else {
         
         UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"footer" forIndexPath:indexPath];
-        
-        footerView.backgroundColor = [UIColor yellowColor];
+        footerView.backgroundColor = [UIColor whiteColor];
         
         return footerView;
 
@@ -427,6 +513,9 @@
 //设置段尾的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section
 {
+    if (collectionView == _collectionView) {
+        return CGSizeMake(SCREEN_WIDTH, 70);
+    }
     return CGSizeMake(0, 0);
 }
 
@@ -446,6 +535,12 @@
 -(void)handleModels:(NSArray *)models
 {
     
+    for (int i = 0; i < 26; i++) {
+        NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+i]];
+        [array removeAllObjects];
+        [self.BrandDic setObject:array forKey:[NSString stringWithFormat:@"%c", 65+i]];
+    }
+
     for (BrandModel * model in models) {
         NSString *firstChar = [model.name substringToIndex:1];
         for (int i = 0; i < 26; i++) {

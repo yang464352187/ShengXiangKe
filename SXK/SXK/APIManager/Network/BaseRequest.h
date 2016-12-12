@@ -198,5 +198,85 @@
                       succesBlock:(SuccessBlock)successBlock
                            failue:(FailureBlock)failueBlock;
 
+/**
+ *  获取活动列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetActivityListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取活动详情
+ *  @param activityid    活动ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetActivityDetailWithActivityID:(NSInteger)activityid
+                            succesBlock:(SuccessBlock)successBlock
+                                 failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取分类
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param parentid     分类ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetCategoryListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                         parentid:(NSInteger)parentid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  获取社区宣传图片
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetCommunityHeadImageWithSetupID:(NSInteger)setupid
+                             succesBlock:(SuccessBlock)successBlock
+                                  failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取活动列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetCommunityModuleWithPageNo:(NSInteger)pageNo
+                            PageSize:(NSInteger)pageSize
+                               order:(NSInteger)order
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取话题列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param topicid        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetCommunityTopicListWithPageNo:(NSInteger)pageNo
+                               PageSize:(NSInteger)pageSize
+                                topicid:(NSInteger)topicid
+                            succesBlock:(SuccessBlock)successBlock
+                                 failue:(FailureBlock)failueBlock;
+
+
 
 @end

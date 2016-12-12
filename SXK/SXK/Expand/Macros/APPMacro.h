@@ -12,6 +12,7 @@
 
 // 接口链接地址
 #define APP_BASEURL @"http://shexiangke.jcq.tbapps.cn"
+#define APP_BASEIMG @"http://ohqqvdngk.bkt.clouddn.com/"
 
 #pragma mark - BaseColor
 // 基本颜色
@@ -31,6 +32,11 @@
 #define APP_COLOR_GRAY_eeeeee           HEXCOLOR(0xeeeeee)
 #define APP_COLOR_GRAY_cccccc           HEXCOLOR(0xcccccc)
 #define APP_COLOR_GREEN                 HEXCOLOR(0x14abad)
+
+//header
+#define APP_COLOR_GRAY_Header           HEXCOLOR(0xf7f7f7)
+#define APP_COLOR_GRAY_Line             HEXCOLOR(0xdcdcdc)
+#define APP_COLOR_GRAY_Font             HEXCOLOR(0xa1a1a1)
 
 
 //红色
@@ -53,16 +59,22 @@
 
 #pragma mark - Url Path
 
-#define APPINTERFACE_Register           @"/app/applogin/registerpost"
-#define APPINTERFACE_Login              @"/app/applogin/loginpost"
-#define APPINTERFACE__AddAddress        @"/app/receiver/addpost"
-#define APPINTERFACE_SendMob            @"/app/sms/addpost"
-#define APPINTERFACE_ForgetUserPwd      @"/app/applogin/forgetpost"
-#define APPINTERFACE__GetAddressList    @"/app/receiver/listpost"  
-#define APPINTERFACE__DelAddress        @"/app/receiver/delpost"
-#define APPINTERFACE__ChangeAddress     @"/app/receiver/setpost"
-#define APPINTERFACE__GetBrandlist      @"/app/brand/listpost"
-#define APPINTERFACE__GetBrandHotlist   @"/app/brandhot/listpost"
+#define APPINTERFACE_Register                @"/app/applogin/registerpost"
+#define APPINTERFACE_Login                   @"/app/applogin/loginpost"
+#define APPINTERFACE__AddAddress             @"/app/receiver/addpost"
+#define APPINTERFACE_SendMob                 @"/app/sms/addpost"
+#define APPINTERFACE_ForgetUserPwd           @"/app/applogin/forgetpost"
+#define APPINTERFACE__GetAddressList         @"/app/receiver/listpost"
+#define APPINTERFACE__DelAddress             @"/app/receiver/delpost"
+#define APPINTERFACE__ChangeAddress          @"/app/receiver/setpost"
+#define APPINTERFACE__GetBrandlist           @"/app/brand/listpost"
+#define APPINTERFACE__GetBrandHotlist        @"/app/brandhot/listpost"
+#define APPINTERFACE__GetActivityList        @"/app/activity/listpost"
+#define APPINTERFACE__GetActivityDetail      @"/app/activity/getpost/listpost"
+#define APPINTERFACE__GetCategoryList        @"/app/category/listpost"
+#define APPINTERFACE__GetCommunityHead       @"/app/communitysetup/getpost"
+#define APPINTERFACE__GetCommunityModule     @"/app/communitymodule/listpost"
+#define APPINTERFACE__GetCommunityTopicList  @"/app/communitytopic/listpost"
 
 
 #endif /* APPMacro_h */

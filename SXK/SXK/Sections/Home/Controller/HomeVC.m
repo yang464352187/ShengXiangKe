@@ -197,7 +197,6 @@
                 [btn setTitle:titleArray[k] forState:UIControlStateNormal];
                 btn.titleLabel.font = [UIFont systemFontOfSize:11];
                 [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                //        CGSize titleSize = btn.titleLabel.bounds.size;
                 CGSize imageSize = btn.imageView.bounds.size;
                 btn.imageEdgeInsets = UIEdgeInsetsMake(0,0,21,0);
                 btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-25, 0, -4);
@@ -206,16 +205,25 @@
                 }
                 if (k == 2) {
                     btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+5,-25, 0, -4);
+                    btn.imageEdgeInsets = UIEdgeInsetsMake(0,0,18,0);
                 }
                 if (k == 3) {
-                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+13,-25, 0, -4);
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+15,-20, 0, -8);
+                    btn.imageEdgeInsets = UIEdgeInsetsMake(0,6,18,0);
                 }
                 if (k == 5) {
                     btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+7,-25, 0, -4);
                 }
-                if (k == 7) {
-                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+8,-25, 0, -4);
+                if (k == 6) {
+                    btn.imageEdgeInsets = UIEdgeInsetsMake(0,3,21,0);
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-20, 0, -4);
                 }
+                if (k == 7) {
+                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+8,-20, 0, 0);
+                    btn.imageEdgeInsets = UIEdgeInsetsMake(0,3,21,0);
+                }
+                btn.tag = 100 + k;
+                [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
                 [_headView addSubview:btn];
                 k++;
             }
@@ -317,6 +325,12 @@
     return view;
 }
 
+-(void)btnAction:(UIButton *)sender
+{
+    if (sender.tag) {
+        [self PushViewControllerByClassName:@"ActivityVC" info:nil];
+    }
+}
 
 
 /*

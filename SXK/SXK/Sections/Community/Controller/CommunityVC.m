@@ -8,12 +8,12 @@
 
 #import "CommunityVC.h"
 #import "CommunityCollectionCell.h"
-//#import "CommunityCell.h"
 #import "DFLineCellManager.h"
 #import "DFLineCommentItem.h"
 #import "DFLineLikeItem.h"
 #import "CommentInputView.h"
 #import "DFBaseLineCell.h"
+#import "ModuleModel.h"
 
 @interface CommunityVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,DFLineCellDelegate,CommentInputViewDelegate>
 
@@ -24,6 +24,8 @@
 @property (nonatomic, strong) NSMutableDictionary *itemDic;
 @property (strong, nonatomic) CommentInputView *commentInputView;
 @property (assign, nonatomic) long long currentItemId;
+@property (nonatomic, strong) UIImageView *headImage;
+@property (nonatomic, strong) NSArray *moduleArr;
 
 @property (nonatomic, strong) NSMutableDictionary *commentDic;
 
@@ -36,14 +38,6 @@
 {
     self = [super init];
     if (self) {
-//        
-//        
-//        [[MMPopupWindow sharedWindow] cacheWindow];
-//        [MMPopupWindow sharedWindow].touchWildToHide = NO;
-//        
-//        MMSheetViewConfig *sheetConfig = [MMSheetViewConfig globalConfig];
-//        sheetConfig.defaultTextCancel = @"取消";
-        
         
         
         _items = [NSMutableArray array];
@@ -66,6 +60,8 @@
     
     [_commentInputView addObserver];
     
+
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -77,6 +73,31 @@
     [_commentInputView removeObserver];
 }
 
+-(void)loadingRequest
+{
+    [BaseRequest GetCommunityHeadImageWithSetupID:1 succesBlock:^(id data) {
+        NSDictionary *dic = data[@"setup"];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"img"]]];
+        [self.headImage sd_setImageWithURL:url];
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    
+    [BaseRequest GetCommunityModuleWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
+        NSArray *models = [ModuleModel modelsFromArray:data[@"moduleList"]];
+        self.moduleArr = models;
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    
+    [BaseRequest GetCommunityTopicListWithPageNo:0 PageSize:0 topicid:1 succesBlock:^(id data) {
+        
+        NSLog(@"---------------列表%@------------------",data);
+    } failue:^(id data, NSError *error) {
+        
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -84,8 +105,8 @@
     UIImage *image = [UIImage imageNamed:@"图层-130"] ;
      [self setRightBarButtonWith:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]selector:@selector(barButtonAction)];
     [self initData];
-
-
+    [self loadingRequest];
+    
     [self initUI];
     [self initCommentInputView];
 }
@@ -364,18 +385,13 @@
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
         _tableView.backgroundColor = [UIColor whiteColor];
-//        [_tableView registerClass:[CommunityCell class] forCellReuseIdentifier:@"CommunityCell"];
-//        [_tableView registerClass:[ClassifyCell class] forCellReuseIdentifier:@"ClassifyCell"];
-//        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.tableHeaderView = self.headView;
-//        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
-        //        _tableView.header = [MJChiBaoZiHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeaderAction)];
-        //        _tableView.footer = [MJChiBaoZiFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshFooterAction)];
+
     }
     return _tableView;
 }
@@ -386,6 +402,7 @@
         _headView.backgroundColor = [UIColor whiteColor];
         UIImageView *image = [[UIImageView alloc] initWithFrame:CommonVIEWFRAME(0, 0, 375, 219)];
         image.image = [UIImage imageNamed:@"背景"];
+        self.headImage = image;
         
         UIImageView *image1 = [[UIImageView alloc] initWithFrame:CommonVIEWFRAME(178, 207, 19, 12)];
         image1.image = [UIImage imageNamed:@"多边形-1"];
@@ -419,14 +436,15 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return 9;
+    return self.moduleArr.count;
 }
 
 //每个item应该如何展示
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CommunityCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-    
+    ModuleModel *model = self.moduleArr[indexPath.row];
+    [cell setModel:model];
     if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
         cell.layoutMargins = UIEdgeInsetsZero;
     }

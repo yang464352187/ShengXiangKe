@@ -163,6 +163,7 @@
 		ADDD4D5A1DED74A1009C19B8 /* PayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D591DED74A1009C19B8 /* PayCell.m */; };
 		ADDF7F221DFE64A7001BF8F4 /* CategoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDF7F211DFE64A7001BF8F4 /* CategoryViewCell.m */; };
 		ADDF7F251DFE83B8001BF8F4 /* ModuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDF7F241DFE83B8001BF8F4 /* ModuleModel.m */; };
+		ADDF7F281DFE92A0001BF8F4 /* CommunityTopicListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDF7F271DFE92A0001BF8F4 /* CommunityTopicListModel.m */; };
 		ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADE9C3BD1DE5E192004E172C /* qualityVC.m */; };
 		ADFA8BE01DE4BB2800F992DA /* BrandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFA8BDF1DE4BB2800F992DA /* BrandVC.m */; };
 		ADFAB8AD1DE602C1005BEAF9 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFAB8AC1DE602C1005BEAF9 /* RegisterVC.m */; };
@@ -473,6 +474,8 @@
 		ADDF7F211DFE64A7001BF8F4 /* CategoryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewCell.m; sourceTree = "<group>"; };
 		ADDF7F231DFE83B8001BF8F4 /* ModuleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModuleModel.h; sourceTree = "<group>"; };
 		ADDF7F241DFE83B8001BF8F4 /* ModuleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModuleModel.m; sourceTree = "<group>"; };
+		ADDF7F261DFE92A0001BF8F4 /* CommunityTopicListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityTopicListModel.h; sourceTree = "<group>"; };
+		ADDF7F271DFE92A0001BF8F4 /* CommunityTopicListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityTopicListModel.m; sourceTree = "<group>"; };
 		ADE9C3BC1DE5E192004E172C /* qualityVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qualityVC.h; sourceTree = "<group>"; };
 		ADE9C3BD1DE5E192004E172C /* qualityVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = qualityVC.m; sourceTree = "<group>"; };
 		ADFA8BDE1DE4BB2800F992DA /* BrandVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandVC.h; sourceTree = "<group>"; };
@@ -1087,6 +1090,8 @@
 			children = (
 				ADDF7F231DFE83B8001BF8F4 /* ModuleModel.h */,
 				ADDF7F241DFE83B8001BF8F4 /* ModuleModel.m */,
+				ADDF7F261DFE92A0001BF8F4 /* CommunityTopicListModel.h */,
+				ADDF7F271DFE92A0001BF8F4 /* CommunityTopicListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1578,6 +1583,7 @@
 				AD40A3111DDDB4ED006C5576 /* LoginBtn.m in Sources */,
 				ADB99CB51DD5853900EC1DAD /* BaseRequest.m in Sources */,
 				AD2558AF1DE8516E00E34CF7 /* ClassifyCollectionHeader.m in Sources */,
+				ADDF7F281DFE92A0001BF8F4 /* CommunityTopicListModel.m in Sources */,
 				AD0B5D981DF92E7300ACA080 /* BrandHotModel.m in Sources */,
 				ADBF3DFF1DF6A38F00A287A8 /* ProvinceModel.m in Sources */,
 				AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */,

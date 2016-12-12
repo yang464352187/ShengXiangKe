@@ -264,7 +264,8 @@
 
 -(void) onInputSendButtonClick:(UIButton *) button
 {
-    
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+
     [self sendComment];
 }
 

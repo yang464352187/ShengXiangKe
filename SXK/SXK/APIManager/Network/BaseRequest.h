@@ -278,5 +278,27 @@
                                  failue:(FailureBlock)failueBlock;
 
 
+/**
+ *  评论
+ *  @param topicid      ID
+ *  @param comment      评论内容
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)SetCommunityTopicWithTopicID:(NSInteger)topicid
+                             comment:(NSString *)comment
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
 
+/**
+ *  点赞
+ *  @param topicid      ID
+ *  @param like      评论内容
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)SetCommunityTopicWithTopicID:(NSInteger)topicid
+                                like:(NSInteger )like
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
 @end

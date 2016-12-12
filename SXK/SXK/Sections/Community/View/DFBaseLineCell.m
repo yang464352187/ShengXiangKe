@@ -285,12 +285,11 @@
     
     //时间
     y = CGRectGetMaxY(_bodyView.frame) + sumHeight + Padding;
-    width = 100;
+    width = 150;
     height = TimeLabelHeight;
     _timeLabel.hidden = NO;
     _timeLabel.frame = CGRectMake(x, y, width, height);
-    _timeLabel.text = [DFToolUtil preettyTime:self.item.ts];
-    
+    _timeLabel.text = [self changeTime:self.item.ts];
     
     //点赞评论按钮
     width = 15;
@@ -387,6 +386,8 @@
 
 -(void) onClickLikeCommentBtn:(id)sender
 {
+    NSLog(@"222");
+
     if (_delegate != nil && [_delegate respondsToSelector:@selector(onLike:)]) {
         [_delegate onLike:self.item.itemId];
     }
@@ -395,13 +396,14 @@
 
 -(void) onClickLikeCommentBtn1:(id)sender
 {
+    NSLog(@"222");
     //    _isLikeCommentToolbarShow = !_isLikeCommentToolbarShow;
     //    _likeCommentToolbar.hidden = !_isLikeCommentToolbarShow;
-    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
-    [IQKeyboardManager sharedManager].enable = NO;
         if (_delegate != nil && [_delegate respondsToSelector:@selector(onComment:)]) {
             [_delegate onComment:self.item.itemId];
         }
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+//    [IQKeyboardManager sharedManager].enable = NO;
 
     
 }
@@ -460,4 +462,23 @@
         [_delegate onClickComment:commentId itemId:self.item.itemId];
     }
 }
+
+-(NSString *)changeTime:(NSInteger)time
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    [formatter setDateFormat:@"yyyy年MM月dd日 HH:mm"];
+    
+    NSNumber *time1 = [NSNumber numberWithInteger:time];
+    NSDate*confromTimesp = [NSDate dateWithTimeIntervalSince1970:[time1 integerValue]];
+    
+    NSString*confromTimespStr = [formatter stringFromDate:confromTimesp];
+    
+    return confromTimespStr;
+}
+
 @end

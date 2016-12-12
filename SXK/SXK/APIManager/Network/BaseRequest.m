@@ -526,4 +526,58 @@
 }
 
 
+/**
+ *  评论
+ *  @param topicid      ID
+ *  @param comment      评论内容
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)SetCommunityTopicWithTopicID:(NSInteger)topicid
+                             comment:(NSString *)comment
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{
+                             @"topicid":@(topicid),
+                             @"comment":comment
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__SetCommunityTopic Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+/**
+ *  点赞
+ *  @param topicid      ID
+ *  @param like         赞
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)SetCommunityTopicWithTopicID:(NSInteger)topicid
+                                like:(NSInteger )like
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{
+                             @"topicid":@(topicid),
+                             @"like":@(like)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__SetCommunityTopic Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
 @end

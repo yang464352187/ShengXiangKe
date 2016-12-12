@@ -75,6 +75,7 @@
 #define APPINTERFACE__GetCommunityHead       @"/app/communitysetup/getpost"
 #define APPINTERFACE__GetCommunityModule     @"/app/communitymodule/listpost"
 #define APPINTERFACE__GetCommunityTopicList  @"/app/communitytopic/listpost"
+#define APPINTERFACE__SetCommunityTopic      @"/app/communitytopic/setpost"
 
 
 #endif /* APPMacro_h */

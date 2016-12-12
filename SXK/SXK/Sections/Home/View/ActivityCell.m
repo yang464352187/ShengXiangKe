@@ -104,6 +104,7 @@
     NSDate*confromTimesp = [NSDate dateWithTimeIntervalSince1970:[_model.time integerValue]];
     
     NSString*confromTimespStr = [formatter stringFromDate:confromTimesp];
+    
     _timeLab.text = confromTimespStr;
 }
 

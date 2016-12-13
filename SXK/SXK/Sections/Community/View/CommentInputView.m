@@ -264,7 +264,8 @@
 
 -(void) onInputSendButtonClick:(UIButton *) button
 {
-    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+//    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+//    [IQKeyboardManager sharedManager].enable = YES;
 
     [self sendComment];
 }
@@ -299,6 +300,8 @@
     
     CGFloat offsetY = CGRectGetHeight(self.frame) - InputViewHeight ;
     [self changeInputViewPosition:offsetY];
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
+    [IQKeyboardManager sharedManager].enable = YES;
 }
 
 
@@ -306,9 +309,12 @@
 
 -(void)show
 {
-    
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+
     _inputView.hidden = NO;
     [_inputTextView becomeFirstResponder];
+    [IQKeyboardManager sharedManager].enable = NO;
+
 }
 
 

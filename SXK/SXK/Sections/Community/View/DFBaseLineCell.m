@@ -328,12 +328,12 @@
 -(CGFloat)getReuseableCellHeight:(DFBaseLineItem *)item
 {
     if (item.cellHeight != 0) {
-        NSLog(@"重用高度 %f", item.cellHeight);
+//        NSLog(@"重用高度 %f", item.cellHeight);
         return item.cellHeight;
     }
     CGFloat height = [self getCellHeight:item];
     item.cellHeight = height;
-    NSLog(@"计算高度 %f", item.cellHeight);
+//    NSLog(@"计算高度 %f", item.cellHeight);
     
     return height;
 }
@@ -386,7 +386,7 @@
 
 -(void) onClickLikeCommentBtn:(id)sender
 {
-    NSLog(@"222");
+
 
     if (_delegate != nil && [_delegate respondsToSelector:@selector(onLike:)]) {
         [_delegate onLike:self.item.itemId];
@@ -396,13 +396,12 @@
 
 -(void) onClickLikeCommentBtn1:(id)sender
 {
-    NSLog(@"222");
     //    _isLikeCommentToolbarShow = !_isLikeCommentToolbarShow;
     //    _likeCommentToolbar.hidden = !_isLikeCommentToolbarShow;
         if (_delegate != nil && [_delegate respondsToSelector:@selector(onComment:)]) {
             [_delegate onComment:self.item.itemId];
         }
-    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+//    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
 //    [IQKeyboardManager sharedManager].enable = NO;
 
     

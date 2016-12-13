@@ -71,7 +71,6 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            
             [UIView animateWithDuration:0.5 animations:^{
                 
                 CGRect frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HIGHT+64);
@@ -314,7 +313,6 @@
         i = 2;
     }
     
-    NSLog(@"---------%ld-----------",array.count);
      _headView.frame = VIEWFRAME(0, 0, SCREEN_WIDTH, (205.0000/667*SCREEN_HIGHT+CommonHight(80)*i)+10*i );
     self.tableView.tableHeaderView = _headView;
 //    [self.tableView reloadData];
@@ -442,14 +440,16 @@
     NSMutableArray *photo = [[NSMutableArray alloc] init];
     for (UIImage *image in self.photoArr) {
         
-        CGSize imagesize = image.size;
-        imagesize.height =626;
-        imagesize.width =413;
+//        CGSize imagesize = image.size;
+//        imagesize.height =SCREEN_HIGHT;
+//        imagesize.width =SCREEN_WIDTH;
+//        
+//        UIImage *newImage =  [self imageWithImage:image scaledToSize:imagesize];
+//        
+//        NSData *imageData = UIImagePNGRepresentation(newImage);
         
-        UIImage *newImage =  [self imageWithImage:image scaledToSize:imagesize];
-
-        NSData *imageData = UIImagePNGRepresentation(newImage);
-        [photo addObject:imageData];
+        NSData *image1 = UIImageJPEGRepresentation(image, 0.5);
+        [photo addObject:image1];
     }
 
     [CustomHUD createHudCustomShowContent:@"正在上传"];
@@ -461,14 +461,12 @@
         
     } oneTaskCompletion:^(NSError *error, NSString *link, NSInteger index) {
         
-        NSLog(@"----%@----%ld",link,index);
         NSArray *array = [link componentsSeparatedByString:@"/"];
         
         [self.uploadPhotoArr addObject:array[1]];
         
     } allTasksCompletion:^{
         
-        NSLog(@"图片数量  %ld",self.uploadPhotoArr.count);
         [BaseRequest AddCommunityTopicWithContent:@"MDZZZZZZZZZZZZZZZZZZ" imgList:self.uploadPhotoArr moduleid:2 succesBlock:^(id data) {
             NSLog(@"---------%@-----------",describe(data));
             [CustomHUD stopHidden];

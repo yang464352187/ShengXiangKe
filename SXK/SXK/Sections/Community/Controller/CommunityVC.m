@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSMutableDictionary *commentDic;
 @property (nonatomic, strong) NSArray *topicArr;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
 
@@ -62,7 +63,8 @@
     
     [_commentInputView addObserver];
     
-    
+    [self loadingRequest];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -82,6 +84,7 @@
         NSDictionary *dic = data[@"setup"];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"img"]]];
         [weakSelf.headImage sd_setImageWithURL:url];
+        
     } failue:^(id data, NSError *error) {
         
     }];
@@ -89,16 +92,15 @@
     [BaseRequest GetCommunityModuleWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
         NSArray *models = [ModuleModel modelsFromArray:data[@"moduleList"]];
         weakSelf.moduleArr = models;
-        NSLog(@"------------话题%@-----------",describe(models));
         [weakSelf.collectionView reloadData];
     } failue:^(id data, NSError *error) {
         
     }];
     
-    [BaseRequest GetCommunityTopicListWithPageNo:0 PageSize:0 topicid:1 succesBlock:^(id data) {
+    [BaseRequest GetCommunityTopicListWithPageNo:0 PageSize:0 topicid:-1 succesBlock:^(id data) {
         NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
-        NSLog(@"------------话题%@-----------",describe(models));
         [weakSelf handleModels:models];
+
     } failue:^(id data, NSError *error) {
         
     }];
@@ -108,6 +110,7 @@
 -(void)handleModels:(NSArray *)models
 {
     
+    [_items removeAllObjects];
     for (CommunityTopicListModel *model in models) {
         
         DFTextImageLineItem *textImageItem = [[DFTextImageLineItem alloc] init];
@@ -134,13 +137,28 @@
             [textImageItem.comments addObject:commentItem1_1];
         }
         
-//        for (nss in <#collection#>) {
-//            <#statements#>
-//        }
+        NSMutableArray *srcImages = [NSMutableArray array];
         
+        for (NSDictionary *dic in model.imgList) {
+            [srcImages addObject: [NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"image"]]];
+        }
+        
+        
+        textImageItem.srcImages = srcImages;
+        textImageItem.thumbImages = srcImages;
         textImageItem.ts = [model.createtime integerValue] ;
+
+        if (srcImages.count <= 1  && srcImages.count > 0) {
+            CGSize size = [self getImageSizeWithURL:[NSString stringWithFormat:@"%@",srcImages[0]]];
+            textImageItem.width = size.width;
+            textImageItem.height = size.height;
+            [self addItem:textImageItem];
+
+        }else{
+            [self addItem:textImageItem];
+
+        }
         
-        [self addItem:textImageItem];
 
     }
     
@@ -155,7 +173,6 @@
     UIImage *image = [UIImage imageNamed:@"图层-130"] ;
      [self setRightBarButtonWith:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]selector:@selector(barButtonAction)];
 //    [self initData];
-    [self loadingRequest];
     [self initUI];
     [self initCommentInputView];
 }
@@ -164,8 +181,8 @@
 {
     if (_commentInputView == nil) {
         _commentInputView = [[CommentInputView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-        NSLog(@"aaaaaa %@",NSStringFromCGRect(_commentInputView.frame));
-
+//        NSLog(@"aaaaaa %@",NSStringFromCGRect(_commentInputView.frame));
+        
         _commentInputView.hidden = YES;
         _commentInputView.delegate = self;
         [self.view addSubview:_commentInputView];
@@ -176,7 +193,7 @@
 
 -(void)barButtonAction
 {
-    [self.view addSubview:self.tableView];
+    [self PushViewControllerByClassName:@"PromulgateTopicVC" info:nil];
 }
 
 -(void)initUI
@@ -203,12 +220,12 @@
     
     NSString *reuseIdentifier = NSStringFromClass([typeCell class]);
     
-    NSLog(@"class %@ ",NSStringFromClass([typeCell class]));
+//    NSLog(@"class %@ ",NSStringFromClass([typeCell class]));
     DFBaseLineCell *cell = [tableView dequeueReusableCellWithIdentifier: reuseIdentifier];
     if (cell == nil ) {
         cell = [[[typeCell class] alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }else{
-        NSLog(@"重用Cell: %@", reuseIdentifier);
+//        NSLog(@"重用Cell: %@", reuseIdentifier);
     }
     
     cell.delegate = self;
@@ -494,7 +511,7 @@
 -(void)onCommentCreate:(long long)commentId text:(NSString *)text itemId:(long long) itemId
 {
     
-    [BaseRequest SetCommunityTopicWithTopicID:itemId comment:text succesBlock:^(id data) {
+    [BaseRequest SetCommunityTopicWithTopicID:(NSInteger)itemId comment:text succesBlock:^(id data) {
         NSLog(@"%@",data);
     } failue:^(id data, NSError *error) {
         
@@ -543,28 +560,158 @@
 -(void)onLike:(long long)itemId
 {
     
+   
     //点赞
     NSLog(@"onLike: %lld", itemId);
-    
-    [BaseRequest SetCommunityTopicWithTopicID:itemId like:1 succesBlock:^(id data) {
-        NSLog(@"%@",data);
-        if (![data[@"code"] isEqualToString:@"0"]) {
+
+    [BaseRequest SetCommunityTopicWithTopicID:(NSInteger)itemId like:1 succesBlock:^(id data) {
+        
             DFLineLikeItem *likeItem = [[DFLineLikeItem alloc] init];
             likeItem.userId = 10092;
             likeItem.userNick = @"杨伟康";
-    
-            
             [self addLikeItem:likeItem itemId:itemId];
 
-        }
     } failue:^(id data, NSError *error) {
         
-    }];
+            }];
     
     
     
     
 }
+// 根据图片url获取图片尺寸
+-(CGSize)getImageSizeWithURL:(id)imageURL
+{
+    NSURL* URL = nil;
+    if([imageURL isKindOfClass:[NSURL class]]){
+        URL = imageURL;
+    }
+    if([imageURL isKindOfClass:[NSString class]]){
+        URL = [NSURL URLWithString:imageURL];
+    }
+    if(URL == nil)
+        return CGSizeZero;                  // url不正确返回CGSizeZero
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:URL];
+    NSString* pathExtendsion = [URL.pathExtension lowercaseString];
+    
+    CGSize size = CGSizeZero;
+    if([pathExtendsion isEqualToString:@"png"]){
+        size =  [self getPNGImageSizeWithRequest:request];
+    }
+    else if([pathExtendsion isEqual:@"gif"])
+    {
+        size =  [self getGIFImageSizeWithRequest:request];
+    }
+    else{
+        size = [self getJPGImageSizeWithRequest:request];
+    }
+    if(CGSizeEqualToSize(CGSizeZero, size))                    // 如果获取文件头信息失败,发送异步请求请求原图
+    {
+        NSData* data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:URL] returningResponse:nil error:nil];
+        UIImage* image = [UIImage imageWithData:data];
+        if(image)
+        {
+            size = image.size;
+        }
+    }
+    return size;
+}
+
+//  获取PNG图片的大小
+-(CGSize)getPNGImageSizeWithRequest:(NSMutableURLRequest*)request
+{
+    [request setValue:@"bytes=16-23" forHTTPHeaderField:@"Range"];
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(data.length == 8)
+    {
+        int w1 = 0, w2 = 0, w3 = 0, w4 = 0;
+        [data getBytes:&w1 range:NSMakeRange(0, 1)];
+        [data getBytes:&w2 range:NSMakeRange(1, 1)];
+        [data getBytes:&w3 range:NSMakeRange(2, 1)];
+        [data getBytes:&w4 range:NSMakeRange(3, 1)];
+        int w = (w1 << 24) + (w2 << 16) + (w3 << 8) + w4;
+        int h1 = 0, h2 = 0, h3 = 0, h4 = 0;
+        [data getBytes:&h1 range:NSMakeRange(4, 1)];
+        [data getBytes:&h2 range:NSMakeRange(5, 1)];
+        [data getBytes:&h3 range:NSMakeRange(6, 1)];
+        [data getBytes:&h4 range:NSMakeRange(7, 1)];
+        int h = (h1 << 24) + (h2 << 16) + (h3 << 8) + h4;
+        return CGSizeMake(w, h);
+    }
+    return CGSizeZero;
+}
+//  获取gif图片的大小
+-(CGSize)getGIFImageSizeWithRequest:(NSMutableURLRequest*)request
+{
+    [request setValue:@"bytes=6-9" forHTTPHeaderField:@"Range"];
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if(data.length == 4)
+    {
+        short w1 = 0, w2 = 0;
+        [data getBytes:&w1 range:NSMakeRange(0, 1)];
+        [data getBytes:&w2 range:NSMakeRange(1, 1)];
+        short w = w1 + (w2 << 8);
+        short h1 = 0, h2 = 0;
+        [data getBytes:&h1 range:NSMakeRange(2, 1)];
+        [data getBytes:&h2 range:NSMakeRange(3, 1)];
+        short h = h1 + (h2 << 8);
+        return CGSizeMake(w, h);
+    }
+    return CGSizeZero;
+}
+//  获取jpg图片的大小
+-(CGSize)getJPGImageSizeWithRequest:(NSMutableURLRequest*)request
+{
+    [request setValue:@"bytes=0-209" forHTTPHeaderField:@"Range"];
+    NSData* data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    
+    if ([data length] <= 0x58) {
+        return CGSizeZero;
+    }
+    
+    if ([data length] < 210) {// 肯定只有一个DQT字段
+        short w1 = 0, w2 = 0;
+        [data getBytes:&w1 range:NSMakeRange(0x60, 0x1)];
+        [data getBytes:&w2 range:NSMakeRange(0x61, 0x1)];
+        short w = (w1 << 8) + w2;
+        short h1 = 0, h2 = 0;
+        [data getBytes:&h1 range:NSMakeRange(0x5e, 0x1)];
+        [data getBytes:&h2 range:NSMakeRange(0x5f, 0x1)];
+        short h = (h1 << 8) + h2;
+        return CGSizeMake(w, h);
+    } else {
+        short word = 0x0;
+        [data getBytes:&word range:NSMakeRange(0x15, 0x1)];
+        if (word == 0xdb) {
+            [data getBytes:&word range:NSMakeRange(0x5a, 0x1)];
+            if (word == 0xdb) {// 两个DQT字段
+                short w1 = 0, w2 = 0;
+                [data getBytes:&w1 range:NSMakeRange(0xa5, 0x1)];
+                [data getBytes:&w2 range:NSMakeRange(0xa6, 0x1)];
+                short w = (w1 << 8) + w2;
+                short h1 = 0, h2 = 0;
+                [data getBytes:&h1 range:NSMakeRange(0xa3, 0x1)];
+                [data getBytes:&h2 range:NSMakeRange(0xa4, 0x1)];
+                short h = (h1 << 8) + h2;
+                return CGSizeMake(w, h);
+            } else {// 一个DQT字段
+                short w1 = 0, w2 = 0;
+                [data getBytes:&w1 range:NSMakeRange(0x60, 0x1)];
+                [data getBytes:&w2 range:NSMakeRange(0x61, 0x1)];
+                short w = (w1 << 8) + w2;
+                short h1 = 0, h2 = 0;
+                [data getBytes:&h1 range:NSMakeRange(0x5e, 0x1)];
+                [data getBytes:&h2 range:NSMakeRange(0x5f, 0x1)];
+                short h = (h1 << 8) + h2;
+                return CGSizeMake(w, h);
+            }
+        } else {
+            return CGSizeZero;
+        }
+    }
+}
+
 
 
 - (void)didReceiveMemoryWarning {

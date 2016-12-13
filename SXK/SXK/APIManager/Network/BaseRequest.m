@@ -46,6 +46,7 @@
         if (failueBlock) {
             failueBlock(data,error);
         }
+        
     }];
 }
 
@@ -572,11 +573,12 @@
     
     [self requestPostCommonWithPath:APPINTERFACE__SetCommunityTopic Params:params succesBlock:^(id data) {
         //        //登录成功
-        
         if (successBlock) {
             successBlock(data);
         }
+        
     } failue:failueBlock];
+    
 
 }
 
@@ -594,7 +596,9 @@
                          succesBlock:(SuccessBlock)successBlock
                               failue:(FailureBlock)failueBlock;
 {
- 
+    
+
+
     
     NSMutableArray *imgArr = [[NSMutableArray alloc] init];
     for (int i = 0; i < imgList.count; i++) {
@@ -604,13 +608,13 @@
         [dic setValue:str forKey:@"image"];
         [imgArr addObject:dic];
     }
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:imgArr options:NSJSONWritingPrettyPrinted error:nil];
-
+    
     NSDictionary *params = @{
                              @"content" :content,
-                             @"imgList" :jsonData,
+                             @"imgList" :imgArr,
                              @"moduleid":@(moduleid)
                              };
+    
     
     [self requestPostCommonWithPath:APPINTERFACE__AddCommunityTopic Params:params succesBlock:^(id data) {
         //        //登录成功
@@ -618,6 +622,7 @@
         if (successBlock) {
             successBlock(data);
         }
+        
     } failue:failueBlock];
 
 }

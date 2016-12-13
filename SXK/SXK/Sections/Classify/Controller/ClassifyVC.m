@@ -356,7 +356,7 @@
             return CGSizeMake(CommonWidth(280), CommonHight(108));
         }
         if (indexPath.section == 2) {
-            return CGSizeMake(CommonWidth(63), CommonHight(85));
+            return CGSizeMake(CommonWidth(63), 75);
         }
     }
     

@@ -85,6 +85,7 @@
 		AD861B891DDC513800BC657E /* weibo.PNG in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7E1DDC513800BC657E /* weibo.PNG */; };
 		AD861B8A1DDC513800BC657E /* remind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7F1DDC513800BC657E /* remind@2x.png */; };
 		AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD91883B1DEBD02400694D92 /* CommentInputView.m */; };
+		AD9280EB1E000064009FF000 /* PromulgateTopicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9280EA1E000064009FF000 /* PromulgateTopicVC.m */; };
 		AD9407701DEC85F00075620F /* MeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD94076F1DEC85F00075620F /* MeCell.m */; };
 		ADA93FD21DE9368200DE6B9E /* CommunityCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA93FD11DE9368200DE6B9E /* CommunityCollectionCell.m */; };
 		ADA941241DE98FBA00DE6B9E /* MLLabel+Size.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941231DE98FBA00DE6B9E /* MLLabel+Size.m */; };
@@ -338,6 +339,8 @@
 		AD861B7F1DDC513800BC657E /* remind@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remind@2x.png"; sourceTree = "<group>"; };
 		AD91883A1DEBD02400694D92 /* CommentInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentInputView.h; sourceTree = "<group>"; };
 		AD91883B1DEBD02400694D92 /* CommentInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentInputView.m; sourceTree = "<group>"; };
+		AD9280E91E000064009FF000 /* PromulgateTopicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromulgateTopicVC.h; sourceTree = "<group>"; };
+		AD9280EA1E000064009FF000 /* PromulgateTopicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PromulgateTopicVC.m; sourceTree = "<group>"; };
 		AD94076E1DEC85F00075620F /* MeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeCell.h; sourceTree = "<group>"; };
 		AD94076F1DEC85F00075620F /* MeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeCell.m; sourceTree = "<group>"; };
 		ADA93FD01DE9368200DE6B9E /* CommunityCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityCollectionCell.h; sourceTree = "<group>"; };
@@ -1107,6 +1110,8 @@
 			children = (
 				ADB99CD51DD5BB0300EC1DAD /* CommunityVC.h */,
 				ADB99CD61DD5BB0300EC1DAD /* CommunityVC.m */,
+				AD9280E91E000064009FF000 /* PromulgateTopicVC.h */,
+				AD9280EA1E000064009FF000 /* PromulgateTopicVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1621,6 +1626,7 @@
 				AD861B6B1DDC3C4700BC657E /* UIViewController+JTNavigationExtension.m in Sources */,
 				AD269CD31DF5BAA3002E47F2 /* NSTimer+Addtions.m in Sources */,
 				AD0B5DA71DF95B4700ACA080 /* ActivityDetailVC.m in Sources */,
+				AD9280EB1E000064009FF000 /* PromulgateTopicVC.m in Sources */,
 				AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */,
 				AD5CD4C01DE2E4EB00FA659D /* ClaasifyCollectionViewCell.m in Sources */,
 				ADBF3E0E1DF6C35C00A287A8 /* DQCanCerEnsureView.m in Sources */,

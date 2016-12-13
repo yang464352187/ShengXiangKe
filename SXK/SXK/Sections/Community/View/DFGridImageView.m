@@ -15,7 +15,7 @@
 
 #define Padding 2
 
-#define OneImageMaxWidth [UIScreen mainScreen].bounds.size.width*0.5
+#define OneImageMaxWidth [UIScreen mainScreen].bounds.size.width*0.4
 
 @interface DFGridImageView()
 

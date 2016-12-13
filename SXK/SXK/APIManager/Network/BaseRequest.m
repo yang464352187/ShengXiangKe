@@ -580,4 +580,50 @@
 
 }
 
+/**
+ *  发布商品
+ *  @param content      内容
+ *  @param imgList      图片
+ *  @param moduleid     ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AddCommunityTopicWithContent:(NSString *)content
+                             imgList:(NSArray *)imgList
+                            moduleid:(NSInteger)moduleid
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+{
+ 
+    
+    NSMutableArray *imgArr = [[NSMutableArray alloc] init];
+    for (int i = 0; i < imgList.count; i++) {
+        NSString *str = imgList[i];
+        NSLog(@"%@",str);
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        [dic setValue:str forKey:@"image"];
+        [imgArr addObject:dic];
+    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:imgArr options:NSJSONWritingPrettyPrinted error:nil];
+
+    NSDictionary *params = @{
+                             @"content" :content,
+                             @"imgList" :jsonData,
+                             @"moduleid":@(moduleid)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__AddCommunityTopic Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+
+
+
 @end

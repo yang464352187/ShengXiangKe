@@ -26,7 +26,8 @@
 @property (nonatomic, strong) NSArray *firstArr;
 @property (nonatomic, strong) NSArray *SecondArr;
 @property (nonatomic, strong) NSMutableDictionary *cellDic;
-
+@property (nonatomic, strong) NSArray *photoArr;
+@property (nonatomic, strong) NSMutableArray *uploadPhotoArr;
 
 
 @end
@@ -58,6 +59,7 @@
     self.firstArr = @[@"宝贝名称 (必填)",@"专柜价 (必填)",@"关键字描述 (必填)"];
     self.SecondArr = @[@"类别",@"品牌",@"颜色",@"成色",@"适用人群",@"附件"];
     self.cellDic = [[NSMutableDictionary alloc] init];
+    self.uploadPhotoArr = [[NSMutableArray alloc] init];
 }
 
 -(void)barButtonAction
@@ -174,6 +176,7 @@
     [promulgateBtn setTitle:@"立即发布" forState:UIControlStateNormal];
     [promulgateBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     promulgateBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [promulgateBtn addTarget:self action:@selector(promulgateBtn:) forControlEvents:UIControlEventTouchUpInside];
     ViewRadius(promulgateBtn, 22);
     
     [view addSubview:image];
@@ -281,8 +284,6 @@
             [weakSelf.view layoutIfNeeded];
             weakSelf.heigh = self.pickerView.frame.size.height;
 //            weakSelf.headView.frame.size.height =height;
-            
-            
             [weakSelf change];
         };
         pickerView.navigationController = self.navigationController;
@@ -301,6 +302,7 @@
 -(void)change
 {
     NSArray *array = [_pickerView getPhotos];
+    self.photoArr = array;
     NSInteger i ,j;
     j = array.count + 3;
     if (j <= 4) {
@@ -312,6 +314,7 @@
         i = 2;
     }
     
+    NSLog(@"---------%ld-----------",array.count);
      _headView.frame = VIEWFRAME(0, 0, SCREEN_WIDTH, (205.0000/667*SCREEN_HIGHT+CommonHight(80)*i)+10*i );
     self.tableView.tableHeaderView = _headView;
 //    [self.tableView reloadData];
@@ -334,7 +337,7 @@
 
 -(void)BtnAction:(UIButton *)sender
 {
-        self.teachView = [self loadTeachView];
+    self.teachView = [self loadTeachView];
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
     
     dispatch_async(queue, ^{
@@ -432,6 +435,70 @@
     [cell changeTitle:text.userInfo[@"name"]];
     NSLog(@"－－－－－接收到通知------");
     
+}
+
+-(void)promulgateBtn:(UIButton *)sender
+{
+    NSMutableArray *photo = [[NSMutableArray alloc] init];
+    for (UIImage *image in self.photoArr) {
+        
+        CGSize imagesize = image.size;
+        imagesize.height =626;
+        imagesize.width =413;
+        
+        UIImage *newImage =  [self imageWithImage:image scaledToSize:imagesize];
+
+        NSData *imageData = UIImagePNGRepresentation(newImage);
+        [photo addObject:imageData];
+    }
+
+    [CustomHUD createHudCustomShowContent:@"正在上传"];
+
+    [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
+    [[GCQiniuUploadManager sharedInstance] createToken];
+    
+    [[GCQiniuUploadManager sharedInstance] uploadDatas:photo progress:^(float percent) {
+        
+    } oneTaskCompletion:^(NSError *error, NSString *link, NSInteger index) {
+        
+        NSLog(@"----%@----%ld",link,index);
+        NSArray *array = [link componentsSeparatedByString:@"/"];
+        
+        [self.uploadPhotoArr addObject:array[1]];
+        
+    } allTasksCompletion:^{
+        
+        NSLog(@"图片数量  %ld",self.uploadPhotoArr.count);
+        [BaseRequest AddCommunityTopicWithContent:@"MDZZZZZZZZZZZZZZZZZZ" imgList:self.uploadPhotoArr moduleid:2 succesBlock:^(id data) {
+            NSLog(@"---------%@-----------",describe(data));
+            [CustomHUD stopHidden];
+
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
+
+    }];
+
+}
+
+-(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize
+{
+    // Create a graphics image context
+    UIGraphicsBeginImageContext(newSize);
+    
+    // Tell the old image to draw in this new context, with the desired
+    // new size
+    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    
+    // Get the new image from the context
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // End the context
+    UIGraphicsEndImageContext();
+    
+    // Return the new image.
+    return newImage;
 }
 
 - (void)didReceiveMemoryWarning {

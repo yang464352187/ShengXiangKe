@@ -301,4 +301,30 @@
                                 like:(NSInteger )like
                          succesBlock:(SuccessBlock)successBlock
                               failue:(FailureBlock)failueBlock;
+
+/**
+ *  发布商品
+ *  @param content      内容
+ *  @param imgList      图片
+ *  @param moduleid     ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AddCommunityTopicWithContent:(NSString *)content
+                             imgList:(NSArray *)imgList
+                            moduleid:(NSInteger)moduleid
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+
+
+
+
+
+
+
+
+
+
+
+
 @end

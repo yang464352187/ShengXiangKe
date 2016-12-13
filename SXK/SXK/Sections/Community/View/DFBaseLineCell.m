@@ -296,9 +296,9 @@
     height = 15;
     x = CGRectGetMaxX(_bodyView.frame) - width;
     _likeCmtButton.hidden = NO;
-    _likeCmtButton.frame = CGRectMake(x, y, width, height);
+    _likeCmtButton.frame = CGRectMake(x-3, y+2, width+2, height);
     _likeCmtButton1.hidden = NO;
-    _likeCmtButton1.frame = CGRectMake(x-30, y, width, height);
+    _likeCmtButton1.frame = CGRectMake(x-33, y, width+2, height+2);
 
     
     //点赞和评论Toolbar

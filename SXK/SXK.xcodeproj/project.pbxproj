@@ -67,6 +67,8 @@
 		AD6BE9421DDEF44B00DFEA92 /* LoginVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6BE9411DDEF44B00DFEA92 /* LoginVCViewController.m */; };
 		AD6BE9451DDEF5F300DFEA92 /* UIColor+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6BE9441DDEF5F300DFEA92 /* UIColor+Extend.m */; };
 		AD6BE9481DDEF61400DFEA92 /* CustomField.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6BE9471DDEF61400DFEA92 /* CustomField.m */; };
+		AD794F391DFF8E14005F8AAE /* GCQiniuUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AD794F381DFF8E14005F8AAE /* GCQiniuUploadManager.m */; };
+		AD794F441DFF99F2005F8AAE /* CustomHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = AD794F431DFF99F2005F8AAE /* CustomHUD.m */; };
 		AD861B5D1DDC3AFB00BC657E /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD861B5C1DDC3AFB00BC657E /* RootViewController.m */; };
 		AD861B631DDC3B9800BC657E /* SXKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD861B621DDC3B9800BC657E /* SXKViewController.m */; };
 		AD861B6A1DDC3C4700BC657E /* JTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD861B671DDC3C4700BC657E /* JTNavigationController.m */; };
@@ -308,6 +310,10 @@
 		AD6BE9441DDEF5F300DFEA92 /* UIColor+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Extend.m"; sourceTree = "<group>"; };
 		AD6BE9461DDEF61400DFEA92 /* CustomField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomField.h; sourceTree = "<group>"; };
 		AD6BE9471DDEF61400DFEA92 /* CustomField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomField.m; sourceTree = "<group>"; };
+		AD794F371DFF8E14005F8AAE /* GCQiniuUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCQiniuUploadManager.h; sourceTree = "<group>"; };
+		AD794F381DFF8E14005F8AAE /* GCQiniuUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCQiniuUploadManager.m; sourceTree = "<group>"; };
+		AD794F421DFF99F2005F8AAE /* CustomHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHUD.h; sourceTree = "<group>"; };
+		AD794F431DFF99F2005F8AAE /* CustomHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHUD.m; sourceTree = "<group>"; };
 		AD861B5B1DDC3AFB00BC657E /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		AD861B5C1DDC3AFB00BC657E /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		AD861B611DDC3B9800BC657E /* SXKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SXKViewController.h; sourceTree = "<group>"; };
@@ -606,6 +612,24 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		AD794F361DFF8E14005F8AAE /* GCQiniuUploadManager */ = {
+			isa = PBXGroup;
+			children = (
+				AD794F371DFF8E14005F8AAE /* GCQiniuUploadManager.h */,
+				AD794F381DFF8E14005F8AAE /* GCQiniuUploadManager.m */,
+			);
+			path = GCQiniuUploadManager;
+			sourceTree = "<group>";
+		};
+		AD794F411DFF99F2005F8AAE /* CustomHUD */ = {
+			isa = PBXGroup;
+			children = (
+				AD794F421DFF99F2005F8AAE /* CustomHUD.h */,
+				AD794F431DFF99F2005F8AAE /* CustomHUD.m */,
+			);
+			path = CustomHUD;
+			sourceTree = "<group>";
+		};
 		AD861B5A1DDC3A7400BC657E /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -876,6 +900,8 @@
 		ADB99CA11DD569FA00EC1DAD /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				AD794F411DFF99F2005F8AAE /* CustomHUD */,
+				AD794F361DFF8E14005F8AAE /* GCQiniuUploadManager */,
 				ADB99CA61DD56D0300EC1DAD /* printValue */,
 			);
 			path = Vendors;
@@ -1524,6 +1550,7 @@
 				AD5CD4AC1DE2B75000FA659D /* FirstTableViewCell.m in Sources */,
 				AD40A30E1DDD98C6006C5576 /* UILabel+Handy.m in Sources */,
 				ADA941651DE9985700DE6B9E /* DFLineCellManager.m in Sources */,
+				AD794F441DFF99F2005F8AAE /* CustomHUD.m in Sources */,
 				ADA941741DE9996100DE6B9E /* DFFaceManager.m in Sources */,
 				ADFAB8B01DE60B1E005BEAF9 /* ForgetVC.m in Sources */,
 				AD65A5C81DE3F752002C6364 /* SummaryCell.m in Sources */,
@@ -1570,6 +1597,7 @@
 				AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */,
 				ADE9C3BE1DE5E192004E172C /* qualityVC.m in Sources */,
 				ADC07F821DE559DF00B665CC /* CategoryCell.m in Sources */,
+				AD794F391DFF8E14005F8AAE /* GCQiniuUploadManager.m in Sources */,
 				AD6735AA1DF5387D00B8D2FB /* UserModel.m in Sources */,
 				AD6A29221DF79F3800ACF4B5 /* DeleteView.m in Sources */,
 				AD861B6E1DDC3C9100BC657E /* BaseNavigationVC.m in Sources */,

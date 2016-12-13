@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>HappyDNS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>IQKeyboardManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -74,6 +79,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Qiniu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SDCycleScrollView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -102,6 +112,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0C517E19127D9AF531B57713DDFAA93A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>351D334B3C0B49938E167678166C1A44</key>
 		<dict>
 			<key>primary</key>
@@ -132,17 +147,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>568F53C8C7AEC0C5B524814812CB0F35</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>5813251FEA21E4AEE97385709F1912DE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>58FDB7EECE75550FC642EFDEF149F669</key>
+		<key>5AC3A11679CADE5423C8DCC5EAF0C6CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -153,6 +163,11 @@
 			<true/>
 		</dict>
 		<key>928353533005A4198EBDA5B700D37B64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>96004B21EE2520B6C694868251DD0A8D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,12 +187,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E2FE87384A67337831E53490EEA8BF11</key>
+		<key>AEF9C2A913C83D7CCE195D2CB2C34591</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E527137FCFF76CE8A6F6FC8A53C89769</key>
+		<key>C96A3A941104D91AD067083CB177DFB5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E2FE87384A67337831E53490EEA8BF11</key>
 		<dict>
 			<key>primary</key>
 			<true/>

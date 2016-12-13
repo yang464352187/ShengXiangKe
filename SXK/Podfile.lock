@@ -16,6 +16,7 @@ PODS:
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
   - DACircularProgress (2.3.1)
+  - HappyDNS (0.3.7)
   - IQKeyboardManager (3.3.7)
   - Mantle (2.0.7):
     - Mantle/extobjc (= 2.0.7)
@@ -35,6 +36,9 @@ PODS:
     - MBProgressHUD (~> 0.9)
     - SDWebImage (!= 3.7.2, ~> 3.7)
   - pop (1.0.9)
+  - Qiniu (7.0.20):
+    - AFNetworking (~> 3)
+    - HappyDNS (~> 0.3)
   - SDCycleScrollView (1.65):
     - SDWebImage (~> 3.7)
   - SDWebImage (3.8.1):
@@ -56,14 +60,26 @@ DEPENDENCIES:
   - MMPopupView
   - MWPhotoBrowser (~> 2.1.1)
   - pop (~> 1.0.8)
+  - Qiniu (from `https://github.com/qiniu/objc-sdk.git`, branch `AFNetworking-3.x`)
   - SDCycleScrollView (~> 1.3)
   - SDWebImage (~> 3.8.1)
   - SVProgressHUD
+
+EXTERNAL SOURCES:
+  Qiniu:
+    :branch: AFNetworking-3.x
+    :git: https://github.com/qiniu/objc-sdk.git
+
+CHECKOUT OPTIONS:
+  Qiniu:
+    :commit: 425fb4d50f39149685ee33914ac948156616408e
+    :git: https://github.com/qiniu/objc-sdk.git
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 8312778b6815578e6a86d630fbcf31dc94c534e7
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  HappyDNS: ec476226e119bf4766b74975ec4873f6fa078cf2
   IQKeyboardManager: 249c3946acf61345c18b038eb50863fe2793e3a8
   Mantle: bc40bb061d8c2c6fb48d5083e04d928c3b7f73d9
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
@@ -74,11 +90,12 @@ SPEC CHECKSUMS:
   MMPopupView: fe1dd010824029dfb632fdf1a531db5dd5386020
   MWPhotoBrowser: 5836d7aa041dc05a13de380c246826578adc5ea5
   pop: f667631a5108a2e60d9e8797c9b32ddaf2080bce
+  Qiniu: 4dbf1e6acb3236c4d7251046a17d08b16d21fcfe
   SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
   SDWebImage: 35f9627a3e44b4f292a8a8ce6a531fa488239b91
   SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
 
-PODFILE CHECKSUM: c614723b4380b072b3cf8c2206e476bb3850bcb9
+PODFILE CHECKSUM: 5e7add497f334ff068798ee5de10c6cd36e4db97
 
 COCOAPODS: 1.0.1

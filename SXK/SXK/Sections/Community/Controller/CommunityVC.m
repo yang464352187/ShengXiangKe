@@ -89,6 +89,7 @@
     [BaseRequest GetCommunityModuleWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
         NSArray *models = [ModuleModel modelsFromArray:data[@"moduleList"]];
         weakSelf.moduleArr = models;
+        NSLog(@"------------话题%@-----------",describe(models));
         [weakSelf.collectionView reloadData];
     } failue:^(id data, NSError *error) {
         
@@ -96,8 +97,8 @@
     
     [BaseRequest GetCommunityTopicListWithPageNo:0 PageSize:0 topicid:1 succesBlock:^(id data) {
         NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
+        NSLog(@"------------话题%@-----------",describe(models));
         [weakSelf handleModels:models];
-        
     } failue:^(id data, NSError *error) {
         
     }];
@@ -132,6 +133,10 @@
             commentItem1_1.text = dic1[@"comment"];
             [textImageItem.comments addObject:commentItem1_1];
         }
+        
+//        for (nss in <#collection#>) {
+//            <#statements#>
+//        }
         
         textImageItem.ts = [model.createtime integerValue] ;
         

@@ -18,6 +18,7 @@
 #import "DebugMacro.h"
 #import "BaseRequest.h"
 #import "Constant.h"
+#import "GCQiniuUploadManager.h"  //七牛管理类
 
 
 //Categories
@@ -26,6 +27,7 @@
 #import "UILabel+Handy.h"
 #import "UIColor+Extend.h"
 #import "CustomField.h"
+#import "CustomHUD.h"
 
 //Pod
 #import "UIImageView+WebCache.h"

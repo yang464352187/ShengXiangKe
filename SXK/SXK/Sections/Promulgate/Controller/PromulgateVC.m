@@ -236,7 +236,6 @@
         [_tableView registerClass:[SummaryCell class] forCellReuseIdentifier:@"SummaryCell"];
         [_tableView registerClass:[TypeCell class] forCellReuseIdentifier:@"TypeCell"];
 //        [_tableView registerClass:[SpecialCell class] forCellReuseIdentifier:@"SpecialCell"];
-        
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -275,6 +274,7 @@
         config.photosMaxCount = 9;
         
         WSImagePickerView *pickerView = [[WSImagePickerView alloc] initWithFrame:CGRectMake(0, CommonHight(100), SCREEN_WIDTH, 0) config:config];
+        pickerView.type = 1;
         pickerView.delegate = self;
         __weak typeof(self) weakSelf = self;
         pickerView.viewHeightChanged = ^(CGFloat height) {

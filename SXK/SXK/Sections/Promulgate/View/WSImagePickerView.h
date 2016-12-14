@@ -17,6 +17,7 @@
 @end
 
 @interface WSImagePickerView : UIView
+@property (nonatomic, assign) NSInteger type;
 
 @property (nonatomic, weak) UINavigationController *navigationController;
 @property (nonatomic, copy) void(^viewHeightChanged)(CGFloat height);

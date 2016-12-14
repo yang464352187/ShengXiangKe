@@ -99,12 +99,24 @@ static NSString *imagePickerCellIdentifier = @"imagePickerCellIdentifier";
 #pragma make - collectionViewDelegate -
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    if(_photosArray.count < _config.photosMaxCount) {
-        self.isFull = 0;
-        return _photosArray.count + 3;
+    
+    if (self.type == 1) {
+        if(_photosArray.count < _config.photosMaxCount) {
+            self.isFull = 0;
+            return _photosArray.count + 3;
+        }
+        self.isFull = 1;
+        return _photosArray.count+2;
+
+    }else{
+        if(_photosArray.count < _config.photosMaxCount) {
+            self.isFull = 0;
+            return _photosArray.count + 2;
+        }
+        self.isFull = 1;
+        return _photosArray.count+1;
+
     }
-    self.isFull = 1;
-    return _photosArray.count+2;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -113,68 +125,110 @@ static NSString *imagePickerCellIdentifier = @"imagePickerCellIdentifier";
     UIImageView *imgView1 = (UIImageView *)[cell.contentView viewWithTag:2];
     UIImageView *imgView2 = (UIImageView *)[cell.contentView viewWithTag:3];
 
-    
+
     if (!imgView) {
         imgView = [[UIImageView alloc] initWithFrame:cell.bounds];
         imgView.contentMode = UIViewContentModeScaleAspectFill;
         imgView.clipsToBounds = YES;
         imgView.tag = 1;
-//        imgView.image = [UIImage imageNamed:@"bg_photo_add"];
-
         [cell addSubview:imgView];
     }
-    if (!imgView1) {
-        imgView1 = [[UIImageView alloc] initWithFrame:cell.bounds];
-        imgView1.contentMode = UIViewContentModeScaleAspectFill;
-//        imgView1.image = [UIImage imageNamed:@"如何-拍摄"];
-        imgView1.clipsToBounds = YES;
-        imgView1.tag = 2;
+
+    
+    if (self.type == 1) {
+        if (!imgView1) {
+            imgView1 = [[UIImageView alloc] initWithFrame:cell.bounds];
+            imgView1.contentMode = UIViewContentModeScaleAspectFill;
+            //        imgView1.image = [UIImage imageNamed:@"如何-拍摄"];
+            imgView1.clipsToBounds = YES;
+            imgView1.tag = 2;
+            
+            [cell addSubview:imgView1];
+        }
         
-       [cell addSubview:imgView1];
+        if (!imgView2) {
+            imgView2 = [[UIImageView alloc] initWithFrame:cell.bounds];
+            imgView2.contentMode = UIViewContentModeScaleAspectFill;
+            //        imgView1.image = [UIImage imageNamed:@"如何-拍摄"];
+            imgView2.clipsToBounds = YES;
+            imgView2.tag = 3;
+            
+            [cell addSubview:imgView2];
+        }
+
+    }else
+    {
+        if (!imgView1) {
+            imgView1 = [[UIImageView alloc] initWithFrame:cell.bounds];
+            imgView1.contentMode = UIViewContentModeScaleAspectFill;
+            //        imgView1.image = [UIImage imageNamed:@"如何-拍摄"];
+            imgView1.clipsToBounds = YES;
+            imgView1.tag = 2;
+            
+            [cell addSubview:imgView1];
+        }
+
     }
     
-    if (!imgView2) {
-        imgView2 = [[UIImageView alloc] initWithFrame:cell.bounds];
-        imgView2.contentMode = UIViewContentModeScaleAspectFill;
-        //        imgView1.image = [UIImage imageNamed:@"如何-拍摄"];
-        imgView2.clipsToBounds = YES;
-        imgView2.tag = 3;
-        
-        [cell addSubview:imgView2];
-    }
 
-
+    
     if(indexPath.row < _photosArray.count) {
         UIImage *image = _photosArray[indexPath.row];
         imgView.image = image;
     }
 //    else {
     if (self.isFull) {
-        if (indexPath.row == _photosArray.count) {
-            imgView.image = nil;
-            imgView.image = [UIImage imageNamed:@"如何-拍摄"];
+        
+        if (self.type == 1) {
+            if (indexPath.row == _photosArray.count) {
+                imgView.image = nil;
+                imgView.image = [UIImage imageNamed:@"如何-拍摄"];
+            }
+            
+            if (indexPath.row == _photosArray.count+1) {
+                imgView1.image = nil;
+                imgView1.image = [UIImage imageNamed:@"必须9张图"];
+            }
+
+        }else{
+            if (indexPath.row == _photosArray.count) {
+                imgView.image = nil;
+                imgView.image = [UIImage imageNamed:@"最多9张图"];
+            }
+
+            
+            if (indexPath.row == _photosArray.count+1) {
+                imgView1.image = nil;
+                imgView1.image = [UIImage imageNamed:@"最多9张图"];
+            }
+
         }
-        if (indexPath.row == _photosArray.count+1) {
-            imgView1.image = nil;
-            imgView1.image = [UIImage imageNamed:@"必须9张图"];
-        }
-//        if (indexPath.row == _photosArray.count+2) {
-//            imgView2.image = nil;
-//            imgView2.image = [UIImage imageNamed:@"必须9张图"];
-//        }
+        
     }else{
         if (indexPath.row == _photosArray.count) {
             imgView.image = nil;
             imgView.image = [UIImage imageNamed:@"拍摄"];
         }
-        if (indexPath.row == _photosArray.count+1) {
-            imgView1.image = nil;
-            imgView1.image = [UIImage imageNamed:@"如何-拍摄"];
+        
+        if (self.type == 1) {
+            if (indexPath.row == _photosArray.count+1) {
+                imgView1.image = nil;
+                imgView1.image = [UIImage imageNamed:@"如何-拍摄"];
+            }
+
+        }else{
+            if (indexPath.row == _photosArray.count+1) {
+                imgView1.image = nil;
+                imgView1.image = [UIImage imageNamed:@"最多9张图"];
+            }
+
         }
+        
         if (indexPath.row == _photosArray.count+2) {
             imgView2.image = nil;
             imgView2.image = [UIImage imageNamed:@"必须9张图"];
         }
+        
 
     }
     

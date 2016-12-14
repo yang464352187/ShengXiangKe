@@ -21,7 +21,6 @@
 
 @property (strong, nonatomic) UIView    *headView;
 @property (nonatomic, strong) NSMutableArray *items;
-
 @property (nonatomic, strong) NSMutableDictionary *itemDic;
 @property (strong, nonatomic) CommentInputView *commentInputView;
 @property (assign, nonatomic) long long currentItemId;
@@ -42,13 +41,10 @@
     self = [super init];
     if (self) {
         
-        
+
         _items = [NSMutableArray array];
-        
         _itemDic = [NSMutableDictionary dictionary];
-        
         _commentDic = [NSMutableDictionary dictionary];
-        
     }
     return self;
 }
@@ -559,11 +555,8 @@
 
 -(void)onLike:(long long)itemId
 {
-    
-   
     //点赞
     NSLog(@"onLike: %lld", itemId);
-
     [BaseRequest SetCommunityTopicWithTopicID:(NSInteger)itemId like:1 succesBlock:^(id data) {
         
             DFLineLikeItem *likeItem = [[DFLineLikeItem alloc] init];
@@ -574,9 +567,6 @@
     } failue:^(id data, NSError *error) {
         
             }];
-    
-    
-    
     
 }
 // 根据图片url获取图片尺寸

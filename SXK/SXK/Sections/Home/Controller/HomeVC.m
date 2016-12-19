@@ -10,6 +10,15 @@
 #import "FirstTableViewCell.h"
 #import "ClassifyCell.h"
 #import "SpecialCell.h"
+#import "MQChatViewManager.h"
+#import "MQChatDeviceUtil.h"
+#import <MeiQiaSDK/MeiQiaSDK.h>
+#import "NSArray+MQFunctional.h"
+#import "MQBundleUtil.h"
+#import "MQAssetUtil.h"
+#import "MQImageUtil.h"
+#import "MQToast.h"
+
 
 @interface HomeVC ()<SDCycleScrollViewDelegate>
 
@@ -28,9 +37,12 @@
     self.view.backgroundColor = [UIColor redColor];
     self.navigationController.navigationBar.hidden = YES;
     [self.view addSubview:self.tableView];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:NO forKey:kLoginState];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    [userDefaults setBool:NO forKey:kLoginState];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(CloseKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_BEGIN object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OpenKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_END object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -244,18 +256,18 @@
         
         
         UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        leftBtn.frame = CommonVIEWFRAME(16.5, 33.5, 21, 19);
+        leftBtn.frame = CommonVIEWFRAME(0, 27, 50.5, 30);
         UIImage *image1 = [UIImage imageNamed:@"图层-158"];
         [leftBtn setImage:[image1 imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
-        
         //        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:leftBtn];
         
         UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        rightBtn.frame = CommonVIEWFRAME(335, 33.5, 23.5, 21);
+        rightBtn.frame = CommonVIEWFRAME(323, 27, 50.5, 30);
         UIImage *image2 = [UIImage imageNamed:@"图层-157"];
+        rightBtn.tag = 201;
         [rightBtn setImage:[image2 imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
-        //        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [rightBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:rightBtn];
     }
     return _headView;
@@ -327,9 +339,35 @@
 
 -(void)btnAction:(UIButton *)sender
 {
-    if (sender.tag) {
-        [self PushViewControllerByClassName:@"ActivityVC" info:nil];
+    
+    
+    switch (sender.tag) {
+        case 105:{
+            [self PushViewControllerByClassName:@"ActivityVC" info:nil];
+            break;
+        }
+        case 201:{
+            MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
+            [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
+            [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];
+            [chatViewManager pushMQChatViewControllerInViewController:self];
+            break;
+        }
+            
+        default:
+            break;
     }
+}
+
+-(void)CloseKeyBoardToolBar
+{
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+}
+
+
+-(void)OpenKeyBoardToolBar
+{
+    [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
 }
 
 

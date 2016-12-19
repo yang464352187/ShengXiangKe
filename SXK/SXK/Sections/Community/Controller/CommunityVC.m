@@ -99,7 +99,7 @@
     [BaseRequest GetCommunityTopicListWithPageNo:self.pageNo  PageSize:self.pageSize topicid:-1 succesBlock:^(id data) {
         NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
         [weakSelf stopRefresh];
-        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
         [weakSelf handleModels:self.listData andTotal:[data[@"total"] integerValue]];
         [weakSelf stopLoadingView];
 

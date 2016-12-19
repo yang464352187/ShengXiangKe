@@ -126,6 +126,10 @@
   
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
     
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor colorWithHexColorString:@"000000"];
+    view.frame = self.tabBar.bounds;
+    [[UITabBar appearance] insertSubview:view atIndex:0];
 //    if (!DEFAULTS_GET_BOOL(@"kAppFirstInstall")) {
 //        _firstpageVC = [[FirstPageViewController alloc] init];
 //        [self.view addSubview:_firstpageVC.view];

@@ -172,19 +172,24 @@
     if (_likeCmtButton == nil) {
         _likeCmtButton = [[UIButton alloc] initWithFrame:CGRectZero];
         _likeCmtButton.hidden = YES;
-        [_likeCmtButton setImage:[UIImage imageNamed:@"评论"] forState:UIControlStateNormal];
+        UIImage *image = [UIImage imageNamed:@"评论"] ;
+        [_likeCmtButton setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
 //        [_likeCmtButton setImage:[UIImage imageNamed:@"AlbumOperateMoreHL"] forState:UIControlStateHighlighted];
         [_likeCmtButton addTarget:self action:@selector(onClickLikeCommentBtn1:) forControlEvents:UIControlEventTouchUpInside];
+//        [_likeCmtButton.imageView setContentMode:UIViewContentModeTop];
         [self.contentView addSubview:_likeCmtButton];
+//        _likeCmtButton.backgroundColor = [UIColor redColor];
     }
     
     if (_likeCmtButton1 == nil) {
         _likeCmtButton1 = [[UIButton alloc] initWithFrame:CGRectZero];
         _likeCmtButton1.hidden = YES;
-        [_likeCmtButton1 setImage:[UIImage imageNamed:@"图层-125"] forState:UIControlStateNormal];
+        UIImage *image = [UIImage imageNamed:@"图层-125"] ;
+        [_likeCmtButton1 setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         //        [_likeCmtButton setImage:[UIImage imageNamed:@"AlbumOperateMoreHL"] forState:UIControlStateHighlighted];
         [_likeCmtButton1 addTarget:self action:@selector(onClickLikeCommentBtn:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_likeCmtButton1];
+//         _likeCmtButton1.backgroundColor = [UIColor grayColor];
     }
 
     
@@ -289,16 +294,16 @@
     height = TimeLabelHeight;
     _timeLabel.hidden = NO;
     _timeLabel.frame = CGRectMake(x, y, width, height);
-    _timeLabel.text = [self changeTime:self.item.ts];
+    _timeLabel.text = [self changeTime:(NSInteger)self.item.ts];
     
     //点赞评论按钮
-    width = 15;
-    height = 15;
+    width = 30;
+    height = 20;
     x = CGRectGetMaxX(_bodyView.frame) - width;
     _likeCmtButton.hidden = NO;
-    _likeCmtButton.frame = CGRectMake(x-3, y+2, width+2, height);
+    _likeCmtButton.frame = CGRectMake(x-3, y, width, height);
     _likeCmtButton1.hidden = NO;
-    _likeCmtButton1.frame = CGRectMake(x-33, y, width+2, height+2);
+    _likeCmtButton1.frame = CGRectMake(x-33, y-2, width, height);
 
     
     //点赞和评论Toolbar

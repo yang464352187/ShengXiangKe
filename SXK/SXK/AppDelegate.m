@@ -14,6 +14,8 @@
 #import "MeVC.h"
 #import "BaseNavigationVC.h"
 #import "VTingSeaPopView.h"
+#import <MeiQiaSDK/MQManager.h>
+#import "MQServiceToViewInterface.h"
 
 
 
@@ -37,6 +39,18 @@
         [self.window makeKeyAndVisible];
         [self.window makeKeyWindow];
     
+    [MQManager initWithAppkey:@"8a2358a00969823007f4ea328ad95bfa" completion:^(NSString *clientId, NSError *error) {
+        if (!error) {
+            NSLog(@"美洽 SDK：初始化成功");
+        } else {
+            NSLog(@"error:%@",error);
+        }
+        
+        [MQServiceToViewInterface getUnreadMessagesWithCompletion:^(NSArray *messages, NSError *error) {
+            NSLog(@">> unread message count: %d", (int)messages.count);
+        }];
+    }];
+
 
     return YES;
 }

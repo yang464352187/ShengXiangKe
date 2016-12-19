@@ -33,7 +33,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self loadingRequest];
+    if (self.first == 0) {
+        [self loadingRequest];
+        self.first = 1;
+    }
 
     
 }

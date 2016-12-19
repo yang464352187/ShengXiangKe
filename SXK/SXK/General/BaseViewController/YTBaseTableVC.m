@@ -100,7 +100,7 @@
     }else{
         [self.tableView.footer resetNoMoreData];
     }
-//    [self.tableView reloadData];
+    [self.tableView reloadData];
     if (_isUseNoDataView) {
         self.noDataView.hidden = self.listData.count;
     }
@@ -128,9 +128,7 @@
     }else{
         [self.tableView.footer resetNoMoreData];
     }
-//    if (refresh == 1) {
-//        [self.tableView reloadData];
-//    }
+    //    [self.tableView reloadData];
     if (_isUseNoDataView) {
         self.noDataView.hidden = self.listData.count;
     }

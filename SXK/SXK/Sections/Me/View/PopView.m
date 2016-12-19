@@ -114,6 +114,7 @@
     UIButton *certainBtn =[UIButton buttonWithType:UIButtonTypeSystem];
     [certainBtn setTitle:@"确定" forState:UIControlStateNormal];
     [certainBtn setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+    [certainBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     certainBtn.frame = VIEWFRAME(CommonWidth(178), 131, 81, 27);
     ViewBorderRadius(certainBtn, 27/2, 0.5, APP_COLOR_GREEN);
 
@@ -128,7 +129,7 @@
     
     self.alertView1 = [[UIView alloc] initWithFrame:VIEWFRAME(30, SCREEN_HIGHT, CommonWidth(315), 165)];
     self.alertView1.backgroundColor = [UIColor whiteColor];
-    
+
     self.titleLab1 = [UILabel createLabelWithFrame:VIEWFRAME((self.alertView.frame.size.width - 100)/2, 18, 100, 14)                                                 andText:@""
                                      andTextColor:[UIColor blackColor]
                                        andBgColor:[UIColor clearColor]
@@ -138,7 +139,6 @@
     UIView *line1 = [[UIView alloc] initWithFrame:VIEWFRAME(0, 45.5, self.alertView.size.width, 0.5)];
     line1.backgroundColor =[UIColor colorWithHexColorString:@"dcdcdc"];
 
-    
     UIImage *firstImage = [UIImage imageNamed:@"椭圆-12-拷贝-2"];
     UIImage *secondImage = [UIImage imageNamed:@"椭圆-12-拷贝"];
     
@@ -147,20 +147,20 @@
     backBtn1.frame = VIEWFRAME(self.alertView.frame.size.width - 27, 18, 12, 12);
     [backBtn1 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
 
-    
-    self.manBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.manBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.manBtn setImage:[firstImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
     [self.manBtn setImage:[secondImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
     [self.manBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.manBtn setTintColor:[UIColor whiteColor]];
-    self.manBtn.tag = 201;
+//    [self.manBtn setTintColor:[UIColor whiteColor]];
     
-    self.womanBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    self.manBtn.tag = 1;
+    
+    self.womanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.womanBtn setImage:[firstImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
     [self.womanBtn setImage:[secondImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
     [self.womanBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.womanBtn setTintColor:[UIColor whiteColor]];
-    self.womanBtn.tag = 202;
+//    [self.womanBtn setTintColor:[UIColor whiteColor]];
+    self.womanBtn.tag = 2;
     
     UILabel *manLab = [UILabel createLabelWithFrame:VIEWFRAME((self.alertView.frame.size.width - 100)/2, 18, 100, 14)                                                 andText:@"男"
                                      andTextColor:[UIColor blackColor]
@@ -275,6 +275,7 @@
     [certainBtn1 setTitle:@"确定" forState:UIControlStateNormal];
     [certainBtn1 setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
     certainBtn1.frame = VIEWFRAME((self.alertView2.size.width - 81)/2, 215, 81, 27);
+    [certainBtn1 addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     ViewBorderRadius(certainBtn1, 27/2, 0.5, APP_COLOR_GREEN);
     
     
@@ -293,6 +294,11 @@
     
     
     
+    
+}
+
+-(void)show2
+{
     [[NSNotificationCenter defaultCenter] addObserver:self
      
                                              selector:@selector(keyboardWasShown:)
@@ -303,13 +309,7 @@
                                              selector:@selector(keyboardWillBeHidden:)
      
                                                  name:UIKeyboardWillHideNotification object:nil];
-    
 
-    
-}
-
--(void)show2
-{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.backGroundView];
     [appDelegate.window addSubview:self.alertView2];
@@ -337,6 +337,17 @@
 
 -(void)show1
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWasShown:)
+     
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWillBeHidden:)
+     
+                                                 name:UIKeyboardWillHideNotification object:nil];
+
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.backGroundView];
     [appDelegate.window addSubview:self.alertView1];
@@ -364,6 +375,17 @@
 
 -(void)show
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWasShown:)
+     
+                                                 name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     
+                                             selector:@selector(keyboardWillBeHidden:)
+     
+                                                 name:UIKeyboardWillHideNotification object:nil];
+
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:self.backGroundView];
     [appDelegate.window addSubview:self.alertView];
@@ -419,6 +441,10 @@
             }];
         });
     });
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+
 
 }
 
@@ -462,19 +488,35 @@
 {
         
     if ([title isEqualToString:@"修改昵称"]) {
+        self.text.text = nil;
         self.text.placeholder = @"请输入新昵称";
         self.titleLab.text = title;
+        self.text.keyboardType = UIKeyboardTypeDefault;
+        self.titleLab1.text = @"";
+        self.titleLab2.text = @"";
     }
     
     if ([title isEqualToString:@"手机号码"]) {
+        self.text.text=nil;
         self.text.placeholder = @"请输入手机号码";
         self.titleLab.text = title;
+        self.text.keyboardType = UIKeyboardTypeNumberPad;
+        self.titleLab1.text = @"";
+        self.titleLab2.text = @"";
+
     }
     if ([title isEqualToString:@"修改性别"]) {
         self.titleLab1.text = title;
+        self.titleLab.text = @"";
+        self.titleLab2.text = @"";
+
     }
+    
     if ([title isEqualToString:@"出生年月"]) {
         self.titleLab2.text = title;
+        self.titleLab1.text = @"";
+        self.titleLab.text = @"";
+
     }
 
     
@@ -534,14 +576,18 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSLog(@"%@",self.yearArr[row]);
+    if (pickerView == self.yearPick) {
+        self.year = self.yearArr[row];
+    }else{
+        self.month = self.monthArr[row];
+    }
 }
 
 -(void)btnClick:(UIButton *)sender
 {
     if (!sender.isSelected) {
         [sender setSelected:YES];
- 
+        
         if ([_delegate respondsToSelector:@selector(sexual:)]) {
             [_delegate sexual:sender.tag];
         }
@@ -550,8 +596,44 @@
         }else{
             [self.manBtn setSelected:NO];
         }
+        NSDictionary *params = @{@"sex":@(2)};
+        [self loadRequest:params];
         [self disMiss];
     }
 }
+
+-(void)buttonAction:(UIButton *)sender
+{
+    if ([_delegate respondsToSelector:@selector(sendInfo:andType:)]) {
+        if ([self.titleLab.text isEqualToString:@"修改昵称"]) {
+            [_delegate sendInfo:self.text.text andType:1];
+            NSDictionary *params = @{@"nickname":self.text.text};
+            [self loadRequest:params];
+            
+        }else if([self.titleLab2.text isEqualToString:@"出生年月"]){
+            [_delegate sendInfo:[NSString stringWithFormat:@"%@-%@",self.year,self.month] andType:3];
+//            NSDictionary *params = @{@"nickname":[NSString stringWithFormat:@"%@-%@",self.year,self.month]};
+//            [self loadRequest:params];
+        }else{
+            [_delegate sendInfo:self.text.text andType:2];
+            NSDictionary *params = @{@"sex":[NSString stringWithFormat:@"%@-%@",self.year,self.month]};
+            [self loadRequest:params];
+ 
+        }
+    }
+    [self disMiss];
+
+}
+
+-(void)loadRequest:(NSDictionary *)params
+{
+    [BaseRequest SetPersonalInfoWithParams:params succesBlock:^(id data) {
+        NSLog(@"%@",data);
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
+}
+
 
 @end

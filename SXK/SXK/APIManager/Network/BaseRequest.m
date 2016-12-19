@@ -628,7 +628,91 @@
 }
 
 
+/**
+ *  意见反馈
+ *  @param content      内容
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)SubmitOpinion:(NSString *)content
+          succesBlock:(SuccessBlock)successBlock
+               failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{
+                             @"content" :content
+                             };
+    [self requestPostCommonWithPath:APPINTERFACE__SubmitOpinion Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+        
+    } failue:failueBlock];
+}
+/**
+ *  用户协议
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)UserProtocolWithSetupID:(NSInteger)setupid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(1)};
+    [self requestPostCommonWithPath:APPINTERFACE__UserProtocol Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
 
+/**
+ *  修改个人信息
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)SetPersonalInfoWithParams:(NSDictionary *)params
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+{
+    [self requestPostCommonWithPath:APPINTERFACE__SetPersonalInfo Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+        
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  获取个人信息
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)GetPersonalInfoWithParams:(NSDictionary *)params
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+{
+    [self requestPostCommonWithPath:APPINTERFACE__GetPersonalInfo Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
 
 
 @end

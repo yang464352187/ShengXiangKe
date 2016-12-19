@@ -13,5 +13,7 @@
 
 -(void)fillWithTitle:(NSString *)title andType:(NSInteger) type;
 
+-(void)fillWithTitle1:(NSString *)title Content:(NSString *)content;
+
 -(void)changeTitle:(NSString *)title;
 @end

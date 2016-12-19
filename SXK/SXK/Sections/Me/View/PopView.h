@@ -11,6 +11,7 @@
 @protocol PopViewDelegate <NSObject>
 // 代理传值方法
 - (void)sexual:(NSInteger) tag;
+- (void)sendInfo:(NSString *)info andType:(NSInteger)type;
 
 @end
 

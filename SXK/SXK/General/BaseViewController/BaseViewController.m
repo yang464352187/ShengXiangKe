@@ -167,6 +167,7 @@
     if ([data isKindOfClass:[NSString class]]) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:data style:UIBarButtonItemStylePlain target:self action:sel];
         self.navigationItem.rightBarButtonItem = item;
+        self.navigationItem.rightBarButtonItem.tintColor = APP_COLOR_GREEN;
         return item;
     }else if ([data isKindOfClass:[UIImage class]]){
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:data style:UIBarButtonItemStylePlain target:self action:sel];

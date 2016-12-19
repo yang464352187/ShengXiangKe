@@ -22,7 +22,9 @@
 @property (nonatomic, strong)NSMutableArray *titleArr;
 @property (nonatomic, strong)NSMutableArray *imageArr;
 @property (nonatomic, strong)UIView *backgroundView;
-
+@property (nonatomic, strong)UIImageView *headImage;
+@property (nonatomic, strong)UIImageView *sexImage;
+@property (nonatomic, strong)UILabel *titleLab;
 
 @end
 
@@ -38,12 +40,16 @@
         }
         
         [self.view addSubview:self.tableView];
+        if (self.first == 0) {
+            [self loadingRequest];
+            self.first = 1;
+        }
         
     }else{
         [self initLoginView];
         
     }
-
+    
 }
 
 
@@ -64,6 +70,26 @@
 //        [self initLoginView];
 //    }
     
+}
+
+-(void)loadingRequest
+{
+    NSDictionary *params = @{};
+    [BaseRequest GetPersonalInfoWithParams:params succesBlock:^(id data) {
+        
+        self.myDict = data[@"user"];
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:self.myDict[@"headimgurl"]] placeholderImage:[UIImage imageNamed:@"背景"]];
+        if ([self.myDict[@"role"] integerValue] == 1) {
+            self.sexImage.image = [UIImage imageNamed:@"男"];
+        }else{
+            self.sexImage.image = [UIImage imageNamed:@"女生"];
+        }
+        self.titleLab.text = self.myDict[@"nickname"];
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
 }
 
 -(void)initData
@@ -212,7 +238,9 @@
     explainBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [loginView addSubview:explainBtn];
     
-    LoginBtn *BEBtn = [[LoginBtn alloc] initWithFrame:CGRectMake(64.0000/375*SCREEN_WIDTH,217.5000/667*SCREEN_HIGHT , 247.0000/375*SCREEN_WIDTH, 43.0000/667*SCREEN_HIGHT) andImage:[UIImage imageNamed:@"矢量智能对象"] andTitle:@"用BOOBE登录"];
+    LoginBtn *BEBtn = [[LoginBtn alloc] initWithFrame:CGRectMake(64.0000/375*SCREEN_WIDTH,217.5000/667*SCREEN_HIGHT , 247.0000/375*SCREEN_WIDTH, 43.0000/667*SCREEN_HIGHT) andImage:[UIImage imageNamed:@"boobe"] andTitle:@"用BOOBE登录"];
+    
+    
     BEBtn.LoginTag = 1;
     [BEBtn addTarget:self action:@selector(BEBtnAction:)];
     
@@ -331,12 +359,14 @@
         BGImage.image = [UIImage imageNamed:@"背景1"];
         
         UIImageView *headImage = [[UIImageView alloc] initWithFrame:VIEWFRAME( (SCREEN_WIDTH - CommonHight(86))/2, CommonHight(59.5), CommonHight(86), CommonHight(86))];
-        headImage.image = [UIImage imageNamed:@"广告"];
+        headImage.image = [UIImage imageNamed:@""];
         ViewRadius(headImage, headImage.frame.size.width/2);
+        self.headImage = headImage;
         
         UIImageView *sexImage = [[UIImageView alloc] initWithFrame:VIEWFRAME(CommonWidth(205), CommonHight(125), CommonHight(18), CommonHight(18))];
-        sexImage.image = [UIImage imageNamed:@"女生"];
+        sexImage.image = [UIImage imageNamed:@""];
         ViewRadius(sexImage, CommonHight(18)/2);
+        self.sexImage = sexImage;
         
         UILabel *nickLab = [UILabel createLabelWithFrame:CommonVIEWFRAME(0, 161, 375, 14)
                                           andText:@"好肥一只鱼"
@@ -344,6 +374,7 @@
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(14)
                                  andTextAlignment:NSTextAlignmentCenter];
+        self.titleLab = nickLab;
         UIFont *font;
         if (SCREEN_HIGHT < 568) {
             font = SYSTEMFONT(10);
@@ -468,7 +499,7 @@
 -(NSMutableArray *)titleArr
 {
     if (!_titleArr) {
-        _titleArr = [[NSMutableArray alloc] initWithObjects:@"我的钱包",@"我的积分",@"分享奖励",@"我的信用",@"服务中心",@"我的买卖",@"我的收藏",@"联系客服",@"设置", nil];
+        _titleArr = [[NSMutableArray alloc] initWithObjects:@"我的钱包",@"我的啵值",@"分享奖励",@"我的信用",@"服务中心",@"我的买卖",@"我的收藏",@"联系客服",@"设置", nil];
     }
     return _titleArr;
 }
@@ -490,7 +521,7 @@
 -(void)btnAction:(UIButton *)sender
 {
     if (sender.tag == 103) {
-        [self PushViewControllerByClassName:@"PersonalInfoVC" info:nil];
+        [self PushViewControllerByClassName:@"PersonalInfoVC" info:self.myDict];
     }
 }
 - (void)didReceiveMemoryWarning {

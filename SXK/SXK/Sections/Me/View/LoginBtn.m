@@ -53,15 +53,15 @@
     
     if ([title isEqualToString:@"用BOOBE登录"]) {
         [image1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.mas_top).offset(18.0000/667*SCREEN_HIGHT);
-            make.bottom.equalTo(self.mas_bottom).offset(-15.0000/667*SCREEN_HIGHT);
+            make.top.equalTo(self.mas_top).offset(10.0000/667*SCREEN_HIGHT);
+            make.bottom.equalTo(self.mas_bottom).offset(-10.0000/667*SCREEN_HIGHT);
             make.left.equalTo(self.mas_left).offset(15.0000/375*SCREEN_WIDTH);
             make.width.equalTo(@(45.0000/375*SCREEN_WIDTH));
         }];
     }else if ([title isEqualToString:@"用QQ账号登录"]){
         [image1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.mas_top).offset(11.0000/667*SCREEN_HIGHT);
-            make.bottom.equalTo(self.mas_bottom).offset(-11.0000/667*SCREEN_HIGHT);
+            make.top.equalTo(self.mas_top).offset(9.0000/667*SCREEN_HIGHT);
+            make.bottom.equalTo(self.mas_bottom).offset(-9.0000/667*SCREEN_HIGHT);
             make.left.equalTo(self.mas_left).offset(25.0000/375*SCREEN_WIDTH);
             make.width.equalTo(@(22.0000/375*SCREEN_WIDTH));
         }];

@@ -11,13 +11,21 @@
 #import "PopView.h"
 #import "AppDelegate.h"
 
-@interface PersonalInfoVC ()<PopViewDelegate>
+@interface PersonalInfoVC ()<PopViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIView  *headView;
 @property (strong, nonatomic) NSArray *firstArr;
 @property (strong, nonatomic) NSArray *secondArr;
 @property (strong, nonatomic) PopView *popView;
 @property (strong, nonatomic) TypeCell *sexCell;
+@property (strong, nonatomic) TypeCell *nicknameCell;
+@property (strong, nonatomic) TypeCell *phoneCell;
+@property (strong, nonatomic) TypeCell *birthCell;
+@property (strong, nonatomic) NSString *nickName;
+@property (strong, nonatomic) NSString *phoneNum;
+@property (strong, nonatomic) NSString *birthday;
+@property (assign, nonatomic) NSInteger sex;
+@property (strong, nonatomic) UIImageView *headImage;
 
 @end
 
@@ -26,7 +34,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];//设置电池条颜色为黑色
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];//设置电池条颜色为黑色
 
 }
 
@@ -38,6 +46,14 @@
     [self initData];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.popView];
+    
+//    NSDictionary *params = @{};
+//    [BaseRequest GetPersonalInfoWithParams:params succesBlock:^(id data) {
+//        NSLog(@"yang %@",params);
+//    } failue:^(id data, NSError *error) {
+//        
+//    }];
+    
 }
 
 -(void)initData
@@ -71,8 +87,15 @@
         _headView.backgroundColor = [UIColor whiteColor];
         
         UIImageView *headImage = [[UIImageView alloc] initWithFrame:VIEWFRAME( (SCREEN_WIDTH - CommonHight(94))/2, CommonHight(18), CommonHight(94), CommonHight(94))];
+        [headImage setUserInteractionEnabled:YES];
+        headImage.userInteractionEnabled = YES;
         headImage.image = [UIImage imageNamed:@"头像"];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+
+        [headImage addGestureRecognizer:tap];
+        
         ViewRadius(headImage, CommonHight(94)/2);
+        self.headImage = headImage;
         
         UIButton *shootBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         UIImage *shootImage = [UIImage imageNamed:@"相机"];
@@ -115,7 +138,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",indexPath.section,indexPath.row];//不使用复用
+    NSString *CellIdentifier = [NSString stringWithFormat:@"cell%ld%ld",(long)indexPath.section,(long)indexPath.row];//不使用复用
     
     TypeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
@@ -123,15 +146,38 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    if (indexPath.section == 0) {
-        [cell fillWithTitle:self.firstArr[indexPath.row] andType:1];
-    }else{
-        [cell fillWithTitle:self.secondArr[indexPath.row] andType:1];
-    }
+//    if (indexPath.section == 0) {
+//        [cell fillWithTitle1:self.firstArr[indexPath.row] andType:1];
+//    }else{
+//        [cell fillWithTitle1:self.secondArr[indexPath.row] andType:1];
+//    }
     
     if (indexPath.section == 0 && indexPath.row == 1) {
+        
+        if ([self.myDict[@"role"] integerValue] == 1) {
+            [cell fillWithTitle1:self.firstArr[indexPath.row] Content:@"男"];
+        }else{
+            [cell fillWithTitle1:self.firstArr[indexPath.row] Content:@"女"];
+        }
         self.sexCell = cell;
     }
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        [cell fillWithTitle1:self.firstArr[indexPath.row] Content:self.myDict[@"nickname"]];
+        self.nicknameCell = cell;
+    }
+    if (indexPath.section == 0 && indexPath.row == 2) {
+        [cell fillWithTitle1:self.firstArr[indexPath.row] Content:self.myDict[@"nickname"]];
+        self.birthCell = cell;
+    }
+    if (indexPath.section == 0 && indexPath.row == 3) {
+        [cell fillWithTitle1:self.firstArr[indexPath.row] Content:@""];
+        self.birthCell = cell;
+    }
+
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        self.phoneCell = cell;
+    }
+
     return cell;
     
 }
@@ -172,7 +218,9 @@
     }
     
     if (indexPath.section == 0 && indexPath.row == 3) {
-        [self PushViewControllerByClassName:@"PersonalSummaryVC" info:nil];
+        NSDictionary *dic = @{@"title":@"个人简介",
+                              @"opinion":@"请输入您的个人简介"};
+        [self PushViewControllerByClassName:@"PersonalSummaryVC" info:dic];
     }
     
     if (indexPath.section == 1 && indexPath.row == 0) {
@@ -202,15 +250,152 @@
     
     if (tag == 201) {
         [self.sexCell changeTitle:@"男"];
+        self.sex = 1;
     }else{
         [self.sexCell changeTitle:@"女"];
+        self.sex = 2;
     }
+}
+
+-(void)sendInfo:(NSString *)info andType:(NSInteger)type
+{
+
+    switch (type) {
+        case 1:{
+            [self.nicknameCell changeTitle:info];
+            self.nickName = info;
+            
+            break;
+        }
+        case 2:{
+            [self.phoneCell changeTitle:info];
+            self.phoneNum = info;
+            break;
+        }
+        case 3:{
+            [self.birthCell changeTitle:info];
+            self.birthday = info;
+            break;
+        }
+
+        default:
+            break;
+    }
+    NSLog(@"%@",info);
+}
+
+
+-(void)tapAction:(UIGestureRecognizer *)tap
+{
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从照片库选取",nil];
+    [action showInView:self.view];
+
+}
+
+#pragma mark - UIActionSheet delegate -
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    UIImagePickerController *pick=[[UIImagePickerController alloc]init];
+    pick.allowsEditing = true;//设置是否可以编辑相片涂鸦
+    pick.delegate = self;
+    
+    if (buttonIndex==0) {
+        //判断用户是否有权限访问相机
+        //        if ([[AuthorityManager sharedManager] hasAuthorityWithType:AuthorityType_Camera animated:YES]) {
+        //判断相机是否可用,因为模拟机是不可以的
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            
+            pick.sourceType = UIImagePickerControllerSourceTypeCamera;//设置 pick 的类型为相机
+            [self presentViewController:pick animated:true completion:nil];
+        }
+        else
+        {
+            NSLog(@"相机不可用");
+        }
+        
+    }
+    else if (buttonIndex==1)
+    {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            pick.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:pick animated:true completion:nil];
+        }
+        else
+        {
+            NSLog(@"相册不可用");
+        }
+    }
+
+}
+
+#pragma  mark - imagePickerController Delegate -
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSString *type=[info objectForKey:UIImagePickerControllerMediaType];
+    //判断选择的是否是图片,这个 public.image和public.movie是固定的字段.
+    if ([type isEqualToString:@"public.image"])
+    {
+
+        UIImage *image=[info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        NSData *image1 = UIImageJPEGRepresentation(image, 0.5);
+        
+        
+        self.headImage.image = image;
+
+        
+        
+        [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
+        [[GCQiniuUploadManager sharedInstance] createToken];
+        
+        [[GCQiniuUploadManager sharedInstance] uploadData:image1 progress:^(float percent) {
+            
+        } completion:^(NSError *error, NSString *link, NSInteger index) {
+            NSArray *array = [link componentsSeparatedByString:@"/"];
+            NSDictionary *params = @{@"headimgurl":[NSString stringWithFormat:@"%@%@",APP_BASEIMG,array[1]]};
+            
+            [BaseRequest SetPersonalInfoWithParams:params succesBlock:^(id data) {
+                
+                NSLog(@"qqqqq%@",data);
+            } failue:^(id data, NSError *error) {
+                
+            }];
+            
+            
+        }];
+        
+//        [[GCQiniuUploadManager sharedInstance] uploadDatas:photo progress:^(float percent) {
+//            
+//        } oneTaskCompletion:^(NSError *error, NSString *link, NSInteger index) {
+//            
+//            NSArray *array = [link componentsSeparatedByString:@"/"];
+//            
+//            [weakSelf.uploadPhotoArr addObject:array[1]];
+//            
+//        } allTasksCompletion:^{
+//            
+//            [BaseRequest AddCommunityTopicWithContent:self.content.text imgList:self.uploadPhotoArr moduleid:self.type succesBlock:^(id data) {
+//                [weakSelf popGoBack];
+//                NSLog(@"---------%@-----------",describe(data));
+//                [CustomHUD stopHidden];
+//                [ProgressHUDHandler showHudTipStr:@"发布成功"];
+//                
+//            } failue:^(id data, NSError *error) {
+//                [ProgressHUDHandler showHudTipStr:@"发布失败"];
+//                
+//            }];
+//            
+//            
+//        }];
+
+    }
+    [picker dismissViewControllerAnimated:false completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 /*
 #pragma mark - Navigation

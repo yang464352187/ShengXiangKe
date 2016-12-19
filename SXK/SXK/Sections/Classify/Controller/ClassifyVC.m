@@ -42,10 +42,16 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (self.first == 0) {
+        [self loadingRequest];
+        self.first = 1;
+    }
+    
 }
 
 -(void)loadingRequest
 {
+    [self startLoadingView:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
 
     _weekSelf(weakSelf);
     [BaseRequest GetBrandListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
@@ -108,9 +114,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"分类";
     [self loadData];
-    [self loadingRequest];
     [self initUI];
-    [self startLoadingView:self.view.frame];
 
 }
 

@@ -87,6 +87,19 @@
         case 0:
             [self PushViewControllerByClassName:@"AddressManagerVC" info:nil];
             break;
+        case 4:{
+            NSDictionary *dic = @{@"title":@"意见反馈",
+                                  @"opinion":@"请输入您的宝贵意见"};
+            [self PushViewControllerByClassName:@"PersonalSummaryVC" info:dic];
+            break;
+        }
+        case 5:{
+            NSDictionary *dic = @{@"title":@"用户协议"};
+            [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
+            break;
+        }
+
+            
             
         default:
             break;

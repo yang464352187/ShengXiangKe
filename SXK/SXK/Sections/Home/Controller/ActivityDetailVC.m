@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong)UILabel *detailLab;
 
+@property (nonatomic, strong)UIWebView *webView;
+
 @end
 
 @implementation ActivityDetailVC
@@ -114,7 +116,8 @@
     [self.myScrollView addSubview:self.detailLab];
     [self.myScrollView addSubview:leftLine];
     [self.myScrollView addSubview:rightLine];
-    [self.myScrollView addSubview:self.contentLab];
+    [self.myScrollView addSubview:self.webView];
+
     [self.view addSubview:self.myScrollView];
     
     [self.detailLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -136,7 +139,7 @@
     }];
     
     
-    self.contentLab.text = @"jdfkljasdklfjalksdjkflajdlkfjalksdjfklajsdklfjaklsdjfklajsdklfjalksjdklfjaklsdjfklajskldjflkajsdklfjalksjdlkfjaklsdjfklajskdlfiwoulaksdjfklajsdklfjaksldjfklajsdklfjiajwiefjalksdjfklajsdklfjkalsjdfwiofjaklsdjlfkjaslkdjfklakljflaksdjkfljaklsdjflkjaklsdjfklajdslfjklasdjfklajdsklfjaklsdjflkasd asdkvasdnkvl;adjsklvjaklsdjvklasjdvklajsdklfjals;kdjflkajsdklfjaklsdjkfljalksjdfkljaksldjklfjaklsdjlkfjaklsdjfklajsdkljfklajsdklfjlkasjdlkfjkddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddldddddddd";
+
     
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor whiteColor];
@@ -173,7 +176,7 @@
     if (!_myScrollView) {
         _myScrollView  =  [[UIScrollView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT - 110)];
         _myScrollView.backgroundColor = [UIColor whiteColor];
-        _myScrollView.bounces = YES;
+        _myScrollView.bounces = NO;
         _myScrollView.showsHorizontalScrollIndicator = NO;
         _myScrollView.showsVerticalScrollIndicator = NO;
         _myScrollView.scrollsToTop = YES;
@@ -207,40 +210,39 @@
     
     self.titleLab.text = data[@"name"];
     
-    self.addressLab.text = data[@"place"];
-    
-    self.contentLab.text = data[@"content"];
-    
-    CGFloat height = [UILabel getHeightByWidth:SCREEN_WIDTH - 30 title:data[@"content"] font:SYSTEMFONT(13)];
+    CGFloat height = [UILabel getHeightByWidth:SCREEN_WIDTH - 30 title:data[@"content"] font:SYSTEMFONT(15.5)];
 
-    CGRect frame = self.contentLab.frame;
+    NSString *jsString = [NSString stringWithFormat:@"<html> \n"
+                          "<head> \n"
+                          "<style type=\"text/css\"> \n"
+                          "body {font-size: %f; font-family: \"%@\"; color: %@;}\n"
+                          "</style> \n"
+                          "</head> \n"
+                          "<body>%@</body> \n"
+                          "</html>", 13.0f, @"Times New Roman", @"black", data[@"content"]];
     
-    frame.size.height = [UILabel getHeightByWidth:SCREEN_WIDTH - 30 title:data[@"content"] font:SYSTEMFONT(13)];
+     [self.webView loadHTMLString:jsString baseURL:nil];
     
-    self.contentLab.frame = frame;
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:data[@"content"]];
-    //设置字体颜色
-    [text addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, text.length)];
-    
-    //设置缩进、行距
-    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
-    style.headIndent = 0;
-    style.firstLineHeadIndent = 20;
-//    style.lineSpacing = 5;
-    [text addAttribute:NSParagraphStyleAttributeName value:style range:NSMakeRange(0, text.length)];
-    
-    
-    self.contentLab.attributedText =text;
-    
-    [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.detailLab.mas_bottom).offset(15);
         make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 30, height));
-        make.left.equalTo(self.view.mas_left).offset(15);
+        make.left.equalTo(self.myScrollView.mas_left).offset(15);
     }];
     
-    self.myScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.contentLab.frame.origin.y + self.contentLab.frame.size.height+100);
+    self.myScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.contentLab.frame.origin.y + height-30);
+}
 
-    
+
+- (UIWebView *)webView
+{
+    if (!_webView) {
+        _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        _webView.dataDetectorTypes = UIDataDetectorTypeAll;
+        _webView.backgroundColor = [UIColor clearColor];
+        _webView.scrollView.bounces = NO;
+        _webView.scrollView.scrollEnabled = YES;
+    }
+    return _webView;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

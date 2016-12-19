@@ -178,10 +178,10 @@
  *  @param failueBlock  失败回调
  */
 + (void)GetBrandListWithPageNo:(NSInteger)pageNo
-                    PageSize:(NSInteger)pageSize
-                       order:(NSInteger)order
-                 succesBlock:(SuccessBlock)successBlock
-                      failue:(FailureBlock)failueBlock;
+                      PageSize:(NSInteger)pageSize
+                         order:(NSInteger)order
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
 
 
 /**
@@ -317,13 +317,53 @@
                               failue:(FailureBlock)failueBlock;
 
 
+/**
+ *  意见反馈
+ *  @param content      内容
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)SubmitOpinion:(NSString *)content
+          succesBlock:(SuccessBlock)successBlock
+               failue:(FailureBlock)failueBlock;
 
 
 
 
+/**
+ *  用户协议
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)UserProtocolWithSetupID:(NSInteger)setupid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
 
 
+/**
+ *  修改个人信息
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
 
++(void)SetPersonalInfoWithParams:(NSDictionary *)params
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取个人信息
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)GetPersonalInfoWithParams:(NSDictionary *)params
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
 
 
 

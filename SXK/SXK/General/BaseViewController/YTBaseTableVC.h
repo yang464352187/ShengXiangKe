@@ -20,6 +20,8 @@
 @property (assign, nonatomic) NSInteger      pageNo;//当前页数
 @property (strong, nonatomic) NoDataView     *noDataView;
 @property (assign, nonatomic) BOOL           isUseNoDataView;
+@property (nonatomic, assign) NSInteger first;
+
 
 /** 下拉刷新，根据需要可重写*/
 - (void)refreshHeaderAction;
@@ -39,6 +41,8 @@
 /**  处理模型*/
 - (void)handleModels:(NSArray *)models total:(NSInteger)total;
 
+/**  处理模型*/
+- (void)handleModels:(NSArray *)models total:(NSInteger)total iSrefresh:(NSInteger)refresh;
 
 /**  删除数据源中的指定位置数据，并根据数据源是否显示nodataview*/
 - (void)removeObjectAtIndex:(NSInteger)index;

@@ -54,12 +54,16 @@
 {
     [super viewWillAppear:animated];
     
-    
+    if (self.first == 0) {
+        [self startLoadingView:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+        [self loadingRequest];
+        self.first = 1;
+    }
+
     [_commentInputView addNotify];
     
     [_commentInputView addObserver];
     
-    [self loadingRequest];
 
 }
 
@@ -75,7 +79,6 @@
 -(void)loadingRequest
 {
     _weekSelf(weakSelf);
-
     [BaseRequest GetCommunityHeadImageWithSetupID:1 succesBlock:^(id data) {
         NSDictionary *dic = data[@"setup"];
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"img"]]];
@@ -85,7 +88,7 @@
         
     }];
     
-    [BaseRequest GetCommunityModuleWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
+    [BaseRequest GetCommunityModuleWithPageNo:0  PageSize:0 order:1 succesBlock:^(id data) {
         NSArray *models = [ModuleModel modelsFromArray:data[@"moduleList"]];
         weakSelf.moduleArr = models;
         [weakSelf.collectionView reloadData];
@@ -93,9 +96,12 @@
         
     }];
     
-    [BaseRequest GetCommunityTopicListWithPageNo:0 PageSize:0 topicid:-1 succesBlock:^(id data) {
+    [BaseRequest GetCommunityTopicListWithPageNo:self.pageNo  PageSize:self.pageSize topicid:-1 succesBlock:^(id data) {
         NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
-        [weakSelf handleModels:models];
+        [weakSelf stopRefresh];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+        [weakSelf handleModels:self.listData andTotal:[data[@"total"] integerValue]];
+        [weakSelf stopLoadingView];
 
     } failue:^(id data, NSError *error) {
         
@@ -103,18 +109,24 @@
 }
 
 
--(void)handleModels:(NSArray *)models
+-(void)handleModels:(NSArray *)models andTotal:(NSInteger)total
 {
     
-    [_items removeAllObjects];
-    for (CommunityTopicListModel *model in models) {
+    _items = [[NSMutableArray alloc] initWithArray:models];
+//    for (CommunityTopicListModel *model in models) {
+        for (int i = 0 ; i < models.count; i++) {
+            CommunityTopicListModel *model = models[i];
         
         DFTextImageLineItem *textImageItem = [[DFTextImageLineItem alloc] init];
         
         textImageItem.itemId = [model.topicid integerValue];
         textImageItem.userId = [model.userid integerValue];
         textImageItem.userAvatar = model.headimgurl;
-        textImageItem.userNick = model.nickname;
+        if (model.nickname.length < 1) {
+            textImageItem.userNick = @"无名";
+        }else{
+            textImageItem.userNick = model.nickname;
+        }
         textImageItem.text = model.content;
         
         for (NSDictionary *dic in  model.likeList) {
@@ -135,8 +147,11 @@
         
         NSMutableArray *srcImages = [NSMutableArray array];
         
-        for (NSDictionary *dic in model.imgList) {
-            [srcImages addObject: [NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"image"]]];
+        for (id dic in model.imgList) {
+            
+            if ([dic isKindOfClass:[NSDictionary class]]) {
+                [srcImages addObject: [NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"image"]]];
+            }
         }
         
         
@@ -145,20 +160,30 @@
         textImageItem.ts = [model.createtime integerValue] ;
 
         if (srcImages.count <= 1  && srcImages.count > 0) {
-            CGSize size = [self getImageSizeWithURL:[NSString stringWithFormat:@"%@",srcImages[0]]];
-            textImageItem.width = size.width;
-            textImageItem.height = size.height;
-            [self addItem:textImageItem];
+//            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",srcImages[0]]];
+//            [[SDWebImageManager sharedManager] downloadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//                
+//            } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+                textImageItem.width = 100;
+                textImageItem.height = 100;
+                [self addItem:textImageItem index:i];
+//
+//            }];
 
         }else{
-            [self addItem:textImageItem];
+            [self addItem:textImageItem index:i];
 
         }
-        
-
     }
     
-    
+
+    if (_items.count >= total) {
+        [self.tableView.footer endRefreshingWithNoMoreData];
+        [self.tableView.header endRefreshing];
+    }else{
+        [self.tableView.footer resetNoMoreData];
+    }
+    [self.tableView reloadData];
 
 }
 
@@ -171,14 +196,15 @@
 //    [self initData];
     [self initUI];
     [self initCommentInputView];
+//    [self loadingRequest];
+//    [self.tableView.header beginRefreshing];
+
 }
 
 -(void) initCommentInputView
 {
     if (_commentInputView == nil) {
         _commentInputView = [[CommentInputView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-//        NSLog(@"aaaaaa %@",NSStringFromCGRect(_commentInputView.frame));
-        
         _commentInputView.hidden = YES;
         _commentInputView.delegate = self;
         [self.view addSubview:_commentInputView];
@@ -256,7 +282,7 @@
 - (UITableView *)tableView{
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-44) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-64) style:UITableViewStyleGrouped];
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
         _tableView.backgroundColor = [UIColor whiteColor];
@@ -265,6 +291,8 @@
         _tableView.tableHeaderView = self.headView;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
+        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshHeaderAction)];
+        _tableView.footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(refreshFooterAction)];
 
     }
     return _tableView;
@@ -311,7 +339,7 @@
 //某一段有多少个item
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSLog(@"kkkkkkkkkkkkkkkkkkk%ld",self.moduleArr.count);
+//    NSLog(@"kkkkkkkkkkkkkkkkkkk%ld",self.moduleArr.count);
     return self.moduleArr.count;
 }
 
@@ -360,6 +388,11 @@
 //    DFLineCellManager *manager = [DFLineCellManager sharedInstance];
 //    return [manager getCell:itemClass];
 //}
+-(void)addItem:(DFBaseLineItem *)item index:(NSInteger)index
+{
+    [self insertItem:item index:index];
+}
+
 
 -(void)addItem:(DFBaseLineItem *)item
 {
@@ -376,12 +409,13 @@
     [self genLikeAttrString:item];
     [self genCommentAttrString:item];
     
-    [_items insertObject:item atIndex:index];
+//    NSLog(@"%ld kkkkkkk  %ld",_items.count,index);
+    [_items replaceObjectAtIndex:index withObject:item];
     
     
     [_itemDic setObject:item forKey:[NSNumber numberWithLongLong:item.itemId]];
     
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
 }
 
 
@@ -599,6 +633,7 @@
     if(CGSizeEqualToSize(CGSizeZero, size))                    // 如果获取文件头信息失败,发送异步请求请求原图
     {
         NSData* data = [NSURLConnection sendSynchronousRequest:[NSURLRequest requestWithURL:URL] returningResponse:nil error:nil];
+//        NSData *data = [[NSData alloc] initWithContentsOfURL:URL];
         UIImage* image = [UIImage imageWithData:data];
         if(image)
         {
@@ -702,6 +737,9 @@
     }
 }
 
+- (void)getDataByNetwork{
+    [self loadingRequest];
+}
 
 
 - (void)didReceiveMemoryWarning {

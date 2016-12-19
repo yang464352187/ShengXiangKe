@@ -64,24 +64,26 @@
 
 -(void)barButtonAction
 {
-    self.teachView = [self loadTeachView];
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//    self.teachView = [self loadTeachView];
+//    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+//    
+//    dispatch_async(queue, ^{
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            
+//            [UIView animateWithDuration:0.5 animations:^{
+//                
+//                CGRect frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HIGHT+64);
+//                self.teachView.frame = frame;
+//                
+//            } completion:^(BOOL finished) {
+//                
+//                
+//            }];
+//        });
+//    });
     
-    dispatch_async(queue, ^{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                CGRect frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HIGHT+64);
-                self.teachView .frame = frame;
-                
-            } completion:^(BOOL finished) {
-                
-                
-            }];
-        });
-    });
+    [self PushViewControllerByClassName:@"HowToShootVC" info:nil];
 
 }
 #pragma mark -- UITabelViewDelegate And DataSource
@@ -345,7 +347,7 @@
             
             [UIView animateWithDuration:0.5 animations:^{
                 
-                CGRect frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HIGHT+64);
+                CGRect frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HIGHT);
                 self.teachView .frame = frame;
                 
             } completion:^(BOOL finished) {
@@ -361,40 +363,44 @@
 -(UIView *)loadTeachView
 {
     
-    UIView *teachView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HIGHT, SCREEN_WIDTH, SCREEN_HIGHT+64)];
-    teachView.backgroundColor = [UIColor blackColor];
-    teachView.alpha = 0.8;
+    UIView *teachView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HIGHT, SCREEN_WIDTH, SCREEN_HIGHT)];
+    teachView.backgroundColor = [UIColor whiteColor];
+    teachView.alpha = 1;
     
-    UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(0,128 , SCREEN_WIDTH, 18)
-                                           andText:@"如何拍摄"
-                                      andTextColor:[UIColor whiteColor]
-                                        andBgColor:[UIColor clearColor]
-                                           andFont:SYSTEMFONT(18)
-                                  andTextAlignment:NSTextAlignmentCenter];
+//    UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(0,128 , SCREEN_WIDTH, 18)
+//                                           andText:@"如何拍摄"
+//                                      andTextColor:[UIColor whiteColor]
+//                                        andBgColor:[UIColor clearColor]
+//                                           andFont:SYSTEMFONT(18)
+//                                  andTextAlignment:NSTextAlignmentCenter];
+//    
+//    
+//    for (int i = 0; i  < 3 ; i++) {
+//        for (int j = 0; j < 3 ; j++) {
+//            UIImageView *imageView = [[UIImageView alloc] initWithFrame:VIEWFRAME(CommonWidth(77+j*(80+14)), CommonHight(117+i*(80+12.5)+64), CommonHight(80), CommonHight(80))];
+//            imageView.backgroundColor = [UIColor whiteColor];
+//            
+////            UILabel *lab = [UILabel createLabelWithFrame:VIEWFRAME(0,128 , SCREEN_WIDTH, 18)
+////                                                   andText:@"如何拍摄"
+////                                              andTextColor:[UIColor whiteColor]
+////                                                andBgColor:[UIColor clearColor]
+////                                                   andFont:SYSTEMFONT(18)
+////                                          andTextAlignment:NSTextAlignmentCenter];
+//
+//            [teachView addSubview:imageView];
+//        }
+//    }
     
+//    
+//    
+//    
+//    
+//    [teachView addSubview:title];
     
-    for (int i = 0; i  < 3 ; i++) {
-        for (int j = 0; j < 3 ; j++) {
-            UIImageView *imageView = [[UIImageView alloc] initWithFrame:VIEWFRAME(CommonWidth(77+j*(80+14)), CommonHight(117+i*(80+12.5)+64), CommonHight(80), CommonHight(80))];
-            imageView.backgroundColor = [UIColor whiteColor];
-            
-//            UILabel *lab = [UILabel createLabelWithFrame:VIEWFRAME(0,128 , SCREEN_WIDTH, 18)
-//                                                   andText:@"如何拍摄"
-//                                              andTextColor:[UIColor whiteColor]
-//                                                andBgColor:[UIColor clearColor]
-//                                                   andFont:SYSTEMFONT(18)
-//                                          andTextAlignment:NSTextAlignmentCenter];
-
-            [teachView addSubview:imageView];
-        }
-    }
+    UIImageView *image = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 64, SCREEN_WIDTH, SCREEN_HIGHT)];
+    image.image = [UIImage imageNamed:@"如何拍摄"];
     
-    
-    
-    
-    
-    [teachView addSubview:title];
-    
+    [teachView addSubview:image];
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     [appDelegate.window addSubview:teachView];
 

@@ -77,6 +77,10 @@
 #define APPINTERFACE__GetCommunityTopicList  @"/app/communitytopic/listpost"
 #define APPINTERFACE__SetCommunityTopic      @"/app/communitytopic/setpost"
 #define APPINTERFACE__AddCommunityTopic      @"/app/communitytopic/addpost"
-
+#define APPINTERFACE__SubmitOpinion          @"/app/feedback/addpost"
+#define APPINTERFACE__UserProtocol           @"/app/agreementsetup/getpost"
+#define APPINTERFACE__QuestionList           @"/app/question/listpost"
+#define APPINTERFACE__SetPersonalInfo        @"/app/user/setpost"
+#define APPINTERFACE__GetPersonalInfo        @"/app/user/getpost"
 
 #endif /* APPMacro_h */

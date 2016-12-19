@@ -196,7 +196,7 @@
 //点击选中哪一行 的代理方法
 - (void)clickAreasViewEnsureBtnActionAreasDate:(DQAreasModel *)model{
     
-    NSLog(@"%@",  [NSString stringWithFormat:@"%@%@%@",model.Province,model.city,model.county]);
+//    NSLog(@"%@",  [NSString stringWithFormat:@"%@%@%@",model.Province,model.city,model.county]);
     [self.addressCell changeAddress:[NSString stringWithFormat:@"%@ %@ %@",model.Province,model.city,model.county]];
     self.province =  model.Province;
     self.city = model.city;

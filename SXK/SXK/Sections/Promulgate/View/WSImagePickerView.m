@@ -240,6 +240,7 @@ static NSString *imagePickerCellIdentifier = @"imagePickerCellIdentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+//    NSLog(@"点击了  %ld段   %ld行",indexPath.section,indexPath.row);
     NSMutableArray *tmpArray = [NSMutableArray new];
     if(indexPath.row < _photosArray.count) {
         for (UIImage *image in _photosArray) {
@@ -272,7 +273,17 @@ static NSString *imagePickerCellIdentifier = @"imagePickerCellIdentifier";
                 }
                 
             }
+        }else{
+            if (indexPath.row == _photosArray.count ) {
+                if ([_delegate respondsToSelector:@selector(showTeachView)]) { // 如果协议响应了sendValue:方法
+                    [_delegate showTeachView]; // 通知执行协议方法
+                }
+                
+            }
+
         }
+        
+        
     }
 }
 

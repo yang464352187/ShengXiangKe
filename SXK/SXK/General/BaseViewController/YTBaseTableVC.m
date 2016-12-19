@@ -100,10 +100,41 @@
     }else{
         [self.tableView.footer resetNoMoreData];
     }
-    [self.tableView reloadData];
+//    [self.tableView reloadData];
     if (_isUseNoDataView) {
         self.noDataView.hidden = self.listData.count;
     }
+}
+
+
+
+- (void)handleModels:(NSArray *)models total:(NSInteger)total iSrefresh:(NSInteger)refresh;
+{
+    self.total = total;
+    if (self.pageNo == 1) {
+        self.listData = [NSMutableArray arrayWithArray:models];
+    } else {
+        NSInteger lastCount = self.pageSize * (self.pageNo-1);
+        if (self.listData.count > lastCount) {
+            [self.listData replaceObjectsInRange:NSMakeRange(lastCount, models.count) withObjectsFromArray:models];
+        }else{
+            [self.listData addObjectsFromArray:models];
+        }
+        
+    }
+    if (self.listData.count >= total) {
+        [self.tableView.footer endRefreshingWithNoMoreData];
+        [self.tableView.header endRefreshing];
+    }else{
+        [self.tableView.footer resetNoMoreData];
+    }
+//    if (refresh == 1) {
+//        [self.tableView reloadData];
+//    }
+    if (_isUseNoDataView) {
+        self.noDataView.hidden = self.listData.count;
+    }
+
 }
 
 

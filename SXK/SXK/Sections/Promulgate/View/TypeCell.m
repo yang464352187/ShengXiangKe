@@ -12,6 +12,8 @@
     UILabel *_title;
     UIView *_line;
     UILabel *_select;
+    UILabel *_select1;
+
     UIImageView *_back;
     UITextField *_text;
 }
@@ -43,6 +45,12 @@
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(14)
                               andTextAlignment:NSTextAlignmentRight];
+        
+        _select1 = [UILabel createLabelWithFrame:VIEWFRAME(SCREEN_WIDTH - 185, 0, 150, 53)                                                 andText:@""
+                                   andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]
+                                     andBgColor:[UIColor clearColor]
+                                        andFont:SYSTEMFONT(14)
+                               andTextAlignment:NSTextAlignmentRight];
 //        _select.backgroundColor = [UIColor redColor];
         
         
@@ -52,6 +60,8 @@
         [self addSubview:_title];
         [self addSubview:_line];
         [self addSubview:_select];
+        [self addSubview:_select1];
+
         [self addSubview:_back];
         
         [_back mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -79,17 +89,20 @@
     if ([title isEqualToString:@"附件"]) {
         _select.text = @"";
     }
-    
-    if (type == 1) {
-        _select.text = @"";
-    }
     _title.text = title;
 
 }
 
+-(void)fillWithTitle1:(NSString *)title Content:(NSString *)content;
+{
+    _title.text = title;
+    _select.text = @"";
+    _select1.text = content;
+}
+
 -(void)changeTitle:(NSString *)title
 {
-    _select.text = title;
+    _select1.text = title;
     
 }
 

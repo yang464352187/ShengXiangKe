@@ -67,6 +67,17 @@
         } failue:^(id data, NSError *error) {
             
         }];
+    }else{
+        
+        NSDictionary *params = @{@"profile":self.textView.text};
+        [BaseRequest SetPersonalInfoWithParams:params succesBlock:^(id data) {
+            NSLog(@"%@",data);
+            [ProgressHUDHandler showHudTipStr:@"提交成功"];
+            [weakSelf popGoBack];
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
     }
   
 }

@@ -229,18 +229,20 @@
 
 - (void)initButton{
     _beginButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_beginButton setTitle:@"进入" forState:UIControlStateNormal];
+    [_beginButton setTitle:@"立即体验" forState:UIControlStateNormal];
+    _beginButton.titleLabel.font = SYSTEMFONT(13);
     //    [_beginButton setBackgroundColor:App_COLOR_PAGECONTROL_PAGECOLOR];
     //    [_beginButton setTitleColor:APP_COLOR_BASE_Text_DarkGray forState:UIControlStateNormal];
     [_beginButton addTarget:self action:@selector(buttonCliked:) forControlEvents:UIControlEventTouchUpInside];
-    ViewRadius(_beginButton, 3.0);
-    [self.view addSubview:_beginButton];
+//    ViewRadius(_beginButton, 3.0);
+    ViewBorderRadius(_beginButton, 15, 1, [UIColor whiteColor]);
+    [self.scrollView addSubview:_beginButton];
     
     [_beginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(0);
-        make.top.equalTo(self.view).offset(40);
+        make.right.equalTo(self.view).offset(-(SCREEN_WIDTH - 60)/2);
+        make.bottom.equalTo(self.view).offset(-100);
         make.width.equalTo(@60);
-        make.height.equalTo(@35);
+        make.height.equalTo(@30);
     }];
     
 }
@@ -251,6 +253,8 @@
 
 - (void)buttonCliked:(UIButton *)sender{
     
+    
+
     dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
     
     dispatch_async(queue, ^{
@@ -264,7 +268,6 @@
             } completion:^(BOOL finished) {
                 [self.scrollView removeFromSuperview];
                 [self.pageControl removeFromSuperview];
-                [_beginButton removeFromSuperview];
             }];
             
             

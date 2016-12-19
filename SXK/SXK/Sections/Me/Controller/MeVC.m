@@ -40,10 +40,10 @@
         }
         
         [self.view addSubview:self.tableView];
-        if (self.first == 0) {
+//        if (self.first == 0) {
             [self loadingRequest];
-            self.first = 1;
-        }
+//            self.first = 1;
+//        }
         
     }else{
         [self initLoginView];
@@ -78,8 +78,19 @@
     [BaseRequest GetPersonalInfoWithParams:params succesBlock:^(id data) {
         
         self.myDict = data[@"user"];
-        [self.headImage sd_setImageWithURL:[NSURL URLWithString:self.myDict[@"headimgurl"]] placeholderImage:[UIImage imageNamed:@"背景"]];
-        if ([self.myDict[@"role"] integerValue] == 1) {
+        
+        NSString *imageUrl = self.myDict[@"headimgurl"];
+        
+        if (imageUrl.length < 5) {
+            self.headImage.image = [UIImage imageNamed:@"zhanweitouxiang"];
+        }else{
+            
+        [self.headImage sd_setImageWithURL:[NSURL URLWithString:self.myDict[@"headimgurl"]]];
+        }
+        
+        
+        
+        if ([self.myDict[@"sex"] integerValue] == 1) {
             self.sexImage.image = [UIImage imageNamed:@"男"];
         }else{
             self.sexImage.image = [UIImage imageNamed:@"女生"];

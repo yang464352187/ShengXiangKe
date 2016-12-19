@@ -596,7 +596,7 @@
         }else{
             [self.manBtn setSelected:NO];
         }
-        NSDictionary *params = @{@"sex":@(2)};
+        NSDictionary *params = @{@"sex":@(sender.tag)};
         [self loadRequest:params];
         [self disMiss];
     }
@@ -611,7 +611,24 @@
             [self loadRequest:params];
             
         }else if([self.titleLab2.text isEqualToString:@"出生年月"]){
+            if (self.year.length < 2 && self.month.length <2) {
+                self.year = @"2000";
+                self.month = @"6";
+            }
             [_delegate sendInfo:[NSString stringWithFormat:@"%@-%@",self.year,self.month] andType:3];
+            
+            
+            NSString *timeStr = [NSString stringWithFormat:@"%@-%@-01 00:00:00",self.year,self.month];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
+            [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"]; // ----------设置你想要的格式,hh与HH的区别:分别表示12小时制,24小时制
+            NSDate* date = [formatter dateFromString:timeStr];
+            long time = [date timeIntervalSince1970];
+            NSDictionary *params = @{@"birthday":@(time)};
+            [self loadRequest:params];
+
+            NSLog(@"%ld",time);
 //            NSDictionary *params = @{@"nickname":[NSString stringWithFormat:@"%@-%@",self.year,self.month]};
 //            [self loadRequest:params];
         }else{

@@ -269,6 +269,7 @@
         [rightBtn setImage:[image2 imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
         [rightBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:rightBtn];
+        
     }
     return _headView;
 }

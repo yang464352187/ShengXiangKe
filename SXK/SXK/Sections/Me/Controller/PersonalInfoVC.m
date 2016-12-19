@@ -47,6 +47,7 @@
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.popView];
     
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",self.myDict[@"headimgurl"]]]];
 //    NSDictionary *params = @{};
 //    [BaseRequest GetPersonalInfoWithParams:params succesBlock:^(id data) {
 //        NSLog(@"yang %@",params);
@@ -154,7 +155,7 @@
     
     if (indexPath.section == 0 && indexPath.row == 1) {
         
-        if ([self.myDict[@"role"] integerValue] == 1) {
+        if ([self.myDict[@"sex"] integerValue] == 1) {
             [cell fillWithTitle1:self.firstArr[indexPath.row] Content:@"男"];
         }else{
             [cell fillWithTitle1:self.firstArr[indexPath.row] Content:@"女"];
@@ -166,17 +167,31 @@
         self.nicknameCell = cell;
     }
     if (indexPath.section == 0 && indexPath.row == 2) {
-        [cell fillWithTitle1:self.firstArr[indexPath.row] Content:self.myDict[@"nickname"]];
+        long time = [self.myDict[@"birthday"] integerValue];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        [formatter setDateFormat:@"YYYY-MM"];
+        
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
+        NSString *nowtimeStr = [formatter stringFromDate:date];
+        [cell fillWithTitle1:self.firstArr[indexPath.row] Content:nowtimeStr];
         self.birthCell = cell;
     }
     if (indexPath.section == 0 && indexPath.row == 3) {
         [cell fillWithTitle1:self.firstArr[indexPath.row] Content:@""];
-        self.birthCell = cell;
+//        self.birthCell = cell;
     }
 
     if (indexPath.section == 1 && indexPath.row == 0) {
-        self.phoneCell = cell;
+        [cell fillWithTitle1:self.secondArr[indexPath.row] Content:self.myDict[@"mobile"]];
     }
+    
+    if (indexPath.section == 1 && indexPath.row == 1) {
+        [cell fillWithTitle1:self.secondArr[indexPath.row] Content:@""];
+    }
+
 
     return cell;
     
@@ -224,8 +239,8 @@
     }
     
     if (indexPath.section == 1 && indexPath.row == 0) {
-        [self.popView fillWithTitle:@"手机号码"];
-        [self.popView show];
+//        [self.popView fillWithTitle:@"手机号码"];
+//        [self.popView show];
     }
     
     if (indexPath.section == 1 && indexPath.row == 1) {
@@ -248,7 +263,7 @@
 -(void)sexual:(NSInteger)tag
 {
     
-    if (tag == 201) {
+    if (tag == 1) {
         [self.sexCell changeTitle:@"男"];
         self.sex = 1;
     }else{

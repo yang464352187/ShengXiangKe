@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong)NSNumber *categoryid;
 
+@property (nonatomic, strong)NSArray *attachList;
+
 @end

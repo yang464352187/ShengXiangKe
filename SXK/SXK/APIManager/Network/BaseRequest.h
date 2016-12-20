@@ -365,6 +365,29 @@
                      succesBlock:(SuccessBlock)successBlock
                           failue:(FailureBlock)failueBlock;
 
+/**
+ *  发布商品
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)ReleaseProductWithParams:(NSDictionary *)params
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+
+
+
+/**
+ *  关于啵呗
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AboutBoobelWithSetupID:(NSInteger)setupid
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
 
 
 @end

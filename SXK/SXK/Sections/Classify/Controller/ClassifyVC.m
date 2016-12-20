@@ -65,6 +65,7 @@
         weakSelf.BrandHotArr = models;
         [weakSelf changeFrame];
         [weakSelf.collectionView reloadData];
+        
         [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:0 succesBlock:^(id data) {
             NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
             weakSelf.CategoryListArr = models;
@@ -360,7 +361,7 @@
             return CGSizeMake(CommonWidth(280), CommonHight(108));
         }
         if (indexPath.section == 2) {
-            return CGSizeMake(CommonWidth(63), 75);
+            return CGSizeMake(CommonWidth(63), 85);
         }
     }
     

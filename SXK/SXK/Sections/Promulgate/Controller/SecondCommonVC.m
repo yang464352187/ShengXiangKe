@@ -8,45 +8,82 @@
 
 #import "SecondCommonVC.h"
 #import "SelectCell.h"
-
+#import "CategoryListModel.h"
 @interface SecondCommonVC () <SelectCellDelegate>
 
 
-@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic, strong) NSArray *dataArr;
 @property (nonatomic, strong) SelectCell *selectCell;
+
 
 @end
 
 @implementation SecondCommonVC
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([self.myDict[@"type"] isEqualToString:@"类别"]) {
+        [self loadingRequest];
+    }else{
+        self.dataArr = self.myDict[@"data"];
+        [self.tableView reloadData];
+    }
+    
+    
+}
+
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf);
+    [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:[self.myDict[@"categoryID"] integerValue] succesBlock:^(id data) {
+        NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
+        weakSelf.dataArr = models;
+        [weakSelf.tableView reloadData];
+    } failue:^(id data, NSError *error) {
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = self.myDict[@"title"];
 
-      [self setRightBarButtonWith:[NSString stringWithFormat:@"完成"] selector:@selector(barButtonAction)];
+    [self setRightBarButtonWith:[NSString stringWithFormat:@"完成"] selector:@selector(barButtonAction)];
     [self initData];
     [self.view addSubview:self.tableView];
 }
 -(void)barButtonAction
 {
-//    NSArray * ctrlArray = self.jt_navigationController.viewControllers;
-//    [self.jt_navigationController popToViewController:[ctrlArray objectAtIndex:1] animated:YES];
-    
     if (self.selectCell.name.length <= 0) {
+        [ProgressHUDHandler showHudTipStr:@"请选择类型"];
         return;
     }
-    NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"className"]};
-    NSLog(@"%@",describe(dic));
-    NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    [self PopToIndexViewController:1];
+    
+    if ([self.myDict[@"type"] isEqualToString:@"类别"]) {
+        NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"className"],@"categoryid":self.myDict[@"categoryID"]};
+        NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [self PopToIndexViewController:1];
+    }else{
+        
+        NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"title"]};
+
+        NSNotification *notification =[NSNotification notificationWithName:@"huidiao" object:nil userInfo:dic];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [self popGoBack];
+
+    }
+
+    
 }
 
 -(void)initData
 {
-    self.dataArr = [[NSMutableArray alloc] initWithObjects:@"腕表",@"台钟",@"怀表",@"其他",@"石英腕表",@"自动机械表", nil];
+//    self.dataArr = [[NSMutableArray alloc] initWithObjects:@"腕表",@"台钟",@"怀表",@"其他",@"石英腕表",@"自动机械表", nil];
 }
 - (UITableView *)tableView{
     if (!_tableView) {
@@ -82,7 +119,17 @@
     SelectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
-    [cell fillTitle:self.dataArr[indexPath.row]];
+    
+
+    if ([self.myDict[@"type"] isEqualToString:@"类别"]) {
+        CategoryListModel *model = self.dataArr[indexPath.row];
+        [cell setModel:model];
+    }else{
+        [cell fillTitle:self.dataArr[indexPath.row]];
+    }
+
+    
+    
     return cell;
 }
 

@@ -715,4 +715,48 @@
 }
 
 
+/**
+ *  发布商品
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)ReleaseProductWithParams:(NSDictionary *)params
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+{
+    [self requestPostCommonWithPath:APPINTERFACE__ReleaseProduct Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  关于啵呗
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AboutBoobelWithSetupID:(NSInteger)setupid
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(1)};
+    [self requestPostCommonWithPath:APPINTERFACE__AboutSetup Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
 @end

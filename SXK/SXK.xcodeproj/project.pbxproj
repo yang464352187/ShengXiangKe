@@ -31,6 +31,7 @@
 		AD40A3021DDD5EFE006C5576 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A3001DDD5EFE006C5576 /* UIView+Extension.m */; };
 		AD40A30E1DDD98C6006C5576 /* UILabel+Handy.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A30D1DDD98C6006C5576 /* UILabel+Handy.m */; };
 		AD40A3111DDDB4ED006C5576 /* LoginBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = AD40A3101DDDB4ED006C5576 /* LoginBtn.m */; };
+		AD4E42121E090787008E8E2C /* EnclosureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4E42111E090787008E8E2C /* EnclosureCell.m */; };
 		AD5CD4AC1DE2B75000FA659D /* FirstTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD4AB1DE2B75000FA659D /* FirstTableViewCell.m */; };
 		AD5CD4B41DE2D4E800FA659D /* ClassifyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD4B31DE2D4E800FA659D /* ClassifyCell.m */; };
 		AD5CD4C01DE2E4EB00FA659D /* ClaasifyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD4BE1DE2E4EB00FA659D /* ClaasifyCollectionViewCell.m */; };
@@ -121,6 +122,7 @@
 		ADA941701DE9992600DE6B9E /* DFGridImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9416D1DE9992600DE6B9E /* DFGridImageView.m */; };
 		ADA941711DE9992600DE6B9E /* DFImageUnitView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA9416F1DE9992600DE6B9E /* DFImageUnitView.m */; };
 		ADA941741DE9996100DE6B9E /* DFFaceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA941731DE9996100DE6B9E /* DFFaceManager.m */; };
+		ADB3F26F1E098C8000F0B8B2 /* AboutBoobe.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB3F26E1E098C8000F0B8B2 /* AboutBoobe.m */; };
 		ADB66AA41E07B6FF00D80F2E /* MeiQiaSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADB669651E07B6FF00D80F2E /* MeiQiaSDK.framework */; };
 		ADB66AA51E07B6FF00D80F2E /* MQServiceToViewInterface.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB669681E07B6FF00D80F2E /* MQServiceToViewInterface.m */; };
 		ADB66AA61E07B6FF00D80F2E /* MQAnimatorPush.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB6696C1E07B6FF00D80F2E /* MQAnimatorPush.m */; };
@@ -382,6 +384,8 @@
 		AD40A30D1DDD98C6006C5576 /* UILabel+Handy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Handy.m"; sourceTree = "<group>"; };
 		AD40A30F1DDDB4ED006C5576 /* LoginBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginBtn.h; sourceTree = "<group>"; };
 		AD40A3101DDDB4ED006C5576 /* LoginBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginBtn.m; sourceTree = "<group>"; };
+		AD4E42101E090787008E8E2C /* EnclosureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnclosureCell.h; sourceTree = "<group>"; };
+		AD4E42111E090787008E8E2C /* EnclosureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnclosureCell.m; sourceTree = "<group>"; };
 		AD5CD4AA1DE2B75000FA659D /* FirstTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTableViewCell.h; sourceTree = "<group>"; };
 		AD5CD4AB1DE2B75000FA659D /* FirstTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTableViewCell.m; sourceTree = "<group>"; };
 		AD5CD4B21DE2D4E800FA659D /* ClassifyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifyCell.h; sourceTree = "<group>"; };
@@ -537,6 +541,8 @@
 		ADA9416F1DE9992600DE6B9E /* DFImageUnitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFImageUnitView.m; sourceTree = "<group>"; };
 		ADA941721DE9996100DE6B9E /* DFFaceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFFaceManager.h; sourceTree = "<group>"; };
 		ADA941731DE9996100DE6B9E /* DFFaceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFFaceManager.m; sourceTree = "<group>"; };
+		ADB3F26D1E098C8000F0B8B2 /* AboutBoobe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutBoobe.h; sourceTree = "<group>"; };
+		ADB3F26E1E098C8000F0B8B2 /* AboutBoobe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutBoobe.m; sourceTree = "<group>"; };
 		ADB669651E07B6FF00D80F2E /* MeiQiaSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MeiQiaSDK.framework; sourceTree = "<group>"; };
 		ADB669671E07B6FF00D80F2E /* MQServiceToViewInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQServiceToViewInterface.h; sourceTree = "<group>"; };
 		ADB669681E07B6FF00D80F2E /* MQServiceToViewInterface.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQServiceToViewInterface.m; sourceTree = "<group>"; };
@@ -2187,7 +2193,6 @@
 				ADB99CD31DD5BAF300EC1DAD /* PromulgateVC.m */,
 				ADC089F21E07748C00649B7F /* HowToShootVC.h */,
 				ADC089F31E07748C00649B7F /* HowToShootVC.m */,
-				ADD062F51DEB42680003433F /* CommentInputView */,
 				ADFA8BDE1DE4BB2800F992DA /* BrandVC.h */,
 				ADFA8BDF1DE4BB2800F992DA /* BrandVC.m */,
 				ADC07F7A1DE54A6C00B665CC /* CommonVC.h */,
@@ -2196,6 +2201,7 @@
 				ADC07F871DE5627E00B665CC /* SecondCommonVC.m */,
 				ADDD4D4F1DED5A61009C19B8 /* AppraiseVC.h */,
 				ADDD4D501DED5A61009C19B8 /* AppraiseVC.m */,
+				ADD062F51DEB42680003433F /* CommentInputView */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2234,6 +2240,8 @@
 				ADDD4D561DED6FC1009C19B8 /* ConsigneeCell.m */,
 				ADDD4D581DED74A1009C19B8 /* PayCell.h */,
 				ADDD4D591DED74A1009C19B8 /* PayCell.m */,
+				AD4E42101E090787008E8E2C /* EnclosureCell.h */,
+				AD4E42111E090787008E8E2C /* EnclosureCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2294,6 +2302,8 @@
 				ADBF3DE81DF6594D00A287A8 /* AddAddress.m */,
 				AD6ADE041E027FF700B01799 /* UserProtocolVC.h */,
 				AD6ADE051E027FF700B01799 /* UserProtocolVC.m */,
+				ADB3F26D1E098C8000F0B8B2 /* AboutBoobe.h */,
+				ADB3F26E1E098C8000F0B8B2 /* AboutBoobe.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2736,6 +2746,7 @@
 				ADB66AB71E07B6FF00D80F2E /* MQChatViewStyleDark.m in Sources */,
 				ADC07F751DE536C000B665CC /* BATableViewIndex.m in Sources */,
 				AD0B5D9B1DF93B0E00ACA080 /* ClassCollectionViewCell.m in Sources */,
+				ADB3F26F1E098C8000F0B8B2 /* AboutBoobe.m in Sources */,
 				ADA941711DE9992600DE6B9E /* DFImageUnitView.m in Sources */,
 				ADB66AAD1E07B6FF00D80F2E /* UIColor+MQHex.m in Sources */,
 				ADB66AAE1E07B6FF00D80F2E /* UIImage+MQGenerate.m in Sources */,
@@ -2793,6 +2804,7 @@
 				ADB66ABF1E07B6FF00D80F2E /* MQPreChatSubmitViewController.m in Sources */,
 				ADB66ADD1E07B6FF00D80F2E /* MQChatBaseCell.m in Sources */,
 				ADB66AEF1E07B6FF00D80F2E /* MQChatFileUtil.m in Sources */,
+				AD4E42121E090787008E8E2C /* EnclosureCell.m in Sources */,
 				AD65A5F41DE43E7C002C6364 /* WSImagePickerView.m in Sources */,
 				AD65A5C51DE3EA8C002C6364 /* FEPlaceHolderTextView.m in Sources */,
 				ADB66AED1E07B6FF00D80F2E /* MQChatDeviceUtil.m in Sources */,

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BrandCell : UITableViewCell
+@interface BrandCell : BaseCell
 
 -(void)fillWithTitle:(NSString *)title;
 
+-(void)isNone;
 @end

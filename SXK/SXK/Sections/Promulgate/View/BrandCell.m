@@ -7,11 +7,13 @@
 //
 
 #import "BrandCell.h"
+#import "BrandModel.h"
 
 @implementation BrandCell{
     UILabel *_title;
     UIView *_line;
     UIImageView *_head;
+    
 }
 
 
@@ -30,6 +32,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _head =[[UIImageView alloc] initWithFrame:VIEWFRAME(23, 5.5, 85, 41)];
         _head.image =[UIImage imageNamed:@"背景"];
+        ViewBorderRadius(_head, 0, 0.5, [UIColor blackColor]);
         
         _title = [UILabel createLabelWithFrame:VIEWFRAME(113, 5.5, 150, 41)                                                 andText:@"A.Lange&Shone/朗格"
                                   andTextColor:[UIColor blackColor]
@@ -51,6 +54,19 @@
 -(void)fillWithTitle:(NSString *)title
 {
     _title.text = title;
+}
+
+-(void)setModel:(id)model
+{
+    BrandModel *_model = model;
+    _title.text = _model.name;
+    [_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.img]]];
+}
+
+-(void)isNone
+{
+    _title.text = @"暂未收录相关品牌";
+    _head.image =[UIImage imageNamed:@"背景"];
 }
 
 

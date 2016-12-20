@@ -9,35 +9,46 @@
 #import "BrandVC.h"
 #import "BATableView.h"
 #import "BrandCell.h"
+#import "BrandModel.h"
 
 @interface BrandVC ()<BATableViewDelegate>
 
 @property (nonatomic, strong) BATableView *contactTableView;
 @property (nonatomic, strong)NSMutableArray *dataArray;
+@property (nonatomic, strong)NSMutableDictionary *BrandDic;
 
 @end
 
 @implementation BrandVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self loadingRequest];
+    
+}
+
+-(void)loadingRequest
+{
+    
+    _weekSelf(weakSelf);
+    [BaseRequest GetBrandListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
+        NSArray *models = [BrandModel modelsFromArray:data[@"brandList"]];
+        [weakSelf handleModels:models];
+
+    } failue:^(id data, NSError *error) {
+    }];
+    
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"品牌";
-    self.dataArray = [NSMutableArray array];
-    for (int i = 0; i < 26; i++) {
-        //         循环段数据
-        NSMutableArray *sectionArr = [NSMutableArray array];
-        for (int j = 0; j < 5; j++) {
-            //            循环行数据
-            NSString *rowStr = [NSString stringWithFormat:@"第%d段，%d行", i, j];
-            [sectionArr addObject:rowStr];
-        }
-        [self.dataArray addObject:sectionArr];
-    }
-
-//    [self.view addSubview:self.tableView];
+    
+    [self loadData];
     [self initUI];
-//    NSLog(@"%@",self.myDict);
 }
 
 #pragma mark -- getters and setters
@@ -50,26 +61,46 @@
 
 }
 
+-(void)loadData
+{
+    self.BrandDic = [[NSMutableDictionary alloc] init];
+    
+    for (int i = 0; i < 26; i++) {
+        NSMutableArray *array = [NSMutableArray new];
+        [self.BrandDic setObject:array forKey:[NSString stringWithFormat:@"%c", 65+i]];
+    }
+    
+}
+
+
 #pragma mark - UITableViewDataSource
 //多少段
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.dataArray.count;
+    return 26;
 }
 
 //多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *sectionArr = self.dataArray[section];
-    return sectionArr.count;
+    NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+section]];
+    if (array.count == 0) {
+        return 1;
+    }
+    return array.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BrandCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    NSArray *sectionArr = self.dataArray[indexPath.section];
-    [cell fillWithTitle:sectionArr[indexPath.row]];
     
+    NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+indexPath.section]];
+    if (array.count > 0) {
+        [cell setModel:array[indexPath.row]];
+        return cell;
+    }else{
+        [cell isNone];
+    }
     
     return cell;
 }
@@ -111,15 +142,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *sectionArr = self.dataArray[indexPath.section];
-    NSLog(@"%@",sectionArr[indexPath.row]);
-    NSDictionary *dic = @{@"name":sectionArr[indexPath.row],@"class":self.myDict[@"className"]};
-    NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    [self PopToIndexViewController:1];
+    NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+indexPath.section]];
+    BrandModel *model;
+    if (array.count > 0) {
+        model = array[indexPath.row];
+        NSDictionary *dic = @{@"name":model.name,@"class":self.myDict[@"className"],@"brandid":model.brandid};
+        NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [self PopToIndexViewController:1];
+    }else{
+        [ProgressHUDHandler showHudTipStr:@"请选择品牌"];
 
-    
+    }
+
 }
 
 
@@ -129,11 +165,32 @@
             
             [titles addObject:[NSString stringWithFormat:@"%c", 65+i]];
         }
-//    [titles addObject:UITableViewIndexSearch];
     
         return titles;
 }
 
+-(void)handleModels:(NSArray *)models
+{
+    
+    for (int i = 0; i < 26; i++) {
+        NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+i]];
+        [array removeAllObjects];
+        [self.BrandDic setObject:array forKey:[NSString stringWithFormat:@"%c", 65+i]];
+    }
+    
+    for (BrandModel * model in models) {
+        NSString *firstChar = [model.name substringToIndex:1];
+        for (int i = 0; i < 26; i++) {
+            if ([firstChar isEqualToString:[NSString stringWithFormat:@"%c", 65+i]]) {
+                NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+i]];
+                [array addObject:model];
+                [self.BrandDic setObject:array forKey:[NSString stringWithFormat:@"%c", 65+i]];
+            }
+        }
+    }
+    [self.contactTableView.tableView reloadData];
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

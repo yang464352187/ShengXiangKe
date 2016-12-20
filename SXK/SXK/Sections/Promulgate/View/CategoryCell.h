@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CategoryCell : UITableViewCell
+@interface CategoryCell : BaseCell
 
 -(void)fillTitle:(NSString *)title;
 

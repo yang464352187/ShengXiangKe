@@ -8,12 +8,23 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol TypeCellDelegate <NSObject>
+
+-(void)SendTextValue:(NSString *)content title:(NSString *)title;
+
+@end
+
+
 @interface TypeCell : UITableViewCell
 
+@property (nonatomic, weak)id <TypeCellDelegate>delegate;
 
 -(void)fillWithTitle:(NSString *)title andType:(NSInteger) type;
 
 -(void)fillWithTitle1:(NSString *)title Content:(NSString *)content;
 
 -(void)changeTitle:(NSString *)title;
+
+-(void)changeTitle1:(NSString *)title;
+
 @end

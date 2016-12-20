@@ -82,5 +82,7 @@
 #define APPINTERFACE__QuestionList           @"/app/question/listpost"
 #define APPINTERFACE__SetPersonalInfo        @"/app/user/setpost"
 #define APPINTERFACE__GetPersonalInfo        @"/app/user/getpost"
+#define APPINTERFACE__ReleaseProduct         @"/app/rent/addpost"
+#define APPINTERFACE__AboutSetup             @"/app/aboutsetup/getpost"
 
 #endif /* APPMacro_h */

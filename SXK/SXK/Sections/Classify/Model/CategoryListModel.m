@@ -14,7 +14,8 @@
     return @{
              @"categoryid"   :@"categoryid",
              @"name"        :@"name",
-             @"img"            :@"img"
+             @"img"            :@"img",
+             @"attachList":@"attachList"
              };
 }
 

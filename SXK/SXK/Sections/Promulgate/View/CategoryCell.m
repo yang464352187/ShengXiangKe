@@ -7,6 +7,7 @@
 //
 
 #import "CategoryCell.h"
+#import "CategoryListModel.h"
 
 @implementation CategoryCell{
     UILabel *_title;
@@ -62,6 +63,12 @@
 -(void)fillTitle:(NSString *)title
 {
     _title.text = title;
+}
+
+-(void)setModel:(id)model
+{
+    CategoryListModel *_model = model;
+    _title.text = _model.name;
 }
 
 

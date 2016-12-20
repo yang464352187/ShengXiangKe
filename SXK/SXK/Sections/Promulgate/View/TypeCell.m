@@ -8,6 +8,10 @@
 
 #import "TypeCell.h"
 
+@interface TypeCell ()<UITextFieldDelegate>
+
+@end
+
 @implementation TypeCell{
     UILabel *_title;
     UIView *_line;
@@ -51,8 +55,6 @@
                                      andBgColor:[UIColor clearColor]
                                         andFont:SYSTEMFONT(14)
                                andTextAlignment:NSTextAlignmentRight];
-//        _select.backgroundColor = [UIColor redColor];
-        
         
         _back = [[UIImageView alloc] init];
         _back.image = [UIImage imageNamed:@"返回-"];
@@ -66,7 +68,6 @@
         
         [_back mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(20);
-//            make.bottom.equalTo(self.mas_bottom).offset(-18);
             make.right.equalTo(self.mas_right).offset(-18);
             make.width.equalTo(@8);
             make.height.equalTo(@13);
@@ -84,6 +85,9 @@
         [_select removeFromSuperview];
         _text = [[UITextField alloc] initWithFrame:VIEWFRAME(SCREEN_WIDTH - 185, 0, 150, 53)                                                 ];
         _text.textAlignment = NSTextAlignmentRight;
+        _text.font = SYSTEMFONT(14);
+        _text.textColor = [UIColor colorWithHexColorString:@"a1a1a1"];
+        _text.delegate = self;
         [self addSubview:_text];
     }
     if ([title isEqualToString:@"附件"]) {
@@ -104,6 +108,16 @@
 {
     _select1.text = title;
     
+}
+
+-(void)changeTitle1:(NSString *)title
+{
+    _select.text = title;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField;
+{
+    [_delegate SendTextValue:textField.text title:textField.placeholder];
 }
 
 

@@ -25,7 +25,7 @@
         self.tableView.showsVerticalScrollIndicator = NO;
         [self addSubview:self.tableView];
         
-        self.tableViewIndex = [[BATableViewIndex alloc] initWithFrame:(CGRect){frame.size.width-20,0,20,frame.size.height}];
+        self.tableViewIndex = [[BATableViewIndex alloc] initWithFrame:(CGRect){frame.size.width-16,0,20,frame.size.height}];
         [self addSubview:self.tableViewIndex];
         
         self.tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;

@@ -13,9 +13,9 @@
 #import "TypeCell.h"
 #import "AppDelegate.h"
 #import "WSImagePickerView.h"
+#import "CategoryListModel.h"
 
-
-@interface PromulgateVC ()<WSImagePickerViewDelegate>
+@interface PromulgateVC ()<WSImagePickerViewDelegate,SummaryCellDelegate,TypeCellDelegate>
 
 @property (strong, nonatomic) UIView            *headView;
 @property (strong, nonatomic) FEPlaceHolderTextView       *content;
@@ -28,31 +28,54 @@
 @property (nonatomic, strong) NSMutableDictionary *cellDic;
 @property (nonatomic, strong) NSArray *photoArr;
 @property (nonatomic, strong) NSMutableArray *uploadPhotoArr;
+@property (nonatomic, strong) NSMutableDictionary *dataDic;
+@property (nonatomic, assign) NSInteger selectCategory;
+@property (nonatomic, strong) NSArray *dataArr;
+@property (nonatomic, strong) NSArray *enclosure;
+@property (nonatomic, strong) NSArray *qualityArr;
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *price;
+@property (nonatomic, strong) NSString *descrip;
+@property (nonatomic, strong) NSString *category;
+@property (nonatomic, assign) NSInteger brand;
+@property (nonatomic, assign) NSInteger quality;
+@property (nonatomic, assign) NSInteger person;
+@property (nonatomic, strong) NSString *color;
 
 
 @end
 
 @implementation PromulgateVC
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf);
+    [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:0 succesBlock:^(id data) {
+        NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
+        [weakSelf.dataDic setValue:models forKey:@"category"];
+        self.dataArr = models;
+    } failue:^(id data, NSError *error) {
+        
+    }];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"发布商品";
     [self initData];
-//    self.view.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.tableView];
-//    if( ([[[UIDevice currentDevice] systemVersion] doubleValue]>=7.0)) {
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-//        self.extendedLayoutIncludesOpaqueBars = NO;
-//        self.modalPresentationCapturesStatusBarAppearance = NO;
-//    }
-//    self.extendedLayoutIncludesOpaqueBars = NO;
-//    self.edgesForExtendedLayout = UIRectEdgeBottom | UIRectEdgeLeft | UIRectEdgeRight;
-//    self.heigh = 0;
     [self setRightBarButtonWith:[UIImage imageNamed:@"感叹号"] selector:@selector(barButtonAction)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
 
-
+    
+    [self loadingRequest];
 }
 -(void)initData
 {
@@ -60,29 +83,13 @@
     self.SecondArr = @[@"类别",@"品牌",@"颜色",@"成色",@"适用人群",@"附件"];
     self.cellDic = [[NSMutableDictionary alloc] init];
     self.uploadPhotoArr = [[NSMutableArray alloc] init];
+    self.dataDic = [[NSMutableDictionary alloc] init];
+    self.qualityArr = [[NSMutableArray alloc] initWithObjects:@"99成新（未使用）",@"98成新",@"95成新",@"9成新",@"85成新",@"8成新", nil];
+
 }
 
 -(void)barButtonAction
 {
-//    self.teachView = [self loadTeachView];
-//    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-//    
-//    dispatch_async(queue, ^{
-//        
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            
-//            [UIView animateWithDuration:0.5 animations:^{
-//                
-//                CGRect frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HIGHT+64);
-//                self.teachView.frame = frame;
-//                
-//            } completion:^(BOOL finished) {
-//                
-//                
-//            }];
-//        });
-//    });
-    
     [self PushViewControllerByClassName:@"HowToShootVC" info:nil];
 
 }
@@ -105,6 +112,7 @@
     if (indexPath.section == 0) {
         SummaryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SummaryCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
         [cell fillWithTitle:self.firstArr[indexPath.row]];
         return cell;
     }
@@ -116,6 +124,7 @@
     }
     [cell fillWithTitle:self.SecondArr[indexPath.row] andType:0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.delegate = self;
     [self.cellDic setObject:cell forKey:self.SecondArr[indexPath.row]];
     return cell;
 }
@@ -168,6 +177,7 @@
     UIButton *explainBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [explainBtn setTitle:@"《用户协议》" forState:UIControlStateNormal];
     [explainBtn setTitleColor:APP_COLOR_GRAY_333333 forState:UIControlStateNormal];
+    [explainBtn addTarget:self action:@selector(explainBtn:) forControlEvents:UIControlEventTouchUpInside];
     explainBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     explainBtn.frame = VIEWFRAME(136.5, 0, 90, 16.5);
     
@@ -193,8 +203,9 @@
     if (indexPath.section == 1) {
         switch (indexPath.row) {
             case 0:{
-                NSDictionary *dic = @{@"title":@"类别"};
-                [self PushViewControllerByClassName:@"CommonVC" info:dic];
+//                NSDictionary *dic = @{@"title":@"类别"};
+                [self.dataDic setValue:@"类别" forKey:@"title"];
+                [self PushViewControllerByClassName:@"CommonVC" info:self.dataDic];
             }
                 break;
             case 1:{
@@ -213,13 +224,17 @@
             }
                 break;
             case 5:{
-                NSDictionary *dic = @{@"title":@"附件"};
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+                [dic setValue:@"附件" forKey:@"title"];
+                for (CategoryListModel *model in self.dataArr) {
+                    if (self.selectCategory == [model.categoryid integerValue]) {
+                        [dic setValue:model forKey:@"data"];
+                    }
+                }
+            
                 [self PushViewControllerByClassName:@"CommonVC" info:dic];
             }
                 break;
-
-
-                
             default:
                 break;
         }
@@ -337,128 +352,89 @@
 
 -(void)BtnAction:(UIButton *)sender
 {
-    self.teachView = [self loadTeachView];
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    
-    dispatch_async(queue, ^{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                CGRect frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HIGHT);
-                self.teachView .frame = frame;
-                
-            } completion:^(BOOL finished) {
-
-                
-            }];
-        });
-    });
-    
-
+    [self PushViewControllerByClassName:@"HowToShootVC" info:nil];
 }
 
--(UIView *)loadTeachView
-{
-    
-    UIView *teachView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HIGHT, SCREEN_WIDTH, SCREEN_HIGHT)];
-    teachView.backgroundColor = [UIColor whiteColor];
-    teachView.alpha = 1;
-    
-//    UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(0,128 , SCREEN_WIDTH, 18)
-//                                           andText:@"如何拍摄"
-//                                      andTextColor:[UIColor whiteColor]
-//                                        andBgColor:[UIColor clearColor]
-//                                           andFont:SYSTEMFONT(18)
-//                                  andTextAlignment:NSTextAlignmentCenter];
-//    
-//    
-//    for (int i = 0; i  < 3 ; i++) {
-//        for (int j = 0; j < 3 ; j++) {
-//            UIImageView *imageView = [[UIImageView alloc] initWithFrame:VIEWFRAME(CommonWidth(77+j*(80+14)), CommonHight(117+i*(80+12.5)+64), CommonHight(80), CommonHight(80))];
-//            imageView.backgroundColor = [UIColor whiteColor];
-//            
-////            UILabel *lab = [UILabel createLabelWithFrame:VIEWFRAME(0,128 , SCREEN_WIDTH, 18)
-////                                                   andText:@"如何拍摄"
-////                                              andTextColor:[UIColor whiteColor]
-////                                                andBgColor:[UIColor clearColor]
-////                                                   andFont:SYSTEMFONT(18)
-////                                          andTextAlignment:NSTextAlignmentCenter];
-//
-//            [teachView addSubview:imageView];
-//        }
-//    }
-    
-//    
-//    
-//    
-//    
-//    [teachView addSubview:title];
-    
-    UIImageView *image = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 64, SCREEN_WIDTH, SCREEN_HIGHT)];
-    image.image = [UIImage imageNamed:@"如何拍摄"];
-    
-    [teachView addSubview:image];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.window addSubview:teachView];
-
-//    appDelegate.window.rootViewController = self.tabbarVC;
-//    [self.view addSubview:teachView];
-    return teachView;
-}
 
 -(void)showTeachView
 {
-    self.teachView = [self loadTeachView];
-    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
-    
-    dispatch_async(queue, ^{
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            
-            [UIView animateWithDuration:0.5 animations:^{
-                
-                CGRect frame = CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HIGHT+64);
-                self.teachView .frame = frame;
-                
-            } completion:^(BOOL finished) {
-                
-                
-            }];
-        });
-    });
-
+    [self PushViewControllerByClassName:@"HowToShootVC" info:nil];
 }
 
 - (void)tongzhi:(NSNotification *)text{
-    NSLog(@"%@",text.userInfo[@"class"]);
-    TypeCell *cell = (TypeCell *)[self.cellDic valueForKey:text.userInfo[@"class"]];
-    [cell changeTitle:text.userInfo[@"name"]];
-    NSLog(@"－－－－－接收到通知------");
+    
+    if ([text.userInfo[@"class"] isEqualToString:@"附件"]) {
+        self.enclosure = text.userInfo[@"data"];
+        
+    }else{
+        
+        TypeCell *cell = (TypeCell *)[self.cellDic valueForKey:text.userInfo[@"class"]];
+        [cell changeTitle1:text.userInfo[@"name"]];
+        
+        if ([text.userInfo[@"class"] isEqualToString:@"类别"]) {
+            self.selectCategory = [text.userInfo[@"categoryid"] integerValue];
+            self.category = text.userInfo[@"name"];
+            self.enclosure = nil;
+        }
+        
+        if ([text.userInfo[@"class"] isEqualToString:@"成色"]) {
+            
+            for (int i = 0;  i < self.qualityArr.count; i++) {
+                NSString *str = self.qualityArr[i];
+                if ([text.userInfo[@"name"] isEqualToString:str]) {
+                    self.quality = i+1;
+                }
+            }
+        }
+        if ([text.userInfo[@"class"] isEqualToString:@"适用人群"]) {
+            if ([text.userInfo[@"name"] isEqualToString:@"所有人"]) {
+                self.person = 1;
+            }else if ([text.userInfo[@"name"] isEqualToString:@"男士"]){
+                self.person = 2;
+            }else{
+                self.person =3;
+            }
+        }
+        if ([text.userInfo[@"class"] isEqualToString:@"品牌"]) {
+            self.brand = [text.userInfo[@"brandid"] integerValue];
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        NSLog(@"－－－－－接收到通知  %@------",text.userInfo[@"class"]);
+    }
+    
+    
     
 }
 
 -(void)promulgateBtn:(UIButton *)sender
 {
+    if (self.photoArr.count != 9) {
+        [ProgressHUDHandler showHudTipStr:@"必须9张图"];
+        return;
+    }
+    
+    if (self.content.text.length < 1 || self.name.length < 1 || self.price.length < 1 || self.description.length < 1 || self.category.length < 1 || self.brand < 1 || self.color.length < 1 || self.quality < 1 || self.person < 1) {
+        [ProgressHUDHandler showHudTipStr:@"请完善商品信息"];
+        return;
+    }
+    
     NSMutableArray *photo = [[NSMutableArray alloc] init];
     for (UIImage *image in self.photoArr) {
-        
-//        CGSize imagesize = image.size;
-//        imagesize.height =SCREEN_HIGHT;
-//        imagesize.width =SCREEN_WIDTH;
-//        
-//        UIImage *newImage =  [self imageWithImage:image scaledToSize:imagesize];
-//        
-//        NSData *imageData = UIImagePNGRepresentation(newImage);
-        
         NSData *image1 = UIImageJPEGRepresentation(image, 0.5);
         [photo addObject:image1];
     }
-
-    [CustomHUD createHudCustomShowContent:@"正在上传"];
+    
+    _weekSelf(weakSelf);
+    [CustomHUD createHudCustomShowContent:@"发布中"];
 
     [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
     [[GCQiniuUploadManager sharedInstance] createToken];
@@ -472,17 +448,37 @@
         [self.uploadPhotoArr addObject:array[1]];
         
     } allTasksCompletion:^{
+    
         
-        [BaseRequest AddCommunityTopicWithContent:@"MDZZZZZZZZZZZZZZZZZZ" imgList:self.uploadPhotoArr moduleid:2 succesBlock:^(id data) {
-            NSLog(@"---------%@-----------",describe(data));
+        
+            NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+            [params setValue:self.name forKey:@"name"];
+            [params setValue:self.descrip forKey:@"keyword"];
+            [params setValue:@([self.price integerValue]) forKey:@"counterPrice"];
+            [params setValue:self.uploadPhotoArr forKey:@"imgList"];
+            [params setValue:@(self.selectCategory) forKey:@"categoryid"];
+            [params setValue:self.content.text forKey:@"description"];
+            [params setValue:self.color forKey:@"color"];
+            [params setValue:@(self.quality) forKey:@"condition"];
+            [params setValue:@(self.person) forKey:@"crowd"];
+            [params setValue:self.enclosure forKey:@"attachList"];
+            [params setObject:@(self.brand) forKey:@"brandid"];
+            [BaseRequest ReleaseProductWithParams:params succesBlock:^(id data) {
+            [CustomHUD stopHidden];
+            [ProgressHUDHandler showHudTipStr:@"发布成功"];
+            [weakSelf popGoBack];
+        } failue:^(id data, NSError *error) {
+            [ProgressHUDHandler showHudTipStr:@"发布失败"];
             [CustomHUD stopHidden];
 
-        } failue:^(id data, NSError *error) {
-            
         }];
+            
         
-
+    
     }];
+    
+    
+    
 
 }
 
@@ -503,6 +499,34 @@
     
     // Return the new image.
     return newImage;
+}
+
+-(void)SendTextValue:(NSString *)content title:(NSString *)title
+{
+    
+    NSLog(@"%@",content);
+    if ([title isEqualToString:@"宝贝名称 (必填)"]) {
+        self.name = content;
+    }else if ([title isEqualToString:@"专柜价 (必填)"]){
+        float i = [content floatValue];
+        NSString *str = [NSString stringWithFormat:@"%.2lf",i];
+        float j = [str floatValue];
+        self.price = [NSString stringWithFormat:@"%d",(NSInteger)j*100];
+        
+    }else if ([title isEqualToString:@"关键字描述 (必填)"]){
+        self.descrip = content;
+    }else{
+        self.color = content;
+    }
+    
+    
+
+}
+
+-(void)explainBtn:(UIButton *)sender
+{
+    NSDictionary *dic = @{@"title":@"用户协议"};
+    [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
 }
 
 - (void)didReceiveMemoryWarning {

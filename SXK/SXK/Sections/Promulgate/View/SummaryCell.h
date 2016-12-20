@@ -8,8 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SummaryCellDelegate <NSObject>
+
+-(void)SendTextValue:(NSString *)content title:(NSString *)title;
+
+@end
+
+
 @interface SummaryCell : UITableViewCell
 
+
+@property (nonatomic, weak)id <SummaryCellDelegate>delegate;
+
 -(void)fillWithTitle:(NSString *)title;
+
 
 @end

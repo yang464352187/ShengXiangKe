@@ -31,7 +31,7 @@
         hud.detailsLabelText          = tipStr;
         hud.margin                    = 10.f;
         hud.removeFromSuperViewOnHide = YES;
-        [hud hide:YES afterDelay:1.5];
+        [hud hide:YES afterDelay:1.0];
     }
 }
 

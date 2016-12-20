@@ -11,15 +11,23 @@
 #import "SecondCommonVC.h"
 #import "qualityVC.h"
 #import "SelectCell.h"
+#import "CategoryListModel.h"
+#import "EnclosureCell.h"
 
 @interface CommonVC ()<qualityCellDelegate,SelectCellDelegate>
 
-@property (nonatomic, strong)NSMutableArray *CategoryArr;
+@property (nonatomic, strong)NSArray *CategoryArr;
 @property (nonatomic, strong)NSMutableArray *personArr;
 @property (nonatomic, strong)NSMutableArray *qualityArr;
 @property (nonatomic, strong)NSMutableArray *qualityContentArr;
 @property (nonatomic, strong)NSMutableArray *enclosureArr;
+@property (nonatomic, strong)NSMutableDictionary *dataDic;
 @property (nonatomic, assign)NSInteger btnTag;
+@property (nonatomic, strong)NSMutableDictionary *cellDic;
+@property (nonatomic, strong)NSMutableArray *enclosureArr1;
+@property (nonatomic, strong)NSMutableDictionary *enclosureDic1;
+@property (nonatomic, strong)NSMutableArray *dataArr;
+@property (nonatomic, strong)NSMutableArray *attachList;
 
 @property (nonatomic, strong) qualityVC *selectCell;
 
@@ -27,6 +35,29 @@
 @end
 
 @implementation CommonVC
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    
+
+
+
+}
+
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf);
+    [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:0 succesBlock:^(id data) {
+        NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
+        weakSelf.CategoryArr = models;
+        [weakSelf.tableView reloadData];
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,29 +71,105 @@
     }
     
     [self initData];
+    
     [self.view addSubview:self.tableView];
+    
+    [self loadData];
 }
+
+-(void)loadData
+{
+    if ([self.myDict[@"title"] isEqualToString:@"类别"]) {
+        NSArray *array = self.myDict[@"category"];
+        if (array.count > 0) {
+            self.CategoryArr = array;
+            [self.tableView reloadData];
+        }else{
+            [self loadingRequest];
+        }
+    }
+    if ([self.myDict[@"title"] isEqualToString:@"附件"]) {
+        CategoryListModel *model = self.myDict[@"data"];
+        NSArray *array = model.attachList;
+        [self.enclosureArr removeAllObjects];
+        for (NSDictionary *dic  in array) {
+            NSString *title = dic[@"attributeName"];
+            if (![title isEqualToString:@"相关配件"]) {
+                [self.enclosureArr addObject:title];
+                NSArray *array = dic[@"attributeValueList"];
+                [self.dataDic setValue:array forKey:title];
+            }
+        }
+        [self.tableView reloadData];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(huidiao:) name:@"huidiao" object:nil];
+
+    }
+}
+
 
 -(void)barButtonAction
 {
-
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    if ([self.myDict[@"title"] isEqualToString:@"附件"]) {
+        for (NSString *title in self.enclosureArr) {
+            EnclosureCell *cell = [self.cellDic valueForKey:title];
+            NSDictionary *dic = [cell getData];
+            if (dic.count > 1) {
+                NSLog(@"%@",describe([cell getData]));
+                [array addObject:dic];
+            }
+        }
+    
+        if (self.enclosureDic1.count > 1) {
+            [array addObject:self.enclosureDic1];
+        }
+        if (array.count < 1 ) {
+            [ProgressHUDHandler showHudTipStr:@"未选择附件"];
+            return;
+        }
+        
+        NSDictionary *dic = @{@"data":array,@"class":self.myDict[@"title"]};
+        NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
+        //通过通知中心发送通知
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        
+        
+        [self popGoBack];
+        
+    }else{
+        if (self.selectCell.name.length < 1) {
+            [ProgressHUDHandler showHudTipStr:@"未选择类型"];
+            return;
+        }
+        
     NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"title"]};
-    NSLog(@"%@",describe(dic));
     NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
     [self PopToIndexViewController:1];
+        
+        
+        
+    }
+    
+    
 }
 
 
 -(void)initData
 {
-    self.CategoryArr = [[NSMutableArray alloc] initWithObjects:@"腕表",@"包袋",@"其他", nil];
+//    self.CategoryArr = [[NSMutableArray alloc] initWithObjects:@"腕表",@"包袋",@"其他", nil];
     self.personArr = [[NSMutableArray alloc] initWithObjects:@"所有人",@"男士",@"女士", nil];
     self.qualityArr = [[NSMutableArray alloc] initWithObjects:@"99成新（未使用）",@"98成新",@"95成新",@"9成新",@"85成新",@"8成新", nil];
     self.qualityContentArr = [[NSMutableArray alloc] initWithObjects:@"未使用，包装配件齐全",@"包装配件不齐全，或因存放产生细微痕迹",@"未使用但有明显存放痕迹，或轻微适用痕迹",@"有使用痕迹，整体无变形或护理后状态非常好",@"有明显适用痕迹，整体轻微变形",@"有明显适用痕迹，整体状态有变化", nil];
-    self.enclosureArr = [[NSMutableArray alloc] initWithObjects:@"表扣材质",@"表壳材质",@"表带材质", nil];
-
+    self.enclosureArr = [[NSMutableArray alloc] init];
+    self.enclosureArr1 = [[NSMutableArray alloc] init];
+    self.enclosureDic1 = [[NSMutableDictionary alloc] init];
+    self.dataDic = [[NSMutableDictionary alloc] init];
+    self.cellDic = [[NSMutableDictionary alloc] init];
+    self.attachList = [[NSMutableArray alloc] init];
 
 }
 - (UITableView *)tableView{
@@ -74,7 +181,8 @@
         [_tableView registerClass:[CategoryCell class] forCellReuseIdentifier:@"CategoryCell"];
         [_tableView registerClass:[qualityVC class] forCellReuseIdentifier:@"QualityCell"];
         [_tableView registerClass:[SelectCell class] forCellReuseIdentifier:@"SelectCell"];
-
+        [_tableView registerClass:[EnclosureCell class] forCellReuseIdentifier:@"EnclosureCell"];
+        
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -109,25 +217,30 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.myDict[@"title"] isEqualToString:@"类别"]) {
         CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell"];
-        [cell fillTitle:self.CategoryArr[indexPath.row]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:self.CategoryArr[indexPath.row]];
         return cell;
 
     }
     if ([self.myDict[@"title"] isEqualToString:@"适用人群"]) {
         SelectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SelectCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell fillTitle:self.personArr[indexPath.row]];
         cell.delegate = self;
         return cell;
     }
     if ([self.myDict[@"title"] isEqualToString:@"附件"]) {
-        CategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell"];
-        [cell fillTitle:self.enclosureArr[indexPath.row]];
+        EnclosureCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EnclosureCell"];
+        [cell fillWithTitle:self.enclosureArr[indexPath.row]];
+        [self.cellDic setObject:cell  forKey:self.enclosureArr[indexPath.row]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     
     qualityVC *cell = [tableView dequeueReusableCellWithIdentifier:@"QualityCell"];
     cell.delegate = self;
     [cell fillTitle:self.qualityArr[indexPath.row] andContent:self.qualityContentArr[indexPath.row]];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
 }
 
@@ -147,9 +260,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.myDict[@"title"] isEqualToString:@"类别"]) {
-        NSDictionary *dic = @{@"title":self.CategoryArr[indexPath.row],@"className":self.myDict[@"title"]};
+        CategoryListModel *model = self.CategoryArr[indexPath.row];
+        NSDictionary *dic = @{@"title":model.name,@"className":self.myDict[@"title"],@"categoryID":model.categoryid,@"type":@"类别"};
         [self PushViewControllerByClassName:@"SecondCommonVC" info:dic];
     }
+    if ([self.myDict[@"title"] isEqualToString:@"附件"]) {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        NSString *title = self.enclosureArr[indexPath.row];
+        NSArray *array = [self.dataDic valueForKey:title];
+        [dic setValue:title forKey:@"title"];
+        [dic setValue:array forKey:@"data"];
+        [dic setValue:@"附件" forKey:@"type"];
+
+        [self PushViewControllerByClassName:@"SecondCommonVC" info:dic];
+    }
+
+    
+    
+    
     
 }
 
@@ -161,25 +289,23 @@
                                         andBgColor:[UIColor clearColor]
                                            andFont:SYSTEMFONT(14)
                                   andTextAlignment:NSTextAlignmentLeft];
-    NSArray *titleArr = [[NSArray alloc] initWithObjects:@"盒子",@"保修卡",@"说明书",@"发票",@"防尘袋", nil];
+    self.dataArr = [[NSMutableArray alloc] initWithObjects:@"盒子",@"保修卡",@"说明书",@"发票",@"防尘袋", nil];
     int k = 0;
     for (int i = 0; i < 2; i++) {
         for (int j = 0; j <3; j++) {
             if (k == 5) {
                 continue;
             }
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.frame = VIEWFRAME(100 + j*CommonWidth(85), 20+i*35, 70, 20);
             UIImage *image = [UIImage imageNamed:@"椭圆-1-拷贝"];
             [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
             UIImage *image1 = [UIImage imageNamed:@"打钩-1"];
             [btn setImage:[image1 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-            [btn setTitle:titleArr[k] forState:UIControlStateNormal];
+            [btn setTitle:self.dataArr [k] forState:UIControlStateNormal];
             btn.tag = 100 + k;
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
-            [btn setTintColor:[UIColor whiteColor]];
             btn.titleLabel.font = SYSTEMFONT(14);
             btn.imageEdgeInsets = UIEdgeInsetsMake(0,-10,0,0);
             [view addSubview:btn];
@@ -218,14 +344,35 @@
 
 -(void)btnAction:(UIButton *)sender
 {
-    if (self.btnTag < 100) {
-        [sender setSelected:YES];
-        self.btnTag = sender.tag;
+    if (sender.isSelected) {
+        for (int i = 0; i < self.enclosureArr1.count; i++) {
+            if ([self.dataArr[sender.tag -100] isEqualToString:self.enclosureArr1[i]]) {
+                [self.enclosureArr1 removeObjectAtIndex:i];
+            }
+        }
+        [sender setSelected:NO];
     }else{
-        UIButton *btn = (UIButton *)[self.view viewWithTag:self.btnTag];
-        [btn setSelected:NO];
+        [self.enclosureArr1 addObject:self.dataArr[sender.tag -100]];
         [sender setSelected:YES];
     }
+    
+    [self.enclosureDic1 setValue:@"相关配件" forKey:@"attributeName"];
+    if (self.enclosureArr1.count < 1) {
+        [self.enclosureDic1 removeObjectForKey:@"attributeValueList"];
+    }else{
+        [self.enclosureDic1 setValue:self.enclosureArr1 forKey:@"attributeValueList"];
+    }
+    
+
+}
+
+- (void)huidiao:(NSNotification *)text{
+    EnclosureCell *cell = (EnclosureCell *) [self.cellDic valueForKey:text.userInfo[@"class"]];
+    [cell changeTitle:text.userInfo[@"name"]];
+    
+    
+    
+    NSLog(@"huidiao   %@",describe(text.userInfo));
 }
 
 - (void)didReceiveMemoryWarning {

@@ -15,7 +15,7 @@
 @end
 
 
-@interface SelectCell : UITableViewCell
+@interface SelectCell : BaseCell
 
 @property (nonatomic, strong)NSString *name;
 @property (weak, nonatomic) id<SelectCellDelegate> delegate;
@@ -23,6 +23,7 @@
 
 -(void)fillTitle:(NSString *)title;
 -(void)isSelect;
+
 
 
 @end

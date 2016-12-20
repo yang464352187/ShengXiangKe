@@ -98,7 +98,12 @@
             [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
             break;
         }
-
+        case 6:{
+            NSDictionary *dic = @{@"title":@"关于啵呗"};
+            [self PushViewControllerByClassName:@"AboutBoobe" info:dic];
+            break;
+        }
+ 
             
             
         default:

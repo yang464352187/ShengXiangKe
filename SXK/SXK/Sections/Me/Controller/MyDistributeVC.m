@@ -1,23 +1,22 @@
 //
-//  MyPromulgateVC.m
+//  MyDistributeVC.m
 //  SXK
 //
-//  Created by 杨伟康 on 2016/12/26.
+//  Created by 杨伟康 on 2016/12/28.
 //  Copyright © 2016年 ywk. All rights reserved.
 //
 
-#import "MyPromulgateVC.h"
+#import "MyDistributeVC.h"
 #import "MyPromulgateCell.h"
 #import "MyPromulgateModel.h"
 #import "MyPromulgateCell1.h"
 
-@interface MyPromulgateVC ()
-
+@interface MyDistributeVC ()
 @property (nonatomic, assign)NSInteger index;
 
 @end
 
-@implementation MyPromulgateVC
+@implementation MyDistributeVC
 
 
 -(void)viewWillAppear:(BOOL)animated
@@ -34,42 +33,40 @@
         
         NSArray *models = [MyPromulgateModel modelsFromArray:data[@"rentList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-        //        NSLog(@"++++++++++%@+++++++++",describe(weakSelf.listData));
-        [weakSelf.tableView reloadData];
+        NSLog(@"++++++++++%@+++++++++",describe(weakSelf.listData));
+//        [weakSelf.tableView reloadData];
     } failue:^(id data, NSError *error) {
         
     }];
-
+    
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     self.navigationItem.title = @"我的发布";
-    NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
-    self.index = 1;
-    [self setupTitlesView:array];
-    [self.view addSubview:self.tableView];
+    for (int i =0; i < self.tableViewArr.count; i++) {
+        UITableView *tableView = self.tableViewArr[i];
+        tableView.dataSource      = self;
+        tableView.delegate        = self;
+        [tableView registerClass:[MyPromulgateCell class] forCellReuseIdentifier:@"MyPromulgateCell"];
+        [tableView registerClass:[MyPromulgateCell1 class] forCellReuseIdentifier:@"MyPromulgateCell1"];
+        tableView.showsVerticalScrollIndicator = NO;
+        tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
+        tableView.tableFooterView = [[UIView alloc] init];
+        //        _tableView.tableHeaderView = self.headView;
+        tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
+        tableView.sectionHeaderHeight = 0.0;
+        tableView.sectionFooterHeight = 0.0;
+        
+        if (i == 0) {
+            self.tableView = tableView;
+        }
+    }
+    self.index =1;
     
 }
-
-- (void)buttonStateChange:(UIButton *)button
-{
-    self.index = button.tag ;
-    NSLog(@"kkkkkkk%dkkkkkkkk",self.index);
-    [self loadingRequest];
-    // 修改按钮状态
-    self.selectedButton.enabled = YES;
-    button.enabled = NO;
-    self.selectedButton = button;
-    [UIView animateWithDuration:0.25 animations:^{
-        self.indicatorView.width = button.titleLabel.width;
-        self.indicatorView.centerX = button.centerX;
-    }];
-    
-}
-
 
 #pragma mark -- UITabelViewDelegate And DataSource
 
@@ -82,7 +79,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-  
+    
     MyPromulgateModel *model = self.listData[indexPath.section];
     if (self.index == 1) {
         MyPromulgateCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyPromulgateCell1"];
@@ -97,7 +94,7 @@
     if (self.index == 4 || self.index == 5) {
         [cell reName:@"删除"];
     }
-
+    
     
     return cell;
 }
@@ -144,28 +141,20 @@
     
 }
 
-#pragma mark -- getters and setters
 
-- (UITableView *)tableView{
-    if (!_tableView) {
-        
-        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 35, SCREEN_WIDTH, SCREEN_HIGHT-64-35) style:UITableViewStyleGrouped];
-        _tableView.dataSource      = self;
-        _tableView.delegate        = self;
-        [_tableView registerClass:[MyPromulgateCell class] forCellReuseIdentifier:@"MyPromulgateCell"];
-        [_tableView registerClass:[MyPromulgateCell1 class] forCellReuseIdentifier:@"MyPromulgateCell1"];
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
-        _tableView.tableFooterView = [[UIView alloc] init];
-        //        _tableView.tableHeaderView = self.headView;
-        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
-        _tableView.sectionHeaderHeight = 0.0;
-        _tableView.sectionFooterHeight = 0.0;
-        
+-(void)setAnimationWithOrigin:(CGFloat)x{
+    [super setAnimationWithOrigin:x];
+    
+    for (int i = 0; i < self.tableViewArr.count ; i++) {
+        UITableView *tableView = self.tableViewArr[i];
+        if (x/SCREEN_WIDTH == i) {
+            self.tableView = tableView;
+            self.index = i +1;
+            [self loadingRequest];
+            break;
+        }
     }
-    return _tableView;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

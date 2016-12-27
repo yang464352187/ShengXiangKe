@@ -362,6 +362,7 @@
 		ADD062F11DEB3B260003433F /* Expression.plist in Resources */ = {isa = PBXBuildFile; fileRef = ADD062F01DEB3B260003433F /* Expression.plist */; };
 		ADD062F41DEB3D8D0003433F /* DFBaseLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */; };
 		ADD0B2C31E12D05C0070608E /* LXViewSelectorController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD0B2C21E12D05C0070608E /* LXViewSelectorController.m */; };
+		ADD0B2C91E12D1760070608E /* MyDistributeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD0B2C81E12D1760070608E /* MyDistributeVC.m */; };
 		ADDD4D511DED5A61009C19B8 /* AppraiseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D501DED5A61009C19B8 /* AppraiseVC.m */; };
 		ADDD4D571DED6FC2009C19B8 /* ConsigneeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D561DED6FC1009C19B8 /* ConsigneeCell.m */; };
 		ADDD4D5A1DED74A1009C19B8 /* PayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D591DED74A1009C19B8 /* PayCell.m */; };
@@ -1067,6 +1068,8 @@
 		ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFBaseLineCell.m; sourceTree = "<group>"; };
 		ADD0B2C11E12D05C0070608E /* LXViewSelectorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXViewSelectorController.h; sourceTree = "<group>"; };
 		ADD0B2C21E12D05C0070608E /* LXViewSelectorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXViewSelectorController.m; sourceTree = "<group>"; };
+		ADD0B2C71E12D1760070608E /* MyDistributeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDistributeVC.h; sourceTree = "<group>"; };
+		ADD0B2C81E12D1760070608E /* MyDistributeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDistributeVC.m; sourceTree = "<group>"; };
 		ADDD4D4F1DED5A61009C19B8 /* AppraiseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppraiseVC.h; sourceTree = "<group>"; };
 		ADDD4D501DED5A61009C19B8 /* AppraiseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppraiseVC.m; sourceTree = "<group>"; };
 		ADDD4D551DED6FC1009C19B8 /* ConsigneeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeCell.h; sourceTree = "<group>"; };
@@ -2566,6 +2569,8 @@
 				AD36AF8A1E110BF3008FB5D4 /* MyAppraiseVC.m */,
 				AD86CF701E1184E5001A2DC6 /* OrderVC.h */,
 				AD86CF711E1184E5001A2DC6 /* OrderVC.m */,
+				ADD0B2C71E12D1760070608E /* MyDistributeVC.h */,
+				ADD0B2C81E12D1760070608E /* MyDistributeVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3271,6 +3276,7 @@
 				ADB66B1E1E07B6FF00D80F2E /* MQMessageFormViewStyleBlue.m in Sources */,
 				AD40A3011DDD5EFE006C5576 /* UIBarButtonItem+Extension.m in Sources */,
 				ADB99CAC1DD576BB00EC1DAD /* NetworkClient.m in Sources */,
+				ADD0B2C91E12D1760070608E /* MyDistributeVC.m in Sources */,
 				AD861B6B1DDC3C4700BC657E /* UIViewController+JTNavigationExtension.m in Sources */,
 				ADB66ABB1E07B6FF00D80F2E /* MQChatViewTableDataSource.m in Sources */,
 				ADB66B071E07B6FF00D80F2E /* MEIQIA_TTTAttributedLabel.m in Sources */,

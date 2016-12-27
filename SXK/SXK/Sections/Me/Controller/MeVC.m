@@ -10,6 +10,7 @@
 #import "LoginBtn.h"
 #import "MeCell.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import "MyDistributeVC.h"
 @interface MeVC ()
 
 @property(nonatomic, strong)UIButton *loginBtn;
@@ -574,7 +575,19 @@
 {
     switch (sender.tag) {
         case 0:{
-            [self PushViewControllerByClassName:@"MyPromulgateVC" info:nil];
+            NSMutableArray *vcArr = [NSMutableArray array];
+            for (int i =0; i<5; i++) {
+                UIViewController *vc = [[UIViewController alloc] init];
+                vc.view.backgroundColor = [UIColor whiteColor];
+                [vcArr addObject:vc];
+            }
+            NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
+
+            MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr titles:array];
+            [self pushViewController:vc];
+            
+            
+//            [self PushViewControllerByClassName:@"MyPromulgateVC" info:nil];
             break;
         }
         case 1:{

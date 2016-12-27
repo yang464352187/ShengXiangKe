@@ -17,7 +17,14 @@
 //选中颜色(默认为红色)
 @property (nonatomic,strong)UIColor *selectedColor;
 //未选中颜色(默认为黑色)
+@property (nonatomic,strong)NSArray<UIViewController*> *controllers;//子控制器
+
 @property (nonatomic,assign)UIColor *normalColor;
 
-@property (nonatomic, assign)NSInteger *index;
+//@property (nonatomic, assign)NSInteger *index;
+
+@property (nonatomic, strong)NSMutableArray *tableViewArr;
+
+- (void)handlePan:(UIPanGestureRecognizer *)sender;
+-(void)setAnimationWithOrigin:(CGFloat)x;
 @end

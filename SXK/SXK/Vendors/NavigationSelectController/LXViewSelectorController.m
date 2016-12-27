@@ -7,9 +7,7 @@
 //
 
 #import "LXViewSelectorController.h"
-#define LXScreenWidth [[UIScreen mainScreen] bounds].size.width
 @interface LXViewSelectorController ()
-@property (nonatomic,strong)NSArray<UIViewController*> *controllers;//子控制器
 @property (nonatomic,strong)NSArray<NSString*> *titles;//标题
 @property (nonatomic,strong)UIView *selectorView;//顶部带选择标题容器
 @property (nonatomic,strong)UIView *showView;//子控制器内容显示容器
@@ -30,7 +28,7 @@
         self.fontSize = 14;
         self.tipSize = CGSizeMake(40, 2);
         self.normalColor = [UIColor blackColor];
-        self.selectedColor = [UIColor redColor];
+        self.selectedColor = APP_COLOR_GREEN;
     }
     return self;
 }
@@ -43,14 +41,25 @@
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
     [self.view addGestureRecognizer:pan];
     
-    self.selectorView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, LXScreenWidth,35)];
-    self.showView = [[UIView alloc] initWithFrame:CGRectMake(0, self.selectorView.frame.size.height+64, LXScreenWidth, self.view.bounds.size.height - self.selectorView.frame.size.height - 64)];
+    self.selectorView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,35)];
+    self.showView = [[UIView alloc] initWithFrame:CGRectMake(0, 35, SCREEN_WIDTH, SCREEN_HIGHT - self.selectorView.frame.size.height - 64)];
     
+    self.showView.backgroundColor = [UIColor redColor];
     NSMutableArray<UIButton*> *buttons = [NSMutableArray array];
+    CGFloat k = 0;
+    self.tableViewArr = [[NSMutableArray alloc] init];
+
     for (int i=0; i<self.controllers.count; i++) {
         UIViewController *vc = self.controllers[i];
         
         vc.view.frame = CGRectMake(i*self.showView.bounds.size.width, 0, self.showView.bounds.size.width, self.showView.bounds.size.height);
+        vc.view.backgroundColor = [UIColor greenColor];
+        
+        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.showView.bounds.size.width, self.showView.bounds.size.height) style:UITableViewStyleGrouped];
+        tableView.backgroundColor = [UIColor redColor];
+        [vc.view addSubview:tableView];
+        
+        [self.tableViewArr addObject:tableView];
         [self.showView addSubview:vc.view];
         
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i*(self.selectorView.bounds.size.width/self.controllers.count), 0, self.selectorView.bounds.size.width/self.controllers.count, 38)];
@@ -61,11 +70,13 @@
         [button addTarget:self action:@selector(didClickItem:) forControlEvents:UIControlEventTouchUpInside];
         [buttons addObject:button];
         [self.selectorView addSubview:button];
+        [button.titleLabel sizeToFit];
+        k = button.titleLabel.width;
     }
     self.titleButtons = [NSArray arrayWithArray:buttons];
-    self.tipView = [[UIView alloc] initWithFrame:CGRectMake(0, self.selectorView.bounds.size.height-2, 40, 2)];
+    self.tipView = [[UIView alloc] initWithFrame:CGRectMake(0, self.selectorView.bounds.size.height-2, k, 2)];
     self.tipView.center = CGPointMake(self.titleButtons[0].center.x, self.tipView.center.y);
-    self.tipView.backgroundColor = [UIColor redColor];
+    self.tipView.backgroundColor = APP_COLOR_GREEN;
     [self.selectorView addSubview:self.tipView];
     [self.view addSubview:self.selectorView];
     [self.view addSubview:self.showView];

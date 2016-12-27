@@ -30,4 +30,6 @@
 
 + (CGFloat)getWidthWithTitle:(NSString *)title font:(UIFont *)font;
 
+- (void) textLeftTopAlign; 
+
 @end

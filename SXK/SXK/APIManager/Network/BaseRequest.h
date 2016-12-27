@@ -389,5 +389,74 @@
                    succesBlock:(SuccessBlock)successBlock
                         failue:(FailureBlock)failueBlock;
 
+/**
+ *  获取养护列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetMaintainListWithPageNo:(NSInteger)pageNo
+                        PageSize:(NSInteger)pageSize
+                           order:(NSInteger)order
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取养护
+ *  @param maintainid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetMaintainWithMaintainid:(NSInteger)maintainid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  获取养护二级分类列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param classifyid   分类ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetMaintainListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                       classifyid:(NSInteger)classifyid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  中检鉴定
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AppraiseWithSetupID:(NSInteger)setupid
+                succesBlock:(SuccessBlock)successBlock
+                     failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  获取租赁列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetTenancyListWithPageNo:(NSInteger)pageNo
+                        PageSize:(NSInteger)pageSize
+                           order:(NSInteger)order
+                          status:(NSInteger)status
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+
 
 @end

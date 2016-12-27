@@ -37,8 +37,8 @@
     self.view.backgroundColor = [UIColor redColor];
     self.navigationController.navigationBar.hidden = YES;
     [self.view addSubview:self.tableView];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:NO forKey:kLoginState];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    [userDefaults setBool:NO forKey:kLoginState];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(CloseKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_BEGIN object:nil];
 
@@ -302,6 +302,7 @@
 
 
 - (void)getHeightsByModels:(NSArray *)models{
+    
 //    if (self.pageNo == 1) {
 //        self.cellHeights = [NSMutableArray array];
 //    }
@@ -309,6 +310,7 @@
 //        CGFloat h = !model.mjj? 90: 125;
 //        [self.cellHeights addObject:@(h)];
 //    }
+
 }
 
 -(UIView *)sectionViewWithTitle:(NSString *)title andContent:(NSString *)content
@@ -325,7 +327,6 @@
     
     UIView * line =[[UIView alloc] initWithFrame:CommonVIEWFRAME(77, 13.5, 0.5, 12)];
     line.backgroundColor = [UIColor colorWithHexColorString:@"a0a0a0"];
-    
     UILabel *title1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(86, 8.5, 150, 22)
                                             andText:content
                                        andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]                                                andBgColor:[UIColor clearColor]
@@ -335,14 +336,15 @@
     [view addSubview:title2];
     [view addSubview:line];
     [view addSubview:title1];
+    
     return view;
 }
 
 -(void)btnAction:(UIButton *)sender
 {
     
-    
     switch (sender.tag) {
+            
         case 105:{
             [self PushViewControllerByClassName:@"ActivityVC" info:nil];
             break;
@@ -354,10 +356,10 @@
             [chatViewManager pushMQChatViewControllerInViewController:self];
             break;
         }
-            
         default:
             break;
     }
+    
 }
 
 -(void)CloseKeyBoardToolBar

@@ -16,7 +16,7 @@
 #import "VTingSeaPopView.h"
 #import <MeiQiaSDK/MQManager.h>
 #import "MQServiceToViewInterface.h"
-
+#import <UMSocialCore/UMSocialCore.h>
 
 
 @interface AppDelegate ()<UITabBarControllerDelegate>
@@ -50,8 +50,23 @@
             NSLog(@">> unread message count: %d", (int)messages.count);
         }];
     }];
+    
+    //打开调试日志
+    [[UMSocialManager defaultManager] openLog:YES];
+    
+    //设置友盟appkey
+    [[UMSocialManager defaultManager] setUmSocialAppkey:@"5859623907fe652882001f65"];
 
+    //设置微信的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx4bfb2d22ce82d40d" appSecret:@"6c5dcb4c683017363d5c580309ed1eff" redirectURL:@"http://mobile.umeng.com/social"];
+    
+    
+    //设置分享到QQ互联的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105855252"  appSecret:@"zOjjoUfd6sC1MTlh" redirectURL:@"http://mobile.umeng.com/social"];
 
+    //设置新浪的appKey和appSecret
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1084074774"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
+    
     return YES;
 }
 
@@ -83,6 +98,15 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+// 支持所有iOS系统
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
 }
 
 

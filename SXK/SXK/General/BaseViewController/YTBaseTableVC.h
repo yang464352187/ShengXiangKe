@@ -21,6 +21,12 @@
 @property (strong, nonatomic) NoDataView     *noDataView;
 @property (assign, nonatomic) BOOL           isUseNoDataView;
 @property (nonatomic, assign) NSInteger first;
+/** 标签栏底部的红色指示器 */
+@property (nonatomic, weak) UIView *indicatorView;
+/** 当前选中的按钮 */
+@property (nonatomic, weak) UIButton *selectedButton;
+/** 顶部的所有标签 */
+@property (nonatomic, weak) UIView *titlesView;
 
 
 /** 下拉刷新，根据需要可重写*/
@@ -47,4 +53,9 @@
 /**  删除数据源中的指定位置数据，并根据数据源是否显示nodataview*/
 - (void)removeObjectAtIndex:(NSInteger)index;
 
+- (void)setupTitlesView:(NSArray *)array;
+
+- (void)titleClick:(UIButton *)button;
+
+- (void)buttonStateChange:(UIButton *)button;
 @end

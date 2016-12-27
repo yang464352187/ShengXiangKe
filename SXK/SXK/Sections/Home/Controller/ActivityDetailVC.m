@@ -221,7 +221,7 @@
                           "<body>%@</body> \n"
                           "</html>", 13.0f, @"Times New Roman", @"black", data[@"content"]];
     
-     [self.webView loadHTMLString:jsString baseURL:nil];
+    [self.webView loadHTMLString:jsString baseURL:nil];
     
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.detailLab.mas_bottom).offset(15);

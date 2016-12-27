@@ -506,6 +506,19 @@
         
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"行%d     段%d",indexPath.row,indexPath.section);
+    
+    if (collectionView == _collectionView) {
+        BrandHotModel *model = self.BrandHotArr[indexPath.row];
+        NSDictionary *dic = @{@"title":model.name};
+        [self PushViewControllerByClassName:@"ClassifyDetailVC" info:dic];
+    }
+    
+}
+
+
 //设置段头的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
 {
@@ -559,6 +572,7 @@
     [self.contactTableView.tableView reloadData];
     
 }
+
 
 
 - (void)didReceiveMemoryWarning {

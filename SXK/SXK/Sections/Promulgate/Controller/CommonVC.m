@@ -26,7 +26,7 @@
 @property (nonatomic, strong)NSMutableDictionary *cellDic;
 @property (nonatomic, strong)NSMutableArray *enclosureArr1;
 @property (nonatomic, strong)NSMutableDictionary *enclosureDic1;
-@property (nonatomic, strong)NSMutableArray *dataArr;
+@property (nonatomic, strong)NSArray *dataArr;
 @property (nonatomic, strong)NSMutableArray *attachList;
 
 @property (nonatomic, strong) qualityVC *selectCell;
@@ -98,6 +98,9 @@
                 [self.enclosureArr addObject:title];
                 NSArray *array = dic[@"attributeValueList"];
                 [self.dataDic setValue:array forKey:title];
+            }else{
+                NSArray *array = dic[@"attributeValueList"];
+                self.dataArr = array;
             }
         }
         [self.tableView reloadData];
@@ -284,16 +287,27 @@
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] init];
+    
+    
     UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(23, 10, 60, 41)                                                 andText:@"宝贝附件"
                                       andTextColor:[UIColor blackColor]
                                         andBgColor:[UIColor clearColor]
                                            andFont:SYSTEMFONT(14)
                                   andTextAlignment:NSTextAlignmentLeft];
-    self.dataArr = [[NSMutableArray alloc] initWithObjects:@"盒子",@"保修卡",@"说明书",@"发票",@"防尘袋", nil];
+//    self.dataArr = [[NSMutableArray alloc] initWithObjects:@"盒子",@"保修卡",@"说明书",@"发票",@"防尘袋",@"aa",@"123",@"333", nil];
+    
+    NSInteger i = self.dataArr.count % 3;
+    NSInteger t;
+    if (i != 0) {
+        t = (self.dataArr.count + i)/3;
+    }else{
+        t = self.dataArr.count/3;
+    }
+    
     int k = 0;
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < t; i++) {
         for (int j = 0; j <3; j++) {
-            if (k == 5) {
+            if (k == self.dataArr.count) {
                 continue;
             }
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -316,7 +330,11 @@
     
     
 //    view.backgroundColor = [UIColor redColor];
-    [view addSubview:title];
+    if (self.dataArr.count > 0) {
+        [view addSubview:title];
+
+    }
+
     return view;
 }
 

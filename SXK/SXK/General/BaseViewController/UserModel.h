@@ -10,14 +10,14 @@
 
 @interface UserModel : BaseModel
 
-@property (nonatomic, copy) NSString *mobile;
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic, copy) NSString *image;
-@property (nonatomic, copy) NSString *province;
-@property (nonatomic, copy) NSString *city;
-@property (nonatomic, copy) NSString *county;
+@property (nonatomic, copy) NSString *profile;
+@property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSString *headimgurl;
-@property (nonatomic, strong) NSNumber *fu,*money,*status,*userid,*updatetime;
+@property (nonatomic, copy) NSString *mobile;
+@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *image;
+
+@property (nonatomic, strong) NSNumber *userid,*birthday,*role,*sex;
 
 
 + (UserModel *)readCurLoginUser;        // 读取当前登录用户信息

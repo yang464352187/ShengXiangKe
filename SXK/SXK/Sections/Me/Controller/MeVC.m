@@ -9,7 +9,7 @@
 #import "MeVC.h"
 #import "LoginBtn.h"
 #import "MeCell.h"
-
+#import <UMSocialCore/UMSocialCore.h>
 @interface MeVC ()
 
 @property(nonatomic, strong)UIButton *loginBtn;
@@ -31,6 +31,9 @@
 @implementation MeVC
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    
+    NSLog(@"--------%@-------",[LoginModel curLoginUser]);
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];//设置电池条颜色为白色
     if ([LoginModel isLogin]) {
@@ -257,12 +260,16 @@
     
     LoginBtn *WXBtn = [[LoginBtn alloc] initWithFrame:CGRectMake(64.0000/375*SCREEN_WIDTH,284.0000/667*SCREEN_HIGHT , 247.0000/375*SCREEN_WIDTH, 43.0000/667*SCREEN_HIGHT) andImage:[UIImage imageNamed:@"微信"] andTitle:@"用微信账号登录"];
     WXBtn.LoginTag = 2;
+    [WXBtn addTarget:self action:@selector(BEBtnAction:)];
     
     LoginBtn *WBBtn = [[LoginBtn alloc] initWithFrame:CGRectMake(64.0000/375*SCREEN_WIDTH,350.5000/667*SCREEN_HIGHT , 247.0000/375*SCREEN_WIDTH, 43.0000/667*SCREEN_HIGHT) andImage:[UIImage imageNamed:@"微博"] andTitle:@"用微博账号登录"];
     WBBtn.LoginTag = 3;
-    
+    [WBBtn addTarget:self action:@selector(BEBtnAction:)];
+
     LoginBtn *QQBtn = [[LoginBtn alloc] initWithFrame:CGRectMake(64.0000/375*SCREEN_WIDTH,417.0000/667*SCREEN_HIGHT , 247.0000/375*SCREEN_WIDTH, 43.0000/667*SCREEN_HIGHT) andImage:[UIImage imageNamed:@"QQ"] andTitle:@"用QQ账号登录"];
     QQBtn.LoginTag = 4;
+    [QQBtn addTarget:self action:@selector(BEBtnAction:)];
+
 
     [loginView addSubview:BEBtn];
     [loginView addSubview:WXBtn];
@@ -337,6 +344,16 @@
     if (sender.LoginTag == 1) {
         [self PushViewControllerByClassName:@"LoginVCViewController" info:nil];
     }
+    if (sender.LoginTag == 2) {
+        [self getUserInfoForPlatform:UMSocialPlatformType_WechatSession];
+    }
+    if (sender.LoginTag == 3) {
+        [self getUserInfoForPlatform:UMSocialPlatformType_Sina];
+    }
+    if (sender.LoginTag == 4) {
+        [self getUserInfoForPlatform:UMSocialPlatformType_QQ];
+    }
+
 }
 
 #pragma mark -- getters and setters
@@ -380,7 +397,7 @@
         self.sexImage = sexImage;
         
         UILabel *nickLab = [UILabel createLabelWithFrame:CommonVIEWFRAME(0, 161, 375, 14)
-                                          andText:@"好肥一只鱼"
+                                          andText:@""
                                      andTextColor:[UIColor colorWithHexColorString:@"4e817f"]
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(14)
@@ -430,6 +447,8 @@
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             //        CGSize titleSize = btn.titleLabel.bounds.size;
             CGSize imageSize = btn.imageView.bounds.size;
+            [btn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.tag = k;
             if (k == 0 || k == 1) {
                 btn.imageEdgeInsets = UIEdgeInsetsMake(0,10,21,0);
                 btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-25, 0, -4);
@@ -502,9 +521,7 @@
     if (indexPath.row == 8) {
         [self PushViewControllerByClassName:@"SetVC" info:nil];
     }
-
     
-
 }
 
 -(NSMutableArray *)titleArr
@@ -523,6 +540,22 @@
     return _imageArr;
 }
 
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType
+{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:self completion:^(id result, NSError *error) {
+        UMSocialUserInfoResponse *userinfo =result;
+        NSString *message = [NSString stringWithFormat:@"name: %@\n icon: %@\n gender: %@\n",userinfo.name,userinfo.iconurl,userinfo.gender];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"UserInfo"
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
+                                              otherButtonTitles:nil];
+        [alert show];
+    }];
+}
+
+
+
 
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -533,6 +566,34 @@
 {
     if (sender.tag == 103) {
         [self PushViewControllerByClassName:@"PersonalInfoVC" info:self.myDict];
+    }
+}
+
+
+-(void)buttonAction:(UIButton *)sender
+{
+    switch (sender.tag) {
+        case 0:{
+            [self PushViewControllerByClassName:@"MyPromulgateVC" info:nil];
+            break;
+        }
+        case 1:{
+            [self PushViewControllerByClassName:@"MyTenancyVC" info:nil];
+            break;
+        }
+
+        case 2:{
+            [self PushViewControllerByClassName:@"MyMaintainVC" info:nil];
+            break;
+        }
+
+        case 3:{
+            [self PushViewControllerByClassName:@"MyAppraiseVC" info:nil];
+            break;
+        }
+
+        default:
+            break;
     }
 }
 - (void)didReceiveMemoryWarning {

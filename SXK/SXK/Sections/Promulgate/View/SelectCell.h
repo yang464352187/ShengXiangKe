@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AppraiseClassModel.h"
 @protocol SelectCellDelegate <NSObject>
 // 代理传值方法
 - (void)sendValue:(id) cell;
@@ -18,11 +18,13 @@
 @interface SelectCell : BaseCell
 
 @property (nonatomic, strong)NSString *name;
+@property (nonatomic, strong)AppraiseClassModel *ACmodel;
 @property (weak, nonatomic) id<SelectCellDelegate> delegate;
 
 
 -(void)fillTitle:(NSString *)title;
 -(void)isSelect;
+-(void)setAppraiseModel:(id)model;
 
 
 

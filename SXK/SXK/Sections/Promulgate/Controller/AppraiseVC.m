@@ -10,15 +10,22 @@
 #import "TypeCell.h"
 #import "ConsigneeCell.h"
 #import "PayCell.h"
+#import "AppraiseClassModel.h"
+#import "AppraiseClassVC.h"
+#import "BrandVC.h"
 
-@interface AppraiseVC ()<SelectPayCellDelegate>
+@interface AppraiseVC ()<SelectPayCellDelegate,AppraiseClassVCDelegate,BrandVCDelegate>
 
 @property (strong, nonatomic) UIView   *headView;
 @property (nonatomic, strong) NSArray *firstArr;
 @property (nonatomic, strong) NSArray *payArr;
 @property (nonatomic, strong) UIView *footView;
-
+@property (nonatomic, strong) UIImageView *headImage;
 @property (nonatomic, strong) PayCell *selectCell;
+@property (nonatomic, strong) NSString *helpImage;
+@property (nonatomic, strong) NSArray *dataArr;
+@property (nonatomic, strong) NSMutableDictionary *cellDic;
+@property (nonatomic, strong) UILabel *priceLab;
 
 @end
 
@@ -34,18 +41,34 @@
     [self initData];
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.footView];
+    
+    _weekSelf(weakSelf);
+    [BaseRequest AppraiseWithSetupID:1 succesBlock:^(id data) {
+        NSDictionary *dic = data[@"setup"];
+        [weakSelf.headImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"campaign"]]]];
+        NSArray *models = [AppraiseClassModel modelsFromArray:data[@"genreList"]];
+        weakSelf.helpImage = dic[@"help"];
+        weakSelf.dataArr = models;
+//        NSLog(@"%@",describe(models));
+        
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
 
 }
 
 -(void)initData
 {
+    self.cellDic = [[NSMutableDictionary alloc] init];
     self.firstArr = @[@"类别",@"品牌"];
-    self.payArr = @[@"微信支付",@"支付宝支付",@"余额支付"];
+    self.payArr = @[@"微信支付",@"支付宝支付",@"积分支付"];
 }
 
 -(void)barButtonAction
 {
-    
+    NSDictionary *dic =@{@"image":self.helpImage};
+    [self PushViewControllerByClassName:@"HowToShootVC" info:dic];
 }
 
 #pragma mark -- UITabelViewDelegate And DataSource
@@ -72,7 +95,6 @@
     if (indexPath.section == 1) {
         ConsigneeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConsigneeCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
         return cell;
     }
     if (indexPath.section == 2) {
@@ -86,7 +108,9 @@
     TypeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TypeCell"];
     [cell fillWithTitle:self.firstArr[indexPath.row] andType:0];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-   
+    NSString *title = self.firstArr[indexPath.row];
+    [self.cellDic setObject:cell forKey:title];
+    
     return cell;
 }
 
@@ -108,6 +132,30 @@
     return view;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0 && indexPath.section == 0) {
+        AppraiseClassVC *vc = [[AppraiseClassVC alloc] init];
+        vc.dataArr = self.dataArr;
+        vc.delegate = self;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    if (indexPath.row == 1 && indexPath.section == 0) {
+        BrandVC *vc = [[BrandVC alloc] init];
+        vc.delegate = self;
+        vc.type =1;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    if (indexPath.section == 1) {
+        
+        [self PushViewControllerByClassName:@"AddressManagerVC" info:nil];
+    }
+    
+    
+    
+}
 
 
 #pragma mark -- getters and setters
@@ -141,7 +189,8 @@
         _headView.backgroundColor = [UIColor whiteColor];
         
         UIImageView * headImage = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, CommonHight(210))];
-        headImage.image = [UIImage imageNamed:@"背景"];
+        headImage.image = [UIImage imageNamed:@""];
+        self.headImage = headImage;
         [_headView addSubview:headImage];
         
     }
@@ -157,7 +206,7 @@
         UIButton *payBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         payBtn.backgroundColor = [UIColor colorWithHexColorString:@"14a8ad"];
         payBtn.frame = VIEWFRAME(SCREEN_WIDTH-CommonWidth(154), 0, CommonWidth(154), 44);
-        [payBtn setTitle:@"立即发表" forState:UIControlStateNormal];
+        [payBtn setTitle:@"立即付款" forState:UIControlStateNormal];
         [payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         
         UILabel *totle = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 100, 44)                                                 andText:@"合计:¥ 0"
@@ -165,7 +214,7 @@
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(15)
                               andTextAlignment:NSTextAlignmentLeft];
-        
+        self.priceLab = totle;
         [_footView addSubview:payBtn];
         [_footView addSubview:totle];
     }
@@ -184,6 +233,20 @@
         [(PayCell *)cell isSelect];
         self.selectCell = (PayCell *)cell;
     }
+}
+
+-(void)returndata:(NSDictionary *)dic
+{
+    TypeCell *cell = [(TypeCell *)self.cellDic valueForKey:@"类别"];
+    [cell changeTitle1:dic[@"name"]];
+    self.priceLab.text = [NSString stringWithFormat:@"合计:¥ %@",dic[@"price"]];
+    NSLog(@"这是中鉴%@",describe(dic));
+}
+-(void)returnBrand:(NSDictionary *)dic
+{
+    TypeCell *cell = [(TypeCell *)self.cellDic valueForKey:@"品牌"];
+    [cell changeTitle1:dic[@"name"]];
+
 }
 
 

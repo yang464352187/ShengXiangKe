@@ -366,11 +366,12 @@
             
         } completion:^(NSError *error, NSString *link, NSInteger index) {
             NSArray *array = [link componentsSeparatedByString:@"/"];
-            NSDictionary *params = @{@"headimgurl":[NSString stringWithFormat:@"%@%@",APP_BASEIMG,array[1]]};
+            NSDictionary *params = @{@"headimgurl":[NSString stringWithFormat:@"%@%@",APP_BASEIMG,array[1]]
+                                     
+                                     };
             
             [BaseRequest SetPersonalInfoWithParams:params succesBlock:^(id data) {
                 
-                NSLog(@"qqqqq%@",data);
             } failue:^(id data, NSError *error) {
                 
             }];

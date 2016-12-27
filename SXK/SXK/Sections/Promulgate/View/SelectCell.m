@@ -9,6 +9,7 @@
 #import "SelectCell.h"
 #import "CategoryListModel.h"
 
+
 @implementation SelectCell{
     UILabel *_title;
     UIView *_line;
@@ -85,6 +86,7 @@
     self.name = _title.text;
 }
 
+
 -(void)fillTitle:(NSString *)title
 {
     _title.text = title;
@@ -94,6 +96,13 @@
     CategoryListModel *_model = model;
     _title.text = _model.name;
 }
+-(void)setAppraiseModel:(id)model
+{
+    AppraiseClassModel *_model = model;
+    _title.text = _model.name;
+    self.ACmodel = model;
+}
+
 
 
 @end

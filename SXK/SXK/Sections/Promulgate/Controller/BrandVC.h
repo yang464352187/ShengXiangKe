@@ -8,6 +8,16 @@
 
 #import "YTBaseTableVC.h"
 
+@protocol BrandVCDelegate <NSObject>
+
+-(void)returnBrand:(NSDictionary *)dic;
+
+@end
+
 @interface BrandVC : YTBaseTableVC
+
+@property(nonatomic, weak)id<BrandVCDelegate>delegate;
+
+@property(nonatomic, assign)NSInteger type;
 
 @end

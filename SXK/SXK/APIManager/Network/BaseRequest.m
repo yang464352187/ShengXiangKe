@@ -7,6 +7,7 @@
 //
 
 #import "BaseRequest.h"
+#import "UserModel.h"
 
 @implementation BaseRequest
 + (instancetype)sharedInstance {
@@ -684,6 +685,32 @@
 {
     [self requestPostCommonWithPath:APPINTERFACE__SetPersonalInfo Params:params succesBlock:^(id data) {
         
+        UserModel *user = [LoginModel curLoginUser];
+        
+        
+
+        [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            if ([key isEqualToString:@"nickname"]) {
+                user.nickname = params[@"nickname"];
+            }
+            if ([key isEqualToString:@"sex"]) {
+                user.sex = params[@"sex"];
+            }
+            
+            if ([key isEqualToString:@"headimgurl"]) {
+                user.headimgurl = params[@"headimgurl"];
+            }
+            if ([key isEqualToString:@"birthday"]) {
+                user.birthday = params[@"birthday"];
+            }
+            if ([key isEqualToString:@"profile"]) {
+                user.profile = params[@"profile"];
+            }
+
+            [UserModel writeUser:user];
+
+        }];
+        
         if (successBlock) {
             successBlock(data);
         }
@@ -705,8 +732,13 @@
                      succesBlock:(SuccessBlock)successBlock
                           failue:(FailureBlock)failueBlock;
 {
+    
     [self requestPostCommonWithPath:APPINTERFACE__GetPersonalInfo Params:params succesBlock:^(id data) {
+        UserModel *user = [UserModel modelFromDictionary:data[@"user"]];
         
+        [UserModel writeUser:user];
+        
+
         if (successBlock) {
             successBlock(data);
         }
@@ -757,6 +789,149 @@
     } failue:failueBlock];
 
 }
+
+/**
+ *  获取养护列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetMaintainListWithPageNo:(NSInteger)pageNo
+                        PageSize:(NSInteger)pageSize
+                           order:(NSInteger)order
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"sort":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic};
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetMaintainList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+/**
+ *  获取养护
+ *  @param maintainid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetMaintainWithMaintainid:(NSInteger)maintainid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"maintainid":@(maintainid)};
+    [self requestPostCommonWithPath:APPINTERFACE__GetMaintain Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+
+/**
+ *  获取养护二级分类列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param classifyid   分类ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetMaintainListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                       classifyid:(NSInteger)classifyid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"sort":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic,
+                             @"classifyid":@(classifyid)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetMaintainList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+/**
+ *  中检鉴定
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AppraiseWithSetupID:(NSInteger)setupid
+                succesBlock:(SuccessBlock)successBlock
+                     failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(1)};
+    [self requestPostCommonWithPath:APPINTERFACE__GetAppraise Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+/**
+ *  获取租赁列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetTenancyListWithPageNo:(NSInteger)pageNo
+                        PageSize:(NSInteger)pageSize
+                           order:(NSInteger)order
+                          status:(NSInteger)status
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"rentid":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic,
+                             @"own":@"1",
+                             @"status":@(status)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetTenancyList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+
 
 
 @end

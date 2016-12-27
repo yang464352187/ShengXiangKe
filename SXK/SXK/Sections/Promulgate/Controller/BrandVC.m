@@ -144,17 +144,28 @@
 {
     NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+indexPath.section]];
     BrandModel *model;
-    if (array.count > 0) {
-        model = array[indexPath.row];
-        NSDictionary *dic = @{@"name":model.name,@"class":self.myDict[@"className"],@"brandid":model.brandid};
-        NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
-        //通过通知中心发送通知
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
-        [self PopToIndexViewController:1];
+    if (self.type != 1) {
+        if (array.count > 0) {
+            model = array[indexPath.row];
+            NSDictionary *dic = @{@"name":model.name,@"class":self.myDict[@"className"],@"brandid":model.brandid};
+            NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            [self PopToIndexViewController:1];
+        }else{
+            [ProgressHUDHandler showHudTipStr:@"请选择品牌"];
+        }
     }else{
-        [ProgressHUDHandler showHudTipStr:@"请选择品牌"];
-
+        if (array.count >0) {
+            model = array[indexPath.row];
+            NSDictionary *dic = [model transformToDictionary];
+            [_delegate returnBrand:dic];
+            [self popGoBack];
+        }else{
+            [ProgressHUDHandler showHudTipStr:@"请选择品牌"];
+        }
     }
+    
 
 }
 

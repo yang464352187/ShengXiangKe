@@ -433,7 +433,7 @@
         [photo addObject:image1];
     }
     
-    _weekSelf(weakSelf);
+//    _weekSelf(weakSelf);
     [CustomHUD createHudCustomShowContent:@"发布中"];
 
     [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
@@ -444,8 +444,8 @@
     } oneTaskCompletion:^(NSError *error, NSString *link, NSInteger index) {
         
         NSArray *array = [link componentsSeparatedByString:@"/"];
-        
-        [self.uploadPhotoArr addObject:array[1]];
+        NSDictionary *dic = @{@"image":array[1]};
+        [self.uploadPhotoArr addObject:dic];
         
     } allTasksCompletion:^{
     
@@ -466,7 +466,7 @@
             [BaseRequest ReleaseProductWithParams:params succesBlock:^(id data) {
             [CustomHUD stopHidden];
             [ProgressHUDHandler showHudTipStr:@"发布成功"];
-            [weakSelf popGoBack];
+            [self popGoBack];
         } failue:^(id data, NSError *error) {
             [ProgressHUDHandler showHudTipStr:@"发布失败"];
             [CustomHUD stopHidden];
@@ -529,8 +529,16 @@
     [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
 }
 
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+    
+    NSLog(@"发布界面收到内存警告");
+    
+    
     // Dispose of any resources that can be recreated.
 }
 

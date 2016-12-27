@@ -84,5 +84,12 @@
 #define APPINTERFACE__GetPersonalInfo        @"/app/user/getpost"
 #define APPINTERFACE__ReleaseProduct         @"/app/rent/addpost"
 #define APPINTERFACE__AboutSetup             @"/app/aboutsetup/getpost"
+#define APPINTERFACE__GetMaintainList        @"/app/maintain/listpost"
+#define APPINTERFACE__GetMaintain            @"/app/maintain/getpost"
+#define APPINTERFACE__GetAppraise            @"/app/identifysetup/getpost"
+#define APPINTERFACE__GetTenancyList         @"/app/rent/listpost"
+
+
+
 
 #endif /* APPMacro_h */

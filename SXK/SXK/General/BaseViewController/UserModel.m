@@ -13,18 +13,15 @@
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
     return @{
              @"PHPSESSID"       :@"PHPSESSID",
-             @"mobile"          :@"mobile",
-             @"image"           :@"image",
-             @"province"        :@"province",
-             @"city"            :@"city",
-             @"county"          :@"county",
-             @"name"            :@"name",
-             @"fu"              :@"fu",
-             @"money"           :@"money",
-             @"status"          :@"status",
              @"userid"          :@"userid",
-             @"updatetime"      :@"updatetime",
-             @"headimgurl"      :@"headimgurl"
+             @"profile"           :@"profile",
+             @"password"        :@"password",
+             @"headimgurl"            :@"headimgurl",
+             @"mobile"          :@"mobile",
+             @"birthday"            :@"birthday",
+             @"role"              :@"role",
+             @"sex"           :@"sex",
+             @"nickname"          :@"nickname"
              };
 }
 

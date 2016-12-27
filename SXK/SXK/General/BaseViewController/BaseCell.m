@@ -31,6 +31,7 @@
 
 }
 
-- (void)setModel:(id)model{}
+- (void)setModel:(id)model{
+}
 
 @end

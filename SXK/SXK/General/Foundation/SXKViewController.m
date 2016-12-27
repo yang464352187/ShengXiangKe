@@ -40,7 +40,7 @@
     // Do any additional setup after loading the view.
     
     [self initVCS];
-      images = [NSMutableArray array];
+    images = [NSMutableArray array];
     titles = [NSMutableArray arrayWithObjects:@"发布",@"养护",@"鉴定", nil];
     
     for (int i = 0; i<3; i++) {
@@ -179,6 +179,9 @@
 //        NSLog(@"点击了%d:item",index);
     if (index == 0) {
         [[PushManager sharedManager] pushToVCWithClassName:@"PromulgateVC" info:nil];
+    }
+    if (index == 1) {
+        [[PushManager sharedManager] pushToVCWithClassName:@"MaintainVC" info:nil];
     }
     if (index == 2) {
         [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];

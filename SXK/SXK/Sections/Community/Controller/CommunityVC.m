@@ -18,7 +18,6 @@
 
 @interface CommunityVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,DFLineCellDelegate,CommentInputViewDelegate>
 
-
 @property (strong, nonatomic) UIView    *headView;
 @property (nonatomic, strong) NSMutableArray *items;
 @property (nonatomic, strong) NSMutableDictionary *itemDic;
@@ -61,18 +60,14 @@
     }
 
     [_commentInputView addNotify];
-    
     [_commentInputView addObserver];
-    
 
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
     [_commentInputView removeNotify];
-    
     [_commentInputView removeObserver];
 }
 
@@ -546,11 +541,11 @@
     } failue:^(id data, NSError *error) {
         
     }];
-    
+    UserModel *model = [LoginModel curLoginUser];
     DFLineCommentItem *commentItem = [[DFLineCommentItem alloc] init];
     commentItem.commentId = [[NSDate date] timeIntervalSince1970];
-    commentItem.userId = 10098;
-    commentItem.userNick = @"杨伟康";
+    commentItem.userId = [model.userid integerValue];
+    commentItem.userNick = model.nickname;
     commentItem.text = text;
     [self addCommentItem:commentItem itemId:itemId replyCommentId:commentId];
     self.tabBarController.tabBar.hidden = NO;
@@ -592,10 +587,10 @@
     //点赞
     NSLog(@"onLike: %lld", itemId);
     [BaseRequest SetCommunityTopicWithTopicID:(NSInteger)itemId like:1 succesBlock:^(id data) {
-        
+        UserModel *model =   [LoginModel curLoginUser];
             DFLineLikeItem *likeItem = [[DFLineLikeItem alloc] init];
-            likeItem.userId = 10092;
-            likeItem.userNick = @"杨伟康";
+            likeItem.userId = [model.userid integerValue];
+            likeItem.userNick = model.nickname;
             [self addLikeItem:likeItem itemId:itemId];
 
     } failue:^(id data, NSError *error) {

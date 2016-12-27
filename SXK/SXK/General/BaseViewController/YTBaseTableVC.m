@@ -12,6 +12,8 @@
 
 @property (assign, nonatomic) NSInteger total;
 
+
+
 @end
 
 @implementation YTBaseTableVC
@@ -163,6 +165,85 @@
     }
     return _noDataView;
 }
+
+/**
+ * 设置顶部的标签栏
+ */
+- (void)setupTitlesView:(NSArray *)array
+{
+    
+    // 标签栏整体
+    UIView *titlesView = [[UIView alloc] init];
+    titlesView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:1];
+    titlesView.width = self.view.width;
+    titlesView.height = 35;
+    titlesView.y = 0;
+    //    titlesView.backgroundColor = [UIColor greenColor];
+    [self.view addSubview:titlesView];
+    self.titlesView = titlesView;
+    
+    // 底部的红色指示器
+    UIView *indicatorView = [[UIView alloc] init];
+    indicatorView.backgroundColor = APP_COLOR_GREEN;
+    indicatorView.height = 2;
+    indicatorView.tag = -1;
+    indicatorView.y = titlesView.height - indicatorView.height;
+    self.indicatorView = indicatorView;
+    
+    // 内部的子标签
+    CGFloat width = titlesView.width / array.count;
+    CGFloat height = titlesView.height;
+    for (NSInteger i = 0; i< array.count; i++) {
+        UIButton *button = [[UIButton alloc] init];
+        button.tag = i;
+        button.height = height;
+        button.width = width;
+        button.x = i * width;
+        NSString *title = array[i];
+        [button setTitle:title forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        [button setTitleColor:APP_COLOR_GREEN forState:UIControlStateDisabled];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        [button addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
+        [titlesView addSubview:button];
+        button.tag = i;
+        // 默认点击了第一个按钮
+        if (i == 0) {
+            button.enabled = NO;
+            self.selectedButton = button;
+            
+            // 让按钮内部的label根据文字内容来计算尺寸
+            [button.titleLabel sizeToFit];
+            self.indicatorView.width = button.titleLabel.width;
+            self.indicatorView.centerX = button.centerX;
+        }
+    }
+    
+    [titlesView addSubview:indicatorView];
+}
+
+
+- (void)titleClick:(UIButton *)button
+{
+    [self buttonStateChange:button];
+    // 滚动
+    //    [self setShowingIndex:button.tag animate:YES];
+}
+
+- (void)buttonStateChange:(UIButton *)button
+{
+    
+    // 修改按钮状态
+    self.selectedButton.enabled = YES;
+    button.enabled = NO;
+    self.selectedButton = button;
+    [UIView animateWithDuration:0.25 animations:^{
+        self.indicatorView.width = button.titleLabel.width;
+        self.indicatorView.centerX = button.centerX;
+    }];
+    
+}
+
 
 
 @end

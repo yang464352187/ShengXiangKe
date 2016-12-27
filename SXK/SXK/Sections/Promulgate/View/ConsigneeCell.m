@@ -12,6 +12,8 @@
     UILabel *_title;
     UIView *_line;
     UIImageView *_back;
+    UILabel *_name;
+    UILabel *_address;
 
 }
 
@@ -35,9 +37,21 @@
                                        andFont:SYSTEMFONT(14)
                               andTextAlignment:NSTextAlignmentLeft];
         
+        _name = [UILabel createLabelWithFrame:VIEWFRAME(15, 10, SCREEN_WIDTH - 30, 15)                                                 andText:@""
+                                  andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]
+                                    andBgColor:[UIColor clearColor]
+                                       andFont:SYSTEMFONT(14)
+                              andTextAlignment:NSTextAlignmentLeft];
+        
+        _address = [UILabel createLabelWithFrame:VIEWFRAME(15, 30, SCREEN_WIDTH - 30, 15)                                                 andText:@""
+                                 andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]
+                                   andBgColor:[UIColor clearColor]
+                                      andFont:SYSTEMFONT(14)
+                             andTextAlignment:NSTextAlignmentLeft];
+
+        
         _line = [[UIView alloc] initWithFrame:VIEWFRAME(0, 53, SCREEN_WIDTH, 1)];
         _line.backgroundColor = [UIColor colorWithHexColorString:@"f7f7f7"];
-        
         
         _back = [[UIImageView alloc] init];
         _back.image = [UIImage imageNamed:@"返回-"];
@@ -45,7 +59,9 @@
         [self addSubview:_title];
         [self addSubview:_line];
         [self addSubview:_back];
-     
+        [self addSubview:_name];
+        [self addSubview:_address];
+
         [_back mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(20);
             //            make.bottom.equalTo(self.mas_bottom).offset(-18);

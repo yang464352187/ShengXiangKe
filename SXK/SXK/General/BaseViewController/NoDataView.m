@@ -70,13 +70,15 @@
 
 
 - (void)setTitle:(NSString *)title{
+    if ([title isEqualToString:@"暂时没有养护信息"]) {
+        [_addBtn removeFromSuperview];
+    }
     _titleLabel.text = title;
 }
 
 -(void)addBtnAction:(UIButton *)sender
 {
     NSDictionary *dic = @{@"title":@"添加地址"};
-
     [[PushManager sharedManager] pushToVCWithClassName:@"AddAddress" info:dic];
 }
 @end

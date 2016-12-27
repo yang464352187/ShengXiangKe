@@ -177,6 +177,7 @@
     [footer addSubview: deleteBtn];
     [footer addSubview: editBtn];
     
+    
     return footer;
 }
 - (void)getDataByNetwork{

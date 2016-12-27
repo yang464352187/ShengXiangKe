@@ -10,4 +10,6 @@
 
 @interface MyPromulgateCell : BaseCell
 
+
+-(void)reName:(NSString *)title;
 @end

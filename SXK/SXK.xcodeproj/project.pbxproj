@@ -22,6 +22,12 @@
 		AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92661DEECB8C00B1A92E /* CommonCell.m */; };
 		AD1F7EED1DEFD12E007BB3DC /* PopView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1F7EEC1DEFD12E007BB3DC /* PopView.m */; };
 		AD207DE91DF90C9A00E8E331 /* BrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD207DE81DF90C9A00E8E331 /* BrandModel.m */; };
+		AD24F39F1E1245670062A54C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD24F39E1E1245670062A54C /* CFNetwork.framework */; };
+		AD24F3A11E1245890062A54C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD24F3A01E1245890062A54C /* Security.framework */; };
+		AD24F3A31E12458F0062A54C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD24F3A21E12458F0062A54C /* QuartzCore.framework */; };
+		AD24F3A51E1245B50062A54C /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AD24F3A41E1245B50062A54C /* libsqlite3.0.tbd */; };
+		AD24F3A71E1245BD0062A54C /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AD24F3A61E1245BD0062A54C /* libstdc++.tbd */; };
+		AD24F3A91E1245C40062A54C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD24F3A81E1245C40062A54C /* CoreMotion.framework */; };
 		AD2558921DE7D7B800E34CF7 /* LeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558911DE7D7B800E34CF7 /* LeftCell.m */; };
 		AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558991DE802A500E34CF7 /* RightCell.m */; };
 		AD2558AF1DE8516E00E34CF7 /* ClassifyCollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558AE1DE8516E00E34CF7 /* ClassifyCollectionHeader.m */; };
@@ -355,6 +361,7 @@
 		ADCC876A1E099C4600861C7B /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = ADCC87691E099C4600861C7B /* libc++.tbd */; };
 		ADD062F11DEB3B260003433F /* Expression.plist in Resources */ = {isa = PBXBuildFile; fileRef = ADD062F01DEB3B260003433F /* Expression.plist */; };
 		ADD062F41DEB3D8D0003433F /* DFBaseLineCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */; };
+		ADD0B2C31E12D05C0070608E /* LXViewSelectorController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD0B2C21E12D05C0070608E /* LXViewSelectorController.m */; };
 		ADDD4D511DED5A61009C19B8 /* AppraiseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D501DED5A61009C19B8 /* AppraiseVC.m */; };
 		ADDD4D571DED6FC2009C19B8 /* ConsigneeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D561DED6FC1009C19B8 /* ConsigneeCell.m */; };
 		ADDD4D5A1DED74A1009C19B8 /* PayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDD4D591DED74A1009C19B8 /* PayCell.m */; };
@@ -365,6 +372,8 @@
 		ADFA8BE01DE4BB2800F992DA /* BrandVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFA8BDF1DE4BB2800F992DA /* BrandVC.m */; };
 		ADFAB8AD1DE602C1005BEAF9 /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFAB8AC1DE602C1005BEAF9 /* RegisterVC.m */; };
 		ADFAB8B01DE60B1E005BEAF9 /* ForgetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFAB8AF1DE60B1E005BEAF9 /* ForgetVC.m */; };
+		ADFC88EC1E126FE500235525 /* BrandDetailCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFC88EB1E126FE500235525 /* BrandDetailCell1.m */; };
+		ADFC88EF1E1274F800235525 /* BrandDetailCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFC88EE1E1274F800235525 /* BrandDetailCell2.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -416,6 +425,12 @@
 		AD1F7EEC1DEFD12E007BB3DC /* PopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopView.m; sourceTree = "<group>"; };
 		AD207DE71DF90C9A00E8E331 /* BrandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandModel.h; sourceTree = "<group>"; };
 		AD207DE81DF90C9A00E8E331 /* BrandModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandModel.m; sourceTree = "<group>"; };
+		AD24F39E1E1245670062A54C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		AD24F3A01E1245890062A54C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		AD24F3A21E12458F0062A54C /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		AD24F3A41E1245B50062A54C /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		AD24F3A61E1245BD0062A54C /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		AD24F3A81E1245C40062A54C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		AD2558901DE7D7B800E34CF7 /* LeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftCell.h; sourceTree = "<group>"; };
 		AD2558911DE7D7B800E34CF7 /* LeftCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftCell.m; sourceTree = "<group>"; };
 		AD2558981DE802A500E34CF7 /* RightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightCell.h; sourceTree = "<group>"; };
@@ -1050,6 +1065,8 @@
 		ADD062F01DEB3B260003433F /* Expression.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expression.plist; sourceTree = "<group>"; };
 		ADD062F21DEB3D8D0003433F /* DFBaseLineCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DFBaseLineCell.h; sourceTree = "<group>"; };
 		ADD062F31DEB3D8D0003433F /* DFBaseLineCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DFBaseLineCell.m; sourceTree = "<group>"; };
+		ADD0B2C11E12D05C0070608E /* LXViewSelectorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXViewSelectorController.h; sourceTree = "<group>"; };
+		ADD0B2C21E12D05C0070608E /* LXViewSelectorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXViewSelectorController.m; sourceTree = "<group>"; };
 		ADDD4D4F1DED5A61009C19B8 /* AppraiseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppraiseVC.h; sourceTree = "<group>"; };
 		ADDD4D501DED5A61009C19B8 /* AppraiseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppraiseVC.m; sourceTree = "<group>"; };
 		ADDD4D551DED6FC1009C19B8 /* ConsigneeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsigneeCell.h; sourceTree = "<group>"; };
@@ -1070,6 +1087,10 @@
 		ADFAB8AC1DE602C1005BEAF9 /* RegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
 		ADFAB8AE1DE60B1E005BEAF9 /* ForgetVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetVC.h; sourceTree = "<group>"; };
 		ADFAB8AF1DE60B1E005BEAF9 /* ForgetVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetVC.m; sourceTree = "<group>"; };
+		ADFC88EA1E126FE500235525 /* BrandDetailCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandDetailCell1.h; sourceTree = "<group>"; };
+		ADFC88EB1E126FE500235525 /* BrandDetailCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandDetailCell1.m; sourceTree = "<group>"; };
+		ADFC88ED1E1274F800235525 /* BrandDetailCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandDetailCell2.h; sourceTree = "<group>"; };
+		ADFC88EE1E1274F800235525 /* BrandDetailCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandDetailCell2.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1077,11 +1098,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADCC876A1E099C4600861C7B /* libc++.tbd in Frameworks */,
+				AD24F3A91E1245C40062A54C /* CoreMotion.framework in Frameworks */,
+				AD24F3A71E1245BD0062A54C /* libstdc++.tbd in Frameworks */,
+				AD24F3A51E1245B50062A54C /* libsqlite3.0.tbd in Frameworks */,
 				ADCC87681E099C3000861C7B /* libz.tbd in Frameworks */,
-				ADCC87661E099C2300861C7B /* ImageIO.framework in Frameworks */,
+				ADCC876A1E099C4600861C7B /* libc++.tbd in Frameworks */,
 				ADB66B2D1E07B73A00D80F2E /* CoreTelephony.framework in Frameworks */,
+				AD24F3A31E12458F0062A54C /* QuartzCore.framework in Frameworks */,
+				AD24F3A11E1245890062A54C /* Security.framework in Frameworks */,
 				ADB66B2F1E07B74300D80F2E /* SystemConfiguration.framework in Frameworks */,
+				AD24F39F1E1245670062A54C /* CFNetwork.framework in Frameworks */,
+				ADCC87661E099C2300861C7B /* ImageIO.framework in Frameworks */,
 				ADCC87571E099BAF00861C7B /* libSocialQQ.a in Frameworks */,
 				ADCC875E1E099BAF00861C7B /* libWeChatSDK.a in Frameworks */,
 				ADB66B351E07B75D00D80F2E /* Accelerate.framework in Frameworks */,
@@ -1132,6 +1159,12 @@
 		78375E12ED1817564871113B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AD24F3A81E1245C40062A54C /* CoreMotion.framework */,
+				AD24F3A61E1245BD0062A54C /* libstdc++.tbd */,
+				AD24F3A41E1245B50062A54C /* libsqlite3.0.tbd */,
+				AD24F3A21E12458F0062A54C /* QuartzCore.framework */,
+				AD24F3A01E1245890062A54C /* Security.framework */,
+				AD24F39E1E1245670062A54C /* CFNetwork.framework */,
 				ADCC87691E099C4600861C7B /* libc++.tbd */,
 				ADCC87671E099C3000861C7B /* libz.tbd */,
 				ADCC87651E099C2300861C7B /* ImageIO.framework */,
@@ -2228,6 +2261,7 @@
 		ADB99CA11DD569FA00EC1DAD /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				ADD0B2C01E12D05C0070608E /* NavigationSelectController */,
 				AD3044E41E120A4000DDB299 /* StringAttribute */,
 				ADCC87311E099B8A00861C7B /* UMSocial */,
 				ADB669641E07B6D700D80F2E /* MeiQia */,
@@ -2352,6 +2386,10 @@
 				AD0B5D9A1DF93B0E00ACA080 /* ClassCollectionViewCell.m */,
 				ADDF7F201DFE64A7001BF8F4 /* CategoryViewCell.h */,
 				ADDF7F211DFE64A7001BF8F4 /* CategoryViewCell.m */,
+				ADFC88EA1E126FE500235525 /* BrandDetailCell1.h */,
+				ADFC88EB1E126FE500235525 /* BrandDetailCell1.m */,
+				ADFC88ED1E1274F800235525 /* BrandDetailCell2.h */,
+				ADFC88EE1E1274F800235525 /* BrandDetailCell2.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2780,6 +2818,15 @@
 			name = Lib;
 			sourceTree = "<group>";
 		};
+		ADD0B2C01E12D05C0070608E /* NavigationSelectController */ = {
+			isa = PBXGroup;
+			children = (
+				ADD0B2C11E12D05C0070608E /* LXViewSelectorController.h */,
+				ADD0B2C21E12D05C0070608E /* LXViewSelectorController.m */,
+			);
+			path = NavigationSelectController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2995,7 +3042,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3118,6 +3165,7 @@
 				AD65A5E81DE436E6002C6364 /* JFImageGroupTableViewController.m in Sources */,
 				AD6ADE061E027FF700B01799 /* UserProtocolVC.m in Sources */,
 				ADB66AF71E07B6FF00D80F2E /* MEIQIA_CustomIOSAlertView.m in Sources */,
+				ADFC88EF1E1274F800235525 /* BrandDetailCell2.m in Sources */,
 				ADB66ADF1E07B6FF00D80F2E /* MQEvaluationResultCell.m in Sources */,
 				ADB66B191E07B6FF00D80F2E /* MQWebViewController.m in Sources */,
 				AD2558B21DE8562F00E34CF7 /* ClassifyCollectionFooter.m in Sources */,
@@ -3271,6 +3319,7 @@
 				ADB66B241E07B6FF00D80F2E /* MQMessageFormImageCell.m in Sources */,
 				AD36AF941E1130B4008FB5D4 /* MyTenancyCell1.m in Sources */,
 				ADB66AD91E07B6FF00D80F2E /* MQBotAnswerCell.m in Sources */,
+				ADD0B2C31E12D05C0070608E /* LXViewSelectorController.m in Sources */,
 				ADB66ABC1E07B6FF00D80F2E /* MQPreChatCells.m in Sources */,
 				ADB66B0C1E07B6FF00D80F2E /* MQChatTableView.m in Sources */,
 				ADB66AC91E07B6FF00D80F2E /* MQTextMessage.m in Sources */,
@@ -3294,6 +3343,7 @@
 				ADB99C621DD567C400EC1DAD /* main.m in Sources */,
 				ADB66AD51E07B6FF00D80F2E /* MQTextCellModel.m in Sources */,
 				AD861B5D1DDC3AFB00BC657E /* RootViewController.m in Sources */,
+				ADFC88EC1E126FE500235525 /* BrandDetailCell1.m in Sources */,
 				AD3044F81E120A4000DDB299 /* ParagraphStyleAttribute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3453,6 +3503,8 @@
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/UMSocialSDK",
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/UMSocialUI",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/CmbWallet",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SXK/Expand/Macros/SXKPrefixHeader.pch";
@@ -3465,6 +3517,22 @@
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/ApplePay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/BfbWap",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/CmbWallet",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Cnp",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Fqlpay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Jdpay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Mmdpay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Qgbc",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/QQWallet",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/UnionPay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Yeepay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Dependencies/Network",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Dependencies/WebView",
+					"$(PROJECT_DIR)/SXK/Vendors/lib",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/One",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.SXK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3483,6 +3551,8 @@
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/UMSocialSDK",
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/UMSocialUI",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/CmbWallet",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SXK/Expand/Macros/SXKPrefixHeader.pch";
@@ -3495,6 +3565,22 @@
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/SocialLibraries/QQ",
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/SocialLibraries/Sina",
 					"$(PROJECT_DIR)/SXK/Vendors/UMSocial/SocialLibraries/WeChat",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Alipay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/ApplePay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/BfbWap",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/CmbWallet",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Cnp",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Fqlpay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Jdpay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Mmdpay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Qgbc",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/QQWallet",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/UnionPay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Channels/Yeepay",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Dependencies/Network",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/Dependencies/WebView",
+					"$(PROJECT_DIR)/SXK/Vendors/lib",
+					"$(PROJECT_DIR)/SXK/Vendors/lib/One",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.SXK;
 				PRODUCT_NAME = "$(TARGET_NAME)";

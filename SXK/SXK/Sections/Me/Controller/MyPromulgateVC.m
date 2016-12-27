@@ -9,14 +9,38 @@
 #import "MyPromulgateVC.h"
 #import "MyPromulgateCell.h"
 #import "MyPromulgateModel.h"
+#import "MyPromulgateCell1.h"
 
 @interface MyPromulgateVC ()
 
-
+@property (nonatomic, assign)NSInteger index;
 
 @end
 
 @implementation MyPromulgateVC
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadingRequest];
+}
+
+
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf)
+    [BaseRequest GetTenancyListWithPageNo:0 PageSize:0 order:1 status:self.index succesBlock:^(id data) {
+        
+        NSArray *models = [MyPromulgateModel modelsFromArray:data[@"rentList"]];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+        //        NSLog(@"++++++++++%@+++++++++",describe(weakSelf.listData));
+        [weakSelf.tableView reloadData];
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
+}
 
 - (void)viewDidLoad {
     
@@ -24,46 +48,17 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的发布";
     NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
-    [self setupTitlesView:array];
+    self.index = 1;
+//    [self setupTitlesView:array];
     [self.view addSubview:self.tableView];
-    
-    _weekSelf(weakSelf)
-    [BaseRequest GetTenancyListWithPageNo:0 PageSize:0 order:1 status:1 succesBlock:^(id data) {
-        
-        NSArray *models = [MyPromulgateModel modelsFromArray:data[@"rentList"]];
-        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-        NSLog(@"++++++++++%@+++++++++",describe(weakSelf.listData));
-        [weakSelf.tableView reloadData];
-    } failue:^(id data, NSError *error) {
-        
-    }];
-
     
 }
 
 - (void)buttonStateChange:(UIButton *)button
 {
-    switch (button.tag) {
-        case 0:{
-            
-            break;
-        }
-        case 1:{
-            
-            break;
-        }
-        case 2:{
-            
-            break;
-        }
-        case 3:{
-            
-            break;
-        }
-            
-        default:
-            break;
-    }
+    self.index = button.tag ;
+    NSLog(@"kkkkkkk%dkkkkkkkk",self.index);
+    [self loadingRequest];
     // 修改按钮状态
     self.selectedButton.enabled = YES;
     button.enabled = NO;
@@ -87,15 +82,31 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+  
+    MyPromulgateModel *model = self.listData[indexPath.section];
+    if (self.index == 1) {
+        MyPromulgateCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyPromulgateCell1"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:model];
+        return cell;
+    }
+    
     MyPromulgateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyPromulgateCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    MyPromulgateModel *model = self.listData[indexPath.section];
     [cell setModel:model];
+    if (self.index == 4 || self.index == 5) {
+        [cell reName:@"删除"];
+    }
+
+    
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.index == 1) {
+        return 140;
+    }
     return 166;
 }
 
@@ -142,6 +153,7 @@
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
         [_tableView registerClass:[MyPromulgateCell class] forCellReuseIdentifier:@"MyPromulgateCell"];
+        [_tableView registerClass:[MyPromulgateCell1 class] forCellReuseIdentifier:@"MyPromulgateCell1"];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];

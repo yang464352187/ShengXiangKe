@@ -19,6 +19,8 @@ target 'SXK' do
     pod 'MJPhotoBrowser', '~> 1.0.2'
 
 pod "Qiniu", :git => 'https://github.com/qiniu/objc-sdk.git', :branch => 'AFNetworking-3.x'
-
+   pod 'Pingpp/Alipay',   '~> 2.2.5'
+   pod 'Pingpp/UnionPay',  '~> 2.2.5'
+   pod'Pingpp/Wx',  '~> 2.2.5' 	
 end
 

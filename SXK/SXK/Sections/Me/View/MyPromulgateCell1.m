@@ -7,6 +7,7 @@
 //
 
 #import "MyPromulgateCell1.h"
+#import "MyPromulgateModel.h"
 
 @implementation MyPromulgateCell1{
     UIImageView *_headImageView;
@@ -43,99 +44,72 @@
                                          andFont:SYSTEMFONT(11)
                                 andTextAlignment:NSTextAlignmentLeft];
         
-        _priceTitle = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"租价"
-                                       andTextColor:[UIColor blackColor]
-                                         andBgColor:[UIColor clearColor]
-                                            andFont:SYSTEMFONT(12)
-                                   andTextAlignment:NSTextAlignmentLeft];
-        
-        _price = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"¥1500"
-                                  andTextColor:APP_COLOR_GREEN
-                                    andBgColor:[UIColor clearColor]
-                                       andFont:SYSTEMFONT(12)
-                              andTextAlignment:NSTextAlignmentLeft];
-        
-        _marketPrice = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"市场价 ¥3456.77"
-                                        andTextColor:[UIColor blackColor]
-                                          andBgColor:[UIColor clearColor]
-                                             andFont:SYSTEMFONT(12)
-                                    andTextAlignment:NSTextAlignmentLeft];
         
         _content.numberOfLines = 0;
         [_content sizeToFit];
         
         _button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_button setTitle:@"下架" forState:UIControlStateNormal];
+        [_button setTitle:@"删除" forState:UIControlStateNormal];
         [_button setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
         ViewBorderRadius(_button, 5, 0.5, APP_COLOR_GREEN);
         
         [self addSubview:_headImageView];
         [self addSubview:_title];
         [self addSubview:_content];
-        [self addSubview:_price];
-        [self addSubview:_priceTitle];
-        [self addSubview:_marketPrice];
         [self addSubview:_button];
-        
-        
-        [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(15);
-            make.top.equalTo(self.mas_top).offset(20);
-            //            make.bottom.equalTo(self.mas_bottom).offset(-33);
-            make.size.mas_equalTo(CGSizeMake(150, 100));
-        }];
-        
-        [_title mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headImageView.mas_right).offset(10);
-            make.top.equalTo(self.mas_top).offset(24);
-            make.right.equalTo(self.mas_right).offset(-25);
-            //            make.size.mas_equalTo(CGSizeMake(100, 14));
-            make.height.mas_equalTo(14);
-        }];
-        
-        [_content mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headImageView.mas_right).offset(10);
-            make.top.equalTo(_title.mas_bottom).offset(5);
-            make.right.equalTo(self.mas_right).offset(-25);
-            make.height.mas_equalTo(@(30));
-        }];
-        
-        [_priceTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headImageView.mas_right).offset(10);
-            make.top.equalTo(_content.mas_bottom).offset(5);
-            make.size.mas_equalTo(CGSizeMake(26, 13));
-        }];
-        
-        [_price mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_priceTitle.mas_right).offset(5);
-            make.top.equalTo(_content.mas_bottom).offset(5);
-            make.right.equalTo(self.mas_right).offset(-25);
-            make.height.mas_equalTo(@(13));
-            //            make.size.mas_equalTo(CGSizeMake(100, 13));
-        }];
-        
-        [_marketPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headImageView.mas_right).offset(10);
-            make.top.equalTo(_priceTitle.mas_bottom).offset(5);
-            make.height.mas_equalTo(@(13));
-            make.right.equalTo(self.mas_right).offset(-25);
-            //            make.size.mas_equalTo(CGSizeMake(150, 13));
-        }];
-        
-        [_button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.mas_right).offset(-20);
-            make.bottom.equalTo(self.mas_bottom).offset(-15);
-            make.size.mas_equalTo(CGSizeMake(92, 26));
-        }];
-        
-        
-        
-        
         
         
         
     }
     return  self;
+}
+
+-(void)setModel:(id)model
+{
+    MyPromulgateModel *_model = model;
+    
+    _title.text = _model.name;
+    _content.text = _model.keyword;
+    CGFloat height = [UILabel getHeightByWidth:(SCREEN_WIDTH - 150 - 15 -10 -25) title:_model.keyword font:SYSTEMFONT(11)];
+    if (height > 26.5) {
+        height = 26.5;
+    }
+    [self reSetSize:height];
+    _price.text = [NSString stringWithFormat:@"%lld",[_model.rentPrice longLongValue]];
+    _marketPrice.text = [NSString stringWithFormat:@"市场价:%lld",[_model.marketPrice longLongValue]];
+}
+
+-(void)reSetSize:(CGFloat)height
+{
+    [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(15);
+        make.top.equalTo(self.mas_top).offset(20);
+        //            make.bottom.equalTo(self.mas_bottom).offset(-33);
+        make.size.mas_equalTo(CGSizeMake(150, 100));
+    }];
+    
+    [_title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_headImageView.mas_right).offset(10);
+        make.top.equalTo(self.mas_top).offset(24);
+        make.right.equalTo(self.mas_right).offset(-25);
+        //            make.size.mas_equalTo(CGSizeMake(100, 14));
+        make.height.mas_equalTo(14);
+    }];
+    
+    [_content mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_headImageView.mas_right).offset(10);
+        make.top.equalTo(_title.mas_bottom).offset(5);
+        make.right.equalTo(self.mas_right).offset(-25);
+        make.height.mas_equalTo(@(height));
+    }];
+    
+    
+    [_button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right).offset(-20);
+        make.bottom.equalTo(self.mas_bottom).offset(-20);
+        make.size.mas_equalTo(CGSizeMake(92, 26));
+    }];
+    
 }
 
 

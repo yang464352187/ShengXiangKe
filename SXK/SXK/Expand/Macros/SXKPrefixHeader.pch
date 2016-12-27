@@ -19,6 +19,7 @@
 #import "BaseRequest.h"
 #import "Constant.h"
 #import "GCQiniuUploadManager.h"  //七牛管理类
+#import "Pingpp.h"
 
 
 //Categories

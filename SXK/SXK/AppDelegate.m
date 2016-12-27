@@ -17,6 +17,7 @@
 #import <MeiQiaSDK/MQManager.h>
 #import "MQServiceToViewInterface.h"
 #import <UMSocialCore/UMSocialCore.h>
+#import "Pingpp.h"
 
 
 @interface AppDelegate ()<UITabBarControllerDelegate>
@@ -50,6 +51,8 @@
             NSLog(@">> unread message count: %d", (int)messages.count);
         }];
     }];
+    
+    [Pingpp setDebugMode:YES];
     
     //打开调试日志
     [[UMSocialManager defaultManager] openLog:YES];

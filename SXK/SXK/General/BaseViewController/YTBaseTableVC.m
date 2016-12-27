@@ -195,7 +195,7 @@
     CGFloat height = titlesView.height;
     for (NSInteger i = 0; i< array.count; i++) {
         UIButton *button = [[UIButton alloc] init];
-        button.tag = i;
+        button.tag = i+1;
         button.height = height;
         button.width = width;
         button.x = i * width;
@@ -206,7 +206,6 @@
         button.titleLabel.font = [UIFont systemFontOfSize:14];
         [button addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
         [titlesView addSubview:button];
-        button.tag = i;
         // 默认点击了第一个按钮
         if (i == 0) {
             button.enabled = NO;

@@ -62,6 +62,16 @@
 				<string>wb1084074774</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.qingye.SXK</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx4bfb2d22ce82d40d</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -70,6 +80,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>iosamap</string>
+		<string>alipays</string>
 		<string>wechat</string>
 		<string>weixin</string>
 		<string>sinaweibohd</string>

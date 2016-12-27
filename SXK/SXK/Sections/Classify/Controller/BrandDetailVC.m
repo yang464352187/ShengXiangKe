@@ -8,6 +8,9 @@
 
 #import "BrandDetailVC.h"
 #import "StringAttributeHelper.h"
+#import "BrandDetailCell1.h"
+#import "BrandDetailCell2.h"
+
 
 @interface BrandDetailVC ()<SDCycleScrollViewDelegate>
 
@@ -22,6 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigationItem.title = @"产品详情";
     [self initUI];
 }
 
@@ -55,7 +59,7 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 0;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -65,21 +69,44 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    MaintainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MaintainCell"];
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return nil;
+    if (indexPath.section == 0) {
+        BrandDetailCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell1"];
+        return cell;
+    }
+    BrandDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell2"];
+
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 138;
+    
+    if (indexPath.section == 0) {
+        if (SCREEN_WIDTH <= 320) {
+            return 150;
+        }
+        if (SCREEN_WIDTH > 750) {
+            return 210;
+        }
+        return 180;
+
+    }
+    return 75;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.0000001;
+    if (section == 0 || section == 1) {
+        return 15;
+    }
+    return 50;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if (section == 0) {
+        return 0.000001;
+    }
     return 15;
 }
 
@@ -89,6 +116,77 @@
     view.backgroundColor = APP_COLOR_GRAY_Header;
     return view;
 }
+
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    if (section == 0 || section ==1) {
+        UIView *view = [[UIView alloc] init];
+        view.backgroundColor = APP_COLOR_GRAY_Header;
+        return view;
+
+    }
+    
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 66)];
+    view.backgroundColor =  [UIColor whiteColor];
+    UILabel *title2 = [UILabel createLabelWithFrame:CommonVIEWFRAME(18, 13.5, 50, 12)
+                                            andText:@"商品详情"
+                                       andTextColor:[UIColor blackColor]
+                                         andBgColor:[UIColor clearColor]
+                                            andFont:SYSTEMFONT(13)
+                                   andTextAlignment:NSTextAlignmentLeft];
+    title2.adjustsFontSizeToFitWidth =YES;
+    
+    UIView * line =[[UIView alloc] initWithFrame:CommonVIEWFRAME(77, 13.5, 0.5, 12)];
+    line.backgroundColor = [UIColor colorWithHexColorString:@"a0a0a0"];
+    
+    UILabel *title1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(86, 8.5, 150, 22)
+                                            andText:@"Description"
+                                       andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]                                                andBgColor:[UIColor clearColor]
+                                            andFont:SYSTEMFONT(12)
+                                   andTextAlignment:NSTextAlignmentLeft];
+    title1.adjustsFontSizeToFitWidth =YES;
+    
+    UIView * underLine =[[UIView alloc] initWithFrame:CommonVIEWFRAME(15, 74.5, SCREEN_WIDTH - 30, 0.5)];
+    underLine.backgroundColor = [UIColor colorWithHexColorString:@"a0a0a0"];
+
+    
+    [view addSubview:title2];
+    [view addSubview:line];
+    [view addSubview:title1];
+    [view addSubview:underLine];
+    
+    [title2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(view.mas_left).offset(18);
+        make.size.mas_equalTo(CGSizeMake(50, 12));
+    }];
+    
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(title2.mas_right).offset(9);
+        make.size.mas_equalTo(CGSizeMake(0.5, 12));
+    }];
+    
+    [title1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view);
+        make.left.equalTo(line.mas_right).offset(9);
+        make.size.mas_equalTo(CGSizeMake(150, 22));
+    }];
+    
+    [underLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(view.mas_bottom).offset(-0.5);
+        make.left.equalTo(view.mas_left).offset(15);
+        make.right.equalTo(view.mas_right).offset(-15);
+        make.height.mas_equalTo(0.5);
+    }];
+
+    
+
+    return view;
+}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -101,10 +199,11 @@
 - (UITableView *)tableView{
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-64-80) style:UITableViewStyleGrouped];
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
-        
+        [_tableView registerClass:[BrandDetailCell1 class] forCellReuseIdentifier:@"BrandDetailCell1"];
+        [_tableView registerClass:[BrandDetailCell2 class] forCellReuseIdentifier:@"BrandDetailCell2"];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -120,7 +219,7 @@
 
 - (UIView *)headView{
     if (!_headView) {
-        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 403.0000/667*SCREEN_HIGHT)];
+        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 274.0000/667*SCREEN_HIGHT+100)];
         _headView.backgroundColor = [UIColor whiteColor];
         
         self.indexLab = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 105, 12)
@@ -171,9 +270,15 @@
         minPrice.attributedText = [str mutableAttributedStringWithStringAttributes:@[fullFont,
                                                                                      fullColor]];
         
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
         UIImage *image = [UIImage imageNamed:@"嘴型@2x"];
-        [btn setImage:image forState:UIControlStateNormal];
+        [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        [btn setTitle:@"啵一个" forState:UIControlStateNormal];
+        btn.titleLabel.font = SYSTEMFONT(13);
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 20, -40);
+        btn.titleEdgeInsets = UIEdgeInsetsMake(20, -30, -10, -8);
+        
         
         [_headView addSubview:self.cycleScrollView];
         [_headView addSubview:self.indexLab];
@@ -216,9 +321,9 @@
         }];
         
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.cycleScrollView.mas_bottom).offset(15);
-            make.right.equalTo(_headView.mas_right).offset(-15);
-            make.size.mas_equalTo(CGSizeMake(20, 20));
+            make.top.equalTo(self.cycleScrollView.mas_bottom).offset(12);
+            make.right.equalTo(_headView.mas_right).offset(0);
+            make.size.mas_equalTo(CGSizeMake(60, 50));
 
         }];
 

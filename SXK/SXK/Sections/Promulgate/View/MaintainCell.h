@@ -10,4 +10,6 @@
 
 @interface MaintainCell : BaseCell
 
+-(void)setModel1:(id)model;
+
 @end

@@ -8,7 +8,7 @@
 
 #import "MaintainCell.h"
 #import "MaintainCellModel.h"
-
+#import "BrandDetailModel.h"
 @implementation MaintainCell{
     UIImageView *_headImageView;
     UILabel *_title;
@@ -102,5 +102,14 @@
     _price.text = [NSString stringWithFormat:@"¥%lld",[_model.price longLongValue]];
 }
 
+-(void)setModel1:(id)model
+{
+    BrandDetailModel *_model = model;
+    NSString *image = _model.imgList[0];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,image]]];
+    _title.text = _model.name;
+    _content.text = _model.keyword;
+    _price.text = [NSString stringWithFormat:@"¥%lld",[_model.counterPrice longLongValue]];
+}
 
 @end

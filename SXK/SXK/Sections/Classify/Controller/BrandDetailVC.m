@@ -10,7 +10,7 @@
 #import "StringAttributeHelper.h"
 #import "BrandDetailCell1.h"
 #import "BrandDetailCell2.h"
-
+#import "BrandDetailModel.h"
 
 @interface BrandDetailVC ()<SDCycleScrollViewDelegate>
 
@@ -18,9 +18,60 @@
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;// 头顶滑动视图
 @property (strong, nonatomic) UILabel *indexLab;
 @property (strong, nonatomic) UILabel *titleLab;
+@property (strong, nonatomic) UILabel *content;
+@property (strong, nonatomic) UILabel *minRentPrice;
+@property (strong, nonatomic) UILabel *markPrice;
+@property (strong, nonatomic) NSDictionary *dataDic;
+
+
+
 @end
 
 @implementation BrandDetailVC
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf)
+    [BaseRequest GetProductlWithRentID:[self.myDict[@"rentid"] integerValue] succesBlock:^(id data) {
+        BrandDetailModel *model = [BrandDetailModel modelFromDictionary:data[@"rent"]];
+        weakSelf.dataDic = [model transformToDictionary];
+        [weakSelf.tableView reloadData];
+        [weakSelf initData];
+    } failue:^(id data, NSError *error) {
+        
+    }];
+}
+
+-(void)initData
+{
+    NSArray *array = [[NSArray alloc] initWithObjects:@"99成新（未使用）",@"98成新",@"95成新",@"9成新",@"85成新",@"8成新", nil];
+    if (self.dataDic.count > 0) {
+        self.titleLab.text = self.dataDic[@"name"];
+        self.content.text = [NSString stringWithFormat:@"%@ %@",array[[self.dataDic[@"condition"] integerValue]],self.dataDic[@"keyword"]];
+     
+//        NSString *str = @"最低租价:¥64/天";
+//        NSString *rentPrice = [NSString stringWithFormat:@"最低租价:¥%@/天",self.dataDic[@""]];
+//        FontAttribute *fullFont = [FontAttribute new];
+//        fullFont.font           = SYSTEMFONT(18);
+//        fullFont.effectRange    = NSMakeRange(5,3);
+//        
+//        ForegroundColorAttribute *fullColor = [ForegroundColorAttribute new];
+//        fullColor.color                     = APP_COLOR_GREEN;
+//        fullColor.effectRange               = NSMakeRange(5, str.length -5);
+//        
+//        minPrice.attributedText = [str mutableAttributedStringWithStringAttributes:@[fullFont,
+//                                                                                     fullColor]];
+
+        
+        
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadingRequest];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,6 +93,7 @@
     [certainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     certainBtn.titleLabel.font = SYSTEMFONT(14);
     certainBtn.frame = VIEWFRAME(15, 20, CommonWidth(335), 40);
+    [certainBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     ViewRadius(certainBtn, certainBtn.frame.size.height/2);
     
     [view addSubview:certainBtn];
@@ -69,6 +121,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    MaintainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MaintainCell"];
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     if (indexPath.section == 0) {
         BrandDetailCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell1"];
         return cell;
@@ -236,6 +289,8 @@
                                             andBgColor:[UIColor whiteColor]
                                                andFont:SYSTEMFONT(14)
                                       andTextAlignment:NSTextAlignmentLeft];
+        self.titleLab = title;
+   
         
         UILabel *content = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 105, 12)
                                                andText:@"95新 经典款 办公休闲均可"
@@ -243,6 +298,7 @@
                                             andBgColor:[UIColor whiteColor]
                                                andFont:SYSTEMFONT(13)
                                       andTextAlignment:NSTextAlignmentLeft];
+        self.content = content;
         
         UILabel *minPrice = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,200 , 200, 30)
                                                  andText:@""
@@ -250,25 +306,16 @@
                                               andBgColor:[UIColor whiteColor]
                                                  andFont:SYSTEMFONT(13)
                                         andTextAlignment:NSTextAlignmentLeft];
+        self.minRentPrice = minPrice;
 
-        UILabel *marketPrice = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 105, 12)
+        UILabel *marketPrice1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 105, 12)
                                                andText:@"市场价:¥100000"
                                           andTextColor:[UIColor blackColor]
                                             andBgColor:[UIColor whiteColor]
                                                andFont:SYSTEMFONT(13)
                                       andTextAlignment:NSTextAlignmentLeft];
+        self.markPrice = marketPrice1;
 
-        NSString *str = @"最低租价:¥64/天";
-        FontAttribute *fullFont = [FontAttribute new];
-        fullFont.font           = SYSTEMFONT(18);
-        fullFont.effectRange    = NSMakeRange(5,3);
-        
-        ForegroundColorAttribute *fullColor = [ForegroundColorAttribute new];
-        fullColor.color                     = APP_COLOR_GREEN;
-        fullColor.effectRange               = NSMakeRange(5, str.length -5);
-        
-        minPrice.attributedText = [str mutableAttributedStringWithStringAttributes:@[fullFont,
-                                                                                     fullColor]];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
         UIImage *image = [UIImage imageNamed:@"嘴型@2x"];
@@ -285,7 +332,7 @@
         [_headView addSubview:title];
         [_headView addSubview:content];
         [_headView addSubview:minPrice];
-        [_headView addSubview:marketPrice];
+        [_headView addSubview:marketPrice1];
         [_headView addSubview:btn];
         
 
@@ -314,7 +361,7 @@
             make.size.mas_equalTo(CGSizeMake(120, 15));
         }];
         
-        [marketPrice mas_makeConstraints:^(MASConstraintMaker *make) {
+        [marketPrice1 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(minPrice.mas_right).offset(0);
             make.centerY.equalTo(minPrice);
             make.size.mas_equalTo(CGSizeMake(100, 15));
@@ -353,6 +400,12 @@
 {
     self.indexLab.text = [NSString stringWithFormat:@"%d/9",index+1];
     NSLog(@"图片%d",index);
+}
+
+
+-(void)buttonClick:(UIButton *)sender
+{
+    [self PushViewControllerByClassName:@"OrderVC" info:self.dataDic];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -11,6 +11,7 @@
 #import "MeCell.h"
 #import <UMSocialCore/UMSocialCore.h>
 #import "MyDistributeVC.h"
+#import "MyRentVC.h"
 @interface MeVC ()
 
 @property(nonatomic, strong)UIButton *loginBtn;
@@ -573,25 +574,29 @@
 
 -(void)buttonAction:(UIButton *)sender
 {
+    NSMutableArray *vcArr = [NSMutableArray array];
+    for (int i =0; i<4; i++) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        vc.view.backgroundColor = [UIColor whiteColor];
+        [vcArr addObject:vc];
+    }
     switch (sender.tag) {
         case 0:{
-            NSMutableArray *vcArr = [NSMutableArray array];
+            NSMutableArray *vcArr1 = [NSMutableArray array];
             for (int i =0; i<5; i++) {
                 UIViewController *vc = [[UIViewController alloc] init];
                 vc.view.backgroundColor = [UIColor whiteColor];
-                [vcArr addObject:vc];
+                [vcArr1 addObject:vc];
             }
             NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
-
-            MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr titles:array];
+            MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr1 titles:array];
             [self pushViewController:vc];
-            
-            
-//            [self PushViewControllerByClassName:@"MyPromulgateVC" info:nil];
             break;
         }
         case 1:{
-            [self PushViewControllerByClassName:@"MyTenancyVC" info:nil];
+            NSArray *array = @[@"待收货",@"已收货",@"已完成",@"已退回"];
+            MyRentVC *vc = [[MyRentVC alloc] initWithControllers:vcArr titles:array];
+            [self pushViewController:vc];
             break;
         }
 

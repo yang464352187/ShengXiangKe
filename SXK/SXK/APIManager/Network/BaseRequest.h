@@ -458,5 +458,69 @@
                      succesBlock:(SuccessBlock)successBlock
                           failue:(FailureBlock)failueBlock;
 
+/**
+ *  获取租赁列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetRentListWithPageNo:(NSInteger)pageNo
+                    PageSize:(NSInteger)pageSize
+                       order:(NSInteger)order
+                 succesBlock:(SuccessBlock)successBlock
+                      failue:(FailureBlock)failueBlock;
+
+/**
+ *  产品详情
+ *  @param rentID       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetProductlWithRentID:(NSInteger)rentID
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  创建订单
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)CreatOrderWithParams:(NSDictionary *)params
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+
+/**
+ *  设置默认地址
+ *  @param isDefault     BOOL
+ *  @param receiverid    地址ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)SetPretermitAddressWithRentID:(NSInteger)isDefault
+                           ReceiverID:(NSInteger)receiverid
+                          succesBlock:(SuccessBlock)successBlock
+                               failue:(FailureBlock)failueBlock;
+
+/**
+ *  支付
+ *  @param channel        支付类型
+ *  @param orderid     订单ID
+ *  @param type        类型
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)PayWithChannel:(NSString *)channel
+                orderID:(NSInteger)orderid
+                  type:(NSInteger)type
+        succesBlock:(SuccessBlock)successBlock
+                               failue:(FailureBlock)failueBlock;
+
+
 
 @end

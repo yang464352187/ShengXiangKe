@@ -88,6 +88,9 @@
 #define APPINTERFACE__GetMaintain            @"/app/maintain/getpost"
 #define APPINTERFACE__GetAppraise            @"/app/identifysetup/getpost"
 #define APPINTERFACE__GetTenancyList         @"/app/rent/listpost"
+#define APPINTERFACE__ProductDeta            @"/app/rent/getpost"
+#define APPINTERFACE__CreateOrder            @"/app/rentorder/addpost"
+#define APPINTERFACE__Pay                    @"/app/payment/chargepost"
 
 
 

@@ -8,7 +8,8 @@
 
 #import "OrderVC.h"
 #import "OrderCell.h"
-
+#import "OrderCell1.h"
+#import "BrandDetailModel.h"
 @interface OrderVC ()
 
 @property (nonatomic, strong) UIView *footView;
@@ -23,6 +24,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"账单";
     [self initUI];
+    NSLog(@"%@===========",self.myDict);
 }
 
 -(void)initUI
@@ -35,7 +37,7 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -43,6 +45,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 1) {
+        OrderCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"OrderCell1"];
+        return cell1;
+    }
+    
     OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
     
     return cell;
@@ -50,7 +57,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (indexPath.section == 1) {
+        return 150;
+    }
     return 180;
 }
 
@@ -108,10 +117,11 @@
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
         [_tableView registerClass:[OrderCell class] forCellReuseIdentifier:@"OrderCell"];
+        [_tableView registerClass:[OrderCell1 class] forCellReuseIdentifier:@"OrderCell1"];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor colorWithHexColorString:@"f7f7f7"];
         _tableView.tableFooterView = [[UIView alloc] init];
-//        _tableView.tableHeaderView = self.headView;
+//      _tableView.tableHeaderView = self.headView;
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
@@ -132,6 +142,7 @@
         payBtn.frame = VIEWFRAME(SCREEN_WIDTH-CommonWidth(154), 0, CommonWidth(154), 44);
         [payBtn setTitle:@"立即付款" forState:UIControlStateNormal];
         [payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [payBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *first = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 100, 44)                                                 andText:@"租金及其他:¥ 450000"
                                           andTextColor:[UIColor blackColor]
@@ -167,6 +178,40 @@
     return _footView;
 }
 
+
+-(void)btnClick:(UIButton *)sender
+{
+    BrandDetailModel *model = [BrandDetailModel modelFromDictionary:self.myDict];
+    
+    NSDictionary *dic =@{@"name":@"three",
+                         @"value":model.three
+                         };
+//    NSArray *array = @[dic];
+    
+    NSInteger i = [model.three integerValue] + [model.marketPrice integerValue];
+    
+    
+    NSDictionary *params = @{@"rentid":model.rentid,
+                             @"isRisk":@(2),
+                             @"tenancy":dic,
+                             @"total":@(i),
+                             @"receiverid":@(112),
+                             @"message":@"测试测试测试测试测试测试测试测试测试"
+                          };
+    _weekSelf(weakSelf);
+    [BaseRequest CreatOrderWithParams:params succesBlock:^(id data) {
+        NSLog(@"%@",data);
+        if ([data[@"code"] integerValue] == 1) {
+            NSInteger orderid = [data[@"orderid"] integerValue];
+            NSDictionary *dic = @{@"orderid":@(orderid),
+                                  };
+            [weakSelf PushViewControllerByClassName:@"PayVC" info:dic];
+        }
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

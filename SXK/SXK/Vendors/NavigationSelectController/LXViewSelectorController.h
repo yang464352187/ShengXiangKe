@@ -1,9 +1,9 @@
 //
 //  LXViewSelectorController.h
-//  ViewSelector
+//  SXK
 //
-//  Created by XiaoleiLi on 16/8/8.
-//  Copyright © 2016年 leehyoley. All rights reserved.
+//  Created by 杨伟康 on 2016/12/28.
+//  Copyright © 2016年 ywk. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

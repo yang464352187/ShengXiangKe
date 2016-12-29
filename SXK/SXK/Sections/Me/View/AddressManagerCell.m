@@ -77,7 +77,11 @@
 
 -(void)selectAction:(UIButton *)sender
 {
-    
+    [BaseRequest SetPretermitAddressWithRentID:1 ReceiverID:112 succesBlock:^(id data) {
+        NSLog(@"%@",data);
+    } failue:^(id data, NSError *error) {
+        
+    }];
 }
 
 - (void)setModel:(id)model{
@@ -88,5 +92,8 @@
     _addressLab.text = [NSString stringWithFormat:@"%@%@%@%@",_model.state,_model.city,_model.district,_model.address];
 //    NSLog(@"%lf",[_model.receiverid floatValue]);
 }
+
+
+
 
 @end

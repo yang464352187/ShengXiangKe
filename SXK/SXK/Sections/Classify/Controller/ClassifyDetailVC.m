@@ -8,7 +8,7 @@
 
 #import "ClassifyDetailVC.h"
 #import "MaintainCell.h"
-
+#import "BrandDetailModel.h"
 @interface ClassifyDetailVC ()
 
 @property (nonatomic, assign)NSInteger index;
@@ -16,6 +16,26 @@
 @end
 
 @implementation ClassifyDetailVC
+
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf)
+    [BaseRequest GetRentListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
+        NSArray *models = [BrandDetailModel modelsFromArray:data[@"rentList"]];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+
+//        NSLog(@"------%@------",describe(models));
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadingRequest];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +49,7 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return self.listData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -39,6 +59,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MaintainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MaintainCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    BrandDetailModel *model = self.listData[indexPath.section];
+    [cell setModel1:model];
     return cell;
 }
 
@@ -65,7 +87,10 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self PushViewControllerByClassName:@"BrandDetailVC" info:nil];
+    
+    BrandDetailModel *model = self.listData[indexPath.section];
+    NSDictionary *dic = @{@"rentid":model.rentid};
+    [self PushViewControllerByClassName:@"BrandDetailVC" info:dic];
 }
 
 - (UITableView *)tableView{
@@ -148,7 +173,6 @@
             self.indicatorView.width = button.titleLabel.width+13;
             self.indicatorView.centerX = button.centerX;
         }
-
     }
     
     [titlesView addSubview:indicatorView];

@@ -17,7 +17,7 @@
 #import "VTingSeaPopView.h"
 
 
-@interface SXKViewController ()<ZTTabBarDelegate,VTingPopItemSelectDelegate,UIScrollViewDelegate>
+@interface SXKViewController ()<ZTTabBarDelegate,VTingPopItemSelectDelegate,UIScrollViewDelegate,UITabBarDelegate>
 {
     NSMutableArray *images;
     NSMutableArray *titles;
@@ -30,6 +30,9 @@
 
 @property (nonatomic, strong) UIButton *beginButton;
 
+@property (nonatomic, strong) HomeVC *vc;
+
+@property (nonatomic, strong) NSString *title1;
 
 @end
 
@@ -61,7 +64,7 @@
             [self.view addSubview:self.pageControl];
         }
 
-
+    self.title1 = @"首页";
 }
 - (void)setupData{
     NSArray *imageNames = @[@"背景", @"背景", @"背景"];
@@ -77,9 +80,8 @@
 
 
 - (void)initVCS{
-    
-    HomeVC *vc = [[HomeVC alloc] init];
-    BaseNavigationVC * nav1 = [[BaseNavigationVC alloc] initWithRootViewController:vc];
+    self.vc = [[HomeVC alloc] init];
+    BaseNavigationVC * nav1 = [[BaseNavigationVC alloc] initWithRootViewController:self.vc];
     BaseNavigationVC * nav2 = [[BaseNavigationVC alloc] initWithRootViewController:[[ClassifyVC alloc] init]];
     BaseNavigationVC * nav4 = [[BaseNavigationVC alloc] initWithRootViewController:[[CommunityVC alloc] init]];
     BaseNavigationVC * nav5 = [[BaseNavigationVC alloc] initWithRootViewController:[[MeVC alloc] init]];
@@ -177,15 +179,36 @@
 #pragma mark delegate
 -(void)itemDidSelected:(NSInteger)index {
 //        NSLog(@"点击了%d:item",index);
-    if (index == 0) {
-        [[PushManager sharedManager] pushToVCWithClassName:@"PromulgateVC" info:nil];
+    
+    if ([self.title1 isEqualToString:@"首页"]) {
+//        [self.vc PushViewControllerByClassName:@"PromulgateVC" info:nil];
+        if (index == 0) {
+            [self.vc PushViewControllerByClassName:@"PromulgateVC" info:nil];
+        }
+        if (index == 1) {
+//            [[PushManager sharedManager] pushToVCWithClassName:@"MaintainVC" info:nil];
+            [self.vc PushViewControllerByClassName:@"MaintainVC" info:nil];
+
+        }
+        if (index == 2) {
+//            [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];
+            [self.vc PushViewControllerByClassName:@"AppraiseVC" info:nil];
+
+        }
+
+    }else{
+        if (index == 0) {
+            [[PushManager sharedManager] pushToVCWithClassName:@"PromulgateVC" info:nil];
+        }
+        if (index == 1) {
+            [[PushManager sharedManager] pushToVCWithClassName:@"MaintainVC" info:nil];
+        }
+        if (index == 2) {
+            [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];
+        }
+
     }
-    if (index == 1) {
-        [[PushManager sharedManager] pushToVCWithClassName:@"MaintainVC" info:nil];
-    }
-    if (index == 2) {
-        [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];
-    }
+    
     [pop disMiss];
     
 }
@@ -280,6 +303,13 @@
     });
     
     
+}
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+//    LJLog(@"item name = %@", item.title);
+//    NSLog(@"%@",item.title);
+    self.title1 = item.title;
 }
 
 

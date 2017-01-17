@@ -11,6 +11,11 @@
 #import "BrandDetailCell1.h"
 #import "BrandDetailCell2.h"
 #import "BrandDetailModel.h"
+#import "ProductDesCell.h"
+#import "ProductCommentCell.h"
+#import "ProductParamCell.h"
+#import "UserIdModel.h"
+#import "BrandStoryCell.h"
 
 @interface BrandDetailVC ()<SDCycleScrollViewDelegate>
 
@@ -22,8 +27,11 @@
 @property (strong, nonatomic) UILabel *minRentPrice;
 @property (strong, nonatomic) UILabel *markPrice;
 @property (strong, nonatomic) NSDictionary *dataDic;
-
-
+@property (strong, nonatomic) NSArray *titleArr;
+@property (strong, nonatomic) NSArray *desArr;
+@property (assign, nonatomic) CGFloat cellHeight;
+@property (strong, nonatomic) BrandDetailModel *model;
+@property (strong, nonatomic) UserIdModel *useridModel;
 
 @end
 
@@ -34,8 +42,31 @@
     [BaseRequest GetProductlWithRentID:[self.myDict[@"rentid"] integerValue] succesBlock:^(id data) {
         BrandDetailModel *model = [BrandDetailModel modelFromDictionary:data[@"rent"]];
         weakSelf.dataDic = [model transformToDictionary];
-        [weakSelf.tableView reloadData];
+        weakSelf.model = model;
+        self.cellHeight = [UILabel getHeightByWidth:SCREEN_WIDTH - 30 title:model.description1 font:SYSTEMFONT(13)];
+//        NSString 
+        
+        NSLog(@"=========%@=======",describe(model));
+        [BaseRequest GetUserWithuserID:[_model.userid integerValue] succesBlock:^(id data) {
+    
+            
+            weakSelf.useridModel = [UserIdModel modelFromDictionary:data[@"user"]];
+
+            NSLog(@"qqqqqq%@qqqqq",describe(_useridModel));
+            [weakSelf.tableView reloadData];
+        } failue:^(id data, NSError *error) {
+            
+        }];
         [weakSelf initData];
+
+        NSMutableArray *imgArr = [[NSMutableArray alloc] init];
+        for (NSString *img in weakSelf.model.imgList) {
+            NSString *image = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,img];
+            [imgArr addObject:image];
+        }
+        weakSelf.cycleScrollView.localizationImageNamesGroup = imgArr;
+
+        
     } failue:^(id data, NSError *error) {
         
     }];
@@ -45,24 +76,37 @@
 {
     NSArray *array = [[NSArray alloc] initWithObjects:@"99成新（未使用）",@"98成新",@"95成新",@"9成新",@"85成新",@"8成新", nil];
     if (self.dataDic.count > 0) {
+//        NSLog(@"-----------%@--------",describe(self.dataDic));
         self.titleLab.text = self.dataDic[@"name"];
         self.content.text = [NSString stringWithFormat:@"%@ %@",array[[self.dataDic[@"condition"] integerValue]],self.dataDic[@"keyword"]];
-     
-//        NSString *str = @"最低租价:¥64/天";
-//        NSString *rentPrice = [NSString stringWithFormat:@"最低租价:¥%@/天",self.dataDic[@""]];
-//        FontAttribute *fullFont = [FontAttribute new];
-//        fullFont.font           = SYSTEMFONT(18);
-//        fullFont.effectRange    = NSMakeRange(5,3);
-//        
-//        ForegroundColorAttribute *fullColor = [ForegroundColorAttribute new];
-//        fullColor.color                     = APP_COLOR_GREEN;
-//        fullColor.effectRange               = NSMakeRange(5, str.length -5);
-//        
-//        minPrice.attributedText = [str mutableAttributedStringWithStringAttributes:@[fullFont,
-//                                                                                     fullColor]];
+        CGFloat rentPrice = [self.dataDic[@"rentPrice"] integerValue] / 100;
+        NSString *minRent = [NSString stringWithFormat:@"最低租价:¥%.2lf/天",rentPrice];
+        NSString *price = [NSString stringWithFormat:@"¥%.2lf",rentPrice];
+        CGFloat width = [UILabel getWidthWithTitle:@"最低租价:/天" font:SYSTEMFONT(13)];
+        CGFloat width1 = [UILabel getWidthWithTitle:price font:SYSTEMFONT(18)];
+        FontAttribute *fullFont = [FontAttribute new];
+        fullFont.font           = SYSTEMFONT(18);
+        fullFont.effectRange    = NSMakeRange(5,price.length);
+        ForegroundColorAttribute *fullColor = [ForegroundColorAttribute new];
+        fullColor.color                     = APP_COLOR_GREEN;
+        fullColor.effectRange               = NSMakeRange(5, minRent.length -5);
+        self.minRentPrice.attributedText = [minRent mutableAttributedStringWithStringAttributes:@[fullFont,                                                                                     fullColor]];
+        CGFloat markPrice1 = [self.dataDic[@"marketPrice"] floatValue]/100;
+        self.markPrice.text = [NSString stringWithFormat:@"市场价:¥%.2lf",markPrice1];
+        
+        [self.minRentPrice mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.headView.mas_left).offset(15);
+            make.top.equalTo(self.content.mas_bottom).offset(10);
+            make.size.mas_equalTo(CGSizeMake(width+width1, 15));
+        }];
+        
+        [self.markPrice mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.minRentPrice.mas_right).offset(5);
+            make.centerY.equalTo(self.minRentPrice);
+            make.right.equalTo(self.headView.mas_right).offset(0);
+            make.height.mas_equalTo(15);
+        }];
 
-        
-        
     }
 }
 
@@ -77,7 +121,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"产品详情";
+    self.titleArr = [[NSArray alloc] initWithObjects:@"商品评价",@"商品描述",@"商品参数",@"品牌故事", nil];
+    self.desArr = [[NSArray alloc] initWithObjects:@"Comment",@"Description",@"Production infomation",@"Brand story" ,nil];
     [self initUI];
+    
+  
 }
 
 -(void)initUI
@@ -86,7 +134,6 @@
     
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor whiteColor];
-    
     UIButton *certainBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [certainBtn setTitle:@"租呗" forState:UIControlStateNormal];
     certainBtn.backgroundColor = APP_COLOR_GREEN;
@@ -124,10 +171,31 @@
 
     if (indexPath.section == 0) {
         BrandDetailCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell1"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
+    if (indexPath.section == 3) {
+        ProductDesCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProductDesCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell fillWithContent:self.dataDic[@"description"]];
+        return cell;
+    }
+    if (indexPath.section == 4) {
+        ProductParamCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ProductParamCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:self.model];
+        return cell;
+    }
+    if (indexPath.section == 5) {
+        BrandStoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandStoryCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:self.model];
+        return cell;
+    }
+    
     BrandDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell2"];
-
+    [cell setModel:self.useridModel];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -144,6 +212,18 @@
         return 180;
 
     }
+    
+    if (indexPath.section == 3) {
+        return self.cellHeight+30;
+    }
+    if (indexPath.section == 4) {
+        return 170;
+    }
+    if (indexPath.section == 5) {
+        return 270;
+    }
+
+
     return 75;
 }
 
@@ -179,12 +259,42 @@
         return view;
 
     }
+    NSString *title, *des;
+    switch (section) {
+        case 2:{
+            title = self.titleArr[0];
+            des = self.desArr[0];
+            break;
+        }
+        case 3:{
+            title = self.titleArr[1];
+            des = self.desArr[1];
+
+            break;
+        }
+        case 4:{
+            title = self.titleArr[2];
+            des = self.desArr[2];
+
+            break;
+        }
+        case 5:{
+            title = self.titleArr[3];
+            des = self.desArr[3];
+
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
     
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 66)];
     view.backgroundColor =  [UIColor whiteColor];
     UILabel *title2 = [UILabel createLabelWithFrame:CommonVIEWFRAME(18, 13.5, 50, 12)
-                                            andText:@"商品详情"
+                                            andText:title
                                        andTextColor:[UIColor blackColor]
                                          andBgColor:[UIColor clearColor]
                                             andFont:SYSTEMFONT(13)
@@ -195,7 +305,7 @@
     line.backgroundColor = [UIColor colorWithHexColorString:@"a0a0a0"];
     
     UILabel *title1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(86, 8.5, 150, 22)
-                                            andText:@"Description"
+                                            andText:des
                                        andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]                                                andBgColor:[UIColor clearColor]
                                             andFont:SYSTEMFONT(12)
                                    andTextAlignment:NSTextAlignmentLeft];
@@ -235,7 +345,6 @@
         make.height.mas_equalTo(0.5);
     }];
 
-    
 
     return view;
 }
@@ -257,6 +366,10 @@
         _tableView.delegate        = self;
         [_tableView registerClass:[BrandDetailCell1 class] forCellReuseIdentifier:@"BrandDetailCell1"];
         [_tableView registerClass:[BrandDetailCell2 class] forCellReuseIdentifier:@"BrandDetailCell2"];
+        [_tableView registerClass:[ProductDesCell class] forCellReuseIdentifier:@"ProductDesCell"];
+        [_tableView registerClass:[ProductParamCell class] forCellReuseIdentifier:@"ProductParamCell"];
+        [_tableView registerClass:[BrandStoryCell class] forCellReuseIdentifier:@"BrandStoryCell"];
+
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -284,7 +397,7 @@
         self.indexLab.alpha = 0.6;
         
         UILabel *title = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 105, 12)
-                                               andText:@"N1 PRADA/普拉达 手提包"
+                                               andText:@""
                                           andTextColor:[UIColor blackColor]
                                             andBgColor:[UIColor whiteColor]
                                                andFont:SYSTEMFONT(14)
@@ -293,14 +406,14 @@
    
         
         UILabel *content = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 105, 12)
-                                               andText:@"95新 经典款 办公休闲均可"
+                                               andText:@""
                                           andTextColor:APP_COLOR_GRAY_Font
                                             andBgColor:[UIColor whiteColor]
                                                andFont:SYSTEMFONT(13)
                                       andTextAlignment:NSTextAlignmentLeft];
         self.content = content;
         
-        UILabel *minPrice = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,200 , 200, 30)
+        UILabel *minPrice = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,200 , 0, 0)
                                                  andText:@""
                                             andTextColor:[UIColor blackColor]
                                               andBgColor:[UIColor whiteColor]
@@ -308,8 +421,8 @@
                                         andTextAlignment:NSTextAlignmentLeft];
         self.minRentPrice = minPrice;
 
-        UILabel *marketPrice1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 105, 12)
-                                               andText:@"市场价:¥100000"
+        UILabel *marketPrice1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 0, 0)
+                                               andText:@""
                                           andTextColor:[UIColor blackColor]
                                             andBgColor:[UIColor whiteColor]
                                                andFont:SYSTEMFONT(13)
@@ -334,9 +447,7 @@
         [_headView addSubview:minPrice];
         [_headView addSubview:marketPrice1];
         [_headView addSubview:btn];
-        
-
-        
+    
         [self.indexLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(_headView.mas_right).offset(-15);
             make.bottom.equalTo(self.cycleScrollView.mas_bottom).offset(-15);
@@ -355,26 +466,11 @@
             make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - 150), 15));
         }];
         
-        [minPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headView.mas_left).offset(15);
-            make.top.equalTo(content.mas_bottom).offset(10);
-            make.size.mas_equalTo(CGSizeMake(120, 15));
-        }];
-        
-        [marketPrice1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(minPrice.mas_right).offset(0);
-            make.centerY.equalTo(minPrice);
-            make.size.mas_equalTo(CGSizeMake(100, 15));
-        }];
-        
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.cycleScrollView.mas_bottom).offset(12);
             make.right.equalTo(_headView.mas_right).offset(0);
             make.size.mas_equalTo(CGSizeMake(60, 50));
-
         }];
-
-
         
     }
     return _headView;
@@ -383,14 +479,17 @@
 
 - (SDCycleScrollView *)cycleScrollView{
     if (!_cycleScrollView) {
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 274.0000/667*SCREEN_HIGHT) imageNamesGroup:@[@"背景",@"图层-1-副本-2"]];
+//        占位-0
+//        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 274.0000/667*SCREEN_HIGHT) imageNamesGroup:@[@"背景",@"图层-1-副本-2"]];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 274.0000/667*SCREEN_HIGHT)
+                                                              delegate:self
+                                                      placeholderImage:[UIImage imageNamed:@"占位-0"]];
         _cycleScrollView.showPageControl = YES;
         _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleNone;
         _cycleScrollView.autoScrollTimeInterval = 3;
         _cycleScrollView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _cycleScrollView.pageDotColor = [UIColor whiteColor];
         _cycleScrollView.currentPageDotColor = APP_COLOR_BASE_BAR;
-        _cycleScrollView.delegate = self;
     }
     return _cycleScrollView;
 }
@@ -398,8 +497,9 @@
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didScrollToIndex:(NSInteger)index
 {
-    self.indexLab.text = [NSString stringWithFormat:@"%d/9",index+1];
-    NSLog(@"图片%d",index);
+    self.indexLab.text = [NSString stringWithFormat:@"%ld/9",index+1];
+//    NSLog(@"图片%d",index);
+    
 }
 
 

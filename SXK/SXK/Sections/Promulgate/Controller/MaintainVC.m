@@ -28,6 +28,7 @@
     self.navigationItem.title = @"养护";
     self.isUseNoDataView = YES;
     [self.noDataView setTitle:@"暂时没有养护信息"];
+    
     _weekSelf(weakSelf);
     [BaseRequest GetMaintainListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
         NSArray *models = [MaintainModel modelsFromArray:data[@"classifyList"]];
@@ -47,7 +48,7 @@
 {
     _weekSelf(weakSelf);
     [BaseRequest GetMaintainListWithPageNo:0 PageSize:0 order:1 classifyid:[model.classifyid integerValue]  succesBlock:^(id data) {
-        NSLog(@"---------%@----------",describe(data));
+//        NSLog(@"---------%@----------",describe(data));
         NSArray *models = [MaintainCellModel modelsFromArray:data[@"maintainList"]];
 //        self.dataArr = models;
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];

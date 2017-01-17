@@ -58,8 +58,6 @@
         [self addSubview:_content];
         [self addSubview:_button];
         
-        
-        
     }
     return  self;
 }

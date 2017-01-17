@@ -1065,4 +1065,143 @@
     } failue:failueBlock];
 
 }
+
+
+/**
+ *  获取用户
+ *  @param userID       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetUserWithuserID:(NSInteger)userID
+              succesBlock:(SuccessBlock)successBlock
+                   failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"userid":@(userID)};
+    [self requestPostCommonWithPath:APPINTERFACE__GetUser Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+/**
+ *  获取首页轮播图
+ *  @param setupid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetAdvertisesetupWithSetupID:(NSInteger)setupid
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(setupid)};
+    [self requestPostCommonWithPath:APPINTERFACE__Advertisesetup Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  获取左侧轮播图
+ *  @param setupid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetLeftSetupWithSetupID:(NSInteger)setupid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(setupid)};
+    [self requestPostCommonWithPath:APPINTERFACE__HomeLeftSetup Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+/**
+ *  获取右上轮播图
+ *  @param setupid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetRightUpSetupWithSetupID:(NSInteger)setupid
+                       succesBlock:(SuccessBlock)successBlock
+                            failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(setupid)};
+    [self requestPostCommonWithPath:APPINTERFACE__HomeRightUpSetup Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+/**
+ *  获取右下轮播图
+ *  @param setupid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetRightDownSetupWithSetupID:(NSInteger)setupid
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(setupid)};
+    [self requestPostCommonWithPath:APPINTERFACE__HomeRightDownSetup Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  获取首页精选列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetHomeClassListWithPageNo:(NSInteger)pageNo
+                          PageSize:(NSInteger)pageSize
+                             order:(NSInteger)order
+                       succesBlock:(SuccessBlock)successBlock
+                            failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"sort":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic};
+    
+    [self requestPostCommonWithPath:APPINTERFACE__HomeClassList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+
 @end

@@ -20,6 +20,10 @@
 		AD1B92611DEEBDD400B1A92E /* SetVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92601DEEBDD400B1A92E /* SetVC.m */; };
 		AD1B92641DEEC55D00B1A92E /* PersonalInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */; };
 		AD1B92671DEECB8C00B1A92E /* CommonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1B92661DEECB8C00B1A92E /* CommonCell.m */; };
+		AD1BA49F1E2DBAF300CA82FD /* ExchangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1BA49E1E2DBAF300CA82FD /* ExchangeVC.m */; };
+		AD1BA4A21E2DBF0700CA82FD /* RentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1BA4A11E2DBF0700CA82FD /* RentVC.m */; };
+		AD1BA4A51E2DC86300CA82FD /* Appraise1VC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1BA4A41E2DC86300CA82FD /* Appraise1VC.m */; };
+		AD1BA4A81E2DDFF500CA82FD /* ThreeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1BA4A71E2DDFF500CA82FD /* ThreeVC.m */; };
 		AD1F7EED1DEFD12E007BB3DC /* PopView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1F7EEC1DEFD12E007BB3DC /* PopView.m */; };
 		AD207DE91DF90C9A00E8E331 /* BrandModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD207DE81DF90C9A00E8E331 /* BrandModel.m */; };
 		AD24F39F1E1245670062A54C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD24F39E1E1245670062A54C /* CFNetwork.framework */; };
@@ -44,6 +48,9 @@
 		AD3044FA1E120A4000DDB299 /* StringAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3044F11E120A4000DDB299 /* StringAttribute.m */; };
 		AD3045001E12322500DDB299 /* MyPromulgateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3044FF1E12322500DDB299 /* MyPromulgateModel.m */; };
 		AD3045031E123DE100DDB299 /* MyPromulgateCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3045021E123DE100DDB299 /* MyPromulgateCell1.m */; };
+		AD323D9D1E2C6D5C00EB8B7C /* UserIdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD323D9C1E2C6D5C00EB8B7C /* UserIdModel.m */; };
+		AD323DA31E2C7BD700EB8B7C /* BrandStoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD323DA21E2C7BD700EB8B7C /* BrandStoryCell.m */; };
+		AD323DA61E2CAC6700EB8B7C /* OrderCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = AD323DA51E2CAC6700EB8B7C /* OrderCell2.m */; };
 		AD36AF851E110B74008FB5D4 /* MyTenancyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD36AF841E110B74008FB5D4 /* MyTenancyVC.m */; };
 		AD36AF881E110BDA008FB5D4 /* MyMaintainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD36AF871E110BDA008FB5D4 /* MyMaintainVC.m */; };
 		AD36AF8B1E110BF3008FB5D4 /* MyAppraiseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD36AF8A1E110BF3008FB5D4 /* MyAppraiseVC.m */; };
@@ -118,6 +125,9 @@
 		AD861B8A1DDC513800BC657E /* remind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD861B7F1DDC513800BC657E /* remind@2x.png */; };
 		AD86CF721E1184E5001A2DC6 /* OrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD86CF711E1184E5001A2DC6 /* OrderVC.m */; };
 		AD86CF751E11900B001A2DC6 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD86CF741E11900B001A2DC6 /* OrderCell.m */; };
+		AD88E4891E14FBC2000A1E43 /* ProductDesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD88E4881E14FBC2000A1E43 /* ProductDesCell.m */; };
+		AD88E48C1E150E30000A1E43 /* ProductCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD88E48B1E150E30000A1E43 /* ProductCommentCell.m */; };
+		AD88E48F1E150FD9000A1E43 /* ProductParamCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD88E48E1E150FD9000A1E43 /* ProductParamCell.m */; };
 		AD91883C1DEBD02400694D92 /* CommentInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD91883B1DEBD02400694D92 /* CommentInputView.m */; };
 		AD9280EB1E000064009FF000 /* PromulgateTopicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9280EA1E000064009FF000 /* PromulgateTopicVC.m */; };
 		AD9407701DEC85F00075620F /* MeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD94076F1DEC85F00075620F /* MeCell.m */; };
@@ -425,6 +435,14 @@
 		AD1B92631DEEC55D00B1A92E /* PersonalInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoVC.m; sourceTree = "<group>"; };
 		AD1B92651DEECB8C00B1A92E /* CommonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonCell.h; sourceTree = "<group>"; };
 		AD1B92661DEECB8C00B1A92E /* CommonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonCell.m; sourceTree = "<group>"; };
+		AD1BA49D1E2DBAF300CA82FD /* ExchangeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeVC.h; sourceTree = "<group>"; };
+		AD1BA49E1E2DBAF300CA82FD /* ExchangeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeVC.m; sourceTree = "<group>"; };
+		AD1BA4A01E2DBF0700CA82FD /* RentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RentVC.h; sourceTree = "<group>"; };
+		AD1BA4A11E2DBF0700CA82FD /* RentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RentVC.m; sourceTree = "<group>"; };
+		AD1BA4A31E2DC86300CA82FD /* Appraise1VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Appraise1VC.h; sourceTree = "<group>"; };
+		AD1BA4A41E2DC86300CA82FD /* Appraise1VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Appraise1VC.m; sourceTree = "<group>"; };
+		AD1BA4A61E2DDFF500CA82FD /* ThreeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreeVC.h; sourceTree = "<group>"; };
+		AD1BA4A71E2DDFF500CA82FD /* ThreeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThreeVC.m; sourceTree = "<group>"; };
 		AD1F7EEB1DEFD12E007BB3DC /* PopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopView.h; sourceTree = "<group>"; };
 		AD1F7EEC1DEFD12E007BB3DC /* PopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopView.m; sourceTree = "<group>"; };
 		AD207DE71DF90C9A00E8E331 /* BrandModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandModel.h; sourceTree = "<group>"; };
@@ -468,6 +486,12 @@
 		AD3044FF1E12322500DDB299 /* MyPromulgateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPromulgateModel.m; sourceTree = "<group>"; };
 		AD3045011E123DE100DDB299 /* MyPromulgateCell1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPromulgateCell1.h; sourceTree = "<group>"; };
 		AD3045021E123DE100DDB299 /* MyPromulgateCell1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPromulgateCell1.m; sourceTree = "<group>"; };
+		AD323D9B1E2C6D5C00EB8B7C /* UserIdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIdModel.h; sourceTree = "<group>"; };
+		AD323D9C1E2C6D5C00EB8B7C /* UserIdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserIdModel.m; sourceTree = "<group>"; };
+		AD323DA11E2C7BD700EB8B7C /* BrandStoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandStoryCell.h; sourceTree = "<group>"; };
+		AD323DA21E2C7BD700EB8B7C /* BrandStoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandStoryCell.m; sourceTree = "<group>"; };
+		AD323DA41E2CAC6700EB8B7C /* OrderCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell2.h; sourceTree = "<group>"; };
+		AD323DA51E2CAC6700EB8B7C /* OrderCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCell2.m; sourceTree = "<group>"; };
 		AD36AF831E110B74008FB5D4 /* MyTenancyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTenancyVC.h; sourceTree = "<group>"; };
 		AD36AF841E110B74008FB5D4 /* MyTenancyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTenancyVC.m; sourceTree = "<group>"; };
 		AD36AF861E110BDA008FB5D4 /* MyMaintainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyMaintainVC.h; sourceTree = "<group>"; };
@@ -607,6 +631,12 @@
 		AD86CF711E1184E5001A2DC6 /* OrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderVC.m; sourceTree = "<group>"; };
 		AD86CF731E11900B001A2DC6 /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
 		AD86CF741E11900B001A2DC6 /* OrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
+		AD88E4871E14FBC2000A1E43 /* ProductDesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductDesCell.h; sourceTree = "<group>"; };
+		AD88E4881E14FBC2000A1E43 /* ProductDesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductDesCell.m; sourceTree = "<group>"; };
+		AD88E48A1E150E30000A1E43 /* ProductCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductCommentCell.h; sourceTree = "<group>"; };
+		AD88E48B1E150E30000A1E43 /* ProductCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductCommentCell.m; sourceTree = "<group>"; };
+		AD88E48D1E150FD9000A1E43 /* ProductParamCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductParamCell.h; sourceTree = "<group>"; };
+		AD88E48E1E150FD9000A1E43 /* ProductParamCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductParamCell.m; sourceTree = "<group>"; };
 		AD91883A1DEBD02400694D92 /* CommentInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentInputView.h; sourceTree = "<group>"; };
 		AD91883B1DEBD02400694D92 /* CommentInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentInputView.m; sourceTree = "<group>"; };
 		AD9280E91E000064009FF000 /* PromulgateTopicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PromulgateTopicVC.h; sourceTree = "<group>"; };
@@ -2379,6 +2409,14 @@
 				AD0B5D9D1DF947AA00ACA080 /* ActivityVC.m */,
 				AD0B5DA51DF95B4700ACA080 /* ActivityDetailVC.h */,
 				AD0B5DA61DF95B4700ACA080 /* ActivityDetailVC.m */,
+				AD1BA49D1E2DBAF300CA82FD /* ExchangeVC.h */,
+				AD1BA49E1E2DBAF300CA82FD /* ExchangeVC.m */,
+				AD1BA4A01E2DBF0700CA82FD /* RentVC.h */,
+				AD1BA4A11E2DBF0700CA82FD /* RentVC.m */,
+				AD1BA4A31E2DC86300CA82FD /* Appraise1VC.h */,
+				AD1BA4A41E2DC86300CA82FD /* Appraise1VC.m */,
+				AD1BA4A61E2DDFF500CA82FD /* ThreeVC.h */,
+				AD1BA4A71E2DDFF500CA82FD /* ThreeVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2402,6 +2440,14 @@
 				ADFC88EB1E126FE500235525 /* BrandDetailCell1.m */,
 				ADFC88ED1E1274F800235525 /* BrandDetailCell2.h */,
 				ADFC88EE1E1274F800235525 /* BrandDetailCell2.m */,
+				AD88E4871E14FBC2000A1E43 /* ProductDesCell.h */,
+				AD88E4881E14FBC2000A1E43 /* ProductDesCell.m */,
+				AD88E48A1E150E30000A1E43 /* ProductCommentCell.h */,
+				AD88E48B1E150E30000A1E43 /* ProductCommentCell.m */,
+				AD88E48D1E150FD9000A1E43 /* ProductParamCell.h */,
+				AD88E48E1E150FD9000A1E43 /* ProductParamCell.m */,
+				AD323DA11E2C7BD700EB8B7C /* BrandStoryCell.h */,
+				AD323DA21E2C7BD700EB8B7C /* BrandStoryCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2417,6 +2463,8 @@
 				AD0E340C1DFC310600066A6F /* CategoryListModel.m */,
 				AD4D86FF1E134CD400547B2D /* BrandDetailModel.h */,
 				AD4D87001E134CD400547B2D /* BrandDetailModel.m */,
+				AD323D9B1E2C6D5C00EB8B7C /* UserIdModel.h */,
+				AD323D9C1E2C6D5C00EB8B7C /* UserIdModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2637,6 +2685,8 @@
 				AD3045021E123DE100DDB299 /* MyPromulgateCell1.m */,
 				AD4D87021E13A8C400547B2D /* OrderCell1.h */,
 				AD4D87031E13A8C400547B2D /* OrderCell1.m */,
+				AD323DA41E2CAC6700EB8B7C /* OrderCell2.h */,
+				AD323DA51E2CAC6700EB8B7C /* OrderCell2.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2917,7 +2967,7 @@
 				TargetAttributes = {
 					ADB99C5C1DD567C400EC1DAD = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 3JMZ3AHU9Y;
+						DevelopmentTeam = 9Q3HX7GB3J;
 						ProvisioningStyle = Automatic;
 					};
 					ADB99C781DD567C400EC1DAD = {
@@ -3090,6 +3140,7 @@
 				ADB66AFA1E07B6FF00D80F2E /* MEIQIA_FBFontSymbol.m in Sources */,
 				ADB66B171E07B6FF00D80F2E /* MQBotWebViewController.m in Sources */,
 				ADB66AF11E07B6FF00D80F2E /* MQDateFormatterUtil.m in Sources */,
+				AD88E48C1E150E30000A1E43 /* ProductCommentCell.m in Sources */,
 				ADFAB8AD1DE602C1005BEAF9 /* RegisterVC.m in Sources */,
 				AD861B631DDC3B9800BC657E /* SXKViewController.m in Sources */,
 				ADB66AC61E07B6FF00D80F2E /* MQFileDownloadMessage.m in Sources */,
@@ -3117,6 +3168,7 @@
 				AD40A3021DDD5EFE006C5576 /* UIView+Extension.m in Sources */,
 				AD6BE9451DDEF5F300DFEA92 /* UIColor+Extend.m in Sources */,
 				ADB99CCE1DD5BABC00EC1DAD /* HomeVC.m in Sources */,
+				AD1BA4A81E2DDFF500CA82FD /* ThreeVC.m in Sources */,
 				ADC1A5931DF9CBEE00723538 /* ActivityListModel.m in Sources */,
 				ADA93FD21DE9368200DE6B9E /* CommunityCollectionCell.m in Sources */,
 				ADDD4D511DED5A61009C19B8 /* AppraiseVC.m in Sources */,
@@ -3124,6 +3176,7 @@
 				ADB66ACB1E07B6FF00D80F2E /* MQBotAnswerCellModel.m in Sources */,
 				AD40A30E1DDD98C6006C5576 /* UILabel+Handy.m in Sources */,
 				ADA941651DE9985700DE6B9E /* DFLineCellManager.m in Sources */,
+				AD1BA4A21E2DBF0700CA82FD /* RentVC.m in Sources */,
 				AD794F441DFF99F2005F8AAE /* CustomHUD.m in Sources */,
 				ADB66B1B1E07B6FF00D80F2E /* MQMessageFormConfig.m in Sources */,
 				ADB66B041E07B6FF00D80F2E /* MEIQIA_CafRecordWriter.m in Sources */,
@@ -3183,6 +3236,7 @@
 				AD3044F61E120A4000DDB299 /* NSMutableAttributedString+StringAttribute.m in Sources */,
 				AD65A5E81DE436E6002C6364 /* JFImageGroupTableViewController.m in Sources */,
 				AD6ADE061E027FF700B01799 /* UserProtocolVC.m in Sources */,
+				AD323D9D1E2C6D5C00EB8B7C /* UserIdModel.m in Sources */,
 				AD4D87071E13B8D900547B2D /* PayVC.m in Sources */,
 				ADB66AF71E07B6FF00D80F2E /* MEIQIA_CustomIOSAlertView.m in Sources */,
 				ADFC88EF1E1274F800235525 /* BrandDetailCell2.m in Sources */,
@@ -3212,6 +3266,7 @@
 				ADC089F41E07748C00649B7F /* HowToShootVC.m in Sources */,
 				ADB66B0D1E07B6FF00D80F2E /* MQEvaluationView.m in Sources */,
 				AD6735A71DF537BD00B8D2FB /* LoginModel.m in Sources */,
+				AD323DA61E2CAC6700EB8B7C /* OrderCell2.m in Sources */,
 				ADB66AC31E07B6FF00D80F2E /* MQBotMessageFactory.m in Sources */,
 				ADBF3E0D1DF6C35C00A287A8 /* DQAreasView.m in Sources */,
 				ADB66AE81E07B6FF00D80F2E /* MQWebViewBubbleCell.m in Sources */,
@@ -3267,6 +3322,7 @@
 				ADC07F741DE536C000B665CC /* BATableView.m in Sources */,
 				ADB66ABA1E07B6FF00D80F2E /* MQChatViewService.m in Sources */,
 				ADA674661E0BACD400DB68CC /* TradeCell.m in Sources */,
+				AD1BA4A51E2DC86300CA82FD /* Appraise1VC.m in Sources */,
 				AD65A5E61DE436E6002C6364 /* JFAssetHelper.m in Sources */,
 				ADB66B151E07B6FF00D80F2E /* MQRecordView.m in Sources */,
 				ADB99CD11DD5BAD200EC1DAD /* ClassifyVC.m in Sources */,
@@ -3314,8 +3370,10 @@
 				ADB66B0A1E07B6FF00D80F2E /* VoiceConverter.mm in Sources */,
 				ADD0B2CC1E12E7A10070608E /* MyRentVC.m in Sources */,
 				ADB66B1F1E07B6FF00D80F2E /* MQMessageFormViewStyleDark.m in Sources */,
+				AD88E4891E14FBC2000A1E43 /* ProductDesCell.m in Sources */,
 				ADB99CAF1DD576D000EC1DAD /* NetworkErrorHandler.m in Sources */,
 				AD36AF851E110B74008FB5D4 /* MyTenancyVC.m in Sources */,
+				AD323DA31E2C7BD700EB8B7C /* BrandStoryCell.m in Sources */,
 				AD1F7EED1DEFD12E007BB3DC /* PopView.m in Sources */,
 				ADB66AD31E07B6FF00D80F2E /* MQMessageDateCellModel.m in Sources */,
 				ADB66AF51E07B6FF00D80F2E /* MQAGEmojiKeyBoardView.m in Sources */,
@@ -3357,6 +3415,8 @@
 				AD40A2FC1DDD5E43006C5576 /* ZTTabBar.m in Sources */,
 				ADB66AC81E07B6FF00D80F2E /* MQRichTextMessage.m in Sources */,
 				ADB66AD71E07B6FF00D80F2E /* MQVoiceCellModel.m in Sources */,
+				AD88E48F1E150FD9000A1E43 /* ProductParamCell.m in Sources */,
+				AD1BA49F1E2DBAF300CA82FD /* ExchangeVC.m in Sources */,
 				AD6BE93B1DDEE8AD00DFEA92 /* YTBaseTableVC.m in Sources */,
 				AD6BE93C1DDEE8AD00DFEA92 /* YTBaseVC.m in Sources */,
 				ADB66AD01E07B6FF00D80F2E /* MQEventCellModel.m in Sources */,
@@ -3520,7 +3580,7 @@
 			baseConfigurationReference = 9EAC5BC4BDD7C045C7BE1066 /* Pods-SXK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 3JMZ3AHU9Y;
+				DEVELOPMENT_TEAM = 9Q3HX7GB3J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SXK/Vendors",
@@ -3558,8 +3618,9 @@
 					"$(PROJECT_DIR)/SXK/Vendors/lib",
 					"$(PROJECT_DIR)/SXK/Vendors/lib/One",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.SXK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BOOBE.baobei;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -3568,7 +3629,7 @@
 			baseConfigurationReference = A5C516769DD62A7AC259CF26 /* Pods-SXK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 3JMZ3AHU9Y;
+				DEVELOPMENT_TEAM = 9Q3HX7GB3J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/SXK/Vendors",
@@ -3606,8 +3667,9 @@
 					"$(PROJECT_DIR)/SXK/Vendors/lib",
 					"$(PROJECT_DIR)/SXK/Vendors/lib/One",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.qingye.SXK;
+				PRODUCT_BUNDLE_IDENTIFIER = com.BOOBE.baobei;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

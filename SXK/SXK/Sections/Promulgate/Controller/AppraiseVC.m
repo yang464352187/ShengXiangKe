@@ -62,7 +62,7 @@
 {
     self.cellDic = [[NSMutableDictionary alloc] init];
     self.firstArr = @[@"类别",@"品牌"];
-    self.payArr = @[@"微信支付",@"支付宝支付",@"积分支付"];
+    self.payArr = @[@"微信支付",@"支付宝支付",@"银联支付"];
 }
 
 -(void)barButtonAction

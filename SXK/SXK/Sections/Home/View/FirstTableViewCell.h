@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HomeVC.h"
 @interface FirstTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) HomeVC *vc;
 @end

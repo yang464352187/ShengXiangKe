@@ -34,8 +34,9 @@
             make.left.equalTo(self.mas_left).offset(0);
             make.right.equalTo(self.mas_right).offset(0);
         }];
+        
     }
-    return  self;
+    return self;
 }
 
 @end

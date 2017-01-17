@@ -53,14 +53,24 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
         _view1 = [[UIView alloc] init];
         _view1.frame = CommonVIEWFRAME(0, 0, 140, 173);
+        UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction1:)];
+        [_view1 addGestureRecognizer:singleTap1];
+
         
         _view2 = [[UIView alloc] init];
         _view2.frame = CommonVIEWFRAME(140, 0, 235, 86.5);
+        UITapGestureRecognizer *singleTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction2:)];
+        [_view2 addGestureRecognizer:singleTap2];
+
         
         _view3 = [[UIView alloc] init];
         _view3.frame = CommonVIEWFRAME(140, 86.5, 235, 86.5);
+        UITapGestureRecognizer *singleTap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction3:)];
+        [_view3 addGestureRecognizer:singleTap3];
+
         
         _title1_1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(30, 24, 110, 12)
                                         andText:@"名牌推荐"
@@ -70,32 +80,33 @@
                                andTextAlignment:NSTextAlignmentLeft];
         
         _title1_2 = [UILabel createLabelWithFrame:CommonVIEWFRAME(30, 44, 110, 12)
-                                          andText:@"全球大牌限时秒"
-                                     andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]
+                                          andText:@"个人租赁"
+                                     andTextColor:[UIColor blackColor]
                                        andBgColor:[UIColor clearColor]
-                                          andFont:SYSTEMFONT(10)
+                                          andFont:SYSTEMFONT(12)
                                  andTextAlignment:NSTextAlignmentLeft];
 
         
         _title1_3 = [UILabel createLabelWithFrame:CommonVIEWFRAME(30, 62, 110, 12)
-                                          andText:@"每天三场 GO>"
+                                          andText:@"CUSTOM-MADE"
                                      andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(10)
                                  andTextAlignment:NSTextAlignmentLeft];
         
         _imageView1 = [[UIImageView alloc] initWithFrame:CommonVIEWFRAME(28, 92, 70, 50)];
-        _imageView1.image = [UIImage imageNamed:@"图层-137"];
+        _imageView1.image = [UIImage imageNamed:@"图层-1222"];
+        
 
         _title2_1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(30, 24, 110, 12)
-                                          andText:@"精选顾问"
+                                          andText:@"啵呗优选"
                                      andTextColor:[UIColor blackColor]
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(12)
                                  andTextAlignment:NSTextAlignmentLeft];
 
         _title2_2 = [UILabel createLabelWithFrame:CommonVIEWFRAME(30, 44, 110, 12)
-                                          andText:@"一对一好货推荐"
+                                          andText:@"超高性价比"
                                      andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(10)
@@ -105,14 +116,14 @@
         _imageView2.image = [UIImage imageNamed:@"图层-1-副本-2"];
         
         _title3_1 = [UILabel createLabelWithFrame:CommonVIEWFRAME(30, 24, 110, 12)
-                                          andText:@"实时上新"
+                                          andText:@"放心租"
                                      andTextColor:[UIColor blackColor]
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(12)
                                  andTextAlignment:NSTextAlignmentLeft];
         
         _title3_2 = [UILabel createLabelWithFrame:CommonVIEWFRAME(30, 44, 110, 12)
-                                          andText:@"新鲜好货每日速达"
+                                          andText:@"均已鉴定 保价直达"
                                      andTextColor:[UIColor colorWithHexColorString:@"a1a1a1"]
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(10)
@@ -155,6 +166,25 @@
         
     }
     return  self;
+}
+
+-(void)singleTapAction1:(UITapGestureRecognizer *)tap
+{
+    NSDictionary *dic = @{@"title":@"私人定制"};
+    [self.vc PushViewControllerByClassName:@"ThreeVC" info:dic];
+}
+
+-(void)singleTapAction2:(UITapGestureRecognizer *)tap
+{
+    NSDictionary *dic = @{@"title":@"啵呗优选"};
+    [self.vc PushViewControllerByClassName:@"ThreeVC" info:dic];
+}
+
+
+-(void)singleTapAction3:(UITapGestureRecognizer *)tap
+{
+    NSDictionary *dic = @{@"title":@"放心租"};
+    [self.vc PushViewControllerByClassName:@"ThreeVC" info:dic];
 }
 
 

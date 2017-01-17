@@ -91,6 +91,13 @@
 #define APPINTERFACE__ProductDeta            @"/app/rent/getpost"
 #define APPINTERFACE__CreateOrder            @"/app/rentorder/addpost"
 #define APPINTERFACE__Pay                    @"/app/payment/chargepost"
+#define APPINTERFACE__GetUser                @"/app/user/getpost"
+#define APPINTERFACE__Advertisesetup         @"/app/advertisesetup/getpost"  //首页轮播图
+#define APPINTERFACE__HomeLeftSetup          @"/app/leftsetup/getpost"  //首页左侧
+#define APPINTERFACE__HomeRightUpSetup       @"/app/rightupsetup/getpost"  //首页右上
+#define APPINTERFACE__HomeRightDownSetup     @"/app/rightdownsetup/getpost"  //首页右下
+#define APPINTERFACE__HomeClassList          @"/app/class/listpost"  //首页精选分类列表
+
 
 
 

@@ -33,8 +33,8 @@
              @"fiften":@"fiften",
              @"seven":@"seven",
              @"marketPrice":@"marketPrice",
-             @"rentPrice":@"rentPrice"
-             
+             @"rentPrice":@"rentPrice",
+             @"brand":@"brand"
              
              };
 }

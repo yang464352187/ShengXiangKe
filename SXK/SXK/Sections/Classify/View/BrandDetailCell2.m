@@ -7,6 +7,7 @@
 //
 
 #import "BrandDetailCell2.h"
+#import "UserIdModel.h"
 
 @implementation BrandDetailCell2{
     UILabel *_label;
@@ -31,7 +32,7 @@
         _image = [[UIImageView alloc] init];
         _image.image = [UIImage imageNamed:@"矢量智能对象111"];
         
-        _label = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"啵住:好肥一只鱼"
+        _label = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@""
                                           andTextColor:[UIColor blackColor]
                                             andBgColor:[UIColor clearColor]
                                                andFont:SYSTEMFONT(13)
@@ -86,9 +87,19 @@
             make.right.equalTo(_talkBtn.mas_left).offset(0);
             make.size.mas_equalTo(CGSizeMake(70, 25));
         }];
+        
+        ViewRadius(_image, 37/2.0000);
     
     }
     return  self;
+}
+
+
+-(void)setModel:(id)model
+{
+    UserIdModel *_model = model;
+    _label.text = [NSString stringWithFormat:@"啵主:%@",_model.nickname];
+    [_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.headimgurl]]];
 }
 
 @end

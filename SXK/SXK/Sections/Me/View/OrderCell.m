@@ -17,6 +17,7 @@
     UILabel *_priceTitle;
     UILabel *_marketPrice;
     UILabel *_time;
+    
 }
 
 
@@ -135,17 +136,18 @@
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 150, 13));
         }];
         
-        NSArray *array = @[@"3天",@"7天",@"15天",@"30天"];
+        NSArray *array = @[@"3天",@"7天",@"15天",@"25天"];
         
         for (int i = 0; i < 4; i++) {
+            
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
             [btn setTitle:array[i] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            btn.titleLabel.font = SYSTEMFONT(13);
             ViewBorder(btn, 0.5, APP_COLOR_GRAY_Font);
             btn.frame = VIEWFRAME(125 + 47 * i , 124, 32, 32);
             [self addSubview:btn];
-
-
+            
         }
 
         

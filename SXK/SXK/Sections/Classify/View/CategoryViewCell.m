@@ -35,7 +35,6 @@
                                    andFont:SYSTEMFONT(12)
                           andTextAlignment:NSTextAlignmentCenter];
 
-    
     [self addSubview:_headImage];
     [self addSubview:_title];
     

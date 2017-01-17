@@ -30,18 +30,51 @@
 
 @implementation HomeVC
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _weekSelf(weakSelf);
+    [BaseRequest GetAdvertisesetupWithSetupID:1 succesBlock:^(id data) {
+//        NSLog(@"%@",describe(data));
+        NSDictionary *dic = data[@"setup"];
+        NSArray *imageArr = dic[@"list"];
+        NSMutableArray *images = [[NSMutableArray alloc] init];
+        for (NSDictionary *image in imageArr) {
+            NSString *str = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,image[@"img"]];
+            [images addObject:str];
+        }
+        weakSelf.cycleScrollView.localizationImageNamesGroup = images;
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    
+    
+    
+    [BaseRequest GetHomeClassListWithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
+        NSLog(@"%@",describe(data));
+    } failue:^(id data, NSError *error) {
+        
+    }];
+}
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
     self.navigationController.navigationBar.hidden = YES;
     [self.view addSubview:self.tableView];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:NO forKey:kLoginState];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    [userDefaults setBool:NO forKey:kLoginState];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(CloseKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_BEGIN object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OpenKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_END object:nil];
+    
+//    [PushManager sharedManager].delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,6 +99,7 @@
     
     if (indexPath.section == 0) {
         FirstTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FirstTableViewCell"];
+        cell.vc = self;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -191,56 +225,64 @@
 
 - (UIView *)headView{
     if (!_headView) {
-        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 438.0000/667*SCREEN_HIGHT)];
+        _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 530.0000/667*SCREEN_HIGHT)];
         _headView.backgroundColor = [UIColor whiteColor];
         
-        NSArray *titleArray = @[@"租赁",@"交换",@"鉴定",@"养护",@"上新",@"活动",@"顾问",@"分享"];
-        NSArray *imageArray = @[@"图层-114",@"图层-115",@"图层-118",@"养护",@"上新",@"活动",@"顾问",@"图层-139"];
+        NSArray *titleArray = @[@"交互",@"租赁",@"活动",@"鉴定",@"养护"];
+        NSArray *imageArray = @[@"图层-115",@"图层-114",@"活动",@"顾问",@"养护"];
 
         int k = 0;
-        for (int j = 0; j < 2; j++) {
+        for (int j = 0; j < 5; j++) {
             
-            for (int i = 0; i < 4 ; i++) {
-                UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-                btn.frame = CGRectMake(40 + i * (20 + 70)/375.0000*SCREEN_WIDTH, 301.0000/667*SCREEN_HIGHT + j * 70.0000/667*SCREEN_HIGHT, 24, 40);
-                UIImage *image = [UIImage imageNamed:imageArray[k]];
-                [btn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
-                [btn setTitle:titleArray[k] forState:UIControlStateNormal];
-                btn.titleLabel.font = [UIFont systemFontOfSize:11];
-                [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                CGSize imageSize = btn.imageView.bounds.size;
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+            btn.frame = CGRectMake(42.5+j * (42.5+24)/375.0000*SCREEN_WIDTH, 301.0000/667*SCREEN_HIGHT, 24, 40);
+            UIImage *image = [UIImage imageNamed:imageArray[k]];
+            [btn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
+            [btn setTitle:titleArray[k] forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:11];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            CGSize imageSize = btn.imageView.bounds.size;
+            btn.imageEdgeInsets = UIEdgeInsetsMake(0,0,21,0);
+            btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-25, 0, -4);
+            if (k == 0) {
+                btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+5,-25, 0, -4);
+            }
+            if (k == 1) {
                 btn.imageEdgeInsets = UIEdgeInsetsMake(0,0,21,0);
                 btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-25, 0, -4);
-                if (k == 1) {
-                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+5,-25, 0, -4);
-                }
-                if (k == 2) {
-                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+5,-25, 0, -4);
-                    btn.imageEdgeInsets = UIEdgeInsetsMake(0,0,18,0);
-                }
-                if (k == 3) {
-                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+15,-20, 0, -8);
-                    btn.imageEdgeInsets = UIEdgeInsetsMake(0,6,18,0);
-                }
-                if (k == 5) {
-                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+7,-25, 0, -4);
-                }
-                if (k == 6) {
-                    btn.imageEdgeInsets = UIEdgeInsetsMake(0,3,21,0);
-                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-20, 0, -4);
-                }
-                if (k == 7) {
-                    btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+8,-20, 0, 0);
-                    btn.imageEdgeInsets = UIEdgeInsetsMake(0,3,21,0);
-                }
-                btn.tag = 100 + k;
-                [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-                [_headView addSubview:btn];
-                k++;
             }
+            if (k == 2) {
+                btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+7,-25, 0, -4);
+            }
+            if (k == 3) {
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0,3,21,0);
+                btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+10,-20, 0, -4);
+            }
+            if (k == 4) {
+                btn.titleEdgeInsets = UIEdgeInsetsMake(imageSize.width+15,-20, 0, -8);
+                btn.imageEdgeInsets = UIEdgeInsetsMake(0,6,18,0);
+            }
+            btn.tag = 100 + k;
+            [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+            [_headView addSubview:btn];
+            k++;
         }
         
+        
+        UIImage *leftImage = [UIImage imageNamed:@"交换箭头"];
+        UIImage *rightImage = [UIImage imageNamed:@"啵呗秀"];
+        
+        UIButton *leftBtn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+        [leftBtn1 setImage:[leftImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        
+        UIButton *rightBtn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+        [rightBtn1 setImage:[rightImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        
+        leftBtn1.frame = VIEWFRAME(10, 361.0000/667*SCREEN_HIGHT, (SCREEN_WIDTH - 30)/2, CommonHight(150));
+        rightBtn1.frame = VIEWFRAME(20+(SCREEN_WIDTH - 30)/2, 361.0000/667*SCREEN_HIGHT, (SCREEN_WIDTH - 30)/2, CommonHight(150));
 
+        [_headView addSubview:leftBtn1];
+        [_headView addSubview:rightBtn1];
         [_headView addSubview:self.cycleScrollView];
         
         //导航栏中的搜索栏
@@ -250,6 +292,7 @@
         UIImage *image = [UIImage imageNamed:@"搜索-2"];
         [searchBtn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
         [searchBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];
+        searchBtn.alpha = 0.9;
         //        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:searchBtn];
         
@@ -275,14 +318,17 @@
 
 - (SDCycleScrollView *)cycleScrollView{
     if (!_cycleScrollView) {
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 274.0000/667*SCREEN_HIGHT) imageNamesGroup:@[@"背景",@"图层-1-副本-2"]];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 274.0000/667*SCREEN_HIGHT)
+                                                              delegate:self
+                                                      placeholderImage:[UIImage imageNamed:@"占位-0"]];
+
         _cycleScrollView.showPageControl = YES;
-        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
+        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleClassic;
         _cycleScrollView.autoScrollTimeInterval = 3;
         _cycleScrollView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _cycleScrollView.pageDotColor = [UIColor whiteColor];
-        _cycleScrollView.currentPageDotColor = APP_COLOR_BASE_BAR;
-        _cycleScrollView.delegate = self;
+        _cycleScrollView.currentPageDotColor = APP_COLOR_GREEN;
+//        _cycleScrollView.delegate = self;
     }
     return _cycleScrollView;
 }
@@ -344,10 +390,27 @@
     
     switch (sender.tag) {
             
-        case 105:{
+        case 100:{
+            [self PushViewControllerByClassName:@"ExchangeVC" info:nil];
+            break;
+        }
+        case 101:{
+            [self PushViewControllerByClassName:@"RentVC" info:nil];
+            break;
+        }
+        case 102:{
             [self PushViewControllerByClassName:@"ActivityVC" info:nil];
             break;
         }
+        case 103:{
+            [self PushViewControllerByClassName:@"Appraise1VC" info:nil];
+            break;
+        }
+        case 104:{
+            [self PushViewControllerByClassName:@"MaintainVC" info:nil];
+            break;
+        }
+            
         case 201:{
             MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
             [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];

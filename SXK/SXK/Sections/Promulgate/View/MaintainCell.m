@@ -59,34 +59,6 @@
         [self addSubview:_content];
         [self addSubview:_price];
         
-        
-        [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.mas_left).offset(15);
-            make.top.equalTo(self.mas_top).offset(20);
-            make.bottom.equalTo(self.mas_bottom).offset(-20);
-            make.width.mas_equalTo(150);
-        }];
-        
-        [_title mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headImageView.mas_right).offset(10);
-            make.top.equalTo(self.mas_top).offset(40);
-            make.right.equalTo(self.mas_right).offset(-25);
-            make.height.mas_equalTo(@(14));
-        }];
-        
-        [_content mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headImageView.mas_right).offset(10);
-            make.top.equalTo(_title.mas_bottom).offset(5);
-            make.right.equalTo(self.mas_right).offset(-25);
-            make.height.mas_equalTo(@(30));
-        }];
-        
-        [_price mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headImageView.mas_right).offset(10);
-            make.top.equalTo(_content.mas_bottom).offset(5);
-            make.right.equalTo(self.mas_right).offset(-25);
-            make.height.mas_equalTo(@(13));
-        }];
 
         
     }
@@ -98,6 +70,12 @@
     MaintainCellModel *_model = model;
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.img]]];
     _title.text = _model.name;
+    CGFloat height = [UILabel getHeightByWidth:(SCREEN_WIDTH - 150 - 15 -10 -25) title:_model.keyword font:SYSTEMFONT(11)];
+    if (height > 26.5) {
+        height = 26.5;
+    }
+    [self reSetSize:height];
+
     _content.text = _model.keyword;
     _price.text = [NSString stringWithFormat:@"¥%lld",[_model.price longLongValue]];
 }
@@ -108,8 +86,48 @@
     NSString *image = _model.imgList[0];
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,image]]];
     _title.text = _model.name;
+    CGFloat height = [UILabel getHeightByWidth:(SCREEN_WIDTH - 150 - 15 -10 -25) title:_model.keyword font:SYSTEMFONT(11)];
+    if (height > 26.5) {
+        height = 26.5;
+    }
+    [self reSetSize:height];
+
     _content.text = _model.keyword;
     _price.text = [NSString stringWithFormat:@"¥%lld",[_model.counterPrice longLongValue]];
 }
+
+-(void)reSetSize:(CGFloat)height
+{
+    
+    [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(15);
+        make.top.equalTo(self.mas_top).offset(20);
+        make.bottom.equalTo(self.mas_bottom).offset(-20);
+        make.width.mas_equalTo(150);
+    }];
+    
+    [_title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_headImageView.mas_right).offset(10);
+        make.top.equalTo(self.mas_top).offset(40);
+        make.right.equalTo(self.mas_right).offset(-25);
+        make.height.mas_equalTo(@(14));
+    }];
+    
+    [_content mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_headImageView.mas_right).offset(10);
+        make.top.equalTo(_title.mas_bottom).offset(5);
+        make.right.equalTo(self.mas_right).offset(-25);
+        make.height.mas_equalTo(@(height));
+    }];
+    
+    [_price mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_headImageView.mas_right).offset(10);
+        make.top.equalTo(_content.mas_bottom).offset(5);
+        make.right.equalTo(self.mas_right).offset(-25);
+        make.height.mas_equalTo(@(13));
+    }];
+
+}
+
 
 @end

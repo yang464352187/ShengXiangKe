@@ -9,6 +9,7 @@
 #import "OrderVC.h"
 #import "OrderCell.h"
 #import "OrderCell1.h"
+#import "OrderCell2.h"
 #import "BrandDetailModel.h"
 @interface OrderVC ()
 
@@ -37,7 +38,7 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -46,12 +47,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
-        OrderCell *cell1 = [tableView dequeueReusableCellWithIdentifier:@"OrderCell1"];
+        OrderCell1 *cell1 = [tableView dequeueReusableCellWithIdentifier:@"OrderCell1"];
+        cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell1;
     }
-    
+    if (indexPath.section == 2) {
+        OrderCell2 *cell2 = [tableView dequeueReusableCellWithIdentifier:@"OrderCell2"];
+        cell2.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell2;
+    }
     OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+   
     return cell;
 }
 
@@ -60,16 +67,25 @@
     if (indexPath.section == 1) {
         return 150;
     }
+    if (indexPath.section == 2) {
+        return 125;
+    }
     return 180;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 64;
+    if (section == 0) {
+        return 64;
+    }
+    return 15;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if (section == 2) {
+        return 80;
+    }
     return 0.000000001;
 }
 
@@ -79,19 +95,22 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = APP_COLOR_GRAY_Header;
     
-    UILabel *address = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 100, 44)                                                 andText:@"请选择收货地址"
-                                      andTextColor:[UIColor blackColor]
-                                        andBgColor:[UIColor clearColor]
-                                           andFont:SYSTEMFONT(13)
-                                  andTextAlignment:NSTextAlignmentLeft];
+    if (section == 0) {
+        UILabel *address = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 100, 44)                                                 andText:@"请选择收货地址"
+                                            andTextColor:[UIColor blackColor]
+                                              andBgColor:[UIColor clearColor]
+                                                 andFont:SYSTEMFONT(13)
+                                        andTextAlignment:NSTextAlignmentLeft];
+        
+        [view addSubview:address];
+        
+        [address mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(view);
+            make.left.equalTo(view.mas_left).offset(23.5);
+            make.size.mas_equalTo(CGSizeMake(150, 14));
+        }];
 
-    [view addSubview:address];
-    
-    [address mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(view);
-        make.left.equalTo(view.mas_left).offset(23.5);
-        make.size.mas_equalTo(CGSizeMake(150, 14));
-    }];
+    }
     
     
     return view;
@@ -101,6 +120,69 @@
 {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = APP_COLOR_GRAY_Header;
+    
+    if (section != 2) {
+        return view;
+    }
+    //添加下划线
+    NSMutableAttributedString *title = [[NSMutableAttributedString alloc] initWithString:@"查看违约金规则"];
+    NSRange titleRange = {0,[title length]};
+    [title addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:titleRange];
+    [title addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13.0] range:titleRange];
+    [title addAttribute:NSForegroundColorAttributeName value:APP_COLOR_GREEN range:titleRange];
+    
+    //违约金规则
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+    [button setAttributedTitle:title forState:UIControlStateNormal];
+    
+    //选择按钮
+    UIImage *select = [UIImage imageNamed:@"1圆角矩形-1-拷贝"];//选择框
+    UIButton *selectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [selectBtn setImage:[select imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
+    //条款正文
+    UILabel *titleLab = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                     andText:@"已阅读并同意"
+                                         andTextColor:APP_COLOR_GRAY_Font
+                                  andBgColor:[UIColor clearColor]
+                                     andFont:SYSTEMFONT(13)
+                            andTextAlignment:NSTextAlignmentLeft];
+    
+    //用户协议
+    UIButton *ProtocolBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [ProtocolBtn setTitle:@"《啵呗平台用户协议》" forState:UIControlStateNormal];
+    [ProtocolBtn setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+    ProtocolBtn.titleLabel.font = SYSTEMFONT(13);
+
+    [view addSubview:selectBtn];
+    [view addSubview:button];
+    [view addSubview:titleLab];
+    [view addSubview:ProtocolBtn];
+    
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(view.mas_top).offset(19);
+        make.left.equalTo(view.mas_left).offset(15);
+        make.size.mas_equalTo(CGSizeMake(13*8, 14));
+    }];
+    
+    [selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(button.mas_bottom).offset(10);
+        make.left.equalTo(view.mas_left).offset(15);
+        make.size.mas_equalTo(CGSizeMake(20, 20));
+    }];
+    
+    [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(selectBtn).offset(0);
+        make.left.equalTo(selectBtn.mas_right).offset(0);
+        make.size.mas_equalTo(CGSizeMake(13*7, 15));
+    }];
+
+    [ProtocolBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(titleLab).offset(0);
+        make.left.equalTo(titleLab.mas_right).offset(-20);
+        make.size.mas_equalTo(CGSizeMake(140, 15));
+    }];
+
+    
     return view;
 }
 
@@ -118,6 +200,7 @@
         _tableView.delegate        = self;
         [_tableView registerClass:[OrderCell class] forCellReuseIdentifier:@"OrderCell"];
         [_tableView registerClass:[OrderCell1 class] forCellReuseIdentifier:@"OrderCell1"];
+        [_tableView registerClass:[OrderCell2 class] forCellReuseIdentifier:@"OrderCell2"];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor colorWithHexColorString:@"f7f7f7"];
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -140,7 +223,7 @@
         UIButton *payBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         payBtn.backgroundColor = [UIColor colorWithHexColorString:@"14a8ad"];
         payBtn.frame = VIEWFRAME(SCREEN_WIDTH-CommonWidth(154), 0, CommonWidth(154), 44);
-        [payBtn setTitle:@"立即付款" forState:UIControlStateNormal];
+        [payBtn setTitle:@"提交订单" forState:UIControlStateNormal];
         [payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [payBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -200,7 +283,7 @@
                           };
     _weekSelf(weakSelf);
     [BaseRequest CreatOrderWithParams:params succesBlock:^(id data) {
-        NSLog(@"%@",data);
+//        NSLog(@"%@",data);
         if ([data[@"code"] integerValue] == 1) {
             NSInteger orderid = [data[@"orderid"] integerValue];
             NSDictionary *dic = @{@"orderid":@(orderid),

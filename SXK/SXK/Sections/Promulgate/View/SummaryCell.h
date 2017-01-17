@@ -17,7 +17,6 @@
 
 @interface SummaryCell : UITableViewCell
 
-
 @property (nonatomic, weak)id <SummaryCellDelegate>delegate;
 
 -(void)fillWithTitle:(NSString *)title;

@@ -34,7 +34,6 @@
         _headImage =[[UIImageView alloc] initWithFrame:VIEWFRAME(23, 15.5, 21, 21)];
         _headImage.image =[UIImage imageNamed:@"图层-10"];
 
-        
         _title = [UILabel createLabelWithFrame:VIEWFRAME(51, 5.5, 100, 41)                                                 andText:@"微信支付"
                                   andTextColor:[UIColor blackColor]
                                     andBgColor:[UIColor clearColor]

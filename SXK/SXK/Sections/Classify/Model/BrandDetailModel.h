@@ -16,4 +16,6 @@
 
 @property (nonatomic, strong)NSArray *attachList, *imgList, *commentList;
 
+@property (nonatomic, strong)NSDictionary *brand;
+
 @end

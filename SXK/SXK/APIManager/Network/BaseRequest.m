@@ -106,7 +106,7 @@
     
     [self requestPostCommonWithPath:APPINTERFACE_Login Params:params succesBlock:^(id data) {
         //        //登录成功
-        
+        NSLog(@"%@",describe(data));
         [LoginModel doLogin:data];
 
         if (successBlock) {
@@ -604,10 +604,10 @@
     NSMutableArray *imgArr = [[NSMutableArray alloc] init];
     for (int i = 0; i < imgList.count; i++) {
         NSString *str = imgList[i];
-        NSLog(@"%@",str);
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
-        [dic setValue:str forKey:@"image"];
-        [imgArr addObject:dic];
+
+//        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+//        [dic setValue:str forKey:@"image"];
+        [imgArr addObject:str];
     }
     
     NSDictionary *params = @{
@@ -1202,6 +1202,113 @@
         }
     } failue:failueBlock];
 }
+
+
+/**
+ *  获取精选分类
+ *  @param classid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetHomeClassWithSetupID:(NSInteger)classid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"classid":@(classid)};
+    [self requestPostCommonWithPath:APPINTERFACE__HomeClass Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  获取首页热门列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetHomeTopicListWithPageNo:(NSInteger)pageNo
+                          PageSize:(NSInteger)pageSize
+                             order:(NSInteger)order
+                       succesBlock:(SuccessBlock)successBlock
+                            failue:(FailureBlock)failueBlock;{
+    NSDictionary *dic = @{
+                          @"sort":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic};
+    
+    [self requestPostCommonWithPath:APPINTERFACE__HomeTopicList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+/**
+ *  获取话题
+ *  @param topicid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetHomeTopicWithSetupID:(NSInteger)topicid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;{
+    NSDictionary *params = @{@"topicid":@(topicid)};
+    [self requestPostCommonWithPath:APPINTERFACE__HomeTopic Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  获取话题
+ *  @param openid       ID
+ *  @param nickname     昵称
+ *  @param headimgurl   头像地址
+ *  @param pf           类型
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ThirdLoginWithOpenID:(NSString *)openid
+                    nickname:(NSString *)nickname
+                  headimgurl:(NSString *)headimgurl
+                          pf:(NSInteger)pf
+                 succesBlock:(SuccessBlock)successBlock
+                      failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"openid":openid,
+                             @"nickname":nickname,
+                             @"headimgurl":headimgurl,
+                             @"pf":@(pf)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__ThirdLogin Params:params succesBlock:^(id data) {
+        //        //登录成功
+        [LoginModel doLogin:data];
+
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
 
 
 @end

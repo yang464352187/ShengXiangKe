@@ -40,7 +40,7 @@
             
         }];
         
-    }else{
+    }else if ([self.myDict[@"title"] isEqualToString:@"放心租"]){
         _weekSelf(weakSelf)
 
         [BaseRequest GetRightDownSetupWithSetupID:1 succesBlock:^(id data) {
@@ -51,6 +51,24 @@
             
         }];
         
+    }else if ([self.myDict[@"title"] isEqualToString:@"精选分类"]) {
+        _weekSelf(weakSelf)
+        [BaseRequest GetHomeClassWithSetupID:[self.myDict[@"classid"] integerValue] succesBlock:^(id data) {
+            NSArray *models = [BrandDetailModel modelsFromArray:data[@"class"][@"rentList"]];
+            [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+
+        } failue:^(id data, NSError *error) {
+            
+        }];
+    }else{
+        _weekSelf(weakSelf)
+        [BaseRequest GetHomeTopicWithSetupID:[self.myDict[@"topicid"] integerValue] succesBlock:^(id data) {
+            NSArray *models = [BrandDetailModel modelsFromArray:data[@"topic"][@"rentList"]];
+            [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+
+        } failue:^(id data, NSError *error) {
+            
+        }];
     }
     
     

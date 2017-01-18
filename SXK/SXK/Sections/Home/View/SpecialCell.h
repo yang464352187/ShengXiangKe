@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeVC.h"
+@interface SpecialCell : BaseCell
 
-@interface SpecialCell : UITableViewCell
+@property (nonatomic, strong)HomeVC *vc;
+@property (nonatomic, strong)NSNumber *topicid;
 
 @end

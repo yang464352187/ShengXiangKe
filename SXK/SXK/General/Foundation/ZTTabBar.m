@@ -9,7 +9,7 @@
 #define  kDockFrame CGRectMake(0, self.view.frame.size.height-kTabbarHeight, self.view.frame.size.width, kTabbarHeight)
 
 #define kCameraViewWidth 49
-#define kCameraViewHeight 61
+#define kCameraViewHeight 60
 #define kCameraBtnWidth kCameraViewWidth
 #define kCameraBtnHeight 50
 
@@ -31,8 +31,21 @@
 
         _cameraView =[[UIView alloc]init];
         _cameraView.center = CGPointMake(SCREEN_WIDTH*0.5, SCREEN_HIGHT-(kCameraViewHeight*0.5));
-        _cameraView.bounds = CGRectMake(0, 0, kCameraViewWidth, kCameraViewHeight+13);
+        _cameraView.bounds = CGRectMake(0, 0, kCameraViewWidth, kCameraViewHeight+10);
+        _cameraView.backgroundColor = [UIColor blackColor];
+ 
         _cameraView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tab_摄影机图标背景"]];
+//        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:_cameraView.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight cornerRadii:CGSizeMake(20, 20)];
+//        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+//        maskLayer.frame = _cameraView.bounds;
+//        maskLayer.path = maskPath.CGPath;
+//        _cameraView.layer.mask = maskLayer;
+        
+        if (SCREEN_HIGHT > 667) {
+            UIView *line = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, kCameraViewWidth, 0.05)];
+            line.backgroundColor = [UIColor whiteColor];
+            [_cameraView addSubview:line];
+        }
         _cameraBtn = [[UIButton alloc]init];
         [_cameraBtn setBackgroundImage:[UIImage imageNamed:@"+"] forState:UIControlStateNormal];
         [_cameraBtn setBackgroundImage:[UIImage imageNamed:@"+"] forState:UIControlStateHighlighted];

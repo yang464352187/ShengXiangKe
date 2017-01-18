@@ -18,13 +18,15 @@
 #import "MQAssetUtil.h"
 #import "MQImageUtil.h"
 #import "MQToast.h"
+#import "TopicModel.h"
 
 @interface HomeVC ()<SDCycleScrollViewDelegate>
 
 
 @property (strong, nonatomic) UIView            *headView;
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;// 头顶滑动视图
-
+@property (strong, nonatomic) NSArray *dataArr;
+@property (strong, nonatomic) NSArray *topicArr;
 
 @end
 
@@ -53,7 +55,19 @@
     
     
     [BaseRequest GetHomeClassListWithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
-        NSLog(@"%@",describe(data));
+        self.dataArr = data[@"classList"];
+//        NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
+        [weakSelf.tableView reloadData];
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    
+    [BaseRequest GetHomeTopicListWithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
+//        NSLog(@"%@",describe(data));
+        self.topicArr = [TopicModel modelsFromArray:data[@"topicList"]];
+        [weakSelf.tableView reloadData];
+
     } failue:^(id data, NSError *error) {
         
     }];
@@ -92,7 +106,10 @@
     if (section == 0) {
         return 1;
     }
-    return 2;
+    if (section == 1) {
+        return self.dataArr.count;
+    }
+    return self.topicArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -107,11 +124,17 @@
     if (indexPath.section == 1) {
         ClassifyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ClassifyCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSDictionary *dic = self.dataArr[indexPath.row];
+        [cell fillWithDic:dic];
+        cell.vc = self;
         return cell;
     }
     
     SpecialCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SpecialCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    TopicModel *model = self.topicArr[indexPath.row];
+    cell.vc = self;
+    [cell setModel:model];
     
     return cell;
 }
@@ -288,7 +311,9 @@
         //导航栏中的搜索栏
         UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         searchBtn.frame =  CGRectMake(49.0000/375*SCREEN_WIDTH, 27.5000/667*SCREEN_HIGHT, 274.0000/375*SCREEN_WIDTH, 30.0000/667*SCREEN_HIGHT);
-        ViewBorderRadius(searchBtn, 0, 0.2, [UIColor colorWithHexColorString:@"313131"]);
+        if (SCREEN_HIGHT <= 667 ) {
+            ViewBorderRadius(searchBtn, 0, 0.2, [UIColor colorWithHexColorString:@"313131"]);
+        }
         UIImage *image = [UIImage imageNamed:@"搜索-2"];
         [searchBtn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
         [searchBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];

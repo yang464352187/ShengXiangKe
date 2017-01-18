@@ -34,7 +34,8 @@
              @"seven":@"seven",
              @"marketPrice":@"marketPrice",
              @"rentPrice":@"rentPrice",
-             @"brand":@"brand"
+             @"brand":@"brand",
+             @"risk":@"risk"
              
              };
 }

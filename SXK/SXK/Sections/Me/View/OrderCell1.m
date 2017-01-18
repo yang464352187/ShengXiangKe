@@ -8,19 +8,20 @@
 //
 
 #import "OrderCell1.h"
+#import "BrandDetailModel.h"
 
 @implementation OrderCell1{
     UILabel *_rentLab;
-    UILabel *_depositLab;
+//    UILabel *_depositLab;
     UILabel *_rent;
-    UILabel *_deposit;
+//    UILabel *_deposit;
     UIButton *_rentBtn;
     UIButton *_depositBtn;
     UIButton *_selectBtn;
     UILabel *_insurance;
     UIButton *_insuranceBtn;
-    UILabel *_insurancePrice;
-
+//    UILabel *_insurancePrice;
+    BOOL _certain;
 }
 
 /*
@@ -38,7 +39,7 @@
                                        andFont:SYSTEMFONT(14)
                               andTextAlignment:NSTextAlignmentLeft];
         
-        _depositLab = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"¥:450.00"
+        self.depositLab = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"¥:11450.00"
                                     andTextColor:[UIColor blackColor]
                                       andBgColor:[UIColor clearColor]
                                          andFont:SYSTEMFONT(14)
@@ -51,7 +52,7 @@
                                          andFont:SYSTEMFONT(14)
                                 andTextAlignment:NSTextAlignmentLeft];
 
-        _deposit = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"¥:10000.00"
+        self.deposit = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"¥:10000.00"
                                     andTextColor:[UIColor blackColor]
                                       andBgColor:[UIColor clearColor]
                                          andFont:SYSTEMFONT(14)
@@ -63,7 +64,7 @@
                                          andFont:SYSTEMFONT(14)
                                 andTextAlignment:NSTextAlignmentLeft];
 
-        _insurancePrice = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"¥:450.00"
+        self.insurancePrice = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"¥:450.00"
                                        andTextColor:[UIColor blackColor]
                                          andBgColor:[UIColor clearColor]
                                             andFont:SYSTEMFONT(14)
@@ -84,17 +85,18 @@
 
         _selectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_selectBtn setImage:[select imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-
+        [_selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+        
         [self addSubview:_rentLab];
         [self addSubview:_rent];
-        [self addSubview:_depositLab];
-        [self addSubview:_deposit];
+        [self addSubview:self.depositLab];
+        [self addSubview:self.deposit];
         [self addSubview:_rentBtn];
         [self addSubview:_depositBtn];
         [self addSubview:_selectBtn];
         [self addSubview:_insurance];
         [self addSubview:_insuranceBtn];
-        [self addSubview:_insurancePrice];
+        [self addSubview:self.insurancePrice];
         
         [_rentLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(30);
@@ -108,14 +110,14 @@
             make.size.mas_equalTo(CGSizeMake(60, 15));
         }];
         
-        [_depositLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.depositLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(30);
             make.right.equalTo(self.mas_right).offset(-15);
             make.size.mas_equalTo(CGSizeMake(100, 15));
         }];
         
-        [_deposit mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_depositLab.mas_bottom).offset(20);
+        [self.deposit mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.depositLab.mas_bottom).offset(20);
             make.right.equalTo(self.mas_right).offset(-15);
             make.size.mas_equalTo(CGSizeMake(100, 15));
         }];
@@ -150,15 +152,45 @@
             make.size.mas_equalTo(CGSizeMake(20, 20));
         }];
         
-        [_insurancePrice mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.insurancePrice mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_insuranceBtn).offset(0);
             make.left.equalTo(_insuranceBtn.mas_right).offset(0);
             make.right.equalTo(self.mas_right).offset(-15);
             make.height.mas_equalTo(15);
         }];
         
+//        _certain = 0;
     }
     return  self;
 }
 
+
+-(void)setModel:(BrandDetailModel *)model 
+{
+    
+    self.depositLab.text = [NSString stringWithFormat:@"¥:%.2f",[model.three floatValue]/100];
+    self.deposit.text = [NSString stringWithFormat:@"¥:%.2f",[model.marketPrice floatValue]/100];
+    self.insurancePrice.text = [NSString stringWithFormat:@"¥:%.2f",[model.risk floatValue]/100];
+    
+}
+
+
+-(void)selectAction:(UIButton *)sender
+{
+    UIImage *select = [UIImage imageNamed:@"1圆角矩形-1-拷贝"];//选择框
+    UIImage *select1 = [UIImage imageNamed:@"图层-444"];//选择框
+
+    if (_certain) {
+        _certain = 0;
+        [_selectBtn setImage:[select imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    }else{
+        _certain = 1;
+        [_selectBtn setImage:[select1 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    }
+    
+    if ([_delegate respondsToSelector:@selector(returnRisk:)]) { // 如果协议响应了sendValue:方法
+        [_delegate returnRisk:_certain]; // 通知执行协议方法
+    }
+
+}
 @end

@@ -97,6 +97,10 @@
 #define APPINTERFACE__HomeRightUpSetup       @"/app/rightupsetup/getpost"  //首页右上
 #define APPINTERFACE__HomeRightDownSetup     @"/app/rightdownsetup/getpost"  //首页右下
 #define APPINTERFACE__HomeClassList          @"/app/class/listpost"  //首页精选分类列表
+#define APPINTERFACE__HomeClass              @"/app/class/getpost"  //首页精选分类
+#define APPINTERFACE__HomeTopicList          @"/app/topic/listpost"  //首页热门话题列表
+#define APPINTERFACE__HomeTopic              @"/app/topic/getpost"  //首页热门话题
+#define APPINTERFACE__ThirdLogin             @"/app/applogin/authloginpost"//第三方登录
 
 
 

@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong)NSString *name, *keyword, *description1, *color;
 
-@property (nonatomic, strong)NSNumber *rentid, *counterPrice, *crowd, *sale, *sort, *categoryid, *brandid, *condition, *userid, *three, *twentyFive, *fiften, *seven, *marketPrice, *rentPrice;
+@property (nonatomic, strong)NSNumber *rentid, *counterPrice, *crowd, *sale, *sort, *categoryid, *brandid, *condition, *userid, *three, *twentyFive, *fiften, *seven, *marketPrice, *rentPrice, *risk;
 
 @property (nonatomic, strong)NSArray *attachList, *imgList, *commentList;
 

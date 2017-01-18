@@ -8,8 +8,10 @@
 
 #import "ClassifyCell.h"
 #import "ClaasifyCollectionViewCell.h"
-
+#import "BrandDetailModel.h"
 @interface ClassifyCell ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong)NSArray *dataArr;
 
 @end
 
@@ -38,6 +40,11 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _headImageView = [[UIImageView alloc] initWithFrame:CommonVIEWFRAME(0, 0, 375, 256)];
         _headImageView.image = [UIImage imageNamed:@"背景"];
+        _headImageView.userInteractionEnabled = YES;
+        [_headImageView setUserInteractionEnabled:YES];
+        UITapGestureRecognizer *singleTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapAction1:)];
+        [_headImageView addGestureRecognizer:singleTap1];
+
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         _collectionView = [[UICollectionView alloc] initWithFrame:CommonVIEWFRAME(0, 268.5, 375, 161.5) collectionViewLayout:layout];
@@ -75,14 +82,17 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    return 9;
+    return self.dataArr.count;
 }
 
 //每个item应该如何展示
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ClaasifyCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
-        return cell;
+    BrandDetailModel *model = self.dataArr[indexPath.row];
+    [cell fillWithModel:model andClassid:self.classid];
+    cell.vc = self.vc;
+    return cell;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -109,7 +119,29 @@
     return CGSizeMake(CommonWidth(105), CommonHight(160.5));
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    BrandDetailModel *model = self.dataArr[indexPath.row];
+    NSDictionary *dic = @{@"rentid":model.rentid};
+    [self.vc PushViewControllerByClassName:@"BrandDetailVC" info:dic];
+    
+}
 
+-(void)fillWithDic:(NSDictionary *)dic;
+{
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"img"]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
+    NSArray *array = dic[@"rentList"];
+    self.dataArr = [BrandDetailModel modelsFromArray:array];
+    
+    self.classid = dic[@"classid"];
+    [_collectionView reloadData];
+}
+
+-(void)singleTapAction1:(UITapGestureRecognizer *)tap
+{
+    NSDictionary *dic = @{@"title":@"精选分类",@"classid":self.classid};
+    [self.vc PushViewControllerByClassName:@"ThreeVC" info:dic];
+}
 
 
 @end

@@ -11,11 +11,23 @@
 #import "OrderCell1.h"
 #import "OrderCell2.h"
 #import "BrandDetailModel.h"
-@interface OrderVC ()
+@interface OrderVC ()<OrderCellDelegate,OrderCell1Delegate>
 
 @property (nonatomic, strong) UIView *footView;
 
+@property (nonatomic, assign) NSInteger selectDay;
 
+@property (nonatomic, strong) UILabel *total;
+
+@property (nonatomic, strong) UILabel *deposit;
+
+@property (nonatomic, assign) CGFloat rent;
+
+@property (nonatomic, assign) BOOL isRisk;
+
+@property (nonatomic, strong) OrderCell1 *cell;
+
+@property (nonatomic, assign) NSInteger day;
 @end
 
 @implementation OrderVC
@@ -25,7 +37,9 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"账单";
     [self initUI];
-    NSLog(@"%@===========",self.myDict);
+    self.selectDay = 1;
+    self.isRisk = 0;
+    NSLog(@"%@===========",describe(self.myDict));
 }
 
 -(void)initUI
@@ -46,8 +60,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    BrandDetailModel *model = [BrandDetailModel modelFromDictionary:self.myDict];
+
     if (indexPath.section == 1) {
         OrderCell1 *cell1 = [tableView dequeueReusableCellWithIdentifier:@"OrderCell1"];
+        cell1.delegate = self;
+        [cell1 setModel:model];
+        self.cell = cell1;
         cell1.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell1;
     }
@@ -58,7 +77,8 @@
     }
     OrderCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-   
+    [cell setModel:model];
+    cell.delegate = self;
     return cell;
 }
 
@@ -239,6 +259,9 @@
                                                andFont:SYSTEMFONT(13)
                                       andTextAlignment:NSTextAlignmentLeft];
 
+        self.total = first;
+        self.deposit = second;
+        
         [_footView addSubview:payBtn];
         [_footView addSubview:first];
         [_footView addSubview:second];
@@ -255,7 +278,11 @@
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH-CommonWidth(154) - 30, 15));
         }];
 
+        BrandDetailModel *model = [BrandDetailModel modelFromDictionary:self.myDict];
 
+        self.total.text = [NSString stringWithFormat:@"租金及其他:¥%.2f",[model.three floatValue]/100];
+        self.deposit.text = [NSString stringWithFormat:@"押金:¥%.2f",[model.marketPrice floatValue]/100];
+        
     }
     
     return _footView;
@@ -294,6 +321,62 @@
     } failue:^(id data, NSError *error) {
         
     }];
+}
+
+-(void)returnDay:(NSInteger)day
+{
+    BrandDetailModel *model = [BrandDetailModel modelFromDictionary:self.myDict];
+    
+    switch (day) {
+        case 1:{
+            self.cell.depositLab.text = [NSString stringWithFormat:@"¥:%.2f",[model.three floatValue]/100];
+            self.rent = [model.three floatValue]/100;
+        }
+            break;
+        case 2:{
+            self.cell.depositLab.text = [NSString stringWithFormat:@"¥:%.2f",[model.seven floatValue]/100];
+            self.rent = [model.seven floatValue]/100;
+        }
+            break;
+            
+        case 3:{
+            self.cell.depositLab.text= [NSString stringWithFormat:@"¥:%.2f",[model.fiften floatValue]/100];
+            self.rent = [model.fiften floatValue]/100;
+
+        }
+            break;
+            
+        case 4:{
+            self.cell.depositLab.text = [NSString stringWithFormat:@"¥:%.2f",[model.twentyFive floatValue]/100];
+            self.rent = [model.twentyFive floatValue]/100;
+
+        }
+            break;
+        default:
+            break;
+    }
+    
+    if (self.isRisk) {
+        self.total.text = [NSString stringWithFormat:@"租金及其他:¥%.2f",self.rent + [model.risk floatValue]/100];
+    }else{
+        self.total.text = [NSString stringWithFormat:@"租金及其他:¥%.2f",self.rent ];
+    }
+    
+    self.day = day;
+}
+
+
+-(void)returnRisk:(BOOL)certain
+{
+    BrandDetailModel *model = [BrandDetailModel modelFromDictionary:self.myDict];
+    
+    if (certain) {
+        self.total.text = [NSString stringWithFormat:@"租金及其他:¥%.2f",self.rent + [model.risk floatValue]/100];
+    }else{
+        self.total.text = [NSString stringWithFormat:@"租金及其他:¥%.2f",self.rent ];
+    }
+    self.isRisk = certain;
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

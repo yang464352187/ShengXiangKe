@@ -44,7 +44,6 @@
     [super viewWillAppear:animated];
     if (self.first == 0) {
         [self loadingRequest];
-        self.first = 1;
     }
     
 }
@@ -89,7 +88,8 @@
             
             [weakSelf.tableView reloadData];
             [weakSelf stopLoadingView];
-            
+            self.first = 1;
+
         } failue:^(id data, NSError *error) {
             
         }];

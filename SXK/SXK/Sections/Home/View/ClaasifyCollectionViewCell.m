@@ -8,6 +8,8 @@
 
 #import "ClaasifyCollectionViewCell.h"
 
+
+
 @implementation ClaasifyCollectionViewCell
 
 - (void)awakeFromNib {
@@ -90,9 +92,22 @@
         make.width.equalTo(@0.5);
     }];
 
+    self.title = title;
+    self.title1 = title2;
+    self.headImage = headImage;
 
-     
+}
 
+-(void)fillWithModel:(BrandDetailModel *)model andClassid:(NSNumber *)classid
+{
+    self.title.text = model.name;
+    
+    CGFloat price = [model.rentPrice floatValue]/100;
+    self.title1.text = [NSString stringWithFormat:@"租价:¥%.2f/天",price];
+    
+    NSArray *images = model.imgList;
+    [self.headImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,images[0]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
+    
 }
 
 

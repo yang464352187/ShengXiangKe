@@ -8,7 +8,7 @@
 //
 
 #import "OrderCell.h"
-
+#import "BrandDetailModel.h"
 @implementation OrderCell{
     UIImageView *_headImageView;
     UILabel *_title;
@@ -17,6 +17,7 @@
     UILabel *_priceTitle;
     UILabel *_marketPrice;
     UILabel *_time;
+    NSInteger _index;
     
 }
 
@@ -142,19 +143,55 @@
             
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
             [btn setTitle:array[i] forState:UIControlStateNormal];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             btn.titleLabel.font = SYSTEMFONT(13);
-            ViewBorder(btn, 0.5, APP_COLOR_GRAY_Font);
             btn.frame = VIEWFRAME(125 + 47 * i , 124, 32, 32);
+            
+            if (i == 0) {
+                [btn setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+                ViewBorder(btn, 0.5, APP_COLOR_GREEN);
+            }else{
+                [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                ViewBorder(btn, 0.5, APP_COLOR_GRAY_Font);
+            }
+            btn.tag = i+1;
+            [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:btn];
             
         }
 
-        
-        
-        
+        _index = 1;
     }
     return  self;
+}
+
+-(void)setModel:(id)model
+{
+    BrandDetailModel *_model = model;
+    _title.text = _model.name;
+    
+    NSArray *array = [[NSArray alloc] initWithObjects:@"99成新（未使用）",@"98成新",@"95成新",@"9成新",@"85成新",@"8成新", nil];
+    _content.text = [NSString stringWithFormat:@"%@ %@",array[[_model.condition integerValue]],_model.keyword];
+    
+    _price.text = [NSString stringWithFormat:@"%.2f元/天",[_model.rentPrice floatValue]/100];
+    _marketPrice.text = [NSString stringWithFormat:@"市场价:¥%.2f",[_model.marketPrice floatValue] /100];
+}
+
+-(void)btnAction:(UIButton *)sender
+{
+    if (_index != sender.tag) {
+        UIButton *btn = (UIButton *)[self viewWithTag:_index];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        ViewBorder(btn, 0.5, APP_COLOR_GRAY_Font);
+        [sender setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+        ViewBorder(sender, 0.5,APP_COLOR_GREEN);
+        _index = sender.tag;
+        
+        if ([_delegate respondsToSelector:@selector(returnDay:)]) { // 如果协议响应了sendValue:方法
+            [_delegate returnDay:sender.tag]; // 通知执行协议方法
+        }
+
+    }
+
 }
 
 @end

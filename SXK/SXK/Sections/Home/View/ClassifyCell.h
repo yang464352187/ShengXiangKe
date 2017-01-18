@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HomeVC.h"
 
 @interface ClassifyCell : UITableViewCell
+@property (nonatomic, strong) HomeVC *vc;
+@property (nonatomic, strong)NSNumber *classid;
+
+-(void)fillWithDic:(NSDictionary *)dic;
 
 @end

@@ -32,6 +32,7 @@
 }
 
 - (void)setModel:(id)model{
+    
 }
 
 @end

@@ -586,4 +586,57 @@
                        succesBlock:(SuccessBlock)successBlock
                             failue:(FailureBlock)failueBlock;
 
+/**
+ *  获取精选分类
+ *  @param classid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetHomeClassWithSetupID:(NSInteger)classid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取首页热门列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetHomeTopicListWithPageNo:(NSInteger)pageNo
+                          PageSize:(NSInteger)pageSize
+                             order:(NSInteger)order
+                       succesBlock:(SuccessBlock)successBlock
+                            failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取话题
+ *  @param topicid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetHomeTopicWithSetupID:(NSInteger)topicid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  获取话题
+ *  @param openid       ID
+ *  @param nickname     昵称
+ *  @param headimgurl   头像地址
+ *  @param pf           类型
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ThirdLoginWithOpenID:(NSString *)openid
+                    nickname:(NSString *)nickname
+                  headimgurl:(NSString *)headimgurl
+                          pf:(NSInteger)pf
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+
+
+
 @end

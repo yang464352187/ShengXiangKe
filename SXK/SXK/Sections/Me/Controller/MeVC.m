@@ -347,13 +347,13 @@
         [self PushViewControllerByClassName:@"LoginVCViewController" info:nil];
     }
     if (sender.LoginTag == 2) {
-        [self getUserInfoForPlatform:UMSocialPlatformType_WechatSession];
+        [self getUserInfoForPlatform:UMSocialPlatformType_WechatSession andType:3];
     }
     if (sender.LoginTag == 3) {
-        [self getUserInfoForPlatform:UMSocialPlatformType_Sina];
+        [self getUserInfoForPlatform:UMSocialPlatformType_Sina andType:4];
     }
     if (sender.LoginTag == 4) {
-        [self getUserInfoForPlatform:UMSocialPlatformType_QQ];
+        [self getUserInfoForPlatform:UMSocialPlatformType_QQ andType:2];
     }
 
 }
@@ -542,17 +542,37 @@
     return _imageArr;
 }
 
-- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType andType:(NSInteger)type
 {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:self completion:^(id result, NSError *error) {
         UMSocialUserInfoResponse *userinfo =result;
-        NSString *message = [NSString stringWithFormat:@"name: %@\n icon: %@\n gender: %@\n",userinfo.name,userinfo.iconurl,userinfo.gender];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"UserInfo"
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
-                                              otherButtonTitles:nil];
-        [alert show];
+//        NSString *message = [NSString stringWithFormat:@"name: %@\n icon: %@\n gender: %@\n",userinfo.name,userinfo.iconurl,userinfo.gender];
+        
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"UserInfo"
+//                                                        message:message
+//                                                       delegate:nil
+//                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
+//                                              otherButtonTitles:nil];
+//        [alert show];
+        
+        
+        [BaseRequest ThirdLoginWithOpenID:userinfo.openid nickname:userinfo.name headimgurl:userinfo.iconurl pf:type succesBlock:^(id data) {
+            NSLog(@"====%@=====",describe(data));
+            
+            for(UIView *view in [self.view subviews])
+            {
+                [view removeFromSuperview];
+            }
+            
+            [self.view addSubview:self.tableView];
+            [self loadingRequest];
+
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
+        
     }];
 }
 

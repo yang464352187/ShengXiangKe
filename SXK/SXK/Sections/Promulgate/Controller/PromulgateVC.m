@@ -231,7 +231,6 @@
                         [dic setValue:model forKey:@"data"];
                     }
                 }
-            
                 [self PushViewControllerByClassName:@"CommonVC" info:dic];
             }
                 break;
@@ -270,10 +269,8 @@
         _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, (200.0000/667*SCREEN_HIGHT))];
         _headView.backgroundColor = [UIColor whiteColor];
         
-        
         UIButton *shootBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         shootBtn.frame = VIEWFRAME(CommonWidth(15), CommonHight(105), CommonHight(111.5), CommonHight(111.5));
-
         UIImage *image = [UIImage imageNamed:@"拍摄"];
         [shootBtn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
         
@@ -284,8 +281,6 @@
         [HshootBtn addTarget:self action:@selector(BtnAction:) forControlEvents:UIControlEventTouchUpInside];
         
         [_headView addSubview:self.content];
-        
-        
         WSImagePickerConfig *config = [WSImagePickerConfig new];
         config.itemSize = CGSizeMake(CommonHight(80), CommonHight(80));
         config.photosMaxCount = 9;
@@ -398,16 +393,6 @@
         if ([text.userInfo[@"class"] isEqualToString:@"品牌"]) {
             self.brand = [text.userInfo[@"brandid"] integerValue];
         }
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
 //        NSLog(@"－－－－－接收到通知  %@------",text.userInfo[@"class"]);
     }
     
@@ -444,13 +429,11 @@
     } oneTaskCompletion:^(NSError *error, NSString *link, NSInteger index) {
         
         NSArray *array = [link componentsSeparatedByString:@"/"];
-        NSDictionary *dic = @{@"image":array[1]};
-        [self.uploadPhotoArr addObject:dic];
+//        NSDictionary *dic = @{@"image":array[1]};
+        [self.uploadPhotoArr addObject:array[1]];
         
     } allTasksCompletion:^{
     
-        
-        
             NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
             [params setValue:self.name forKey:@"name"];
             [params setValue:self.descrip forKey:@"keyword"];
@@ -467,19 +450,13 @@
             [CustomHUD stopHidden];
             [ProgressHUDHandler showHudTipStr:@"发布成功"];
             [self popGoBack];
+                
         } failue:^(id data, NSError *error) {
             [ProgressHUDHandler showHudTipStr:@"发布失败"];
             [CustomHUD stopHidden];
-
         }];
-            
-        
-    
     }];
     
-    
-    
-
 }
 
 -(UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize

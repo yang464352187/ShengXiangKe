@@ -8,6 +8,14 @@
 
 #import "BaseCell.h"
 
+@protocol OrderCellDelegate <NSObject>
+
+-(void)returnDay:(NSInteger)day;
+
+@end
+
 @interface OrderCell : BaseCell
+
+@property(weak, nonatomic)id<OrderCellDelegate>delegate;
 
 @end

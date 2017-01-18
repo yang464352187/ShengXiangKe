@@ -62,7 +62,8 @@ static const NSTimeInterval kRequestTimeoutInterval = 15; // 网络请求超时�
     }
     if ([LoginModel isLogin]) {
         [_netManager.requestSerializer setValue:[LoginModel curUserToken] forHTTPHeaderField:@"PHPSESSID"];
-        //NSLog(@"已登录的请求头 %@",_netManager.requestSerializer.HTTPRequestHeaders);
+        
+        NSLog(@"已登录的请求头 %@",_netManager.requestSerializer.HTTPRequestHeaders);
     }
     
     //打印请求数据

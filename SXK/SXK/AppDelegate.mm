@@ -58,7 +58,7 @@
     [[UMSocialManager defaultManager] openLog:YES];
     
     //设置友盟appkey
-    [[UMSocialManager defaultManager] setUmSocialAppkey:@"5859623907fe652882001f65"];
+    [[UMSocialManager defaultManager] setUmSocialAppkey:@"587ece4b65b6d616f6002e47"];
 
     //设置微信的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wx4bfb2d22ce82d40d" appSecret:@"6c5dcb4c683017363d5c580309ed1eff" redirectURL:@"http://mobile.umeng.com/social"];
@@ -68,7 +68,7 @@
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_QQ appKey:@"1105855252"  appSecret:@"zOjjoUfd6sC1MTlh" redirectURL:@"http://mobile.umeng.com/social"];
 
     //设置新浪的appKey和appSecret
-    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1084074774"  appSecret:@"04b48b094faeb16683c32669824ebdad" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
+    [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1084074774"  appSecret:@"26533dc2809fc7f5d6a0f1c2e0f68920" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
     
     return YES;
 }

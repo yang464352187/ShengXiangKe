@@ -56,7 +56,6 @@
     if (self.first == 0) {
         [self startLoadingView:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
         [self loadingRequest];
-        self.first = 1;
     }
 
     [_commentInputView addNotify];
@@ -97,6 +96,7 @@
         [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
         [weakSelf handleModels:self.listData andTotal:[data[@"total"] integerValue]];
         [weakSelf stopLoadingView];
+        self.first = 1;
 
     } failue:^(id data, NSError *error) {
         
@@ -142,11 +142,8 @@
         
         NSMutableArray *srcImages = [NSMutableArray array];
         
-        for (id dic in model.imgList) {
-            
-            if ([dic isKindOfClass:[NSDictionary class]]) {
-                [srcImages addObject: [NSString stringWithFormat:@"%@%@",APP_BASEIMG,dic[@"image"]]];
-            }
+        for (NSString *str in model.imgList) {
+            [srcImages addObject: [NSString stringWithFormat:@"%@%@",APP_BASEIMG,str]];
         }
         
         

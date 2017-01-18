@@ -52,7 +52,7 @@
             
             weakSelf.useridModel = [UserIdModel modelFromDictionary:data[@"user"]];
 
-            NSLog(@"qqqqqq%@qqqqq",describe(_useridModel));
+//            NSLog(@"qqqqqq%@qqqqq",describe(_useridModel));
             [weakSelf.tableView reloadData];
         } failue:^(id data, NSError *error) {
             

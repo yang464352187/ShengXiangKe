@@ -6,8 +6,8 @@
 //  Copyright © 2016年 ywk. All rights reserved.
 //
 
-#import "YTBaseTableVC.h"
+#import "LXViewSelectorController.h"
 
-@interface MyMaintainVC : YTBaseTableVC
+@interface MyMaintainVC : LXViewSelectorController
 
 @end

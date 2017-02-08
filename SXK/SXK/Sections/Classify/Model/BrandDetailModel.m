@@ -35,7 +35,9 @@
              @"marketPrice":@"marketPrice",
              @"rentPrice":@"rentPrice",
              @"brand":@"brand",
-             @"risk":@"risk"
+             @"risk":@"risk",
+             @"user":@"user",
+             @"category":@"category"
              
              };
 }

@@ -19,6 +19,7 @@
 #import "MQImageUtil.h"
 #import "MQToast.h"
 #import "TopicModel.h"
+#import "UserModel.h"
 
 @interface HomeVC ()<SDCycleScrollViewDelegate>
 
@@ -52,8 +53,6 @@
         
     }];
     
-    
-    
     [BaseRequest GetHomeClassListWithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
         self.dataArr = data[@"classList"];
 //        NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
@@ -67,12 +66,11 @@
 //        NSLog(@"%@",describe(data));
         self.topicArr = [TopicModel modelsFromArray:data[@"topicList"]];
         [weakSelf.tableView reloadData];
-
+        
     } failue:^(id data, NSError *error) {
         
     }];
 }
-
 
 
 - (void)viewDidLoad {
@@ -81,8 +79,8 @@
     self.view.backgroundColor = [UIColor redColor];
     self.navigationController.navigationBar.hidden = YES;
     [self.view addSubview:self.tableView];
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    [userDefaults setBool:NO forKey:kLoginState];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:NO forKey:kLoginState];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(CloseKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_BEGIN object:nil];
 
@@ -291,15 +289,18 @@
             k++;
         }
         
-        
         UIImage *leftImage = [UIImage imageNamed:@"交换箭头"];
         UIImage *rightImage = [UIImage imageNamed:@"啵呗秀"];
         
         UIButton *leftBtn1 = [UIButton buttonWithType:UIButtonTypeSystem];
         [leftBtn1 setImage:[leftImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        [leftBtn1 addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        leftBtn1.tag = 1000;
         
         UIButton *rightBtn1 = [UIButton buttonWithType:UIButtonTypeSystem];
         [rightBtn1 setImage:[rightImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        [rightBtn1 addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        rightBtn1.tag = 2000;
         
         leftBtn1.frame = VIEWFRAME(10, 361.0000/667*SCREEN_HIGHT, (SCREEN_WIDTH - 30)/2, CommonHight(150));
         rightBtn1.frame = VIEWFRAME(20+(SCREEN_WIDTH - 30)/2, 361.0000/667*SCREEN_HIGHT, (SCREEN_WIDTH - 30)/2, CommonHight(150));
@@ -326,7 +327,6 @@
         leftBtn.frame = CommonVIEWFRAME(0, 27, 50.5, 30);
         UIImage *image1 = [UIImage imageNamed:@"图层-158"];
         [leftBtn setImage:[image1 imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
-        //        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:leftBtn];
         
         UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -437,10 +437,13 @@
         }
             
         case 201:{
+            UserModel *model =   [LoginModel curLoginUser];
             MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
             [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
-            [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];
+            [chatViewManager setClientInfo:@{@"name":model.nickname,@"avatar":model.headimgurl} override:YES];
+            [chatViewManager setLoginCustomizedId:[NSString stringWithFormat:@"%@",model.userid]];
             [chatViewManager pushMQChatViewControllerInViewController:self];
+            
             break;
         }
         default:
@@ -460,6 +463,16 @@
     [IQKeyboardManager sharedManager].enableAutoToolbar = YES;
 }
 
+-(void)buttonClick:(UIButton *)sender
+{
+    NSDictionary *dic;
+    if (sender.tag == 1000) {
+        dic = @{@"title":@"来换包"};
+    }else{
+        dic = @{@"title":@"啵呗秀"};
+    }
+    [self PushViewControllerByClassName:@"ShowVC" info:dic];
+}
 
 /*
 #pragma mark - Navigation

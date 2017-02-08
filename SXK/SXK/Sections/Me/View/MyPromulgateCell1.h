@@ -8,6 +8,15 @@
 
 #import "BaseCell.h"
 
+@protocol MyPromulgateCell1Delegate <NSObject>
+
+-(void)returnIndex:(NSInteger)index;
+
+@end
+
 @interface MyPromulgateCell1 : BaseCell
+
+@property (nonatomic, assign)NSInteger index;
+@property (nonatomic, weak)id<MyPromulgateCell1Delegate>delegate;
 
 @end

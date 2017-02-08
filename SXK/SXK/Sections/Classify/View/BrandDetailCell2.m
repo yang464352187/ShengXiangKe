@@ -7,13 +7,14 @@
 //
 
 #import "BrandDetailCell2.h"
-#import "UserIdModel.h"
+#import "BrandDetailModel.h"
 
 @implementation BrandDetailCell2{
     UILabel *_label;
     UIImageView *_image;
     UIButton *_talkBtn;
     UIButton *_likeBtn;
+    NSInteger _userid;
 }
 
 /*
@@ -56,7 +57,7 @@
         _likeBtn.frame = VIEWFRAME(SCREEN_WIDTH - 130, 11, 50, 15);
         _likeBtn.titleLabel.font = SYSTEMFONT(12);
         _likeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
-        //    [talkBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_likeBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_likeBtn setTintColor:[UIColor blackColor]];
         
         [self addSubview:_image];
@@ -73,7 +74,7 @@
         [_label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
             make.left.equalTo(_image.mas_right).offset(10);
-            make.size.mas_equalTo(CGSizeMake(100, 66));
+            make.size.mas_equalTo(CGSizeMake(150, 66));
         }];
         
         [_talkBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -97,9 +98,22 @@
 
 -(void)setModel:(id)model
 {
-    UserIdModel *_model = model;
-    _label.text = [NSString stringWithFormat:@"啵主:%@",_model.nickname];
-    [_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.headimgurl]]];
+    BrandDetailModel *_model = model;
+    _label.text = [NSString stringWithFormat:@"啵主:%@",_model.user[@"nickname"]];
+    [_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.user[@"headimgurl"]]]];
+    _userid = [_model.userid integerValue];
+}
+
+
+-(void)buttonAction:(UIButton *)sender
+{
+    [BaseRequest AddFollowWithUserID:_userid succesBlock:^(id data) {
+        if ([data[@"code"] integerValue] == 1) {
+            [ProgressHUDHandler showHudTipStr:@"关注成功"];
+        }
+    } failue:^(id data, NSError *error) {
+        
+    }];
 }
 
 @end

@@ -77,7 +77,7 @@
     [self reSetSize:height];
 
     _content.text = _model.keyword;
-    _price.text = [NSString stringWithFormat:@"¥%lld",[_model.price longLongValue]];
+    _price.text = [NSString stringWithFormat:@"¥%.2f",[_model.price floatValue] / 100];
 }
 
 -(void)setModel1:(id)model

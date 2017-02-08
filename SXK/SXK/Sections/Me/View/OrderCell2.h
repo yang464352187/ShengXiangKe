@@ -8,6 +8,14 @@
 
 #import "BaseCell.h"
 
+@protocol OrderCell2Delegate <NSObject>
+
+-(void)SendTextValue:(NSString *)content;
+
+@end
+
 @interface OrderCell2 : BaseCell
+
+@property (nonatomic, weak)id <OrderCell2Delegate>delegate;
 
 @end

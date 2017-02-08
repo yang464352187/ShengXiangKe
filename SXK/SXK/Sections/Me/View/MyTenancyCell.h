@@ -8,8 +8,17 @@
 
 #import "BaseCell.h"
 
+@protocol MyTenancyDelegate <NSObject>
+
+-(void)returnIndex:(NSInteger)index;
+
+@end
+
+
 @interface MyTenancyCell : BaseCell
 
+@property (nonatomic, assign)NSInteger index;
+@property (nonatomic, weak)id<MyTenancyDelegate>delegate;
 
 -(void)reSetName;
 -(void)reName;

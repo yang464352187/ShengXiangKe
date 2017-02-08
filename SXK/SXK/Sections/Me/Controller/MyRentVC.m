@@ -10,12 +10,39 @@
 #import "MyTenancyCell.h"
 #import "MyTenancyCell1.h"
 #import "MyTenancyCell2.h"
+#import "MyTenancyCell3.h"
+#import "MyRentModel.h"
 
-@interface MyRentVC ()
+@interface MyRentVC ()<MyTenancyDelegate,MyTenancyCell3Delegate>
+
 @property (nonatomic, assign)NSInteger index;
+
 @end
 
 @implementation MyRentVC
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadingRequest];
+}
+
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf);
+    [BaseRequest GetRentorderListWithPageNo:0 PageSize:0 order:-1 status:self.index succesBlock:^(id data) {
+       
+        NSArray *models = [MyRentModel modelsFromArray:data[@"brandList"]];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+
+//        NSLog(@"%@",describe(models));
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,6 +55,8 @@
         [tableView registerClass:[MyTenancyCell class] forCellReuseIdentifier:@"MyTenancyCell"];
         [tableView registerClass:[MyTenancyCell1 class] forCellReuseIdentifier:@"MyTenancyCell1"];
         [tableView registerClass:[MyTenancyCell2 class] forCellReuseIdentifier:@"MyTenancyCell2"];
+        [tableView registerClass:[MyTenancyCell3 class] forCellReuseIdentifier:@"MyTenancyCell3"];
+
         tableView.showsVerticalScrollIndicator = NO;
         tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         tableView.tableFooterView = [[UIView alloc] init];
@@ -40,13 +69,14 @@
             self.tableView = tableView;
         }
     }
+    self.index = 2;
 
 }
 
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return self.listData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -54,36 +84,54 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    MyRentModel *model = self.listData[indexPath.section];
+    
     MyTenancyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
-    if (self.index == 3) {
+    cell.index = indexPath.section;
+    cell.delegate = self;
+    [cell setModel:model];
+
+    if (self.index == 4) {
         MyTenancyCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell1"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
-    }
-    if (self.index == 2) {
-        MyTenancyCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell2"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:model];
         
         return cell;
     }
-    if (self.index == 1) {
-        [cell reSetName];
+    
+    if (self.index == 3) {
+        MyTenancyCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell2"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:model];
+        
         return cell;
     }
-    [cell reName];
+    
+    if (self.index == 5) {
+        MyTenancyCell3 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell3"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:model];
+        cell.index = indexPath.section;
+        cell.delegate = self;
+
+        return cell;
+    }
+    
+    
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.index == 3) {
+    if (self.index == 5) {
         return 195;
     }
-    if (self.index == 2) {
-        return 205;
-    }
+    
+//    if (self.index == 3) {
+//        return 205;
+//    }
     
     return 180;
 }
@@ -119,11 +167,20 @@
         UITableView *tableView = self.tableViewArr[i];
         if (x/SCREEN_WIDTH == i) {
             self.tableView = tableView;
-            self.index = i ;
-            [self.tableView reloadData];
+            self.index = i+2;
+//            [self.tableView reloadData];
+            [self loadingRequest];
             break;
         }
     }
+}
+
+-(void)returnIndex:(NSInteger)index
+{
+    
+    [self.listData removeObjectAtIndex:index];
+    NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:index];
+    [self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
 }
 
 

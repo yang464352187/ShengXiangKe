@@ -16,11 +16,12 @@
 @property (nonatomic,strong)UIView *tipView;//位置提示条
 
 @property (strong,nonatomic) NSArray *originArray;
+@property (assign,nonatomic) NSInteger type;
 @end
 
 @implementation LXViewSelectorController
 
--(instancetype)initWithControllers:(NSArray<UIViewController*>*)controllers titles:(NSArray<NSString*>*)titles{
+-(instancetype)initWithControllers:(NSArray<UIViewController*>*)controllers titles:(NSArray<NSString*>*)titles type:(NSInteger)type{
     if (self = [super init]) {
         self.controllers = controllers;
         self.titles = titles;
@@ -29,6 +30,7 @@
         self.tipSize = CGSizeMake(40, 2);
         self.normalColor = [UIColor blackColor];
         self.selectedColor = APP_COLOR_GREEN;
+        self.type = type;
     }
     return self;
 }
@@ -48,18 +50,26 @@
     NSMutableArray<UIButton*> *buttons = [NSMutableArray array];
     CGFloat k = 0;
     self.tableViewArr = [[NSMutableArray alloc] init];
-    NSLog(@"");
+    self.ViewArr = [[NSMutableArray alloc] init];
+
     for (int i=0; i<self.controllers.count; i++) {
         UIViewController *vc = self.controllers[i];
         
         vc.view.frame = CGRectMake(i*self.showView.bounds.size.width, 0, self.showView.bounds.size.width, self.showView.bounds.size.height);
         vc.view.backgroundColor = [UIColor greenColor];
         
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.showView.bounds.size.width, self.showView.bounds.size.height) style:UITableViewStyleGrouped];
-        tableView.backgroundColor = [UIColor redColor];
-        [vc.view addSubview:tableView];
+        if (self.type == 1) {
+            UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.showView.bounds.size.width, self.showView.bounds.size.height) style:UITableViewStyleGrouped];
+            tableView.backgroundColor = [UIColor redColor];
+            [vc.view addSubview:tableView];
+            [self.tableViewArr addObject:tableView];
+        }else{
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.showView.bounds.size.width, self.showView.bounds.size.height) ];
+            [vc.view addSubview:view];
+            [self.ViewArr addObject:view];
+        }
         
-        [self.tableViewArr addObject:tableView];
+        
         [self.showView addSubview:vc.view];
         
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i*(self.selectorView.bounds.size.width/self.controllers.count), 0, self.selectorView.bounds.size.width/self.controllers.count, 38)];

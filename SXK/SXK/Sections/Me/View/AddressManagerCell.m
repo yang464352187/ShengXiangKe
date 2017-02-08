@@ -77,11 +77,6 @@
 
 -(void)selectAction:(UIButton *)sender
 {
-    [BaseRequest SetPretermitAddressWithRentID:1 ReceiverID:112 succesBlock:^(id data) {
-        NSLog(@"%@",data);
-    } failue:^(id data, NSError *error) {
-        
-    }];
 }
 
 - (void)setModel:(id)model{
@@ -90,10 +85,28 @@
     _nameLab.text = _model.name;
     _phoneLab.text = _model.mobile;
     _addressLab.text = [NSString stringWithFormat:@"%@%@%@%@",_model.state,_model.city,_model.district,_model.address];
+    UIImage *firstImage = [UIImage imageNamed:@"椭圆-12-拷贝-2"];
+    UIImage *secondImage = [UIImage imageNamed:@"椭圆-12-拷贝"];
+
+    if ([_model.isdefault integerValue] == 1) {
+        [_selectBtn setImage:[secondImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    }else{
+        [_selectBtn setImage:[firstImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    }
 //    NSLog(@"%lf",[_model.receiverid floatValue]);
 }
 
+-(void)select
+{
+    UIImage *secondImage = [UIImage imageNamed:@"椭圆-12-拷贝"];
+    [_selectBtn setImage:[secondImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+}
 
+-(void)DeSelect{
+    UIImage *firstImage = [UIImage imageNamed:@"椭圆-12-拷贝-2"];
+    [_selectBtn setImage:[firstImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
+}
 
 
 @end

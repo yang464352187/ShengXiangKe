@@ -12,15 +12,12 @@
 
 @implementation OrderCell1{
     UILabel *_rentLab;
-//    UILabel *_depositLab;
     UILabel *_rent;
-//    UILabel *_deposit;
     UIButton *_rentBtn;
     UIButton *_depositBtn;
     UIButton *_selectBtn;
     UILabel *_insurance;
     UIButton *_insuranceBtn;
-//    UILabel *_insurancePrice;
     BOOL _certain;
 }
 

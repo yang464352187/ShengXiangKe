@@ -19,7 +19,8 @@
              @"name":           @"name",
              @"receiverid":@"receiverid",
              @"state":@"state",
-             @"userid":@"userid"
+             @"userid":@"userid",
+             @"isdefault":@"isdefault"
              };
 }
 

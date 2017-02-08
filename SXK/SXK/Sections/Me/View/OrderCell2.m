@@ -9,6 +9,10 @@
 #import "OrderCell2.h"
 #import "FEPlaceHolderTextView.h"
 
+@interface OrderCell2 ()<UITextViewDelegate>
+
+@end
+
 @implementation OrderCell2{
     FEPlaceHolderTextView *_content;
 }
@@ -30,7 +34,7 @@
         _content.placeholderColor = [UIColor colorWithHexColorString:@"b6b6b6"];
         [_content setFont:SYSTEMFONT(13)];
         _content.placeholder =  @"给啵主留言(最多250字)";
-        
+        _content.delegate = self;
         [self addSubview:_content];
         
         [_content mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -44,5 +48,10 @@
     return  self;
 }
 
+- (void)textViewDidEndEditing:(UITextView *)textView;
+{
+   
+    [_delegate SendTextValue:textView.text ];
+}
 
 @end

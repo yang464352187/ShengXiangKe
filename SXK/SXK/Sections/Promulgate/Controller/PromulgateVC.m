@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSMutableArray *uploadPhotoArr;
 @property (nonatomic, strong) NSMutableDictionary *dataDic;
 @property (nonatomic, assign) NSInteger selectCategory;
+@property (nonatomic, assign) NSInteger categoryid;
 @property (nonatomic, strong) NSArray *dataArr;
 @property (nonatomic, strong) NSArray *enclosure;
 @property (nonatomic, strong) NSArray *qualityArr;
@@ -368,6 +369,7 @@
         
         if ([text.userInfo[@"class"] isEqualToString:@"类别"]) {
             self.selectCategory = [text.userInfo[@"categoryid"] integerValue];
+            self.categoryid = [text.userInfo[@"category"] integerValue];
             self.category = text.userInfo[@"name"];
             self.enclosure = nil;
         }
@@ -417,6 +419,8 @@
         NSData *image1 = UIImageJPEGRepresentation(image, 0.5);
         [photo addObject:image1];
     }
+    [self.uploadPhotoArr removeAllObjects];
+    
     
 //    _weekSelf(weakSelf);
     [CustomHUD createHudCustomShowContent:@"发布中"];
@@ -439,12 +443,17 @@
             [params setValue:self.descrip forKey:@"keyword"];
             [params setValue:@([self.price integerValue]) forKey:@"counterPrice"];
             [params setValue:self.uploadPhotoArr forKey:@"imgList"];
-            [params setValue:@(self.selectCategory) forKey:@"categoryid"];
+            [params setValue:@(self.categoryid) forKey:@"categoryid"];
             [params setValue:self.content.text forKey:@"description"];
             [params setValue:self.color forKey:@"color"];
             [params setValue:@(self.quality) forKey:@"condition"];
             [params setValue:@(self.person) forKey:@"crowd"];
-            [params setValue:self.enclosure forKey:@"attachList"];
+            if (self.enclosure.count < 1) {
+                [params setValue:@{} forKey:@"attachList"];
+            }else{
+                [params setValue:self.enclosure forKey:@"attachList"];
+            }
+        
             [params setObject:@(self.brand) forKey:@"brandid"];
             [BaseRequest ReleaseProductWithParams:params succesBlock:^(id data) {
             [CustomHUD stopHidden];

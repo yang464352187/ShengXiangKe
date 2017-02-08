@@ -7,7 +7,7 @@
 //
 
 #import "MyTenancyCell2.h"
-
+#import "MyRentModel.h"
 @implementation MyTenancyCell2{
     UIImageView *_headImageView;
     UILabel *_title;
@@ -16,10 +16,11 @@
     UILabel *_priceTitle;
     UILabel *_marketPrice;
     UILabel *_orderNum;
-    UILabel *_backOrderNum;
+//    UILabel *_backOrderNum;
     UIButton *_button;
     UIButton *_button1;
-
+    NSNumber *_orderid;
+    NSNumber *_rentid;
 }
 
 
@@ -73,26 +74,27 @@
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(12)
                                  andTextAlignment:NSTextAlignmentLeft];
-        _backOrderNum = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"退回 8231748971238947109"
-                                         andTextColor:[UIColor blackColor]
-                                           andBgColor:[UIColor clearColor]
-                                              andFont:SYSTEMFONT(12)
-                                     andTextAlignment:NSTextAlignmentLeft];
+//        _backOrderNum = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"退回 8231748971238947109"
+//                                         andTextColor:[UIColor blackColor]
+//                                           andBgColor:[UIColor clearColor]
+//                                              andFont:SYSTEMFONT(12)
+//                                     andTextAlignment:NSTextAlignmentLeft];
         
         
         _content.numberOfLines = 0;
         [_content sizeToFit];
         
         _button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_button setTitle:@"续租" forState:UIControlStateNormal];
+        [_button setTitle:@"退回" forState:UIControlStateNormal];
         [_button setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+        [_button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
         _button1 = [UIButton buttonWithType:UIButtonTypeSystem];
         [_button1 setTitle:@"购买" forState:UIControlStateNormal];
-        [_button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_button1 setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
 
         ViewBorderRadius(_button, 5, 0.5, APP_COLOR_GREEN);
-        ViewBorderRadius(_button1, 5, 0.5, [UIColor blackColor]);
+        ViewBorderRadius(_button1, 5, 0.5, APP_COLOR_GREEN);
         
         [self addSubview:_headImageView];
         [self addSubview:_title];
@@ -101,7 +103,7 @@
         [self addSubview:_priceTitle];
         [self addSubview:_marketPrice];
         [self addSubview:_orderNum];
-        [self addSubview:_backOrderNum];
+//        [self addSubview:_backOrderNum];
         [self addSubview:_button];
         [self addSubview:_button1];
 
@@ -156,14 +158,12 @@
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 200, 13));
         }];
         
-        [_backOrderNum mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.mas_right).offset(-25);
-            make.top.equalTo(_orderNum.mas_bottom).offset(5);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 200, 13));
-        }];
-        
-        
-        
+//        [_backOrderNum mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.equalTo(self.mas_right).offset(-25);
+//            make.top.equalTo(_orderNum.mas_bottom).offset(5);
+//            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 200, 13));
+//        }];
+    
         [_button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.mas_right).offset(-20);
             make.bottom.equalTo(self.mas_bottom).offset(-15);
@@ -178,6 +178,28 @@
         
     }
     return  self;
+}
+-(void)setModel:(id)model
+{
+    MyRentModel *_model = model;
+    _title.text = _model.rent[@"name"];
+    _content.text = _model.rent[@"keyword"];
+    _price.text = [NSString stringWithFormat:@"¥%.2f",[_model.rent[@"rentPrice"] floatValue] / 100];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.rent[@"img"]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
+    _marketPrice.text = [NSString stringWithFormat:@"市场价 ¥%.2f",[_model.rent[@"marketPrice"] floatValue] / 100];
+    _orderNum.text = [NSString stringWithFormat:@"单号 %@",_model.oddNumber];
+    _orderid = _model.orderid;
+    _rentid = _model.rentid;
+}
+
+
+-(void)buttonClick:(UIButton *)sender
+{
+    NSDictionary *dic = @{
+                          @"orderid":_orderid,
+                          @"rentid":_rentid,
+                          };
+    [[PushManager sharedManager] pushToVCWithClassName:@"OrderReturnVC" info:dic];
 }
 
 

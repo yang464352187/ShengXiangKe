@@ -11,5 +11,6 @@
 @interface CommunityCollectionCell : UICollectionViewCell
 
 
+
 -(void)setModel:(id)model;
 @end

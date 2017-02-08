@@ -208,24 +208,10 @@
     BrandDetailModel *_model = model;
     
     //根据brandid选择品牌
-    NSInteger brandid = [_model.brandid integerValue];
-    NSArray *array = DEFAULTS_GET_OBJ(@"brand");
-    for (NSDictionary *dic in array) {
-        NSInteger brandID = [dic[@"brandid"] integerValue];
-        if (brandid == brandID) {
-            _brand1.text = [NSString stringWithFormat:@"%@",dic[@"name"]];
-        }
-    }
-    
+    _brand1.text = [NSString stringWithFormat:@"%@",_model.brand[@"name"]];
+
     //根据categoryid选择类别
-    NSInteger categoryid = [_model.categoryid integerValue];
-    NSArray *categoryArr = DEFAULTS_GET_OBJ(@"category");
-    for (NSDictionary *dic in categoryArr) {
-        NSInteger categoryID = [dic[@"categoryid"] integerValue];
-        if (categoryid == categoryID) {
-            _category1.text = [NSString stringWithFormat:@"%@",dic[@"name"]];
-        }
-    }
+    _category1.text = [NSString stringWithFormat:@"%@",_model.category[@"name"]];
     
     //产品新旧
     NSArray *qualityArr = [[NSArray alloc] initWithObjects:@"99成新（未使用）",@"98成新",@"95成新",@"9成新",@"85成新",@"8成新", nil];

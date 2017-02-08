@@ -99,7 +99,7 @@
             
             [BaseRequest AddCommunityTopicWithContent:self.content.text imgList:self.uploadPhotoArr moduleid:self.type succesBlock:^(id data) {
                 [weakSelf popGoBack];
-                NSLog(@"---------%@-----------",describe(data));
+//                NSLog(@"---------%@-----------",describe(data));
                 [CustomHUD stopHidden];
                 [ProgressHUDHandler showHudTipStr:@"发布成功"];
 

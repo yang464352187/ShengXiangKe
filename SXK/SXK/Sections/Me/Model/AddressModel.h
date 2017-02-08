@@ -11,6 +11,6 @@
 @interface AddressModel : BaseModel
 
 @property (nonatomic, strong)NSString *address,*city,*district,*name,*state,*mobile;
-@property (nonatomic, strong)NSNumber *receiverid,*userid;
+@property (nonatomic, strong)NSNumber *receiverid,*userid,*isdefault;
 
 @end

@@ -7,6 +7,14 @@
 //
 
 #import "ExchangeVC.h"
+#import "MQChatViewManager.h"
+#import "MQChatDeviceUtil.h"
+#import <MeiQiaSDK/MeiQiaSDK.h>
+#import "NSArray+MQFunctional.h"
+#import "MQBundleUtil.h"
+#import "MQAssetUtil.h"
+#import "MQImageUtil.h"
+#import "MQToast.h"
 
 @interface ExchangeVC ()
 
@@ -29,7 +37,7 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn setTitle:@"发起咨询" forState:UIControlStateNormal];
     [btn setTintColor:[UIColor colorWithHexColorString:@"2c2c2c"]];
-    
+    [btn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
 //    ViewRadius(btn , 35/2);
     ViewBorderRadius(btn, 17.5, 0.5, [UIColor colorWithHexColorString:@"656565"]);
     
@@ -50,6 +58,15 @@
          make.size.mas_equalTo(CGSizeMake(121, 35));
      }];
     
+}
+
+-(void)btnAction:(UIButton *)sender
+{
+    MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
+    [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
+    [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];
+    [chatViewManager pushMQChatViewControllerInViewController:self];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong)UIView *alertView3;
 
+@property (nonatomic, strong)UIView *alertView4;
+
 @property (nonatomic, strong)UILabel *titleLab;
 
 @property (nonatomic, strong)UILabel *titleLab1;
@@ -294,7 +296,6 @@
     
     
     
-    
 }
 
 -(void)show2
@@ -496,6 +497,16 @@
         self.titleLab2.text = @"";
     }
     
+    if ([title isEqualToString:@"修改单号"]) {
+        self.text.text = nil;
+        self.text.placeholder = @"请输入单号";
+        self.titleLab.text = title;
+        self.text.keyboardType = UIKeyboardTypeDefault;
+        self.titleLab1.text = @"";
+        self.titleLab2.text = @"";
+    }
+
+    
     if ([title isEqualToString:@"手机号码"]) {
         self.text.text=nil;
         self.text.placeholder = @"请输入手机号码";
@@ -628,15 +639,29 @@
             NSDictionary *params = @{@"birthday":@(time)};
             [self loadRequest:params];
 
-            NSLog(@"%ld",time);
+//            NSLog(@"%ld",time);
 //            NSDictionary *params = @{@"nickname":[NSString stringWithFormat:@"%@-%@",self.year,self.month]};
 //            [self loadRequest:params];
-        }else{
+        }else if ([self.titleLab.text isEqualToString:@"修改单号"]){
+            [_delegate sendInfo:self.text.text andType:1];
+            [BaseRequest RecoverOrderWithRentID:self.rentid oddNumber:self.text.text succesBlock:^(id data) {
+                [ProgressHUDHandler showHudTipStr:@"更改成功"];
+                [self disMiss];
+                
+            } failue:^(id data, NSError *error) {
+                
+            }];
+
+        }
+        else{
             [_delegate sendInfo:self.text.text andType:2];
             NSDictionary *params = @{@"sex":[NSString stringWithFormat:@"%@-%@",self.year,self.month]};
             [self loadRequest:params];
  
         }
+        
+        
+        
     }
     [self disMiss];
 
@@ -645,7 +670,7 @@
 -(void)loadRequest:(NSDictionary *)params
 {
     [BaseRequest SetPersonalInfoWithParams:params succesBlock:^(id data) {
-        NSLog(@"%@",data);
+//        NSLog(@"%@",data);
     } failue:^(id data, NSError *error) {
         
     }];

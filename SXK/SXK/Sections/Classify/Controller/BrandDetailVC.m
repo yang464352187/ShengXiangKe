@@ -44,21 +44,10 @@
         weakSelf.dataDic = [model transformToDictionary];
         weakSelf.model = model;
         self.cellHeight = [UILabel getHeightByWidth:SCREEN_WIDTH - 30 title:model.description1 font:SYSTEMFONT(13)];
-//        NSString 
         
-        NSLog(@"=========%@=======",describe(model));
-        [BaseRequest GetUserWithuserID:[_model.userid integerValue] succesBlock:^(id data) {
-    
-            
-            weakSelf.useridModel = [UserIdModel modelFromDictionary:data[@"user"]];
-
-//            NSLog(@"qqqqqq%@qqqqq",describe(_useridModel));
-            [weakSelf.tableView reloadData];
-        } failue:^(id data, NSError *error) {
-            
-        }];
+//        NSLog(@"=========%@=======",describe(model));
         [weakSelf initData];
-
+        [weakSelf.tableView reloadData];
         NSMutableArray *imgArr = [[NSMutableArray alloc] init];
         for (NSString *img in weakSelf.model.imgList) {
             NSString *image = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,img];
@@ -79,7 +68,7 @@
 //        NSLog(@"-----------%@--------",describe(self.dataDic));
         self.titleLab.text = self.dataDic[@"name"];
         self.content.text = [NSString stringWithFormat:@"%@ %@",array[[self.dataDic[@"condition"] integerValue]],self.dataDic[@"keyword"]];
-        CGFloat rentPrice = [self.dataDic[@"rentPrice"] integerValue] / 100;
+        CGFloat rentPrice = [self.dataDic[@"rentPrice"] floatValue] / 100;
         NSString *minRent = [NSString stringWithFormat:@"最低租价:¥%.2lf/天",rentPrice];
         NSString *price = [NSString stringWithFormat:@"¥%.2lf",rentPrice];
         CGFloat width = [UILabel getWidthWithTitle:@"最低租价:/天" font:SYSTEMFONT(13)];
@@ -90,7 +79,7 @@
         ForegroundColorAttribute *fullColor = [ForegroundColorAttribute new];
         fullColor.color                     = APP_COLOR_GREEN;
         fullColor.effectRange               = NSMakeRange(5, minRent.length -5);
-        self.minRentPrice.attributedText = [minRent mutableAttributedStringWithStringAttributes:@[fullFont,                                                                                     fullColor]];
+        self.minRentPrice.attributedText = [minRent mutableAttributedStringWithStringAttributes:@[fullFont,fullColor]];
         CGFloat markPrice1 = [self.dataDic[@"marketPrice"] floatValue]/100;
         self.markPrice.text = [NSString stringWithFormat:@"市场价:¥%.2lf",markPrice1];
         
@@ -194,7 +183,7 @@
     }
     
     BrandDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell2"];
-    [cell setModel:self.useridModel];
+    [cell setModel:self.model];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -434,6 +423,7 @@
         UIImage *image = [UIImage imageNamed:@"嘴型@2x"];
         [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         [btn setTitle:@"啵一个" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(likeAciton:) forControlEvents:UIControlEventTouchUpInside];
         btn.titleLabel.font = SYSTEMFONT(13);
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         btn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 20, -40);
@@ -506,6 +496,18 @@
 -(void)buttonClick:(UIButton *)sender
 {
     [self PushViewControllerByClassName:@"OrderVC" info:self.dataDic];
+}
+
+-(void)likeAciton:(UIButton *)sender
+{
+    [BaseRequest AddKeepWithRentID:[self.model.rentid integerValue] succesBlock:^(id data) {
+        if ([data[@"code"] integerValue] == 1) {
+            [ProgressHUDHandler showHudTipStr:@"收藏成功"];
+        }
+
+    } failue:^(id data, NSError *error) {
+        
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

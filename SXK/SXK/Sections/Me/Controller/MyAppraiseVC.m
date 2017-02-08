@@ -14,12 +14,28 @@
 
 @implementation MyAppraiseVC
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadingRequest];
+}
+
+-(void)loadingRequest
+{
+    _weekSelf(weakSelf);
+    [BaseRequest GetMyAppraiseListWithPageNo:0 PageSize:0 order:-1 status:2 succesBlock:^(id data) {
+        NSLog(@"%@",describe(data));
+    } failue:^(id data, NSError *error) {
+        
+    }];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的鉴定";
-
-
+    
 }
 
 - (void)didReceiveMemoryWarning {

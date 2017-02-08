@@ -11,6 +11,8 @@
 @interface AddressManagerCell : BaseCell
 
 
+-(void)select;
+-(void)DeSelect;
 
 
 @end

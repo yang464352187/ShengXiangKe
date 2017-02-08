@@ -501,13 +501,14 @@
  *  获取话题列表
  *  @param pageNo       页码
  *  @param pageSize     页数
- *  @param topicid        订单
+ *  @param topicid      订单
  *  @param successBlock 成功回调
  *  @param failueBlock  失败回调
  */
 + (void)GetCommunityTopicListWithPageNo:(NSInteger)pageNo
                                PageSize:(NSInteger)pageSize
                                 topicid:(NSInteger)topicid
+                               moduleid:(NSInteger)moduleid
                             succesBlock:(SuccessBlock)successBlock
                                  failue:(FailureBlock)failueBlock;
 {
@@ -516,7 +517,9 @@
                           };
     NSDictionary *params = @{@"pageNo":@(pageNo),
                              @"pageSize":@(pageSize),
-                             @"order":dic};
+                             @"order":dic,
+                             @"moduleid":@(moduleid)
+                             };
     
     [self requestPostCommonWithPath:APPINTERFACE__GetCommunityTopicList Params:params succesBlock:^(id data) {
         //        //登录成功
@@ -686,8 +689,6 @@
     [self requestPostCommonWithPath:APPINTERFACE__SetPersonalInfo Params:params succesBlock:^(id data) {
         
         UserModel *user = [LoginModel curLoginUser];
-        
-        
 
         [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
             if ([key isEqualToString:@"nickname"]) {
@@ -896,7 +897,7 @@
 }
 
 /**
- *  获取我的租赁列表
+ *  获取我的发布列表
  *  @param pageNo       页码
  *  @param pageSize     页数
  *  @param order        订单
@@ -917,7 +918,7 @@
     NSDictionary *params = @{@"pageNo":@(pageNo),
                              @"pageSize":@(pageSize),
                              @"order":dic,
-                             @"own":@"1",
+                             @"own":@(1),
                              @"status":@(status)
                              };
     
@@ -929,6 +930,42 @@
     } failue:failueBlock];
 
 }
+
+/**
+ *  获取我的养护列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetRentorderListWithPageNo:(NSInteger)pageNo
+                        PageSize:(NSInteger)pageSize
+                           order:(NSInteger)order
+                          status:(NSInteger)status
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"orderid":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic,
+                             @"own":@(1),
+                             @"status":@(status)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetRentorderList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
 
 /**
  *  获取租赁列表
@@ -1195,7 +1232,6 @@
                              @"order":dic};
     
     [self requestPostCommonWithPath:APPINTERFACE__HomeClassList Params:params succesBlock:^(id data) {
-        //        //登录成功
         
         if (successBlock) {
             successBlock(data);
@@ -1216,7 +1252,6 @@
 {
     NSDictionary *params = @{@"classid":@(classid)};
     [self requestPostCommonWithPath:APPINTERFACE__HomeClass Params:params succesBlock:^(id data) {
-        //        //登录成功
         
         if (successBlock) {
             successBlock(data);
@@ -1247,7 +1282,6 @@
                              @"order":dic};
     
     [self requestPostCommonWithPath:APPINTERFACE__HomeTopicList Params:params succesBlock:^(id data) {
-        //        //登录成功
         
         if (successBlock) {
             successBlock(data);
@@ -1266,7 +1300,6 @@
                          failue:(FailureBlock)failueBlock;{
     NSDictionary *params = @{@"topicid":@(topicid)};
     [self requestPostCommonWithPath:APPINTERFACE__HomeTopic Params:params succesBlock:^(id data) {
-        //        //登录成功
         
         if (successBlock) {
             successBlock(data);
@@ -1277,7 +1310,7 @@
 
 
 /**
- *  获取话题
+ *  第三方登录
  *  @param openid       ID
  *  @param nickname     昵称
  *  @param headimgurl   头像地址
@@ -1299,7 +1332,6 @@
                              };
     
     [self requestPostCommonWithPath:APPINTERFACE__ThirdLogin Params:params succesBlock:^(id data) {
-        //        //登录成功
         [LoginModel doLogin:data];
 
         if (successBlock) {
@@ -1309,6 +1341,584 @@
 
 }
 
+/**
+ *  获取默认地址
+ *  @param receiverid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetAddressWithReceiverid:(NSInteger)receiverid
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{};
+    [self requestPostCommonWithPath:APPINTERFACE__GetAddress Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+/**
+ *  获取问答列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetQuestionListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"sort":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic};
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetQuestionList Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+/**
+ *  获取服务中心详情
+ *  @param setupid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetServiceDetailWithSetupID:(NSInteger)setupid
+                                url:(NSString *)url
+                        succesBlock:(SuccessBlock)successBlock
+                             failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(setupid)};
+    [self requestPostCommonWithPath:url Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
+
+/**
+ *  添加关注
+ *  @param userid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AddFollowWithUserID:(NSInteger)userid
+                succesBlock:(SuccessBlock)successBlock
+                     failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"userid":@(userid)};
+    [self requestPostCommonWithPath:APPINTERFACE__AddFollow Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  关注列表
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetFollowListsuccesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{};
+    [self requestPostCommonWithPath:APPINTERFACE__GetFollowList Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+/**
+ *  添加关注
+ *  @param userid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)DeleteFollowWithUserID:(NSInteger)userid
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"userid":@(userid)};
+    [self requestPostCommonWithPath:APPINTERFACE__DeleteFollow Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+
+/**
+ *  收藏
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AddKeepWithRentID:(NSInteger)rentid
+              succesBlock:(SuccessBlock)successBlock
+                   failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"rentid":@(rentid)};
+    [self requestPostCommonWithPath:APPINTERFACE__AddKeep Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+
+/**
+ *  收藏列表
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetKeepListsuccesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{};
+    [self requestPostCommonWithPath:APPINTERFACE__GetKeepList Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+/**
+ *  取消关注
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)CancelKeepWithRentID:(NSInteger)rentid
+                 succesBlock:(SuccessBlock)successBlock
+                      failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"rentid":@(rentid)};
+    [self requestPostCommonWithPath:APPINTERFACE__CancelKeep Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  创建养护订单
+ *  @param maintainid   养护ID
+ *  @param receiverid   地址ID
+ *  @param price        价格
+ *  @param message      留言
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)CreateMaintainWithMaintainid:(NSInteger)maintainid
+                          receiverid:(NSInteger)receiverid
+                               price:(NSInteger)price
+                             message:(NSString *)message
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"maintainid":@(maintainid),
+                             @"receiverid":@(receiverid),
+                             @"total":@(price),
+                             @"message":message
+                             };
+    [self requestPostCommonWithPath:APPINTERFACE__CreateMaintainOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  身份认证
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)VerifyIdetityWithParams:(NSDictionary *)params
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+{
+    [self requestPostCommonWithPath:APPINTERFACE__SetPersonalInfo Params:params succesBlock:^(id data) {
+        if (successBlock) {
+            successBlock(data);
+        }
+
+    } failue:failueBlock];
+
+}
+
+/**
+ *  删除租赁订单
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)DeleteRentOrderWithRentID:(NSInteger)rentid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"rentid":@(rentid)};
+    [self requestPostCommonWithPath:APPINTERFACE__DeleteRentOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  下架租赁订单
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)UnderCarriageOrderWithRentID:(NSInteger)rentid
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+{
+    
+    NSDictionary *params = @{
+                             @"rentid":@(rentid),
+                             @"status":@(4)
+                             };
+    [self requestPostCommonWithPath:APPINTERFACE__ChangeRentOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+/**
+ *  确认回收订单
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)RecoverOrderWithRentID:(NSInteger)rentid
+                     oddNumber:(NSString *)oddNumber
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params;
+    if (oddNumber.length == 0 ) {
+        params = @{
+                    @"rentid":@(rentid),
+                    @"status":@(2),
+                };
+    }else{
+        params = @{
+                    @"rentid":@(rentid),
+                    @"status":@(2),
+                    @"oddNumber":oddNumber,
+                };
+    }
+    
+    [self requestPostCommonWithPath:APPINTERFACE__ChangeRentOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  获取我的养护列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetMyMaintainListWithPageNo:(NSInteger)pageNo
+                           PageSize:(NSInteger)pageSize
+                              order:(NSInteger)order
+                             status:(NSInteger)status
+                        succesBlock:(SuccessBlock)successBlock
+                             failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"orderid":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic,
+                             @"own":@(1),
+                             @"status":@(status)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetMyMaintainList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  确认养护订单
+ *  @param orderid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ConfirmMyMaintainOrderWithOrderID:(NSInteger)orderid
+                              succesBlock:(SuccessBlock)successBlock
+                                   failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{
+                             @"orderid":@(orderid),
+                             @"status":@(3),
+                             };
+    [self requestPostCommonWithPath:APPINTERFACE__ConfirmMyMaintainOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+
+/**
+ *  获取我的鉴定列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetMyAppraiseListWithPageNo:(NSInteger)pageNo
+                           PageSize:(NSInteger)pageSize
+                              order:(NSInteger)order
+                             status:(NSInteger)status
+                        succesBlock:(SuccessBlock)successBlock
+                             failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"orderid":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic,
+                             @"status":@(status)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__GetMyAppraiseList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+/**
+ *  创建鉴定订单
+ *  @param receiverid   地址id
+ *  @param brandid      品牌id
+ *  @param genreid      类别id
+ *  @param total        价格
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)CreateAppraiseOrderWithReceiverid:(NSInteger)receiverid
+                                  brandid:(NSInteger)brandid
+                                  genreid:(NSInteger)genreid
+                                    total:(NSInteger)total
+                              succesBlock:(SuccessBlock)successBlock
+                                   failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{
+                             @"receiverid":@(receiverid),
+                             @"brandid":@(brandid),
+                             @"genreid":@(genreid),
+                             @"total":@(total),
+                             @"setupid":@(1)
+                             };
+    [self requestPostCommonWithPath:APPINTERFACE__CreateAppraiseOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
+/**
+ *  获取啵呗秀列表
+ *  @param setupid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetShowSetupListWithSetupID:(NSInteger)setupid
+                        succesBlock:(SuccessBlock)successBlock
+                             failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(setupid)};
+    [self requestPostCommonWithPath:APPINTERFACE__HomeShowSetupList Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  获取来换包列表
+ *  @param setupid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetSwapSetupListWithSetupID:(NSInteger)setupid
+                        succesBlock:(SuccessBlock)successBlock
+                             failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"setupid":@(setupid)};
+    [self requestPostCommonWithPath:APPINTERFACE__HomeSwapSetupList Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+
+}
+
+
+/**
+ *  确认收货
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ConfirmOrderWithRentID:(NSInteger)rentid
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+{
+       NSDictionary * params = @{
+                   @"orderid":@(rentid),
+                   @"status":@(3),
+                                };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__ConfirmMyRentOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
+/**
+ *  退回
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ConfirmOrderWithRentID:(NSInteger)rentid
+                 backOddNumber:(NSString *)backOddNumber
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+{
+    NSDictionary * params = @{
+                              @"orderid":@(rentid),
+//                              @"status":@(3),
+                              @"backOddNumber":backOddNumber,
+                              };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__ConfirmMyRentOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+}
+
+/**
+ *  发布评论
+ *  @param content      内容
+ *  @param imgList      图片
+ *  @param orderid     ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AddRentCommentWithContent:(NSString *)content
+                          imgList:(NSArray *)imgList
+                          orderid:(NSInteger)orderid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    
+    NSMutableArray *imgArr = [[NSMutableArray alloc] init];
+    for (int i = 0; i < imgList.count; i++) {
+        NSString *str = imgList[i];
+        
+        //        NSMutableDictionary *dic = [[NSMutableDictionary alloc] init];
+        //        [dic setValue:str forKey:@"image"];
+        [imgArr addObject:str];
+    }
+    
+    NSDictionary *params = @{
+                             @"content" :content,
+                             @"imgList" :imgArr,
+                             @"orderid":@(orderid)
+                             };
+    
+    
+    [self requestPostCommonWithPath:APPINTERFAXE__RentComment Params:params succesBlock:^(id data) {
+        //        //登录成功
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+        
+    } failue:failueBlock];
+
+}
 
 
 @end

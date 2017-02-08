@@ -8,7 +8,12 @@
 
 #import "MyPromulgateCell.h"
 #import "MyPromulgateModel.h"
+#import "PopView1.h"
 
+@interface MyPromulgateCell()<PopView1Delegate>
+
+
+@end
 @implementation MyPromulgateCell{
     UIImageView *_headImageView;
     UILabel *_title;
@@ -17,6 +22,10 @@
     UILabel *_priceTitle;
     UILabel *_marketPrice;
     UIButton *_button;
+    NSInteger _rentid;
+    PopView1 *_popView;
+    NSString *_title1;
+
 }
 
 
@@ -69,7 +78,11 @@
         _button = [UIButton buttonWithType:UIButtonTypeSystem];
         [_button setTitle:@"下架" forState:UIControlStateNormal];
         [_button setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+        [_button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         ViewBorderRadius(_button, 5, 0.5, APP_COLOR_GREEN);
+        
+        _popView =  [[PopView1 alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+        _popView.delegate = self;
         
         [self addSubview:_headImageView];
         [self addSubview:_title];
@@ -78,12 +91,6 @@
         [self addSubview:_priceTitle];
         [self addSubview:_marketPrice];
         [self addSubview:_button];
-        
-        
-        
-
-        
-        
         
     }
     return  self;
@@ -104,6 +111,9 @@
 
     _price.text = [NSString stringWithFormat:@"%lld",[_model.rentPrice longLongValue]];
     _marketPrice.text = [NSString stringWithFormat:@"市场价:%lld",[_model.marketPrice longLongValue]];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.imgList[0]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
+    _rentid = [_model.rentid integerValue];
+
 }
 -(void)reSetSize:(CGFloat)height
 {
@@ -162,7 +172,25 @@
 -(void)reName:(NSString *)title
 {
     [_button setTitle:title forState:UIControlStateNormal];
+    _title1 = title;
+}
 
+-(void)buttonAction:(UIButton *)sender
+{
+    if ([_title1 isEqualToString:@"删除"]) {
+        [_popView changeTitle:@"是否删除订单?" andIdex:_rentid];
+    }else{
+        [_popView changeTitle:@"是否下架商品?" andIdex:_rentid];
+    }
+    [_popView show];
+
+}
+
+-(void)success
+{
+    if ([self.delegate respondsToSelector:@selector(returnIndex:)]) {
+        [self.delegate returnIndex:self.index];
+    }
 }
 
 @end

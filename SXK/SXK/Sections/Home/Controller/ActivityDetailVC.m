@@ -38,7 +38,7 @@
 {
     
     NSNumber *activity = self.myDict[@"activityid"];
-
+    
     _weekSelf(weakSelf);
     [BaseRequest GetActivityDetailWithActivityID:[activity integerValue] succesBlock:^(id data) {
         NSDictionary *dic = data[@"activity"];
@@ -46,6 +46,7 @@
     } failue:^(id data, NSError *error) {
         
     }];
+    
 }
 
 
@@ -70,13 +71,14 @@
                                       andFont:SYSTEMFONT(14)
                              andTextAlignment:NSTextAlignmentCenter];
     
+    
     self.addressLab = [UILabel createLabelWithFrame:VIEWFRAME(0,261.5, SCREEN_WIDTH, 11)
                                           andText:@"福建省厦门市思明区厦门国际会计学院"
                                      andTextColor:APP_COLOR_GRAY_Font
                                        andBgColor:[UIColor clearColor]
                                           andFont:SYSTEMFONT(11)
                                  andTextAlignment:NSTextAlignmentCenter];
-
+    
     self.timeLab = [UILabel createLabelWithFrame:VIEWFRAME(0,283.5, SCREEN_WIDTH, 11)
                                           andText:@"2016-06-18   18:00"
                                      andTextColor:APP_COLOR_GRAY_Font
@@ -84,6 +86,7 @@
                                           andFont:SYSTEMFONT(11)
                                  andTextAlignment:NSTextAlignmentCenter];
 
+    
     self.detailLab = [UILabel createLabelWithFrame:VIEWFRAME(0,283.5, SCREEN_WIDTH, 13)
                                               andText:@"详情"
                                          andTextColor:APP_COLOR_GRAY_Font
@@ -91,11 +94,14 @@
                                               andFont:SYSTEMFONT(13)
                                      andTextAlignment:NSTextAlignmentCenter];
     
+    
     UIView *leftLine = [[UIView alloc] init];
     leftLine.backgroundColor = APP_COLOR_GRAY_Line;
     
+    
     UIView *rightLine = [[UIView alloc] init];
     rightLine.backgroundColor = APP_COLOR_GRAY_Line;
+    
     
     self.contentLab = [UILabel createLabelWithFrame:VIEWFRAME(15,283.5, 30, 13)
                                             andText:@"详情"
@@ -107,7 +113,6 @@
     
     NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
     style.headIndent = 20;//缩进
-    
     
     [self.myScrollView addSubview:self.headImage];
     [self.myScrollView addSubview:self.titleLab];

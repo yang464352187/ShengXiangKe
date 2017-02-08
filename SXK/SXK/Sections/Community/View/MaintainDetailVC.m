@@ -16,6 +16,8 @@
 @property(nonatomic, strong)NSMutableArray *dataArr;
 
 @property(nonatomic, assign)CGFloat cellHeight;
+
+@property(nonatomic, strong)MaintainCellModel *model;
 @end
 
 @implementation MaintainDetailVC
@@ -29,6 +31,7 @@
     [BaseRequest GetMaintainWithMaintainid:[self.myDict[@"maintainid"] integerValue] succesBlock:^(id data) {
         
         MaintainCellModel *model = [MaintainCellModel modelFromDictionary:data[@"maintain"]];
+        weakSelf.model = model;
         [self.dataArr addObject:model];
         NSLog(@"%@",describe(model));
         [weakSelf.tableView reloadData];
@@ -37,6 +40,27 @@
     }];
     
     [self.view addSubview:self.tableView];
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor whiteColor];
+    UIButton *certainBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [certainBtn setTitle:@"立即购买" forState:UIControlStateNormal];
+    certainBtn.backgroundColor = APP_COLOR_GREEN;
+    [certainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    certainBtn.titleLabel.font = SYSTEMFONT(14);
+    certainBtn.frame = VIEWFRAME(15, 20, CommonWidth(335), 40);
+    [certainBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    ViewRadius(certainBtn, certainBtn.frame.size.height/2);
+    
+    [view addSubview:certainBtn];
+    [self.view addSubview:view];
+    
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(0);
+        make.right.equalTo(self.view.mas_right).offset(0);
+        make.bottom.equalTo(self.view.mas_bottom).offset(0);
+        make.height.mas_equalTo(80);
+    }];
+
 }
 
 #pragma mark -- UITabelViewDelegate And DataSource
@@ -310,6 +334,12 @@
     
     
     return view;
+}
+
+-(void)buttonClick:(UIButton *)sender
+{
+    NSDictionary *dic = [self.model transformToDictionary];
+    [self PushViewControllerByClassName:@"MaintainOrder" info:dic];
 }
 
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LXViewSelectorController : YTBaseTableVC
--(instancetype)initWithControllers:(NSArray<UIViewController*>*)controllers titles:(NSArray<NSString*>*)titles;
+-(instancetype)initWithControllers:(NSArray<UIViewController*>*)controllers titles:(NSArray<NSString*>*)titles type:(NSInteger)type;
 //标题字体大小（默认14）
 @property (nonatomic,assign)CGFloat fontSize;
 //提示条大小(默认为40，2)
@@ -24,6 +24,8 @@
 //@property (nonatomic, assign)NSInteger *index;
 
 @property (nonatomic, strong)NSMutableArray *tableViewArr;
+
+@property (nonatomic, strong)NSMutableArray *ViewArr;
 
 - (void)handlePan:(UIPanGestureRecognizer *)sender;
 -(void)setAnimationWithOrigin:(CGFloat)x;

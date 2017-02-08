@@ -8,6 +8,11 @@
 
 #import "MyPromulgateCell1.h"
 #import "MyPromulgateModel.h"
+#import "PopView1.h"
+
+@interface MyPromulgateCell1 ()<PopView1Delegate>
+
+@end
 
 @implementation MyPromulgateCell1{
     UIImageView *_headImageView;
@@ -17,6 +22,9 @@
     UILabel *_priceTitle;
     UILabel *_marketPrice;
     UIButton *_button;
+    NSInteger _rentid;
+    PopView1 *_popView;
+
 }
 
 
@@ -44,13 +52,15 @@
                                          andFont:SYSTEMFONT(11)
                                 andTextAlignment:NSTextAlignmentLeft];
         
-        
+        _popView =  [[PopView1 alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+        _popView.delegate = self;
         _content.numberOfLines = 0;
         [_content sizeToFit];
         
         _button = [UIButton buttonWithType:UIButtonTypeSystem];
         [_button setTitle:@"删除" forState:UIControlStateNormal];
         [_button setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+        [_button addTarget:self  action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         ViewBorderRadius(_button, 5, 0.5, APP_COLOR_GREEN);
         
         [self addSubview:_headImageView];
@@ -75,6 +85,8 @@
     [self reSetSize:height];
     _price.text = [NSString stringWithFormat:@"%lld",[_model.rentPrice longLongValue]];
     _marketPrice.text = [NSString stringWithFormat:@"市场价:%lld",[_model.marketPrice longLongValue]];
+    _rentid = [_model.rentid integerValue];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.imgList[0]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
 }
 
 -(void)reSetSize:(CGFloat)height
@@ -108,8 +120,23 @@
         make.size.mas_equalTo(CGSizeMake(92, 26));
     }];
     
+    
+    
 }
 
+-(void)btnClick:(UIButton *)sender
+{
+    [_popView changeTitle:@"是否删除订单?" andIdex:_rentid];
+    [_popView show];
+
+}
+
+-(void)success
+{
+    if ([self.delegate respondsToSelector:@selector(returnIndex:)]) {
+        [self.delegate returnIndex:self.index];
+    }
+}
 
 
 @end

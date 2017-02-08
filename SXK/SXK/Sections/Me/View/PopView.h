@@ -13,6 +13,8 @@
 - (void)sexual:(NSInteger) tag;
 - (void)sendInfo:(NSString *)info andType:(NSInteger)type;
 
+
+
 @end
 
 
@@ -21,6 +23,7 @@
 
 @property (weak, nonatomic) id<PopViewDelegate> delegate;
 
+@property (assign, nonatomic)NSInteger rentid;
 
 -(instancetype)initWithFrame:(CGRect)fram;
 -(void)fillWithTitle:(NSString *)title;

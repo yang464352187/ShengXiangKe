@@ -19,6 +19,11 @@
 @property (nonatomic, strong) DeleteView *delete;
 
 @property (nonatomic, assign) NSInteger index;
+
+@property (nonatomic, strong) NSMutableDictionary *cellDic;
+
+@property (nonatomic, strong) AddressManagerCell *SelectCell;
+
 @end
 
 @implementation AddressManagerVC
@@ -27,10 +32,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"常用地址";
+    self.cellDic = [[NSMutableDictionary alloc] init];
     [self.view addSubview:self.tableView];
     self.isUseNoDataView = YES;
     [self.noDataView setTitle:@"您还没有添加收货地址哦～"];
+    
+    
+    if ([self.myDict[@"type"] isEqualToString:@"1"]) {
+        [self setRightBarButtonWith:@"保存" selector:@selector(barButtonAction)];
+    }
 
+}
+
+-(void)barButtonAction
+{
+    [self popGoBack];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -121,6 +137,11 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell setModel:self.listData[indexPath.section]];
+    [self.cellDic setObject:cell forKey:[NSString stringWithFormat:@"%ld",indexPath.section]];
+    AddressModel *model = self.listData[indexPath.section];
+    if ([model.isdefault integerValue] == 1) {
+        self.SelectCell = cell;
+    }
 //    if (indexPath.row % 2  == 0) {
 //        cell.backgroundColor =[UIColor greenColor];
 //    }
@@ -179,6 +200,22 @@
     
     
     return footer;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"%@",describe(self.listData));
+    AddressModel *model = self.listData[indexPath.section];
+    AddressManagerCell *cell = [self.cellDic valueForKey:[NSString stringWithFormat:@"%ld",indexPath.section]];
+    _weekSelf(weakSelf);
+    [BaseRequest SetPretermitAddressWithRentID:1 ReceiverID:[model.receiverid integerValue] succesBlock:^(id data) {
+        [weakSelf.SelectCell DeSelect];
+        [cell select];
+        weakSelf.SelectCell = cell;
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
 }
 - (void)getDataByNetwork{
     _weekSelf(weakSelf);

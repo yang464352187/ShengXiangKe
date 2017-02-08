@@ -12,6 +12,17 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import "MyDistributeVC.h"
 #import "MyRentVC.h"
+#import "ServeceCenterVC.h"
+#import "MQChatViewManager.h"
+#import "MQChatDeviceUtil.h"
+#import <MeiQiaSDK/MeiQiaSDK.h>
+#import "NSArray+MQFunctional.h"
+#import "MQBundleUtil.h"
+#import "MQAssetUtil.h"
+#import "MQImageUtil.h"
+#import "MQToast.h"
+#import "MyMaintainVC.h"
+
 @interface MeVC ()
 
 @property(nonatomic, strong)UIButton *loginBtn;
@@ -33,7 +44,6 @@
 @implementation MeVC
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     
     NSLog(@"--------%@-------",[LoginModel curLoginUser]);
     
@@ -92,8 +102,6 @@
             
         [self.headImage sd_setImageWithURL:[NSURL URLWithString:self.myDict[@"headimgurl"]]];
         }
-        
-        
         
         if ([self.myDict[@"sex"] integerValue] == 1) {
             self.sexImage.image = [UIImage imageNamed:@"男"];
@@ -415,6 +423,7 @@
         UIButton *followBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [followBtn setTitle:@"我的关注" forState:UIControlStateNormal];
         [followBtn setTintColor:[UIColor whiteColor]];
+        [followBtn addTarget:self action:@selector(followAction:) forControlEvents:UIControlEventTouchUpInside];
         followBtn.titleLabel.font = font;
         followBtn.frame = CommonVIEWFRAME(82, 185.5, 79, 26);
         ViewBorderRadius(followBtn, CommonHight(26)/2, 1, [UIColor whiteColor]);
@@ -422,6 +431,7 @@
         UIButton *identifyBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [identifyBtn setTitle:@"身份认证" forState:UIControlStateNormal];
         [identifyBtn setTintColor:[UIColor whiteColor]];
+        [identifyBtn addTarget:self action:@selector(identityAction:) forControlEvents:UIControlEventTouchUpInside];
         identifyBtn.titleLabel.font = font;
         identifyBtn.frame = CommonVIEWFRAME(212, 185.5, 79, 26);
         ViewBorderRadius(identifyBtn, CommonHight(26)/2, 1, [UIColor whiteColor]);
@@ -520,9 +530,42 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 8) {
-        [self PushViewControllerByClassName:@"SetVC" info:nil];
+    switch (indexPath.row) {
+        case 4:{
+            NSMutableArray *vcArr = [NSMutableArray array];
+            for (int i =0; i<2; i++) {
+                UIViewController *vc = [[UIViewController alloc] init];
+                vc.view.backgroundColor = [UIColor whiteColor];
+                [vcArr addObject:vc];
+            }
+            NSArray *array = @[@"我的啵主",@"我的啵客"];
+            ServeceCenterVC *vc = [[ServeceCenterVC alloc] initWithControllers:vcArr titles:array type:2];
+            [self pushViewController:vc];
+
+        }
+            break;
+        case 6:{
+            [self PushViewControllerByClassName:@"MyKeepVC" info:nil];
+            
+        }
+            break;
+        case 8:{
+            [self PushViewControllerByClassName:@"SetVC" info:nil];
+
+        }
+            break;
+        case 7:{
+            MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
+            [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
+            [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];
+            [chatViewManager pushMQChatViewControllerInViewController:self];
+
+        };
+
+        default:
+            break;
     }
+    
     
 }
 
@@ -556,23 +599,25 @@
 //        [alert show];
         
         
-        [BaseRequest ThirdLoginWithOpenID:userinfo.openid nickname:userinfo.name headimgurl:userinfo.iconurl pf:type succesBlock:^(id data) {
-            NSLog(@"====%@=====",describe(data));
+        if (userinfo.gender.length > 0) {
             
-            for(UIView *view in [self.view subviews])
-            {
-                [view removeFromSuperview];
-            }
-            
-            [self.view addSubview:self.tableView];
-            [self loadingRequest];
+            [BaseRequest ThirdLoginWithOpenID:userinfo.openid nickname:userinfo.name headimgurl:userinfo.iconurl pf:type succesBlock:^(id data) {
+//                NSLog(@"====%@=====",describe(data));
+                
+                for(UIView *view in [self.view subviews])
+                {
+                    [view removeFromSuperview];
+                }
+                
+                [self.view addSubview:self.tableView];
+                [self loadingRequest];
+                
+                
+            } failue:^(id data, NSError *error) {
+                
+            }];
 
-            
-        } failue:^(id data, NSError *error) {
-            
-        }];
-        
-        
+        }
     }];
 }
 
@@ -609,19 +654,29 @@
                 [vcArr1 addObject:vc];
             }
             NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
-            MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr1 titles:array];
+            MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr1 titles:array type:1];
             [self pushViewController:vc];
             break;
         }
         case 1:{
-            NSArray *array = @[@"待收货",@"已收货",@"已完成",@"已退回"];
-            MyRentVC *vc = [[MyRentVC alloc] initWithControllers:vcArr titles:array];
+            NSArray *array = @[@"啵客待收",@"进行中",@"啵主确认",@"已完成"];
+            MyRentVC *vc = [[MyRentVC alloc] initWithControllers:vcArr titles:array type:1];
             [self pushViewController:vc];
             break;
         }
 
         case 2:{
-            [self PushViewControllerByClassName:@"MyMaintainVC" info:nil];
+            NSMutableArray *vcArr2 = [NSMutableArray array];
+            for (int i =0; i<2; i++) {
+                UIViewController *vc = [[UIViewController alloc] init];
+                vc.view.backgroundColor = [UIColor whiteColor];
+                [vcArr2 addObject:vc];
+            }
+            NSArray *array = @[@"养护中",@"已完成"];
+            MyMaintainVC *vc = [[MyMaintainVC alloc] initWithControllers:vcArr2 titles:array type:1];
+            [self pushViewController:vc];
+//            [self PushViewControllerByClassName:@"MyMaintainVC" info:nil];
+
             break;
         }
 
@@ -633,6 +688,16 @@
         default:
             break;
     }
+}
+
+-(void)identityAction:(UIButton *)sender
+{
+    [self PushViewControllerByClassName:@"IdentityVC" info:nil];
+}
+
+-(void)followAction:(UIButton *)sender
+{
+    [self PushViewControllerByClassName:@"MyFollowVC" info:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

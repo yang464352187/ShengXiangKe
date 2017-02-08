@@ -20,7 +20,7 @@
 -(void)loadingRequest
 {
     _weekSelf(weakSelf)
-    [BaseRequest GetRentListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
+    [BaseRequest GetRentListWithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
         NSArray *models = [BrandDetailModel modelsFromArray:data[@"rentList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 

@@ -10,14 +10,15 @@
 
 @protocol SelectPayCellDelegate <NSObject>
 // 代理传值方法
-- (void)sendValue:(id) cell;
+- (void)sendValue:(id) cell andType:(NSInteger)type;
 
 @end
 
 @interface PayCell : UITableViewCell
 
 @property (weak, nonatomic) id<SelectPayCellDelegate> delegate;
-
+@property (assign, nonatomic)NSInteger type;
 -(void)fillWithTitle:(NSString *)title;
 -(void)isSelect;
+
 @end

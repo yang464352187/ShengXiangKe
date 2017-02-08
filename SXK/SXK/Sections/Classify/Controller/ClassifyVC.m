@@ -56,14 +56,6 @@
     [BaseRequest GetBrandListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
         NSArray *models = [BrandModel modelsFromArray:data[@"brandList"]];
         
-        //品牌model本地化
-        NSMutableArray *array = [[NSMutableArray alloc] init];
-        for (BrandModel *model  in models) {
-            NSDictionary *dic = [model transformToDictionary];
-            [array addObject:dic];
-        }
-        DEFAULTS_SET_OBJ(array, @"brand");
-        
         //处理model
         [weakSelf handleModels:models];
     } failue:^(id data, NSError *error) {
@@ -78,13 +70,6 @@
         [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:0 succesBlock:^(id data) {
             NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
             weakSelf.CategoryListArr = models;
-            
-            NSMutableArray *array = [[NSMutableArray alloc] init];
-            for (CategoryListModel *model in models) {
-                NSDictionary *dic = [model transformToDictionary];
-                [array addObject:dic];
-            }
-            DEFAULTS_SET_OBJ(array, @"category");
             
             [weakSelf.tableView reloadData];
             [weakSelf stopLoadingView];

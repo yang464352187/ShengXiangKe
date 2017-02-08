@@ -17,6 +17,8 @@
              @"rentPrice"        :@"rentPrice",
              @"marketPrice"    :@"marketPrice",
              @"name":           @"name",
+             @"rentid":@"rentid",
+             @"oddNumber":@"oddNumber"
              };
 }
 

@@ -10,4 +10,5 @@
 
 @interface MyTenancyCell1 : BaseCell
 
+
 @end

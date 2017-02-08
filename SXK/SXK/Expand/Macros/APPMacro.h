@@ -87,7 +87,8 @@
 #define APPINTERFACE__GetMaintainList        @"/app/maintain/listpost"
 #define APPINTERFACE__GetMaintain            @"/app/maintain/getpost"
 #define APPINTERFACE__GetAppraise            @"/app/identifysetup/getpost"
-#define APPINTERFACE__GetTenancyList         @"/app/rent/listpost"
+#define APPINTERFACE__GetTenancyList         @"/app/rent/listpost" //我的发布
+#define APPINTERFACE__GetRentorderList       @"/app/rentorder/listpost" //我的租赁
 #define APPINTERFACE__ProductDeta            @"/app/rent/getpost"
 #define APPINTERFACE__CreateOrder            @"/app/rentorder/addpost"
 #define APPINTERFACE__Pay                    @"/app/payment/chargepost"
@@ -101,9 +102,26 @@
 #define APPINTERFACE__HomeTopicList          @"/app/topic/listpost"  //首页热门话题列表
 #define APPINTERFACE__HomeTopic              @"/app/topic/getpost"  //首页热门话题
 #define APPINTERFACE__ThirdLogin             @"/app/applogin/authloginpost"//第三方登录
-
-
-
+#define APPINTERFACE__GetAddress             @"/app/receiver/getpost"//获取默认地址
+#define APPINTERFACE__GetQuestionList        @"/app/question/listpost"//获取问答列表
+#define APPINTERFACE__AddFollow              @"/app/follow/addpost" //添加关注
+#define APPINTERFACE__GetFollowList          @"/app/follow/getpost" //关注列表
+#define APPINTERFACE__DeleteFollow           @"/app/follow/delpost" //删除关注
+#define APPINTERFACE__AddKeep                @"/app/collection/addpost" //添加收藏
+#define APPINTERFACE__GetKeepList            @"/app/collection/getpost" //收藏列表
+#define APPINTERFACE__CancelKeep             @"/app/collection/delpost" //取消收藏
+#define APPINTERFACE__CreateMaintainOrder    @"/app/maintainorder/addpost"//添加养护订单
+#define APPINTERFACE__DeleteRentOrder        @"/app/rent/delpost" //删除租赁订单
+#define APPINTERFACE__ChangeRentOrder        @"/app/rent/setpost" //修改租赁订单
+#define APPINTERFACE__GetMyMaintainList      @"/app/maintainorder/listpost" //获取我的养护订单
+#define APPINTERFACE__ConfirmMyMaintainOrder @"/app/maintainorder/setpost" //确认养护订单
+#define APPINTERFACE__GetMyAppraiseList      @"/app/identifyorder/listpost"//获取鉴定列表
+#define APPINTERFACE__CreateAppraiseOrder    @"/app/identifyorder/addpost"//添加鉴定订单
+#define APPINTERFACE__HomeShowSetupList      @"/app/showsetup/listpost" //首页啵呗秀列表
+#define APPINTERFACE__HomeSwapSetupList      @"/app/swapsetup/listpost" //首页来换包列表
+#define APPINTERFACE__ConfirmMyRentOrder     @"/app/rentorder/setpost" //我的租赁确认收货
+#define APPINTERFAXE__RentComment            @"/app/rentcomment/addpost"//评论
+#define APPINTERFACE__DeleteRentOrder1       @""
 
 
 #endif /* APPMacro_h */

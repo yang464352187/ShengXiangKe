@@ -7,6 +7,13 @@
 //
 
 #import "MyTenancyCell.h"
+#import "MyRentModel.h"
+#import "PopView1.h"
+
+@interface MyTenancyCell ()<PopView1Delegate>
+
+@end
+
 
 @implementation MyTenancyCell{
     UIImageView *_headImageView;
@@ -17,6 +24,9 @@
     UILabel *_marketPrice;
     UILabel *_orderNum;
     UIButton *_button;
+    PopView1 *_popView;
+    NSInteger _rentid;
+
 }
 
 
@@ -31,15 +41,15 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _headImageView = [[UIImageView alloc] init];
-        _headImageView.image = [UIImage imageNamed:@"20141212145127_VLcnU"];
+        _headImageView.image = [UIImage imageNamed:@""];
         
-        _title = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"专业腕表养护"
+        _title = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@""
                                   andTextColor:[UIColor blackColor]
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(14)
                               andTextAlignment:NSTextAlignmentLeft];
         
-        _content = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"专业腕表养护阿斯利康的房间爱快乐圣诞节算开"
+        _content = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@""
                                     andTextColor:APP_COLOR_GRAY_Font
                                       andBgColor:[UIColor clearColor]
                                          andFont:SYSTEMFONT(11)
@@ -51,19 +61,19 @@
                                             andFont:SYSTEMFONT(12)
                                    andTextAlignment:NSTextAlignmentLeft];
         
-        _price = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"¥1500"
+        _price = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"¥"
                                   andTextColor:APP_COLOR_GREEN
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(12)
                               andTextAlignment:NSTextAlignmentLeft];
         
         _marketPrice = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"市场价 ¥3456.77"
-                                        andTextColor:APP_COLOR_GREEN
+                                        andTextColor:[UIColor blackColor]
                                           andBgColor:[UIColor clearColor]
                                              andFont:SYSTEMFONT(12)
                                     andTextAlignment:NSTextAlignmentLeft];
         
-        _orderNum = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"单号 8231748971238947109"
+        _orderNum = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@""
                                      andTextColor:[UIColor blackColor]
                                           andBgColor:[UIColor clearColor]
                                              andFont:SYSTEMFONT(12)
@@ -77,10 +87,13 @@
         [_button setTitle:@"确认收货" forState:UIControlStateNormal];
         [_button addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         [_button setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
-        
 
         ViewBorderRadius(_button, 5, 0.5, APP_COLOR_GREEN);
         
+        
+        _popView =  [[PopView1 alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+        _popView.delegate = self;
+
         [self addSubview:_headImageView];
         [self addSubview:_title];
         [self addSubview:_content];
@@ -89,7 +102,6 @@
         [self addSubview:_marketPrice];
         [self addSubview:_orderNum];
         [self addSubview:_button];
-        
         
         [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_left).offset(15);
@@ -141,7 +153,6 @@
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 200, 13));
         }];
 
-        
         [_button mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.mas_right).offset(-20);
             make.bottom.equalTo(self.mas_bottom).offset(-15);
@@ -154,19 +165,38 @@
 
 -(void)reSetName
 {
-    [_button setTitle:@"退回" forState:UIControlStateNormal];
+    [_button setTitle:@"确认收货" forState:UIControlStateNormal];
 }
 -(void)reName
 {
-    [_button setTitle:@"确认收货" forState:UIControlStateNormal];
-    
+    [_button setTitle:@"删除" forState:UIControlStateNormal];
 }
 
 -(void)btnAction:(UIButton *)sender
 {
-    [[PushManager sharedManager] pushToVCWithClassName:@"OrderVC" info:nil];
+    [_popView changeTitle:@"是否确认收货?" andIdex:_rentid];
+    [_popView show];
+//    NSLog(@"%@",_button.titleLabel.text);
 }
 
+-(void)setModel:(id)model
+{
+    MyRentModel *_model = model;
+    _title.text = _model.rent[@"name"];
+    _content.text = _model.rent[@"keyword"];
+    _price.text = [NSString stringWithFormat:@"¥%.2f",[_model.rent[@"rentPrice"] floatValue] / 100];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.rent[@"img"]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
+    _marketPrice.text = [NSString stringWithFormat:@"市场价 ¥%.2f",[_model.rent[@"marketPrice"] floatValue] / 100];
+    _orderNum.text = [NSString stringWithFormat:@"单号 %@",_model.oddNumber];
+    _rentid = [_model.orderid integerValue];
+}
+
+-(void)success
+{
+    if ([self.delegate respondsToSelector:@selector(returnIndex:)]) {
+        [self.delegate returnIndex:self.index];
+    }
+}
 
 
 @end

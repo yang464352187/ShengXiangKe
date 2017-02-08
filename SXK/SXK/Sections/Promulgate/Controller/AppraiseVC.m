@@ -27,6 +27,10 @@
 @property (nonatomic, strong) NSMutableDictionary *cellDic;
 @property (nonatomic, strong) UILabel *priceLab;
 
+@property (nonatomic, assign) NSInteger brandid;
+@property (nonatomic, assign) NSInteger genreid;
+@property (nonatomic, assign) NSInteger total;
+
 @end
 
 @implementation AppraiseVC
@@ -157,9 +161,7 @@
     
 }
 
-
 #pragma mark -- getters and setters
-
 
 - (UITableView *)tableView{
     if (!_tableView) {
@@ -170,7 +172,6 @@
         [_tableView registerClass:[TypeCell class] forCellReuseIdentifier:@"TypeCell"];
         [_tableView registerClass:[ConsigneeCell class] forCellReuseIdentifier:@"ConsigneeCell"];
         [_tableView registerClass:[PayCell class] forCellReuseIdentifier:@"PayCell"];
-        
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = [UIColor colorWithHexColorString:@"f7f7f7"];
         _tableView.tableFooterView = [[UIView alloc] init];
@@ -208,12 +209,14 @@
         payBtn.frame = VIEWFRAME(SCREEN_WIDTH-CommonWidth(154), 0, CommonWidth(154), 44);
         [payBtn setTitle:@"立即付款" forState:UIControlStateNormal];
         [payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [payBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         
         UILabel *totle = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 100, 44)                                                 andText:@"合计:¥ 0"
                                   andTextColor:[UIColor blackColor]
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(15)
                               andTextAlignment:NSTextAlignmentLeft];
+        
         self.priceLab = totle;
         [_footView addSubview:payBtn];
         [_footView addSubview:totle];
@@ -223,7 +226,7 @@
 }
 
 
--(void)sendValue:(id)cell
+-(void)sendValue:(id)cell andType:(NSInteger)type;
 {
     if (self.selectCell) {
         [self.selectCell isSelect];
@@ -239,16 +242,22 @@
 {
     TypeCell *cell = [(TypeCell *)self.cellDic valueForKey:@"类别"];
     [cell changeTitle1:dic[@"name"]];
-    self.priceLab.text = [NSString stringWithFormat:@"合计:¥ %@",dic[@"price"]];
+    self.priceLab.text = [NSString stringWithFormat:@"合计:¥ %.2f",[dic[@"price"] floatValue] / 100 ];
     NSLog(@"这是中鉴%@",describe(dic));
 }
+
 -(void)returnBrand:(NSDictionary *)dic
 {
     TypeCell *cell = [(TypeCell *)self.cellDic valueForKey:@"品牌"];
     [cell changeTitle1:dic[@"name"]];
-
+    NSLog(@"这是中鉴%@",describe(dic));
 }
 
+
+-(void)buttonClick:(UIButton *)sender
+{
+    
+}
 
 
 - (void)didReceiveMemoryWarning {

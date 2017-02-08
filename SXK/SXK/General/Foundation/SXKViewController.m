@@ -183,6 +183,7 @@
     if ([self.title1 isEqualToString:@"首页"]) {
 //        [self.vc PushViewControllerByClassName:@"PromulgateVC" info:nil];
         if (index == 0) {
+            DEFAULTS_SET_OBJ(@"2", @"promulgateType");
             [self.vc PushViewControllerByClassName:@"PromulgateVC" info:nil];
         }
         if (index == 1) {
@@ -191,6 +192,7 @@
 
         }
         if (index == 2) {
+            
 //            [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];
             [self.vc PushViewControllerByClassName:@"AppraiseVC" info:nil];
 
@@ -198,6 +200,7 @@
 
     }else{
         if (index == 0) {
+            DEFAULTS_SET_OBJ(@"2", @"promulgateType");
             [[PushManager sharedManager] pushToVCWithClassName:@"PromulgateVC" info:nil];
         }
         if (index == 1) {

@@ -87,8 +87,8 @@
 
 -(void)btnAction:(UIButton *)sender
 {
-    if ([_delegate respondsToSelector:@selector(sendValue:)]) { // 如果协议响应了sendValue:方法
-        [_delegate sendValue:self]; // 通知执行协议方法
+    if ([_delegate respondsToSelector:@selector(sendValue:andType:)]) { // 如果协议响应了sendValue:方法
+        [_delegate sendValue:self andType:self.type]; // 通知执行协议方法
     }
 }
 

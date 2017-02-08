@@ -8,9 +8,7 @@
 //
 
 #import "VTingSeaPopView.h"
-
 #import "VTingTimeView.h"
-
 
 #define Width  [UIScreen mainScreen].bounds.size.width
 #define Height [UIScreen mainScreen].bounds.size.height
@@ -27,12 +25,10 @@
 
 #define BOTTOM_INSTANCE 385
 
-
 @interface VTingSeaPopView () {
     NSArray *images;
     NSArray *titles;
     CGFloat angle;
-    
     UIImageView *bgImageView;
     UIImageView *imageCC;
     VTingTimeView *titleView;
@@ -73,7 +69,6 @@
     bgImageView.userInteractionEnabled = YES;
     bgImageView.alpha = 0.8;
     [_backGroundView addSubview:bgImageView];
-    
     
     //右上角图片展示
     imageCC = [[UIImageView alloc] initWithFrame:CGRectMake(Width-120, 45+64, 100, 80)];
@@ -157,7 +152,6 @@
     [_bottomBtn addTarget:self action:@selector(dismissSelfBtn:) forControlEvents:UIControlEventTouchUpInside];
     [_bottomView addSubview:_bottomBtn];
     
-    
     _centerLine = [[UILabel alloc] initWithFrame:CGRectMake(Width/2, 0, 0.5, 49)];
     _centerLine.backgroundColor = [UIColor lightGrayColor];
     _centerLine.alpha = 0;
@@ -177,18 +171,15 @@
     _bottomRightBtn.hidden = YES;
     [_bottomView addSubview:_bottomRightBtn];
     
-    
     _leftImgvi = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left"]];
     _leftImgvi.frame = CGRectMake(Width/4-29/2.0, 10, 29, 29);
     _leftImgvi.alpha = 0;
     [_bottomView addSubview:_leftImgvi];
     
-    
     _rightImgvi = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"exit"]];
     _rightImgvi.frame = CGRectMake(Width/2 + Width/4-29/2.0, 10, 29, 29);
     _rightImgvi.alpha = 0;
     [_bottomView addSubview:_rightImgvi];
-    
     
 }
 
@@ -207,7 +198,6 @@
     _bottomBtn.hidden = NO;
     
     [UIView animateWithDuration:0.3 animations:^{
-        
         //恢复左右视图的相关CGAffineTransform动画效果
         _contentViewLeft.transform = CGAffineTransformIdentity;
         _contentViewRight.transform = CGAffineTransformIdentity;
@@ -218,7 +208,6 @@
         _centerLine.alpha = 0;
         _leftImgvi.alpha = 0;
         _rightImgvi.alpha = 0;
-        
         
     } completion:nil];
 }
@@ -268,9 +257,6 @@
     
 }
 
-
-
-
 #pragma mark item点击事件
 -(void)itemBtnClick:(UIButton *)btn {
     [self.delegate itemDidSelected:(btn.tag - 1000)];
@@ -298,7 +284,6 @@
 //                //左边移出屏幕，右边推进屏幕效果
 //                _contentViewLeft.transform = CGAffineTransformTranslate(_contentViewLeft.transform, -Width, 0);
 //                _contentViewRight.transform = CGAffineTransformTranslate(_contentViewRight.transform, -Width, 0);
-//                
 //                
 //                _centerLine.alpha = 1;
 //                _leftImgvi.alpha = 1;
@@ -347,7 +332,6 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             
-            
             [UIView animateWithDuration:0.3 animations:^{
                 
                 _backGroundView.alpha = 1;
@@ -358,7 +342,6 @@
             }];
         });
     });
-    
     
     //取出当前左边视图显示的所有item
     for (id vbb in _contentViewLeft.subviews) {
@@ -377,8 +360,8 @@
                     
                 } completion:^(BOOL finished) {
                     
-                    
-                    
+
+
                 }];
             } completion:nil];
             

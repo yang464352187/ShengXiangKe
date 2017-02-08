@@ -10,8 +10,9 @@
 #import "MyPromulgateCell.h"
 #import "MyPromulgateModel.h"
 #import "MyPromulgateCell1.h"
+#import "MyPromulgateCell2.h"
 
-@interface MyDistributeVC ()
+@interface MyDistributeVC ()<MyPromulgateCell1Delegate,MyPromulgateCellDelegate,MyPromulgateCell2Delegate>
 @property (nonatomic, assign)NSInteger index;
 
 @end
@@ -33,8 +34,9 @@
         
         NSArray *models = [MyPromulgateModel modelsFromArray:data[@"rentList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-        NSLog(@"++++++++++%@+++++++++",describe(weakSelf.listData));
+//        NSLog(@"++++++++++%@+++++++++",describe(weakSelf.listData));
 //        [weakSelf.tableView reloadData];
+        
     } failue:^(id data, NSError *error) {
         
     }];
@@ -52,9 +54,11 @@
         tableView.delegate        = self;
         [tableView registerClass:[MyPromulgateCell class] forCellReuseIdentifier:@"MyPromulgateCell"];
         [tableView registerClass:[MyPromulgateCell1 class] forCellReuseIdentifier:@"MyPromulgateCell1"];
+        [tableView registerClass:[MyPromulgateCell2 class] forCellReuseIdentifier:@"MyPromulgateCell2"];
         tableView.showsVerticalScrollIndicator = NO;
         tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         tableView.tableFooterView = [[UIView alloc] init];
+        
         //        _tableView.tableHeaderView = self.headView;
         tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         tableView.sectionHeaderHeight = 0.0;
@@ -84,13 +88,25 @@
     if (self.index == 1) {
         MyPromulgateCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyPromulgateCell1"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.index = indexPath.section;
+        cell.delegate = self;
         [cell setModel:model];
+        return cell;
+    }
+    if (self.index == 3) {
+        MyPromulgateCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyPromulgateCell2"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:model];
+        cell.delegate = self;
+        cell.index = indexPath.section;
         return cell;
     }
     
     MyPromulgateCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyPromulgateCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell setModel:model];
+    cell.index = indexPath.section;
+    cell.delegate = self;
     if (self.index == 4 || self.index == 5) {
         [cell reName:@"删除"];
     }
@@ -154,6 +170,13 @@
             break;
         }
     }
+}
+
+-(void)returnIndex:(NSInteger)index
+{
+    [self.listData removeObjectAtIndex:index];
+     NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:index];
+    [self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)didReceiveMemoryWarning {

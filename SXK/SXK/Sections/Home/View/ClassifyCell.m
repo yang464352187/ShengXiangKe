@@ -81,6 +81,7 @@
 //某一段有多少个item
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    NSLog(@"%ld" , self.dataArr.count);
     
     return self.dataArr.count;
 }

@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSArray *topicArr;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, assign) NSInteger type;
 
 @end
 
@@ -82,25 +83,30 @@
         
     }];
     
-    [BaseRequest GetCommunityModuleWithPageNo:0  PageSize:0 order:1 succesBlock:^(id data) {
+    [BaseRequest GetCommunityModuleWithPageNo:0  PageSize:0 order:-1 succesBlock:^(id data) {
         NSArray *models = [ModuleModel modelsFromArray:data[@"moduleList"]];
         weakSelf.moduleArr = models;
         [weakSelf.collectionView reloadData];
+        
+        ModuleModel *model1 = weakSelf.moduleArr[0];
+        weakSelf.type = [model1.moduleid integerValue];
+        [BaseRequest GetCommunityTopicListWithPageNo:self.pageNo  PageSize:self.pageSize topicid:-1 moduleid:[model1.moduleid integerValue] succesBlock:^(id data) {
+            NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
+            [weakSelf stopRefresh];
+            [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
+            [weakSelf handleModels:self.listData andTotal:[data[@"total"] integerValue]];
+            [weakSelf stopLoadingView];
+            self.first = 1;
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
+        
     } failue:^(id data, NSError *error) {
         
     }];
     
-    [BaseRequest GetCommunityTopicListWithPageNo:self.pageNo  PageSize:self.pageSize topicid:-1 succesBlock:^(id data) {
-        NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
-        [weakSelf stopRefresh];
-        [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
-        [weakSelf handleModels:self.listData andTotal:[data[@"total"] integerValue]];
-        [weakSelf stopLoadingView];
-        self.first = 1;
-
-    } failue:^(id data, NSError *error) {
-        
-    }];
 }
 
 
@@ -347,6 +353,26 @@
     return cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ModuleModel *model = self.moduleArr[indexPath.row];
+    self.type = [model.moduleid integerValue];
+    [self.listData removeAllObjects];
+    _weekSelf(weakSelf);
+    [BaseRequest GetCommunityTopicListWithPageNo:self.pageNo  PageSize:self.pageSize topicid:-1 moduleid:[model.moduleid integerValue] succesBlock:^(id data) {
+        NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
+        [weakSelf stopRefresh];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
+        [weakSelf handleModels:weakSelf.listData andTotal:[data[@"total"] integerValue]];
+        [weakSelf stopLoadingView];
+        self.first = 1;
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    NSLog(@"%ld",indexPath.row);
+}
+
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(CommonHight(15), CommonHight(15), CommonHight(15), CommonHight(15));
@@ -582,7 +608,7 @@
 -(void)onLike:(long long)itemId
 {
     //点赞
-    NSLog(@"onLike: %lld", itemId);
+//    NSLog(@"onLike: %lld", itemId);
     [BaseRequest SetCommunityTopicWithTopicID:(NSInteger)itemId like:1 succesBlock:^(id data) {
         UserModel *model =   [LoginModel curLoginUser];
             DFLineLikeItem *likeItem = [[DFLineLikeItem alloc] init];
@@ -730,7 +756,20 @@
 }
 
 - (void)getDataByNetwork{
-    [self loadingRequest];
+    _weekSelf(weakSelf);
+    [BaseRequest GetCommunityTopicListWithPageNo:self.pageNo  PageSize:self.pageSize topicid:-1 moduleid:self.type succesBlock:^(id data) {
+        NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
+        [weakSelf stopRefresh];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
+        [weakSelf handleModels:weakSelf.listData andTotal:[data[@"total"] integerValue]];
+        [weakSelf stopLoadingView];
+        self.first = 1;
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+
+//    [self loadingRequest];
 }
 
 

@@ -15,6 +15,8 @@
 
 @property (nonatomic, strong) PayCell *selectCell;
 
+@property (nonatomic, strong) NSString *type;
+
 @end
 
 @implementation PayVC
@@ -50,7 +52,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell fillWithTitle:self.payArr[indexPath.row]];
     cell.delegate = self;
-
+    cell.type = indexPath.row;
     return cell;
 }
 
@@ -107,8 +109,25 @@
     return _tableView;
 }
 
--(void)sendValue:(id)cell
+-(void)sendValue:(id)cell andType:(NSInteger)type
 {
+    switch (type) {
+        case 0:
+            self.type = @"wx";
+            break;
+        case 1:
+            self.type = @"alipay";
+            break;
+
+        case 2:
+            self.type = @"upacp";
+            break;
+
+            
+        default:
+            break;
+    }
+
     if (self.selectCell) {
         [self.selectCell isSelect];
         [(PayCell *)cell isSelect];
@@ -121,7 +140,7 @@
 
 -(void)payAction:(UIButton *)sender
 {
-    [BaseRequest PayWithChannel:@"alipay" orderID:[self.myDict[@"orderid"] integerValue] type:1 succesBlock:^(id data) {
+    [BaseRequest PayWithChannel:self.type orderID:[self.myDict[@"orderid"] integerValue] type:1 succesBlock:^(id data) {
 
 //        NSLog(@"======%@====",data[@"info"]);
         _weekSelf(weakSelf);

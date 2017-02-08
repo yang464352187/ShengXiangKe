@@ -170,8 +170,6 @@ static NSString *imagePickerCellIdentifier = @"imagePickerCellIdentifier";
 
     }
     
-
-    
     if(indexPath.row < _photosArray.count) {
         UIImage *image = _photosArray[indexPath.row];
         imgView.image = image;
@@ -195,13 +193,11 @@ static NSString *imagePickerCellIdentifier = @"imagePickerCellIdentifier";
                 imgView.image = nil;
                 imgView.image = [UIImage imageNamed:@"最多9张图"];
             }
-
             
             if (indexPath.row == _photosArray.count+1) {
                 imgView1.image = nil;
                 imgView1.image = [UIImage imageNamed:@"最多9张图"];
             }
-
         }
         
     }else{
@@ -221,18 +217,13 @@ static NSString *imagePickerCellIdentifier = @"imagePickerCellIdentifier";
                 imgView1.image = nil;
                 imgView1.image = [UIImage imageNamed:@"最多9张图"];
             }
-
         }
         
         if (indexPath.row == _photosArray.count+2) {
             imgView2.image = nil;
             imgView2.image = [UIImage imageNamed:@"必须9张图"];
         }
-        
-
     }
-    
-    
 
 //    }
     return cell;
@@ -278,9 +269,7 @@ static NSString *imagePickerCellIdentifier = @"imagePickerCellIdentifier";
                 if ([_delegate respondsToSelector:@selector(showTeachView)]) { // 如果协议响应了sendValue:方法
                     [_delegate showTeachView]; // 通知执行协议方法
                 }
-                
             }
-
         }
         
         

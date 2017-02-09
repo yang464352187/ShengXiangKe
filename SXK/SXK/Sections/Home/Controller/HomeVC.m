@@ -20,7 +20,8 @@
 #import "MQToast.h"
 #import "TopicModel.h"
 #import "UserModel.h"
-
+#import <RongIMKit/RongIMKit.h>
+#import "RCConversationListVC.h"
 @interface HomeVC ()<SDCycleScrollViewDelegate>
 
 
@@ -437,13 +438,16 @@
         }
             
         case 201:{
-            UserModel *model =   [LoginModel curLoginUser];
-            MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
-            [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
-            [chatViewManager setClientInfo:@{@"name":model.nickname,@"avatar":model.headimgurl} override:YES];
-            [chatViewManager setLoginCustomizedId:[NSString stringWithFormat:@"%@",model.userid]];
-            [chatViewManager pushMQChatViewControllerInViewController:self];
+//            UserModel *model =   [LoginModel curLoginUser];
+//            MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
+//            [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
+//            [chatViewManager setClientInfo:@{@"name":model.nickname,@"avatar":model.headimgurl} override:YES];
+//            [chatViewManager setLoginCustomizedId:[NSString stringWithFormat:@"%@",model.userid]];
+//            [chatViewManager pushMQChatViewControllerInViewController:self];
             
+            RCConversationListVC *vc = [[RCConversationListVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+
             break;
         }
         default:

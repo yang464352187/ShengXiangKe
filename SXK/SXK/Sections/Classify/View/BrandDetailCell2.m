@@ -9,7 +9,7 @@
 #import "BrandDetailCell2.h"
 #import "BrandDetailModel.h"
 #import <RongIMKit/RongIMKit.h>
-
+#import "RCConversationVC.h"
 @interface BrandDetailCell2 ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource
 >
 
@@ -164,7 +164,7 @@
     
     UserModel *model =   [LoginModel curLoginUser];
     
-    RCConversationViewController *chat = [[RCConversationViewController alloc] initWithConversationType:ConversationType_PRIVATE
+    RCConversationVC *chat = [[RCConversationVC alloc] initWithConversationType:ConversationType_PRIVATE
                                                                                                targetId:[NSString stringWithFormat:@"%@",model.userid]];
 //    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
    
@@ -184,7 +184,6 @@
     
     [self.vc.navigationController pushViewController:chat animated:YES];
     
-    
 //    NSLog(@"-----%ld-----",_userid);
 }
 
@@ -200,6 +199,7 @@
 //        根据存储联系人信息的模型，通过 userId 来取得对应的name和头像url，进行以下设置（此处因为项目接口尚未实现，所以就只能这样给大家说说，请见谅）
         return completion([[RCUserInfo alloc] initWithUserId:userId name:_title portrait:_image1]);
     }
+    NSLog(@"22");
 }
 
 

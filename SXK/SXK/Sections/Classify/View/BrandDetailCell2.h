@@ -7,8 +7,8 @@
 //
 
 #import "BaseCell.h"
-
+#import "BrandDetailVC.h"
 @interface BrandDetailCell2 : BaseCell
 
-
+@property (nonatomic, strong)BrandDetailVC *vc;
 @end

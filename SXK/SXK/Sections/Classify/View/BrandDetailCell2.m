@@ -8,6 +8,12 @@
 
 #import "BrandDetailCell2.h"
 #import "BrandDetailModel.h"
+#import <RongIMKit/RongIMKit.h>
+
+@interface BrandDetailCell2 ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource
+>
+
+@end
 
 @implementation BrandDetailCell2{
     UILabel *_label;
@@ -15,6 +21,8 @@
     UIButton *_talkBtn;
     UIButton *_likeBtn;
     NSInteger _userid;
+    NSString *_title;
+    NSString *_image1;
 }
 
 /*
@@ -47,7 +55,7 @@
         _talkBtn.frame = VIEWFRAME(SCREEN_WIDTH - 130, 11, 60, 15);
         _talkBtn.titleLabel.font = SYSTEMFONT(12);
         _talkBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
-        //    [talkBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_talkBtn addTarget:self action:@selector(buttonAction1:) forControlEvents:UIControlEventTouchUpInside];
         [_talkBtn setTintColor:[UIColor blackColor]];
         
         UIImage *likeImage = [UIImage imageNamed:@"关注-(1)"];
@@ -92,6 +100,8 @@
         ViewRadius(_image, 37/2.0000);
     
     }
+//    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+
     return  self;
 }
 
@@ -102,6 +112,8 @@
     _label.text = [NSString stringWithFormat:@"啵主:%@",_model.user[@"nickname"]];
     [_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.user[@"headimgurl"]]]];
     _userid = [_model.userid integerValue];
+    _title = _model.user[@"nickname"];
+    _image1 = [NSString stringWithFormat:@"%@",_model.user[@"headimgurl"]];
 }
 
 
@@ -115,5 +127,80 @@
         
     }];
 }
+
+
+
+-(void)buttonAction1:(UIButton *)sender
+{
+//    _weekSelf(weakSelf);
+//    UserModel *model =   [LoginModel curLoginUser];
+//    [BaseRequest ChatWithUserID:[model.userid integerValue] succesBlock:^(id data) {
+//    
+//        NSString *str = data[@"token"];
+//        NSLog(@"%@",model.userid);
+//        [[RCIM sharedRCIM] connectWithToken:@"zBbOKhqOqfIUr0bkv/NwZxcVsrzPMjtqVVmGkXkKGocNO+oCEvtryc6/75FbHMcdDoEV6/eQYc0HzMX/Rr/xgg==" success:^(NSString *userId) {
+//            NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+//            
+//        } error:^(RCConnectErrorCode status) {
+//            NSLog(@"登陆的错误码为:%d", status);
+//        } tokenIncorrect:^{
+//            //token过期或者不正确。
+//            //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+//            //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+//            NSLog(@"token错误");
+//        }];
+//
+//        
+//        
+//    } failue:^(id data, NSError *error) {
+//        
+//    }];
+    [self push];
+    
+}
+
+-(void)push
+{
+    
+    UserModel *model =   [LoginModel curLoginUser];
+    
+    RCConversationViewController *chat = [[RCConversationViewController alloc] initWithConversationType:ConversationType_PRIVATE
+                                                                                               targetId:[NSString stringWithFormat:@"%@",model.userid]];
+//    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
+   
+    [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
+    // 设置消息体内是否携带用户信息
+    
+    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    
+    chat.conversationType = ConversationType_PRIVATE;
+    
+    chat.targetId = [NSString stringWithFormat:@"%ld",_userid];
+    
+    chat.title = _title;
+    
+    
+    [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
+    
+    [self.vc.navigationController pushViewController:chat animated:YES];
+    
+    
+//    NSLog(@"-----%ld-----",_userid);
+}
+
+- (void)getUserInfoWithUserId:(NSString *)userId
+                   completion:(void (^)(RCUserInfo *userInfo))completion
+{
+    UserModel *model =   [LoginModel curLoginUser];
+
+    if ([userId isEqualToString:[NSString stringWithFormat:@"%@",model.userid]]) {
+        return completion([[RCUserInfo alloc] initWithUserId:userId name:model.nickname portrait:model.headimgurl]);
+    }else
+    {
+//        根据存储联系人信息的模型，通过 userId 来取得对应的name和头像url，进行以下设置（此处因为项目接口尚未实现，所以就只能这样给大家说说，请见谅）
+        return completion([[RCUserInfo alloc] initWithUserId:userId name:_title portrait:_image1]);
+    }
+}
+
 
 @end

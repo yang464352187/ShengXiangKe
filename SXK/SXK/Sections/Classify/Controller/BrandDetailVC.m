@@ -103,6 +103,8 @@
 {
     [super viewWillAppear:animated];
     [self loadingRequest];
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+
 }
 
 
@@ -184,6 +186,7 @@
     
     BrandDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell2"];
     [cell setModel:self.model];
+    cell.vc = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -514,6 +517,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+
+
+}
 /*
 #pragma mark - Navigation
 

@@ -38,6 +38,7 @@
 
 - (instancetype)init
 {
+    
     self = [super init];
     if (self) {
         
@@ -62,6 +63,8 @@
     [_commentInputView addNotify];
     [_commentInputView addObserver];
 
+    UserModel *model =   [LoginModel curLoginUser];
+    NSLog(@"%@",describe(model));
 }
 
 -(void)viewWillDisappear:(BOOL)animated

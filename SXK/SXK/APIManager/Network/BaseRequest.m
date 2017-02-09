@@ -8,6 +8,7 @@
 
 #import "BaseRequest.h"
 #import "UserModel.h"
+#import <RongIMKit/RongIMKit.h>
 
 @implementation BaseRequest
 + (instancetype)sharedInstance {
@@ -709,6 +710,7 @@
             }
 
             [UserModel writeUser:user];
+//            NSLog(@"--------%@-------",[LoginModel curLoginUser]);
 
         }];
         
@@ -735,10 +737,41 @@
 {
     
     [self requestPostCommonWithPath:APPINTERFACE__GetPersonalInfo Params:params succesBlock:^(id data) {
+        
         UserModel *user = [UserModel modelFromDictionary:data[@"user"]];
         
         [UserModel writeUser:user];
         
+        DEFAULTS_SET_OBJ(user.userid, @"userid");
+        [BaseRequest ChatWithUserID:[user.userid integerValue] succesBlock:^(id data) {
+            
+            NSString *str = data[@"token"];
+            DEFAULTS_SET_OBJ(str, @"RongYunToken");
+            
+            
+            
+            [[RCIM sharedRCIM] connectWithToken:str success:^(NSString *userId) {
+                NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+                
+            } error:^(RCConnectErrorCode status) {
+                NSLog(@"登陆的错误码为:%d", status);
+            } tokenIncorrect:^{
+                //token过期或者不正确。
+                //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+                //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+                NSLog(@"token错误");
+            }];
+    
+        
+            
+            
+            
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
+
 
         if (successBlock) {
             successBlock(data);
@@ -1916,6 +1949,26 @@
             successBlock(data);
         }
         
+    } failue:failueBlock];
+
+}
+
+/**
+ *  融云聊天
+ *  @param userid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ChatWithUserID:(NSInteger)userid
+           succesBlock:(SuccessBlock)successBlock
+                failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"userid":@(userid)};
+    [self requestPostCommonWithPath:APPINTERFACE__ChatWithUser Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
     } failue:failueBlock];
 
 }

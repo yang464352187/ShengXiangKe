@@ -922,4 +922,15 @@
                       succesBlock:(SuccessBlock)successBlock
                            failue:(FailureBlock)failueBlock;
 
+/**
+ *  融云聊天
+ *  @param userid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ChatWithUserID:(NSInteger)userid
+           succesBlock:(SuccessBlock)successBlock
+                failue:(FailureBlock)failueBlock;
+
+
 @end

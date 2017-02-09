@@ -121,7 +121,7 @@
 #define APPINTERFACE__HomeSwapSetupList      @"/app/swapsetup/listpost" //首页来换包列表
 #define APPINTERFACE__ConfirmMyRentOrder     @"/app/rentorder/setpost" //我的租赁确认收货
 #define APPINTERFAXE__RentComment            @"/app/rentcomment/addpost"//评论
-#define APPINTERFACE__DeleteRentOrder1       @""
+#define APPINTERFACE__ChatWithUser           @"/app/rongyun/gettokenpost"
 
 
 #endif /* APPMacro_h */

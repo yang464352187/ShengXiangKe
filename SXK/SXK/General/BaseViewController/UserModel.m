@@ -44,9 +44,11 @@
             [userDict removeObjectForKey:key];
         }
     }];
+
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:userDict forKey:kLoginUserData];
     [userDefaults synchronize];
+        NSLog(@"++++%@++++",userDict);
 }
 
 - (NSString *)image{

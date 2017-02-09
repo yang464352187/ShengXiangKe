@@ -45,7 +45,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    NSLog(@"--------%@-------",[LoginModel curLoginUser]);
+   
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];//设置电池条颜色为白色
     if ([LoginModel isLogin]) {
@@ -109,6 +109,11 @@
             self.sexImage.image = [UIImage imageNamed:@"女生"];
         }
         self.titleLab.text = self.myDict[@"nickname"];
+        
+//         NSLog(@"--------%@-------",[LoginModel curLoginUser]);
+        
+        
+
         
     } failue:^(id data, NSError *error) {
         

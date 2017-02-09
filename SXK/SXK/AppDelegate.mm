@@ -18,6 +18,7 @@
 #import "MQServiceToViewInterface.h"
 #import <UMSocialCore/UMSocialCore.h>
 #import "Pingpp.h"
+#import <RongIMKit/RongIMKit.h>
 
 
 @interface AppDelegate ()<UITabBarControllerDelegate>
@@ -70,6 +71,12 @@
     //设置新浪的appKey和appSecret
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Sina appKey:@"1084074774"  appSecret:@"26533dc2809fc7f5d6a0f1c2e0f68920" redirectURL:@"https://sns.whalecloud.com/sina2/callback"];
     
+    //融云appkey qd46yzrfqdhzf 4z3hlwrv4ztht
+    [[RCIM sharedRCIM] initWithAppKey:@"qd46yzrfqdhzf"];
+    
+
+
+
     return YES;
 }
 

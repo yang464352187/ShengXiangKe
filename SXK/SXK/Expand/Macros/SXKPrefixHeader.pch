@@ -21,7 +21,6 @@
 #import "GCQiniuUploadManager.h"  //七牛管理类
 #import "Pingpp.h"
 
-
 //Categories
 #import "UIBarButtonItem+Extension.h"
 #import "UIView+Extension.h"

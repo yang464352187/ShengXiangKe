@@ -72,10 +72,10 @@ static UserModel *curLoginUser;
 }
 
 + (UserModel *)curLoginUser {
-    if (!curLoginUser) {
+//    if ([curLoginUser.userid stringValue].length > 0) {
         NSDictionary *loginData = [[NSUserDefaults standardUserDefaults] objectForKey:kLoginUserData];
         curLoginUser = loginData ? [UserModel modelFromDictionary:loginData] : nil;
-    }
+//    }
     return curLoginUser;
 }
 

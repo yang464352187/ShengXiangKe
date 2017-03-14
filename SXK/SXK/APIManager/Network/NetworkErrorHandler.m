@@ -55,8 +55,8 @@
         }else if (resultCode.intValue == 911) {
             // TODO:用户未登录或者登陆超时
 //            [LoginModel doLoginOut];
-//            [ProgressHUDHandler showHudTipStr:@"登录超时,请重新登录"];
-//            [[PushManager sharedManager] presentLoginVC];
+            [ProgressHUDHandler showHudTipStr:@"登录超时,请重新登录"];
+            [[PushManager sharedManager] presentLoginVC];
             
         }else  if (resultCode.intValue == 2003){
             if (autoShowError) {

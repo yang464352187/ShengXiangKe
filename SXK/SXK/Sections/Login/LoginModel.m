@@ -45,16 +45,16 @@ static UserModel *curLoginUser;
 }
 
 // 退出登录
-//+ (void)doLoginOut {
++ (void)doLoginOut {
 //    [BaseRequest loginOutWithsuccesBlock:^(id data) {
 //        
 //    } failue:nil];
-//    curLoginUser = nil;
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    [userDefaults setBool:NO forKey:kLoginState];
-//    [userDefaults removeObjectForKey:kLoginUserData];
-//    [userDefaults synchronize];
-//}
+    curLoginUser = nil;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:NO forKey:kLoginState];
+    [userDefaults removeObjectForKey:kLoginUserData];
+    [userDefaults synchronize];
+}
 
 
 // 更新用户数据

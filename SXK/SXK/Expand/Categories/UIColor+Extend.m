@@ -18,8 +18,6 @@
 }
 
 
-
-
 #pragma mark  十六进制颜色
 + (UIColor *)colorWithHexColorString:(NSString *)hexColorString alpha:(float)alpha{
     

@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 #import "AppDelegate.h"
-
+#import "LoginVCViewController.h"
 @interface BaseViewController ()<PushManagerDelegate>
 
 @property (strong, nonatomic) UIView * failView;
@@ -237,10 +237,11 @@
 }
 
 - (void)presentLoginVC{
-//    LoginVC *vc = [[LoginVC alloc] init];
-//    BaseNavigationVC *navi = [[BaseNavigationVC alloc] initWithRootViewController:vc];
-//    [((AppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController presentViewController:navi animated:YES completion:nil];
-    //[self presentViewController:navi  animated:YES completion:nil];
+    LoginVCViewController *vc = [[LoginVCViewController alloc] init];
+    BaseNavigationVC *navi = [[BaseNavigationVC alloc] initWithRootViewController:vc];
+    [((AppDelegate *)[[UIApplication sharedApplication] delegate]).window.rootViewController presentViewController:navi animated:YES completion:nil];
+//    [self presentViewController:navi  animated:YES completion:nil];
+    NSLog(@"11111");
     
 }
 

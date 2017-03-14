@@ -22,15 +22,16 @@
 #import "MQImageUtil.h"
 #import "MQToast.h"
 #import "MyMaintainVC.h"
+#import "MyAppraiseVC.h"
 
 @interface MeVC ()
 
-@property(nonatomic, strong)UIButton *loginBtn;
-@property(nonatomic, strong)UILabel *firstLab;
-@property(nonatomic, strong)UILabel *secondLab;
-@property(nonatomic, strong)UILabel *thirdLab;
-@property(nonatomic, strong)UIView *loginView;
-@property(nonatomic, strong)UIImageView *backgroundImage;
+@property (nonatomic, strong)UIButton *loginBtn;
+@property (nonatomic, strong)UILabel *firstLab;
+@property (nonatomic, strong)UILabel *secondLab;
+@property (nonatomic, strong)UILabel *thirdLab;
+@property (nonatomic, strong)UIView *loginView;
+@property (nonatomic, strong)UIImageView *backgroundImage;
 @property (strong, nonatomic)UIView *headView;
 @property (nonatomic, strong)NSMutableArray *titleArr;
 @property (nonatomic, strong)NSMutableArray *imageArr;
@@ -38,16 +39,19 @@
 @property (nonatomic, strong)UIImageView *headImage;
 @property (nonatomic, strong)UIImageView *sexImage;
 @property (nonatomic, strong)UILabel *titleLab;
-
+@property (nonatomic, assign)NSInteger type;
+@property (nonatomic, assign)float score;
 @end
 
 @implementation MeVC
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-   
+    self.type = 0;
+
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];//设置电池条颜色为白色
+    
     if ([LoginModel isLogin]) {
         for(UIView *view in [self.view subviews])
         {
@@ -55,10 +59,13 @@
         }
         
         [self.view addSubview:self.tableView];
-//        if (self.first == 0) {
-            [self loadingRequest];
-//            self.first = 1;
-//        }
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view.mas_top).offset(-20);
+            make.left.equalTo(self.view.mas_left).offset(0);
+            make.right.equalTo(self.view.mas_right).offset(0);
+            make.bottom.equalTo(self.view.mas_bottom).offset(0);
+        }];
+        [self loadingRequest];
         
     }else{
         [self initLoginView];
@@ -77,7 +84,6 @@
     // Do any additional setup after loading the view.
     //判断是否登录
     self.navigationController.navigationBar.hidden = YES;
-
 //    int login = 0;
 //    if(login){
 //        [self.view addSubview:self.tableView];
@@ -112,7 +118,15 @@
         
 //         NSLog(@"--------%@-------",[LoginModel curLoginUser]);
         
+        NSString *mobile = self.myDict[@"mobile"];
+        self.score = [data[@"user"][@"score"] floatValue];
         
+//        NSLog(@"-------%lf-------",[data[@"score"] floatValue]);
+        if (mobile.length != 11) {
+            
+            [self.tableView removeFromSuperview];
+            [self initLoginView];
+        }
 
         
     } failue:^(id data, NSError *error) {
@@ -120,6 +134,72 @@
     }];
 
 }
+
+-(void)loadingRequest1
+{
+    NSDictionary *params = @{};
+    [BaseRequest GetPersonalInfoWithParams:params succesBlock:^(id data) {
+        
+        self.myDict = data[@"user"];
+        
+        
+        
+        NSString *mobile = self.myDict[@"mobile"];
+        
+        if (mobile.length != 11) {
+            
+            
+            [self PresentViewControllerByClassName:@"BindMobileVC" info:nil];
+            //            [self PushViewControllerByClassName:@"BindMobileVC" info:nil];
+            
+        }else{
+            
+            for(UIView *view in [self.view subviews])
+            {
+                [view removeFromSuperview];
+            }
+            
+            [self.view addSubview:self.tableView];
+//            self.tableView.frame = VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-40);
+            [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view.mas_top).offset(-20);
+                make.left.equalTo(self.view.mas_left).offset(0);
+                make.right.equalTo(self.view.mas_right).offset(0);
+                make.bottom.equalTo(self.view.mas_bottom).offset(0);
+            }];
+
+        }
+
+        
+        
+        
+        NSString *imageUrl = self.myDict[@"headimgurl"];
+        
+        if (imageUrl.length < 5) {
+            self.headImage.image = [UIImage imageNamed:@"zhanweitouxiang"];
+        }else{
+            
+            [self.headImage sd_setImageWithURL:[NSURL URLWithString:self.myDict[@"headimgurl"]]];
+        }
+        
+        if ([self.myDict[@"sex"] integerValue] == 1) {
+            self.sexImage.image = [UIImage imageNamed:@"男"];
+        }else{
+            self.sexImage.image = [UIImage imageNamed:@"女生"];
+        }
+        self.titleLab.text = self.myDict[@"nickname"];
+        
+        //         NSLog(@"--------%@-------",[LoginModel curLoginUser]);
+        
+        self.score = [data[@"user"][@"score"] floatValue];
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    
+}
+
+
 
 -(void)initData
 {
@@ -158,6 +238,8 @@
     secondLab.textAlignment = NSTextAlignmentCenter;
 //    secondLab.backgroundColor = [UIColor redColor];
     [self.view addSubview:secondLab];
+    
+    
     self.secondLab = secondLab;
 
     
@@ -507,7 +589,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 9;
+    return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -543,7 +625,7 @@
                 vc.view.backgroundColor = [UIColor whiteColor];
                 [vcArr addObject:vc];
             }
-            NSArray *array = @[@"我的啵主",@"我的啵客"];
+            NSArray *array = @[@"我的啵客",@"我的啵主"];
             ServeceCenterVC *vc = [[ServeceCenterVC alloc] initWithControllers:vcArr titles:array type:2];
             [self pushViewController:vc];
 
@@ -565,7 +647,35 @@
             [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];
             [chatViewManager pushMQChatViewControllerInViewController:self];
 
-        };
+        }
+            break;
+
+        case 2:{
+            [self PushViewControllerByClassName:@"ShareVC" info:nil];
+            
+        }
+            break;
+
+        case 0:{
+            self.type = 1;
+            [self PushViewControllerByClassName:@"MyWallet" info:nil];
+            
+        }
+        case 1:{
+            NSDictionary *dic = @{@"score" :@(self.score)};
+            [self PushViewControllerByClassName:@"MyBoobeValue" info:dic];
+            
+        }
+            break;
+        case 9:{
+            [self initLoginView];
+
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setBool:NO forKey:kLoginState];
+
+        }
+
+            break;
 
         default:
             break;
@@ -577,7 +687,7 @@
 -(NSMutableArray *)titleArr
 {
     if (!_titleArr) {
-        _titleArr = [[NSMutableArray alloc] initWithObjects:@"我的钱包",@"我的啵值",@"分享奖励",@"我的信用",@"服务中心",@"我的买卖",@"我的收藏",@"联系客服",@"设置", nil];
+        _titleArr = [[NSMutableArray alloc] initWithObjects:@"我的钱包",@"我的啵值",@"分享奖励",@"我的信用",@"服务中心",@"我的买卖",@"我的收藏",@"联系客服",@"设置",@"退出", nil];
     }
     return _titleArr;
 }
@@ -585,7 +695,7 @@
 -(NSMutableArray *)imageArr
 {
     if (!_imageArr) {
-        _imageArr = [[NSMutableArray alloc] initWithObjects:@"钱包",@"积分",@"奖励",@"信用",@"服务-(3)",@"买买买买",@"收藏",@"联系客服",@"设置-(1)", nil];
+        _imageArr = [[NSMutableArray alloc] initWithObjects:@"钱包",@"积分",@"奖励",@"信用",@"服务-(3)",@"买买买买",@"收藏",@"联系客服",@"设置-(1)",@"mine_loginout", nil];
     }
     return _imageArr;
 }
@@ -594,7 +704,7 @@
 {
     [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:self completion:^(id result, NSError *error) {
         UMSocialUserInfoResponse *userinfo =result;
-//        NSString *message = [NSString stringWithFormat:@"name: %@\n icon: %@\n gender: %@\n",userinfo.name,userinfo.iconurl,userinfo.gender];
+//        NSString *message = [NSString stringWithFormat:@"name: %@\n icon: %@\n gender: %@\n",userinfo.openid,userinfo.iconurl,userinfo.gender];
         
 //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"UserInfo"
 //                                                        message:message
@@ -602,27 +712,61 @@
 //                                              cancelButtonTitle:NSLocalizedString(@"确定", nil)
 //                                              otherButtonTitles:nil];
 //        [alert show];
-        
-        
+//        
+//        UMSocialUserInfoResponse *resp = result;
+//
+//        NSLog(@" uid: %@", resp.uid);
+//        NSLog(@" openid: %@", resp.openid);
+//        NSLog(@" accessToken: %@", resp.accessToken);
+//        NSLog(@" refreshToken: %@", resp.refreshToken);
+//        NSLog(@" expiration: %@", resp.expiration);
+//        
+//        // 用户数据
+//        NSLog(@" name: %@", resp.name);
+//        NSLog(@" iconurl: %@", resp.iconurl);
+//        NSLog(@" gender: %@", resp.gender);
+//        
+//        // 第三方平台SDK原始数据
+//        NSLog(@" originalResponse: %@", resp.originalResponse);
+//        
         if (userinfo.gender.length > 0) {
             
-            [BaseRequest ThirdLoginWithOpenID:userinfo.openid nickname:userinfo.name headimgurl:userinfo.iconurl pf:type succesBlock:^(id data) {
-//                NSLog(@"====%@=====",describe(data));
-                
-                for(UIView *view in [self.view subviews])
-                {
-                    [view removeFromSuperview];
-                }
-                
-                [self.view addSubview:self.tableView];
-                [self loadingRequest];
+            if (type == 4) {
                 
                 
-            } failue:^(id data, NSError *error) {
                 
-            }];
+                [BaseRequest ThirdLoginWithOpenID:userinfo.uid nickname:userinfo.name headimgurl:userinfo.iconurl pf:type succesBlock:^(id data) {
+                    //                NSLog(@"====%@=====",describe(data));
+                
+                    
+                    
+                    [self loadingRequest1];
+                    
+                    
+                } failue:^(id data, NSError *error) {
+                    
+                }];
+                
+                
+                
+
+            }else{
+                [BaseRequest ThirdLoginWithOpenID:userinfo.openid nickname:userinfo.name headimgurl:userinfo.iconurl pf:type succesBlock:^(id data) {
+                    //                NSLog(@"====%@=====",describe(data));
+          
+                    [self loadingRequest1];
+                    
+                    
+                } failue:^(id data, NSError *error) {
+                    
+                }];
+
+            }
+            
+            
 
         }
+//            [self PushViewControllerByClassName:@"BindMobileVC" info:nil];
     }];
 }
 
@@ -631,7 +775,10 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];//设置电池条颜色为黑色
+    if (self.type == 0) {
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];//设置电池条颜色为黑色
+
+    }
 }
 
 -(void)btnAction:(UIButton *)sender
@@ -660,6 +807,7 @@
             }
             NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
             MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr1 titles:array type:1];
+            
             [self pushViewController:vc];
             break;
         }
@@ -686,7 +834,17 @@
         }
 
         case 3:{
-            [self PushViewControllerByClassName:@"MyAppraiseVC" info:nil];
+//            [self PushViewControllerByClassName:@"MyAppraiseVC" info:nil];
+            NSMutableArray *vcArr2 = [NSMutableArray array];
+            for (int i =0; i<2; i++) {
+                UIViewController *vc = [[UIViewController alloc] init];
+                vc.view.backgroundColor = [UIColor whiteColor];
+                [vcArr2 addObject:vc];
+            }
+            NSArray *array = @[@"鉴定中",@"已完成"];
+            MyAppraiseVC *vc = [[MyAppraiseVC alloc] initWithControllers:vcArr2 titles:array type:1];
+            [self pushViewController:vc];
+
             break;
         }
 
@@ -704,6 +862,8 @@
 {
     [self PushViewControllerByClassName:@"MyFollowVC" info:nil];
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -30,6 +30,7 @@
     [self initUI];
 
 }
+
 -(void)initUI
 {
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
@@ -60,13 +61,14 @@
     ViewRadius(registeBtn, 22);
     
     
-    UIButton *identify = [UIButton buttonWithType:UIButtonTypeSystem];
+    UIButton *identify = [UIButton buttonWithType:UIButtonTypeCustom];
     [identify setTitle:@"发送验证码" forState:UIControlStateNormal];
     identify.frame = VIEWFRAME(SCREEN_WIDTH - 110, 170, 100, 45);
     identify.tag = 103;
     [identify setTitleColor:APP_COLOR_GRAY_333333 forState:UIControlStateNormal];
     [identify addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     identify.titleLabel.font = [UIFont systemFontOfSize:16];
+    
     self.verifybtn = identify;
     
     UILabel *explainLab = [[UILabel alloc] init];

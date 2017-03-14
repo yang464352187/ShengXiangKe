@@ -74,7 +74,7 @@
     [self.view addSubview:self.tableView];
     [self setRightBarButtonWith:[UIImage imageNamed:@"感叹号"] selector:@selector(barButtonAction)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-
+    
     
     [self loadingRequest];
 }
@@ -349,19 +349,21 @@
 -(void)BtnAction:(UIButton *)sender
 {
     [self PushViewControllerByClassName:@"HowToShootVC" info:nil];
+    
 }
 
 
 -(void)showTeachView
 {
     [self PushViewControllerByClassName:@"HowToShootVC" info:nil];
+
 }
 
 - (void)tongzhi:(NSNotification *)text{
     
     if ([text.userInfo[@"class"] isEqualToString:@"附件"]) {
         self.enclosure = text.userInfo[@"data"];
-        
+    
     }else{
         
         TypeCell *cell = (TypeCell *)[self.cellDic valueForKey:text.userInfo[@"class"]];
@@ -424,8 +426,11 @@
     
 //    _weekSelf(weakSelf);
     [CustomHUD createHudCustomShowContent:@"发布中"];
-
-    [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
+    
+//    [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
+    
+    [[GCQiniuUploadManager sharedInstance] registerWithScope:@"production" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
+    
     [[GCQiniuUploadManager sharedInstance] createToken];
     
     [[GCQiniuUploadManager sharedInstance] uploadDatas:photo progress:^(float percent) {

@@ -16,8 +16,28 @@
 #import "ProductParamCell.h"
 #import "UserIdModel.h"
 #import "BrandStoryCell.h"
+#import "YXCustomActionSheet.h"
+#import <UMSocialCore/UMSocialCore.h>
+#import "BrandDetailCell3.h"
+#import "RentCommentModel.h"
+#import "DFFaceManager.h"
+#import "MLLabel+Size.h"
 
-@interface BrandDetailVC ()<SDCycleScrollViewDelegate>
+
+
+#import "NSString+MLExpression.h"
+
+#define Margin 15
+
+#define Padding 10
+
+#define UserAvatarSize 40
+
+#define  BodyMaxWidth [UIScreen mainScreen].bounds.size.width - UserAvatarSize - 3*Margin
+
+#define TextLineHeight 1.2f
+
+@interface BrandDetailVC ()<SDCycleScrollViewDelegate,YXCustomActionSheetDelegate>
 
 @property (strong, nonatomic) UIView            *headView;
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;// 头顶滑动视图
@@ -32,6 +52,10 @@
 @property (assign, nonatomic) CGFloat cellHeight;
 @property (strong, nonatomic) BrandDetailModel *model;
 @property (strong, nonatomic) UserIdModel *useridModel;
+@property (nonatomic, assign) CGFloat cellHeight1;
+@property (strong, nonatomic) NSArray *dataArr;
+@property (assign, nonatomic) NSInteger CommentTotal;
+@property (strong, nonatomic) NSArray *dataArr1;
 
 @end
 
@@ -46,8 +70,8 @@
         self.cellHeight = [UILabel getHeightByWidth:SCREEN_WIDTH - 30 title:model.description1 font:SYSTEMFONT(13)];
         
 //        NSLog(@"=========%@=======",describe(model));
+        
         [weakSelf initData];
-        [weakSelf.tableView reloadData];
         NSMutableArray *imgArr = [[NSMutableArray alloc] init];
         for (NSString *img in weakSelf.model.imgList) {
             NSString *image = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,img];
@@ -55,10 +79,46 @@
         }
         weakSelf.cycleScrollView.localizationImageNamesGroup = imgArr;
 
+        [BaseRequest GetCommentListWithPageNo:0 PageSize:0 order:-1 rentid:[self.myDict[@"rentid"] integerValue] succesBlock:^(id data) {
+            CGFloat index;
+            NSInteger count;
+            NSArray *models = [RentCommentModel modelsFromArray:data[@"brandList"]];
+            if (models.count > 3) {
+                count = 3;
+            }else{
+                count = models.count;
+            }
+            
+            
+            weakSelf.CommentTotal = [data[@"total"] integerValue];
+            NSMutableArray *array = [[NSMutableArray alloc] init];
+            for (int i = 0; i < count; i++) {
+                RentCommentModel *model = models[i];
+                NSAttributedString *str =[model.content expressionAttributedStringWithExpression:[[DFFaceManager sharedInstance] sharedMLExpression]];
+                CGSize textSize = [MLLinkLabel getViewSize:str maxWidth:BodyMaxWidth font:SYSTEMFONT(14) lineHeight:TextLineHeight lines:0];
+                index += textSize.height;
+                [array addObject:model];
+            }
+            weakSelf.dataArr = array;
+            weakSelf.dataArr1 = models;
+            weakSelf.cellHeight1 = 358.50*count + (index - count *22)+15;
+            [weakSelf.tableView reloadData];
+            
+            
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
+        
         
     } failue:^(id data, NSError *error) {
         
     }];
+    
+
+    
+    
 }
 
 -(void)initData
@@ -95,7 +155,8 @@
             make.right.equalTo(self.headView.mas_right).offset(0);
             make.height.mas_equalTo(15);
         }];
-
+    
+        
     }
 }
 
@@ -103,8 +164,9 @@
 {
     [super viewWillAppear:animated];
     [self loadingRequest];
-    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
-
+//    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    
+    
 }
 
 
@@ -114,10 +176,150 @@
     self.navigationItem.title = @"产品详情";
     self.titleArr = [[NSArray alloc] initWithObjects:@"商品评价",@"商品描述",@"商品参数",@"品牌故事", nil];
     self.desArr = [[NSArray alloc] initWithObjects:@"Comment",@"Description",@"Production infomation",@"Brand story" ,nil];
+    UIImage *image = [UIImage imageNamed:@"分享11"];
+    [self setRightBarButtonWith:image selector:@selector(barButtonAction)];
+
     [self initUI];
     
   
 }
+
+-(void)barButtonAction
+{
+    YXCustomActionSheet *cusSheet = [[YXCustomActionSheet alloc] init];
+    cusSheet.delegate = self;
+    NSArray *contentArray = @[@{@"name":@"微信",@"icon":@"微信-1"},
+                              @{@"name":@"朋友圈 ",@"icon":@"朋友圈"},
+                              @{@"name":@"QQ ",@"icon":@"QQ-1"},
+                              @{@"name":@"新浪",@"icon":@"xinlang"}
+                              ];
+    
+    [cusSheet showInView:[UIApplication sharedApplication].keyWindow contentArray:contentArray];
+
+}
+
+#pragma mark - YXCustomActionSheetDelegate
+
+- (void) customActionSheetButtonClick:(YXActionSheetButton *)btn
+{
+    
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+    NSString* thumbURL = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,self.model.imgList[0]];
+    
+    UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumbURL];
+    
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.model.name descr:self.model.keyword thumImage:cachedImage];
+    
+    //设置网页地址
+    shareObject.webpageUrl = [NSString stringWithFormat:@"http://shexiangke.jcq.tbapps.cn/wechat/userpage/getrent/rentid/%@",self.model.rentid];
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    switch (btn.tag) {
+        case 0:{
+    
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_WechatSession messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+//                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+        case 1:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_WechatTimeLine messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+
+        case 2:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_QQ messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+
+        }break;
+
+        case 3:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_Sina messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+
+        }break;
+
+            
+        default:
+            break;
+    }
+    
+    NSLog(@"第%li个按钮被点击了",(long)btn.tag);
+}
+
 
 -(void)initUI
 {
@@ -133,7 +335,7 @@
     certainBtn.frame = VIEWFRAME(15, 20, CommonWidth(335), 40);
     [certainBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     ViewRadius(certainBtn, certainBtn.frame.size.height/2);
-    
+
     [view addSubview:certainBtn];
     [self.view addSubview:view];
     
@@ -143,12 +345,14 @@
         make.bottom.equalTo(self.view.mas_bottom).offset(0);
         make.height.mas_equalTo(80);
     }];
-
+    
+    
 
 }
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
     return 6;
 }
 
@@ -183,6 +387,14 @@
         [cell setModel:self.model];
         return cell;
     }
+    if (indexPath.section == 2) {
+        BrandDetailCell3 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell3"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.rentid = self.myDict[@"rentid"];
+//        [cell setModel:self.model];
+        [cell setWithArray:self.dataArr];
+        return cell;
+    }
     
     BrandDetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"BrandDetailCell2"];
     [cell setModel:self.model];
@@ -214,7 +426,9 @@
     if (indexPath.section == 5) {
         return 270;
     }
-
+    if (indexPath.section == 2) {
+        return self.cellHeight1;
+    }
 
     return 75;
 }
@@ -245,17 +459,34 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 66)];
+    view.backgroundColor =  [UIColor whiteColor];
+
     if (section == 0 || section ==1) {
         UIView *view = [[UIView alloc] init];
         view.backgroundColor = APP_COLOR_GRAY_Header;
         return view;
 
     }
-    NSString *title, *des;
+    NSString *title, *des, *des1;
     switch (section) {
         case 2:{
             title = self.titleArr[0];
-            des = self.desArr[0];
+            des1 = self.desArr[0];
+            
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+            [button setTitle:@"更多>" forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            button.titleLabel.font = SYSTEMFONT(13);
+            [button addTarget:self action:@selector(sendAction:) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:button];
+            
+            [button mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.centerY.equalTo(view);
+                make.right.equalTo(view.mas_right).offset(5);
+                make.size.mas_equalTo(CGSizeMake(80, 20));
+            }];
+            
             break;
         }
         case 3:{
@@ -282,9 +513,11 @@
     }
     
     
+    if (section == 2) {
+        des = [NSString stringWithFormat:@"%@(%ld)",des1,self.CommentTotal];
+    }
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 66)];
-    view.backgroundColor =  [UIColor whiteColor];
+    
     UILabel *title2 = [UILabel createLabelWithFrame:CommonVIEWFRAME(18, 13.5, 50, 12)
                                             andText:title
                                        andTextColor:[UIColor blackColor]
@@ -358,6 +591,7 @@
         _tableView.delegate        = self;
         [_tableView registerClass:[BrandDetailCell1 class] forCellReuseIdentifier:@"BrandDetailCell1"];
         [_tableView registerClass:[BrandDetailCell2 class] forCellReuseIdentifier:@"BrandDetailCell2"];
+        [_tableView registerClass:[BrandDetailCell3 class] forCellReuseIdentifier:@"BrandDetailCell3"];
         [_tableView registerClass:[ProductDesCell class] forCellReuseIdentifier:@"ProductDesCell"];
         [_tableView registerClass:[ProductParamCell class] forCellReuseIdentifier:@"ProductParamCell"];
         [_tableView registerClass:[BrandStoryCell class] forCellReuseIdentifier:@"BrandStoryCell"];
@@ -512,6 +746,13 @@
         
     }];
 }
+
+-(void)sendAction:(UIButton *)sender
+{
+    NSDictionary *dic = @{@"array":self.dataArr1};
+    [self PushViewControllerByClassName:@"CommentVC" info:dic];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

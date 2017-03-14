@@ -61,6 +61,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"社区";
     [self setRightBarButtonWith:@"发表" selector:@selector(barButtonAction)];
+    
     self.uploadPhotoArr = [[NSMutableArray alloc] init];
    
 

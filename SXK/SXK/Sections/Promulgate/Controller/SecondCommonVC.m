@@ -40,7 +40,7 @@
     _weekSelf(weakSelf);
     [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:[self.myDict[@"categoryID"] integerValue] succesBlock:^(id data) {
         NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
-        NSLog(@"-----%@------",describe(models));
+//        NSLog(@"-----%@------",describe(models));
         weakSelf.dataArr = models;
         [weakSelf.tableView reloadData];
     } failue:^(id data, NSError *error) {
@@ -51,7 +51,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = self.myDict[@"title"];
-
+    
     [self setRightBarButtonWith:[NSString stringWithFormat:@"完成"] selector:@selector(barButtonAction)];
     [self initData];
     [self.view addSubview:self.tableView];

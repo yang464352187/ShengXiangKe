@@ -69,7 +69,11 @@
         } failue:^(id data, NSError *error) {
             
         }];
+        
     }
+    
+    
+    
     
     
 }
@@ -83,7 +87,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = self.myDict[@"title"];
     [self.view addSubview:self.tableView];
-
+    
 }
 
 

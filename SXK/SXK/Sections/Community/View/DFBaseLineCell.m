@@ -333,12 +333,12 @@
 -(CGFloat)getReuseableCellHeight:(DFBaseLineItem *)item
 {
     if (item.cellHeight != 0) {
-//        NSLog(@"重用高度 %f", item.cellHeight);
+        NSLog(@"重用高度 %f", item.cellHeight);
         return item.cellHeight;
     }
     CGFloat height = [self getCellHeight:item];
     item.cellHeight = height;
-//    NSLog(@"计算高度 %f", item.cellHeight);
+    NSLog(@"计算高度 %f", item.cellHeight);
     
     return height;
 }
@@ -483,6 +483,13 @@
     NSString*confromTimespStr = [formatter stringFromDate:confromTimesp];
     
     return confromTimespStr;
+}
+
+-(void)hiddenButton;
+{
+    _likeCmtButton.hidden = 1;
+    _likeCmtButton1.hidden = 1;
+    
 }
 
 @end

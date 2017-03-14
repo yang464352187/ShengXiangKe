@@ -46,7 +46,7 @@
     [btn1 setTitle:@"发起咨询" forState:UIControlStateNormal];
     [btn1 setTintColor:[UIColor colorWithHexColorString:@"2c2c2c"]];
     [btn1 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
-    btn.tag = 200;
+    btn1.tag = 200;
     ViewBorderRadius(btn1, 17.5, 0.5, [UIColor colorWithHexColorString:@"656565"]);
 
     [self.view addSubview:btn];
@@ -76,10 +76,14 @@
 
 -(void)btnAction:(UIButton *)sender
 {
+    
     if (sender.tag == 100) {
+        
         DEFAULTS_SET_OBJ(@"1", @"promulgateType");
         [self PushViewControllerByClassName:@"PromulgateVC" info:nil];
+        
     }else{
+        
         MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
         [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
         [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];

@@ -18,8 +18,6 @@
 #import "MQImageUtil.h"
 #import "MQToast.h"
 
-
-
 @interface ServeceCenterVC ()
 
 @property (nonatomic, assign)NSInteger index;
@@ -42,10 +40,11 @@
 
 @property (nonatomic, strong)NSArray *titleArr;
 
+@property (nonatomic, assign)NSInteger type;
+
 @end
 
 @implementation ServeceCenterVC
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -71,13 +70,15 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"服务中心";
     self.urlArr = @[@"/app/processsetup/getpost",@"/app/profitsetup/getpost",@"/app/guaranteesetup/getpost",@"/app/damagesetup/getpost",@"/app/chargesetup/getpost",@"/app/longtermsetup/getpost"];
-    self.titleArr = @[@"租用流程",@"出租收益",@"平台保障",@"破损处理",@"平台服务费",@"长租"];
+    self.titleArr = @[@"租用流程",@"租赁费用",@"注册审核",@"破损处理",@"APP指导",@"平台保障"];
 
     [self initUI];
 }
 
 -(void)initUI
 {
+    
+    
     for (int i = 0; i < self.ViewArr.count; i++) {
         if (i == 0) {
             self.master = self.ViewArr[i];
@@ -105,7 +106,9 @@
             [self.guest addSubview:tableView];
             self.tableView2 = tableView;
         }
+        
     }
+    
     
 }
 
@@ -189,11 +192,13 @@
     QuestionListModel *model = self.listData[indexPath.row];
     NSDictionary *dic = @{@"title":model.name,@"content":model.content,@"type":@"1"};
     [self PushViewControllerByClassName:@"ServiceCenter1" info:dic];
+    
+
 }
 
 -(void)setAnimationWithOrigin:(CGFloat)x{
     [super setAnimationWithOrigin:x];
-    NSLog(@"%lf",x/SCREEN_WIDTH);
+    self.type = x/SCREEN_WIDTH;
 }
 
 
@@ -318,11 +323,14 @@
                     make.height.mas_equalTo(12);
                 }];
                 
+                
+                
             }
             
         }
         
     }
+    
     return _headView1;
 }
 
@@ -333,14 +341,45 @@
     [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];
     [chatViewManager pushMQChatViewControllerInViewController:self];
 
+    
 }
 
 -(void)tapAction:(UITapGestureRecognizer *)tap
 {
-    NSInteger tag = tap.view.tag;
-    NSDictionary *dic = @{@"title":self.titleArr[tag-1],@"url":self.urlArr[tag-1],@"type":@"2"};
-    [self PushViewControllerByClassName:@"ServiceCenter1" info:dic];
+    
+    if (self.type == 1) {
         
+        NSInteger tag = tap.view.tag;
+        NSDictionary *dic = @{@"title":self.titleArr[tag-1],@"url":self.urlArr[tag-1],@"type":@"2"};
+        [self PushViewControllerByClassName:@"ServiceCenter1" info:dic];
+        
+    }else{
+        
+        
+        
+        
+        NSArray *array = @[@"租用流程",@"租赁费用",@"注册审核",@"破损处理",@"APP指导",@"平台保障"];
+        NSArray *url = @[@"/app/processsetup/getpost",@"/app/costsetup/getpost",@"/app/guaranteesetup/getpost",@"/app/damagesetup/getpost",@"/app/guidesetup/getpost",@"/app/guaranteesetup/getpost"];
+        NSInteger tag = tap.view.tag;
+        
+        if ((tag - 1) == 2) {
+            
+            [self PushViewControllerByClassName:@"RegisteExamineVC" info:nil];
+            
+        }else{
+            NSDictionary *dic = @{@"title":array[tag-1],@"url":url[tag-1],@"type":@"2"};
+            [self PushViewControllerByClassName:@"ServiceCenter1" info:dic];
+
+        }
+
+        
+        
+    }
+    
+    
+    
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

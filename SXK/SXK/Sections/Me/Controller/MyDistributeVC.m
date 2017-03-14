@@ -117,9 +117,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.index == 1) {
-        return 140;
-    }
+
     return 166;
 }
 
@@ -149,6 +147,7 @@
 {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = APP_COLOR_GRAY_Header;
+    
     return view;
 }
 
@@ -167,8 +166,10 @@
             self.tableView = tableView;
             self.index = i +1;
             [self loadingRequest];
+            
             break;
         }
+        
     }
 }
 
@@ -177,6 +178,7 @@
     [self.listData removeObjectAtIndex:index];
      NSIndexSet *indexSet=[[NSIndexSet alloc]initWithIndex:index];
     [self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -25,12 +25,14 @@
 {
     [super viewWillAppear:animated];
     [self loadingRequest];
+    
 }
 
 -(void)loadingRequest
 {
     _weekSelf(weakSelf);
     [BaseRequest GetMyMaintainListWithPageNo:0 PageSize:0 order:-1 status:self.index succesBlock:^(id data) {
+        
         NSArray *models = [MyMaintainModel modelsFromArray:data[@"orderList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
         
@@ -44,6 +46,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的养护";
+    
     for (int i =0; i < self.tableViewArr.count; i++) {
         UITableView *tableView = self.tableViewArr[i];
         tableView.dataSource      = self;
@@ -83,12 +86,15 @@
     [cell setModel:model];
     cell.delegate = self;
     cell.index = indexPath.section;
+    
     if (self.index == 3) {
         MyMaintainCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyMaintainCell1"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell setModel:model];
+        
         return cell;
     }
+    
     
     return cell;
 }

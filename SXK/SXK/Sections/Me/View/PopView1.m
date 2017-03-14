@@ -203,9 +203,21 @@
         } failue:^(id data, NSError *error) {
             
         }];
+    }else if ([self.title1 isEqualToString:@"确认完成鉴定?"]){
+        
+        [BaseRequest ConfirmMyAppraiseWithOrderID:self.index succesBlock:^(id data) {
+            
+            if ([self.delegate respondsToSelector:@selector(success)]) {
+                [self.delegate success];
+            }
+            [ProgressHUDHandler showHudTipStr:@"确认完成"];
+            [self disMiss];
+
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
     }
-    
-    
     
     else{
         

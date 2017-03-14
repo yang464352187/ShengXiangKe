@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, assign) NSInteger type;
 
+
 @end
 
 @implementation CommunityVC
@@ -42,10 +43,10 @@
     self = [super init];
     if (self) {
         
-
         _items = [NSMutableArray array];
         _itemDic = [NSMutableDictionary dictionary];
         _commentDic = [NSMutableDictionary dictionary];
+    
     }
     return self;
 }
@@ -63,8 +64,8 @@
     [_commentInputView addNotify];
     [_commentInputView addObserver];
 
-    UserModel *model =   [LoginModel curLoginUser];
-    NSLog(@"%@",describe(model));
+//    UserModel *model =   [LoginModel curLoginUser];
+//    NSLog(@"%@",describe(model));
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -90,20 +91,23 @@
         NSArray *models = [ModuleModel modelsFromArray:data[@"moduleList"]];
         weakSelf.moduleArr = models;
         [weakSelf.collectionView reloadData];
-        
-        ModuleModel *model1 = weakSelf.moduleArr[0];
-        weakSelf.type = [model1.moduleid integerValue];
-        [BaseRequest GetCommunityTopicListWithPageNo:self.pageNo  PageSize:self.pageSize topicid:-1 moduleid:[model1.moduleid integerValue] succesBlock:^(id data) {
-            NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
-            [weakSelf stopRefresh];
-            [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
-            [weakSelf handleModels:self.listData andTotal:[data[@"total"] integerValue]];
-            [weakSelf stopLoadingView];
-            self.first = 1;
-            
-        } failue:^(id data, NSError *error) {
-            
-        }];
+        if (weakSelf.moduleArr.count > 0) {
+            ModuleModel *model1 = weakSelf.moduleArr[0];
+            weakSelf.type = [model1.moduleid integerValue];
+
+            [BaseRequest GetCommunityTopicListWithPageNo:self.pageNo  PageSize:self.pageSize topicid:-1 moduleid:[model1.moduleid integerValue] succesBlock:^(id data) {
+                NSArray *models = [CommunityTopicListModel modelsFromArray:data[@"topicList"]];
+                [weakSelf stopRefresh];
+                [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
+                [weakSelf handleModels:self.listData andTotal:[data[@"total"] integerValue]];
+                [weakSelf stopLoadingView];
+                self.first = 1;
+                
+            } failue:^(id data, NSError *error) {
+                
+            }];
+
+        }
 
         
     } failue:^(id data, NSError *error) {
@@ -121,11 +125,11 @@
         for (int i = 0 ; i < models.count; i++) {
             CommunityTopicListModel *model = models[i];
         
-        DFTextImageLineItem *textImageItem = [[DFTextImageLineItem alloc] init];
+            DFTextImageLineItem *textImageItem = [[DFTextImageLineItem alloc] init];
         
-        textImageItem.itemId = [model.topicid integerValue];
-        textImageItem.userId = [model.userid integerValue];
-        textImageItem.userAvatar = model.headimgurl;
+            textImageItem.itemId = [model.topicid integerValue];
+            textImageItem.userId = [model.userid integerValue];
+            textImageItem.userAvatar = model.headimgurl;
         if (model.nickname.length < 1) {
             textImageItem.userNick = @"无名";
         }else{
@@ -156,9 +160,9 @@
         }
         
         
-        textImageItem.srcImages = srcImages;
-        textImageItem.thumbImages = srcImages;
-        textImageItem.ts = [model.createtime integerValue] ;
+            textImageItem.srcImages = srcImages;
+            textImageItem.thumbImages = srcImages;
+            textImageItem.ts = [model.createtime integerValue] ;
 
         if (srcImages.count <= 1  && srcImages.count > 0) {
 //            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",srcImages[0]]];
@@ -173,7 +177,7 @@
 
         }else{
             [self addItem:textImageItem index:i];
-
+            
         }
     }
     
@@ -210,6 +214,8 @@
         _commentInputView.delegate = self;
         [self.view addSubview:_commentInputView];
     }
+    
+    
     
 }
 

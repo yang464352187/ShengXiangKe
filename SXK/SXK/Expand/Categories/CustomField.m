@@ -47,6 +47,7 @@ static NSString * const NumAndLetter = @"0123456789qwertyuiopasdfghjklzxcvbnmQWE
         imageView.image = image;
         [paddingView addSubview:imageView];
         
+        
         self.leftView                 = paddingView;
         self.leftViewMode             = UITextFieldViewModeAlways;
         self.backgroundColor          = [UIColor whiteColor];
@@ -61,6 +62,7 @@ static NSString * const NumAndLetter = @"0123456789qwertyuiopasdfghjklzxcvbnmQWE
 }
 
 - (void)fieldInit{
+    
     self.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.delegate = self;
     self.showText = @"请输入用户名";
@@ -76,6 +78,7 @@ static NSString * const NumAndLetter = @"0123456789qwertyuiopasdfghjklzxcvbnmQWE
         case validateTypeMobile:{
             self.validator = @"^(1)\\d{10}$";
             self.keyboardType = UIKeyboardTypeNumberPad;
+            
             break;
         }
         case validateTypePassWord:{
@@ -86,6 +89,7 @@ static NSString * const NumAndLetter = @"0123456789qwertyuiopasdfghjklzxcvbnmQWE
         default:
             break;
     }
+    
 }
 
 #pragma mark -- 验证账号
@@ -178,5 +182,7 @@ static NSString * const NumAndLetter = @"0123456789qwertyuiopasdfghjklzxcvbnmQWE
         return YES;
     }
 }
+
+
 
 @end

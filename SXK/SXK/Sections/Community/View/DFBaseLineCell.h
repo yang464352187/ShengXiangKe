@@ -58,4 +58,6 @@
 
 -(UINavigationController *) getController;
 
+-(void)hiddenButton;
+
 @end

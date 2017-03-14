@@ -205,6 +205,7 @@
 
 -(void)setModel:(id)model
 {
+    
     BrandDetailModel *_model = model;
     
     //根据brandid选择品牌
@@ -223,6 +224,7 @@
     NSInteger personID = [_model.crowd integerValue];
     _person1.text = personArr[personID-1];
     
+    
     //颜色
     _color1.text = _model.color;
     
@@ -239,7 +241,10 @@
             [arr addObject:str1];
         }
     }
+    
+    
     _enclosure1.text = str;
+    
 }
 
 

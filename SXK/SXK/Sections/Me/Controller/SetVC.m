@@ -23,6 +23,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"设置";
     [self initData];
+    
     [self.view addSubview:self.tableView];
 }
 
@@ -47,6 +48,7 @@
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
+        
 
     }
     return _tableView;
@@ -85,8 +87,44 @@
 {
     switch (indexPath.row) {
         case 0:
+            
             [self PushViewControllerByClassName:@"AddressManagerVC" info:nil];
             break;
+            
+        case 2:{
+            
+            SDImageCache * cache = [SDImageCache sharedImageCache];
+//            NSLog(@"%ld",[cache getSize]);
+            NSString *str = [NSString stringWithFormat:@"缓存共%.1fMB",[cache getSize]/1024/1024.00];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"清除缓存" message:str preferredStyle:  UIAlertControllerStyleAlert];
+            
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //点击按钮的响应事件；
+                [self showRightWithTitle: @"清除成功" autoCloseTime: 0.2];
+                [cache clearDisk];
+                
+            }]];
+
+            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //点击按钮的响应事件；
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+            break;
+        }
+            
+        case 3:{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"版本更新" message:@"当前版本已经是最新版本" preferredStyle:  UIAlertControllerStyleAlert];
+            
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //点击按钮的响应事件；
+            }]];
+
+            
+            //弹出提示框；
+            [self presentViewController:alert animated:true completion:nil];
+        }
+            break;
+        
         case 4:{
             NSDictionary *dic = @{@"title":@"意见反馈",
                                   @"opinion":@"请输入您的宝贵意见"};

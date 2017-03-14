@@ -22,13 +22,17 @@
 #import "UserModel.h"
 #import <RongIMKit/RongIMKit.h>
 #import "RCConversationListVC.h"
+
 @interface HomeVC ()<SDCycleScrollViewDelegate>
 
 
-@property (strong, nonatomic) UIView            *headView;
+@property (strong, nonatomic) UIView *headView;
 @property (strong, nonatomic) SDCycleScrollView *cycleScrollView;// 头顶滑动视图
 @property (strong, nonatomic) NSArray *dataArr;
 @property (strong, nonatomic) NSArray *topicArr;
+@property (strong, nonatomic) UIView *view1;
+@property (strong, nonatomic) UIView *view2;
+
 
 @end
 
@@ -37,7 +41,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+        [super viewWillAppear:animated];
     _weekSelf(weakSelf);
     [BaseRequest GetAdvertisesetupWithSetupID:1 succesBlock:^(id data) {
 //        NSLog(@"%@",describe(data));
@@ -47,6 +51,7 @@
         for (NSDictionary *image in imageArr) {
             NSString *str = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,image[@"img"]];
             [images addObject:str];
+            
         }
         weakSelf.cycleScrollView.localizationImageNamesGroup = images;
         
@@ -76,19 +81,44 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+//     Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
     self.navigationController.navigationBar.hidden = YES;
     [self.view addSubview:self.tableView];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:NO forKey:kLoginState];
+    
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(CloseKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_BEGIN object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OpenKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_END object:nil];
     
+    UserModel *model =   [LoginModel curLoginUser];
+    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
+//    [self changeview];
 //    [PushManager sharedManager].delegate = self;
+    
+
+
+
 }
+-(void)changeview
+{
+    
+    self.view1 = [[UIView alloc] initWithFrame:VIEWFRAME(100, 100, 100, 100)];
+    self.view1.backgroundColor = [UIColor redColor];
+    UIImageView *image = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, 100, 100)];
+    image.image = [UIImage imageNamed:@"占位-0"];
+    [self.view1 addSubview: image];
+    [self.view addSubview:self.view1];
+    
+    
+
+}
+
+
++ (void)animateWithDuration:(NSTimeInterval)duration animations:(void (^)(void))animations completion:(void (^ __nullable)(BOOL finished))completion NS_AVAILABLE_IOS(4_0);{
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -164,7 +194,6 @@
             
         case 2:{
             view = [self sectionViewWithTitle:@"热门专题" andContent:@"Hot topics"];
-            
         }
             break;
 
@@ -418,10 +447,22 @@
             
         case 100:{
             [self PushViewControllerByClassName:@"ExchangeVC" info:nil];
+//            self.view1.transform = CGAffineTransformScale(self.view1.transform, 1.0, -1.0);
+//            self.view1.layer.transform=CATransform3DMakeRotation(M_PI/2, 0, 0.5,0.5);
+            
+//            [self.view addSubview:fromView];
+            
+//            [CATransaction flush];
+//            
+//            [UIView transitionFromView:self.view1 toView:self.view2 duration:1.0f options:UIViewAnimationOptionTransitionFlipFromLeft completion:NULL];
+
             break;
         }
         case 101:{
             [self PushViewControllerByClassName:@"RentVC" info:nil];
+//            [CATransaction flush];
+//            
+//            [UIView transitionFromView:self.view2 toView:self.view1 duration:1.0f options:UIViewAnimationOptionTransitionFlipFromLeft completion:NULL];
             break;
         }
         case 102:{
@@ -477,6 +518,8 @@
     }
     [self PushViewControllerByClassName:@"ShowVC" info:dic];
 }
+
+
 
 /*
 #pragma mark - Navigation

@@ -13,7 +13,7 @@
 #import "AppraiseClassModel.h"
 #import "AppraiseClassVC.h"
 #import "BrandVC.h"
-
+#import "AddressModel.h"
 @interface AppraiseVC ()<SelectPayCellDelegate,AppraiseClassVCDelegate,BrandVCDelegate>
 
 @property (strong, nonatomic) UIView   *headView;
@@ -29,7 +29,14 @@
 
 @property (nonatomic, assign) NSInteger brandid;
 @property (nonatomic, assign) NSInteger genreid;
+@property (nonatomic, assign) NSInteger receiverid;
+
 @property (nonatomic, assign) NSInteger total;
+
+@property (nonatomic, strong) AddressModel *model;
+@property (nonatomic, strong) NSString *str;
+@property (nonatomic, strong) NSString *type;
+
 
 @end
 
@@ -46,6 +53,13 @@
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.footView];
     
+
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     _weekSelf(weakSelf);
     [BaseRequest AppraiseWithSetupID:1 succesBlock:^(id data) {
         NSDictionary *dic = data[@"setup"];
@@ -53,7 +67,19 @@
         NSArray *models = [AppraiseClassModel modelsFromArray:data[@"genreList"]];
         weakSelf.helpImage = dic[@"help"];
         weakSelf.dataArr = models;
-//        NSLog(@"%@",describe(models));
+        //        NSLog(@"%@",describe(models));
+        
+        
+        [BaseRequest GetAddressWithReceiverid:0 succesBlock:^(id data) {
+            weakSelf.model = [AddressModel modelFromDictionary:data[@"receiver"]];
+            weakSelf.str = @"";
+            weakSelf.receiverid = [data[@"receiver"][@"receiverid"] integerValue];
+            [weakSelf.tableView reloadData];
+        } failue:^(id data, NSError *error) {
+            
+            weakSelf.str = data[@"message"];
+            [weakSelf.tableView reloadData];
+        }];
         
         
     } failue:^(id data, NSError *error) {
@@ -99,6 +125,11 @@
     if (indexPath.section == 1) {
         ConsigneeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ConsigneeCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (self.str.length > 0) {
+            [cell fillWithTitle:self.str];
+        }else{
+            [cell fillWithModel:self.model str:self.str];
+        }
         return cell;
     }
     if (indexPath.section == 2) {
@@ -106,6 +137,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell fillWithTitle:self.payArr[indexPath.row]];
         cell.delegate = self;
+        cell.type = indexPath.row;
         return cell;
     }
     
@@ -120,6 +152,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 1) {
+        return 64;
+    }
     return 54;
 }
 
@@ -236,6 +271,29 @@
         [(PayCell *)cell isSelect];
         self.selectCell = (PayCell *)cell;
     }
+    
+    switch (type) {
+        case 0:{
+            self.type = @"wx";
+        }
+            break;
+        case 1:{
+            self.type = @"alipay";
+        }
+            break;
+
+        case 2:{
+            self.type = @"upacp";
+        }
+            break;
+        
+            
+        default:
+            break;
+    }
+    
+    
+//    NSLog(@"%ld",type);
 }
 
 -(void)returndata:(NSDictionary *)dic
@@ -243,20 +301,63 @@
     TypeCell *cell = [(TypeCell *)self.cellDic valueForKey:@"类别"];
     [cell changeTitle1:dic[@"name"]];
     self.priceLab.text = [NSString stringWithFormat:@"合计:¥ %.2f",[dic[@"price"] floatValue] / 100 ];
-    NSLog(@"这是中鉴%@",describe(dic));
+    self.total = [dic[@"price"] integerValue];
+//    NSLog(@"这是中鉴1%@",describe(dic));
+    self.genreid = [dic[@"genreid"] integerValue];
 }
 
 -(void)returnBrand:(NSDictionary *)dic
 {
     TypeCell *cell = [(TypeCell *)self.cellDic valueForKey:@"品牌"];
     [cell changeTitle1:dic[@"name"]];
-    NSLog(@"这是中鉴%@",describe(dic));
+    self.brandid = [dic[@"brandid"] integerValue];
+
+//    NSLog(@"这是中鉴2%@",describe(dic));
 }
 
 
 -(void)buttonClick:(UIButton *)sender
 {
-    
+    [BaseRequest CreateAppraiseOrderWithReceiverid:self.receiverid brandid:self.brandid genreid:self.genreid total:self.total succesBlock:^(id data) {
+        
+        [BaseRequest PayWithChannel:self.type orderID:[data[@"orderid"] integerValue] type:3 succesBlock:^(id data) {
+            
+            //        NSLog(@"======%@====",data[@"info"]);
+            _weekSelf(weakSelf);
+            [Pingpp createPayment:data[@"info"] appURLScheme:@"wx4bfb2d22ce82d40d" withCompletion:^(NSString *result, PingppError *error) {
+                NSLog(@"completion block: %@", result);
+                if (error == nil) {
+                    NSLog(@"PingppError is nil");
+                    [ProgressHUDHandler showHudTipStr:@"付款成功"];
+                    [weakSelf popGoBack];
+                } else {
+                    NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                    if (error.code == 3) {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                        message:@"您还没安装微信,请前往AppStore中下载安装"
+                                                                       delegate:nil
+                                                              cancelButtonTitle:@"确定"
+                                                              otherButtonTitles:nil];
+                        [alert show];
+                    }
+                }
+            }];
+            
+            
+            
+            
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
+        
+        
+        
+        
+    } failue:^(id data, NSError *error) {
+        
+    }];
 }
 
 

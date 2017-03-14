@@ -27,7 +27,7 @@
     _headImage = [[UIImageView alloc] init];
     _headImage.image = [UIImage imageNamed:@"背景"];
     
-    _title = [[UILabel alloc] init];
+//    _title = [[UILabel alloc] init];
     
     _title = [UILabel createLabelWithFrame:VIEWFRAME(16, 0, SCREEN_WIDTH- CommonWidth(72)-5, CommonHight(51.5))                                                 andText:@"单肩包"
                               andTextColor:[UIColor blackColor]
@@ -35,6 +35,7 @@
                                    andFont:SYSTEMFONT(12)
                           andTextAlignment:NSTextAlignmentCenter];
 
+    
     [self addSubview:_headImage];
     [self addSubview:_title];
     
@@ -56,7 +57,7 @@
 
 -(void)fillWithImage:(NSString *)image andTitle:(NSString *)title
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ohqqvdngk.bkt.clouddn.com/%@",image]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,image]];
     [_headImage sd_setImageWithURL:url];
     _title.text = title;
 }

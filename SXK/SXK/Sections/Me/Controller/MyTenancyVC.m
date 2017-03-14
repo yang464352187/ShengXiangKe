@@ -19,6 +19,7 @@
 @implementation MyTenancyVC
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的租赁";
@@ -26,23 +27,25 @@
     [self setupTitlesView:array];
     [self.view addSubview:self.tableView];
     
-    
 }
 
 
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MyTenancyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
 
     if (self.index == 3) {
         MyTenancyCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell1"];
@@ -115,6 +118,7 @@
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
+        
         
     }
     return _tableView;

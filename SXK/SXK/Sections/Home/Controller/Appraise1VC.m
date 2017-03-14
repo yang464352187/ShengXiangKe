@@ -105,7 +105,7 @@
 
 -(void)singleTapAction:(UITapGestureRecognizer *)tap
 {
-    
+    [self PushViewControllerByClassName:@"FreeAppraiseVC" info:nil];
 }
 -(void)singleTapAction1:(UITapGestureRecognizer *)tap
 {

@@ -7,7 +7,7 @@
 //
 
 #import "RCConversationVC.h"
-
+#import <RongIMKit/RongIMKit.h>
 @interface RCConversationVC ()
 
 @end
@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+
+  
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,14 +29,6 @@
 
 - (void)willDisplayMessageCell:(RCMessageBaseCell *)cell
                    atIndexPath:(NSIndexPath *)indexPath;{
-    
-    RCMessageCell *cell1 = (RCMessageCell *)cell;
-    cell1.messageContentView.backgroundColor = [UIColor greenColor];
-    NSInteger i = 0;
-    
-    for (UIView *view in cell1.messageContentView.subviews) {
-        
-    }
 //    NSLog(@"%ld",i);
 }
 

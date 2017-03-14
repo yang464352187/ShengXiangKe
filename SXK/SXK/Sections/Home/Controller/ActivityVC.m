@@ -10,9 +10,10 @@
 #import "ActivityCell.h"
 #import "ActivityListModel.h"
 
+
 @interface ActivityVC ()
 
-@property (nonatomic, strong)NSArray *dataArr;
+//@property (nonatomic, strong)NSArray *dataArr;
 
 @end
 
@@ -21,6 +22,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadingRequest];
+    
+    
 }
 
 -(void)loadingRequest
@@ -28,8 +31,11 @@
     _weekSelf(weakSelf);
     [BaseRequest GetActivityListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
         NSArray *models = [ActivityListModel modelsFromArray:data[@"activityList"]];
-        weakSelf.dataArr = models;
-        [weakSelf.tableView reloadData];
+        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+        
+        
+//        weakSelf.dataArr = models;
+//        [weakSelf.tableView reloadData];
     } failue:^(id data, NSError *error) {
         
     }];
@@ -41,6 +47,7 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"活动";
     [self.view addSubview: self.tableView];
+    
 }
 
 #pragma mark -- getters and setters
@@ -57,6 +64,7 @@
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
+        
     }
     return _tableView;
 }
@@ -65,7 +73,8 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return self.dataArr.count;
+    
+    return self.listData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -76,7 +85,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ActivityCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ActivityCell"];
-    [cell setModel:self.dataArr[indexPath.section]];
+    [cell setModel:self.listData[indexPath.section]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -99,7 +108,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ActivityListModel *model = self.dataArr[indexPath.row];
+    ActivityListModel *model = self.listData[indexPath.section];
     NSDictionary *dic = @{@"activityid":model.activityid};
     [self PushViewControllerByClassName:@"ActivityDetailVC" info:dic];
 }

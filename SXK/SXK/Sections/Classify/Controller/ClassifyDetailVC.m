@@ -20,15 +20,62 @@
 -(void)loadingRequest
 {
     _weekSelf(weakSelf)
-    [BaseRequest GetRentListWithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
-        NSArray *models = [BrandDetailModel modelsFromArray:data[@"rentList"]];
-        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+    
+//    [BaseRequest GetRentListWithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
+//        NSArray *models = [BrandDetailModel modelsFromArray:data[@"rentList"]];
+//        [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+//
+////        NSLog(@"------%@------",describe(models));
+//        
+//    } failue:^(id data, NSError *error) {
+//        
+//    }];
+    
+    
+    if ([self.myDict[@"type"] isEqualToString:@"1"]) {
+        
+        [BaseRequest GetRentListWithPageNo:0 PageSize:0 order:1 brandid:[self.myDict[@"brandid"] integerValue] succesBlock:^(id data) {
+            NSArray *models = [BrandDetailModel modelsFromArray:data[@"rentList"]];
+            [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+            
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
+        
+        
+        
 
-//        NSLog(@"------%@------",describe(models));
+    }else if ([self.myDict[@"type"] isEqualToString:@"6"]){
         
-    } failue:^(id data, NSError *error) {
+        [BaseRequest GetSearchListWithPageNo:0 PageSize:0 order:1 word:self.myDict[@"content"] succesBlock:^(id data) {
+            NSLog(@"%@",self.myDict[@"content"]);
+            NSArray *models = [BrandDetailModel modelsFromArray:data[@"rentList"]];
+            [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
         
-    }];
+    }
+    
+    
+    else{
+        
+        [BaseRequest GetRentList1WithPageNo:0 PageSize:0 order:1 categoryid:[self.myDict[@"categoryid"] integerValue] succesBlock:^(id data) {
+            NSArray *models = [BrandDetailModel modelsFromArray:data[@"rentList"]];
+            [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+            
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
+    }
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -107,6 +154,7 @@
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
+        
         
     }
     return _tableView;

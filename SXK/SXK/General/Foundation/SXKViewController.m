@@ -194,7 +194,7 @@
         if (index == 2) {
             
 //            [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];
-            [self.vc PushViewControllerByClassName:@"AppraiseVC" info:nil];
+            [self.vc PushViewControllerByClassName:@"FreeAppraiseVC" info:nil];
 
         }
 
@@ -207,7 +207,7 @@
             [[PushManager sharedManager] pushToVCWithClassName:@"MaintainVC" info:nil];
         }
         if (index == 2) {
-            [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];
+            [[PushManager sharedManager] pushToVCWithClassName:@"FreeAppraiseVC" info:nil];
         }
 
     }

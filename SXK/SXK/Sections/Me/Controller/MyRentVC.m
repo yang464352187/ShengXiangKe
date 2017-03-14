@@ -32,7 +32,7 @@
     _weekSelf(weakSelf);
     [BaseRequest GetRentorderListWithPageNo:0 PageSize:0 order:-1 status:self.index succesBlock:^(id data) {
        
-        NSArray *models = [MyRentModel modelsFromArray:data[@"brandList"]];
+        NSArray *models = [MyRentModel modelsFromArray:data[@"orderList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 
 //        NSLog(@"%@",describe(models));

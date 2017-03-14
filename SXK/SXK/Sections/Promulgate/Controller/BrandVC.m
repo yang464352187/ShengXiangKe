@@ -11,6 +11,7 @@
 #import "BrandCell.h"
 #import "BrandModel.h"
 
+
 @interface BrandVC ()<BATableViewDelegate>
 
 @property (nonatomic, strong) BATableView *contactTableView;
@@ -116,11 +117,13 @@
                                         andBgColor:[UIColor clearColor]
                                            andFont:SYSTEMFONT(14)
                                   andTextAlignment:NSTextAlignmentLeft];
+    
     UIView *line = [[UIView alloc] initWithFrame:VIEWFRAME(15, 49.5, SCREEN_WIDTH, 0.5)];
     line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
     
     [view addSubview:title];
     [view addSubview:line];
+    
     
     return view;
 }

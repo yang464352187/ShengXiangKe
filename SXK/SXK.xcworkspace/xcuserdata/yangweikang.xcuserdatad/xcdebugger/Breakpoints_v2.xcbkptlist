@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SXK/Sections/Me/Controller/MyDistributeVC.m"
-            timestampString = "508060692.418399"
+            timestampString = "509333317.200982"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "-setAnimationWithOrigin:"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SXK/Sections/Classify/View/BrandDetailCell2.m"
-            timestampString = "508302164.786116"
+            timestampString = "508393867.121863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
             landmarkName = "-buttonAction1:"
             landmarkType = "7">
          </BreakpointContent>
@@ -97,6 +97,32 @@
             endingLineNumber = "21"
             landmarkName = "@implementation ChatCell"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SXK/APIManager/Network/BaseRequest.m"
+            timestampString = "509273961.489904"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1955"
+            endingLineNumber = "1955"
+            landmarkName = "+GetCategoryHotListWithPageNo:PageSize:order:categoryid:succesBlock:failue:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

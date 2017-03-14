@@ -22,7 +22,7 @@
 
 //系统消息 评论 点赞 访客
 - (void)setRongYunListCellOneUIViewWithModel:(RCConversationModel *)model iconName:(NSString *)iconName{
-    self.ListOneTitle.font = [UIFont fontWithName:@"PingFangSC-Light" size:18];
+    self.ListOneTitle.font = SYSTEMFONT(16);
     self.ListOneIcon.image = [UIImage imageNamed:iconName];
     self.ListOneTitle.text = model.conversationTitle;
 }

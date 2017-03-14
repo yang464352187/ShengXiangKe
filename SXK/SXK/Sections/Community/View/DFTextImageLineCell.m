@@ -130,6 +130,7 @@
     }
 
     CGSize textSize = [MLLinkLabel getViewSize:item.attrText maxWidth:BodyMaxWidth font:TextFont lineHeight:TextLineHeight lines:0];
+    NSLog(@"size    %f",textSize.height);
     
     CGFloat height = [super getCellHeight:item];
     

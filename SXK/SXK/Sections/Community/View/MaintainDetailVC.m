@@ -232,6 +232,7 @@
     likeBtn.frame = VIEWFRAME(SCREEN_WIDTH - 130, 11, 50, 15);
     likeBtn.titleLabel.font = SYSTEMFONT(12);
     likeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
+    [likeBtn addTarget:self action:@selector(likeAction:) forControlEvents:UIControlEventTouchUpInside];
     //    [talkBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
     [likeBtn setTintColor:[UIColor blackColor]];
     
@@ -350,6 +351,18 @@
         [self.tableView reloadData];
     }
     
+}
+
+-(void)likeAction:(UIButton *)sender
+{
+    [BaseRequest AddKeepWithMaintainid:[self.model.maintainid integerValue] succesBlock:^(id data) {
+        if ([data[@"code"] integerValue] == 1) {
+            [ProgressHUDHandler showHudTipStr:@"收藏成功"];
+        }
+
+    } failue:^(id data, NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

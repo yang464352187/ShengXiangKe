@@ -61,6 +61,7 @@
         [weakSelf stopLoadingView];
         NSArray *models = [AddressModel modelsFromArray:data[@"receiverList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+        
     } failue:^(id data, NSError *error) {
         [weakSelf showFailView];
     }];
@@ -236,21 +237,25 @@
         NSDictionary *dic = @{@"title":@"添加地址"};
          [self PushViewControllerByClassName:@"AddAddress" info:dic];
     }
+    
     if (sender.tag < 500) {
         [self.delete show];
         self.index = sender.tag - 100;
     }
+    
     if (sender.tag >= 500 && sender.tag < 1001) {
         self.index = sender.tag - 500;
         AddressModel *model = self.listData[self.index];
         NSDictionary *dic = @{@"title":@"修改地址",@"model":model};
         [self PushViewControllerByClassName:@"AddAddress" info:dic];
     }
+    
 }
 
 -(void)deleteAddress
 {
     AddressModel *model  = self.listData[self.index];
+    
     _weekSelf(weakSelf);
     [BaseRequest deleteAddressWithindex:model.receiverid succesBlock:^(id data) {
         [weakSelf getDataByNetwork];

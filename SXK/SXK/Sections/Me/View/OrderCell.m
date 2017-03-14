@@ -174,6 +174,7 @@
     
     _price.text = [NSString stringWithFormat:@"%.2f元/天",[_model.rentPrice floatValue]/100];
     _marketPrice.text = [NSString stringWithFormat:@"市场价:¥%.2f",[_model.marketPrice floatValue] /100];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.imgList[0]]]];
 }
 
 -(void)btnAction:(UIButton *)sender

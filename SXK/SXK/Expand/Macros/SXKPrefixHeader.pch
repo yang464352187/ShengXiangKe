@@ -28,6 +28,7 @@
 #import "UIColor+Extend.h"
 #import "CustomField.h"
 #import "CustomHUD.h"
+#import "LemonKit.h"
 
 //Pod
 #import "UIImageView+WebCache.h"

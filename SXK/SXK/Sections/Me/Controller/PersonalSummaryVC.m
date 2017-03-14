@@ -22,8 +22,9 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = self.myDict[@"title"];
     [self.view addSubview:self.textView];
-    
     [self initUI];
+    
+    
 }
 
 -(void)initUI
@@ -36,6 +37,7 @@
     certainBtn.frame = VIEWFRAME(15, 15+CommonHight(220)+40, CommonWidth(335), 40);
     [certainBtn addTarget:self  action:@selector(certainBtn:) forControlEvents:UIControlEventTouchUpInside];
     ViewRadius(certainBtn, certainBtn.frame.size.height/2);
+    
     [self.view addSubview:certainBtn];
     
 }

@@ -18,7 +18,7 @@
     [SVProgressHUD setDefaultStyle:SVProgressHUDStyleCustom];
     [SVProgressHUD setDefaultAnimationType:SVProgressHUDAnimationTypeNative];
     [SVProgressHUD setMinimumDismissTimeInterval:1.5];
-    [SVProgressHUD  setRingNoTextRadius:5];
+    [SVProgressHUD setRingNoTextRadius:5];
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
 }
 

@@ -12,6 +12,8 @@
 
 @interface ShowVC ()
 
+
+
 @end
 
 @implementation ShowVC
@@ -19,6 +21,7 @@
 {
     [super viewWillAppear:animated];
     [self loadingRequest];
+    
 }
 
 -(void)loadingRequest
@@ -28,14 +31,18 @@
     _weekSelf(weakSelf)
     
     if ([self.myDict[@"title"] isEqualToString:@"来换包"]) {
+        
         [BaseRequest GetSwapSetupListWithSetupID:1 succesBlock:^(id data) {
             NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-
+            
         } failue:^(id data, NSError *error) {
             
         }];
+        
+        
     }else{
+        
         [BaseRequest GetShowSetupListWithSetupID:1 succesBlock:^(id data) {
             //        NSLog(@"%@",describe(data));
             NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
@@ -44,8 +51,10 @@
         } failue:^(id data, NSError *error) {
             
         }];
-
+        
     }
+    
+    
 
 }
 
@@ -119,6 +128,7 @@
         _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
         _tableView.sectionHeaderHeight = 0.0;
         _tableView.sectionFooterHeight = 0.0;
+        
         
     }
     return _tableView;

@@ -11,13 +11,16 @@
 
 
 // 接口链接地址
+
 #define APP_BASEURL @"http://shexiangke.jcq.tbapps.cn"
+//#define APP_BASEURL @"https://shexiangke.boobe.com.cn"
+//#define APP_BASEIMG @"http://ohqqhwkx4.bkt.clouddn.com/"
 #define APP_BASEIMG @"http://ohqqvdngk.bkt.clouddn.com/"
 
 #pragma mark - BaseColor
 // 基本颜色
-#define APP_COLOR_BASE_BAR              HEXCOLOR(0xfcd204)
 
+#define APP_COLOR_BASE_BAR              HEXCOLOR(0xfcd204)
 #define APP_COLOR_BASE_BACKGROUND       HEXCOLOR(0xf1f1f1)
 #define APP_COLOR_BASE_TABBAR           [UIColor colorWithRed:0.16 green:0.64 blue:0.99 alpha:1.00]
 #define APP_COLOR_BASE_LINE             [UIColor colorWithRed:0.16 green:0.64 blue:0.99 alpha:1.00]
@@ -122,6 +125,15 @@
 #define APPINTERFACE__ConfirmMyRentOrder     @"/app/rentorder/setpost" //我的租赁确认收货
 #define APPINTERFAXE__RentComment            @"/app/rentcomment/addpost"//评论
 #define APPINTERFACE__ChatWithUser           @"/app/rongyun/gettokenpost"
+#define APPINTERFACE__GetCategoryHotList     @"/app/categoryhot/listpost"//分类中的热门品牌
+#define APPINTERFACE__RechargeOrder          @"/app/rechargeorder/addpost"
+#define APPINTERFACE__RewardSetup            @"/app/rewardsetup/getpost"
+#define APPINTERFACE__ConfirmMyAppraise      @"/app/identifyorder/setpost"
+#define APPINTERFACE__AddMaintainKeep        @"/app/collectionmaintain/addpost" //添加收藏
+#define APPINTERFACE__Withdrawals            @"/app/withdraw/addpost"
+#define APPINTERFACE__RecordList             @"/app/record/listpost"  //积分记录查询
+#define APPINTERFACE__CommontList            @"/app/rentcomment/listpost"  //评论列表
+#define APPINTERFACE__WalletList             @"/app/wallet/listpost"  //钱包记录查询
 
 
 #endif /* APPMacro_h */

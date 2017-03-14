@@ -26,8 +26,10 @@
         _text = [[UITextField alloc] initWithFrame:CGRectZero];
         _text.placeholder = @"请输入单号";
         _text.font = SYSTEMFONT(13);
+        
         ViewBorder(_text, 0.5, [UIColor lightGrayColor]);
         [self addSubview:_text];
+        
         
         [_text mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(0);

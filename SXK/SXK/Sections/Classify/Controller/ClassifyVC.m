@@ -18,7 +18,6 @@
 #import "CategoryListModel.h"
 #import "CategoryViewCell.h"
 
-
 @interface ClassifyVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,BATableViewDelegate>
 
 @property (nonatomic, strong)NSMutableArray *dataArr;
@@ -34,7 +33,7 @@
 @property (nonatomic, assign)NSInteger isSelect;
 @property (nonatomic, strong)NSString *collectionHeaderImg;
 @property (nonatomic, strong)NSArray *CategoryArr;
-
+@property (nonatomic, strong)NSArray *CategoryHotArr;
 @end
 
 @implementation ClassifyVC
@@ -74,7 +73,8 @@
             [weakSelf.tableView reloadData];
             [weakSelf stopLoadingView];
             self.first = 1;
-
+            
+//            NSLog(@"--------%@-------",describe(models));
         } failue:^(id data, NSError *error) {
             
         }];
@@ -93,7 +93,22 @@
     [BaseRequest GetCategoryListWithPageNo:0 PageSize:0 order:1 parentid:[model.categoryid integerValue] succesBlock:^(id data) {
         NSArray *models = [CategoryListModel modelsFromArray:data[@"categoryList"]];
         weakSelf.CategoryArr = models;
-        [weakSelf.listCollectionView reloadData];
+        
+        
+        [BaseRequest GetCategoryHotListWithPageNo:0 PageSize:0 order:1 categoryid:[model.categoryid integerValue] succesBlock:^(id data) {
+            
+            NSArray *models = [BrandModel modelsFromArray:data[@"hotList"]];
+            weakSelf.CategoryHotArr = models;
+            [weakSelf.listCollectionView reloadData];
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
+        
+        
+        
+
     } failue:^(id data, NSError *error) {
     }];
 
@@ -113,12 +128,14 @@
     self.headView.frame = frame;
     self.contactTableView.tableView.tableHeaderView = self.headView;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"分类";
     [self loadData];
     [self initUI];
+    
 
 }
 
@@ -141,6 +158,7 @@
     UIImage *image = [UIImage imageNamed:@"搜索-6"];
     [searchBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
     [searchBtn.imageView setContentMode:UIViewContentModeScaleAspectFill]; //防止图片变形
+    [searchBtn addTarget:self  action:@selector(searchBtn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:searchBtn];
     
     [self.view addSubview:self.tableView];
@@ -299,7 +317,7 @@
             return 1;
         }
         if (section == 1) {
-            return self.BrandHotArr.count;
+            return self.CategoryHotArr.count;
         }
         if (section == 2) {
             return self.CategoryArr.count;
@@ -327,12 +345,12 @@
             }
         }
         if (indexPath.section == 1) {
-            BrandHotModel *model = self.BrandHotArr[indexPath.row];
+            BrandHotModel *model = self.CategoryHotArr[indexPath.row];
             [cell fillWithImage:model.img];
         }
         if (indexPath.section == 2) {
             CategoryViewCell *CategoryCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CategoryViewCell" forIndexPath:indexPath];
-            BrandHotModel *model = self.CategoryArr[indexPath.row];
+            CategoryListModel *model = self.CategoryArr[indexPath.row];
             [CategoryCell fillWithImage:model.img andTitle:model.name];
             return CategoryCell;
         }
@@ -489,11 +507,11 @@
             [headerView changeTitle:@"热门品牌" andImg:@"标签"];
             return headerView;
         }
-  
+        
         ClassifyCollectionHeader *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header1" forIndexPath:indexPath];
         headerView.backgroundColor = [UIColor whiteColor];
         [headerView changeTitle:@"全部分类" andImg:@"分类"];
-
+        [headerView changeTitle:@"quan" andImg:@""];
         
         return headerView;
     }
@@ -501,7 +519,6 @@
         
         UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"footer" forIndexPath:indexPath];
         footerView.backgroundColor = [UIColor whiteColor];
-        
         return footerView;
 
     }
@@ -511,13 +528,29 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"行%d     段%d",indexPath.row,indexPath.section);
     
     if (collectionView == _collectionView) {
         BrandHotModel *model = self.BrandHotArr[indexPath.row];
-        NSDictionary *dic = @{@"title":model.name};
+        NSDictionary *dic = @{@"title":model.name,@"brandid":model.brandid,@"type":@"1"};
         [self PushViewControllerByClassName:@"ClassifyDetailVC" info:dic];
+    }else{
+//        NSLog(@"行%d     段%d",indexPath.row,indexPath.section);
+        
+        if (indexPath.section == 1) {
+            BrandHotModel *model = self.CategoryHotArr[indexPath.row];
+            NSDictionary *dic = @{@"title":model.name,@"brandid":model.brandid,@"type":@"1"};
+            [self PushViewControllerByClassName:@"ClassifyDetailVC" info:dic];
+        }else if (indexPath.section == 2){
+            CategoryListModel *model = self.CategoryArr[indexPath.row];
+            NSDictionary *dic = @{@"title":model.name,@"categoryid":model.categoryid,@"type":@"2"};
+            [self PushViewControllerByClassName:@"ClassifyDetailVC" info:dic];
+
+//            NSLog(@"%@",describe(self.CategoryArr));
+        }
+
     }
+    
+    
     
 }
 
@@ -537,6 +570,7 @@
     if (collectionView == _collectionView) {
         return CGSizeMake(SCREEN_WIDTH, 70);
     }
+    
     return CGSizeMake(0, 0);
 }
 
@@ -576,7 +610,12 @@
     
 }
 
-
+-(void)searchBtn:(UIButton *)sender
+{
+//    [self :@"LXWSearchHotView" info:nil];
+//    [self PushViewControllerByClassName:@"SearchVC" info:nil];
+    [self PresentViewControllerByClassName:@"SearchVC" info:nil];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

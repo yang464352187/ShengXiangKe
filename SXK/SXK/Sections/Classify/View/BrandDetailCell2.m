@@ -100,7 +100,6 @@
         ViewRadius(_image, 37/2.0000);
     
     }
-//    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
 
     return  self;
 }
@@ -126,6 +125,8 @@
     } failue:^(id data, NSError *error) {
         
     }];
+    
+    
 }
 
 
@@ -166,21 +167,25 @@
     
     RCConversationVC *chat = [[RCConversationVC alloc] initWithConversationType:ConversationType_PRIVATE
                                                                                                targetId:[NSString stringWithFormat:@"%@",model.userid]];
-//    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
+    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
    
     [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
-    // 设置消息体内是否携带用户信息
     
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
-    
+
     chat.conversationType = ConversationType_PRIVATE;
     
     chat.targetId = [NSString stringWithFormat:@"%ld",_userid];
     
     chat.title = _title;
     
-    
     [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
+    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+    
+    
+    RCUserInfo *user = [[RCUserInfo alloc] initWithUserId: [NSString stringWithFormat:@"%ld",_userid] name:_title portrait:_image1];
+    [[RCIM sharedRCIM] refreshUserInfoCache:user withUserId:[NSString stringWithFormat:@"%ld",_userid]];
+
     
     [self.vc.navigationController pushViewController:chat animated:YES];
     
@@ -193,13 +198,12 @@
     UserModel *model =   [LoginModel curLoginUser];
 
     if ([userId isEqualToString:[NSString stringWithFormat:@"%@",model.userid]]) {
-        return completion([[RCUserInfo alloc] initWithUserId:userId name:model.nickname portrait:model.headimgurl]);
+        return completion([[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl]);
     }else
     {
 //        根据存储联系人信息的模型，通过 userId 来取得对应的name和头像url，进行以下设置（此处因为项目接口尚未实现，所以就只能这样给大家说说，请见谅）
-        return completion([[RCUserInfo alloc] initWithUserId:userId name:_title portrait:_image1]);
+        return completion([[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%ld",_userid] name:_title portrait:_image1]);
     }
-    NSLog(@"22");
 }
 
 

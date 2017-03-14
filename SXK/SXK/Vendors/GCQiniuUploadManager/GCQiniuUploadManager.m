@@ -71,7 +71,7 @@ static NSString *QiNiuHost = @"host";
 
     // 用secretKey对编码后的上传策略进行HMAC-SHA1加密，并且做安全的base64编码，得到encoded_signed
     NSString *encodedSignedString = [self HMACSHA1:self.secretKey text:encodedString];
-
+    
     // 将accessKey、encodedSignedString和encodedString拼接，中间用：分开，就是上传的token
     NSString *token =
     [NSString stringWithFormat:@"%@:%@:%@", self.accessKey, encodedSignedString, encodedString];
@@ -89,6 +89,7 @@ static NSString *QiNiuHost = @"host";
 
     NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC length:CC_SHA1_DIGEST_LENGTH];
     NSString *hash = [self urlSafeBase64Encode:HMAC];
+    
     return hash;
 }
 

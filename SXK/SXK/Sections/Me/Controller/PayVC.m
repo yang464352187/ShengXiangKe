@@ -122,7 +122,10 @@
         case 2:
             self.type = @"upacp";
             break;
-
+        
+        
+        
+        
             
         default:
             break;
@@ -135,7 +138,10 @@
     }else{
         [(PayCell *)cell isSelect];
         self.selectCell = (PayCell *)cell;
+        
     }
+    
+    
 }
 
 -(void)payAction:(UIButton *)sender

@@ -39,7 +39,7 @@
 
 -(void)fillWithImage:(NSString *)image
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ohqqvdngk.bkt.clouddn.com/%@",image]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,image]];
     [_headImage sd_setImageWithURL:url];
 }
 

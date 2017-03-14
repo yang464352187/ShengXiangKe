@@ -43,6 +43,8 @@
     [BaseRequest GetActivityDetailWithActivityID:[activity integerValue] succesBlock:^(id data) {
         NSDictionary *dic = data[@"activity"];
         [weakSelf handleData:dic];
+        
+
     } failue:^(id data, NSError *error) {
         
     }];
@@ -98,7 +100,6 @@
     UIView *leftLine = [[UIView alloc] init];
     leftLine.backgroundColor = APP_COLOR_GRAY_Line;
     
-    
     UIView *rightLine = [[UIView alloc] init];
     rightLine.backgroundColor = APP_COLOR_GRAY_Line;
     
@@ -143,9 +144,6 @@
         make.size.mas_equalTo(CGSizeMake(34, 0.5));
     }];
     
-    
-
-    
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor whiteColor];
     
@@ -181,7 +179,7 @@
     if (!_myScrollView) {
         _myScrollView  =  [[UIScrollView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT - 110)];
         _myScrollView.backgroundColor = [UIColor whiteColor];
-        _myScrollView.bounces = NO;
+        _myScrollView.bounces = YES;
         _myScrollView.showsHorizontalScrollIndicator = NO;
         _myScrollView.showsVerticalScrollIndicator = NO;
         _myScrollView.scrollsToTop = YES;
@@ -234,7 +232,7 @@
         make.left.equalTo(self.myScrollView.mas_left).offset(15);
     }];
     
-    self.myScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.contentLab.frame.origin.y + height-30);
+    self.myScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, self.contentLab.frame.origin.y + height+40);
 }
 
 

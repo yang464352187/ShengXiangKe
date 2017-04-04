@@ -512,9 +512,9 @@
 {
     NSDictionary *dic;
     if (sender.tag == 1000) {
-        dic = @{@"title":@"来换包"};
+        dic = @{@"title":@"寄租"};
     }else{
-        dic = @{@"title":@"啵呗秀"};
+        dic = @{@"title":@"寄售"};
     }
     [self PushViewControllerByClassName:@"ShowVC" info:dic];
 }

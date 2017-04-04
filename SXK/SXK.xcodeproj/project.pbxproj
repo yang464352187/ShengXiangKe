@@ -58,6 +58,7 @@
 		AD25589A1DE802A500E34CF7 /* RightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558991DE802A500E34CF7 /* RightCell.m */; };
 		AD2558AF1DE8516E00E34CF7 /* ClassifyCollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558AE1DE8516E00E34CF7 /* ClassifyCollectionHeader.m */; };
 		AD2558B21DE8562F00E34CF7 /* ClassifyCollectionFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2558B11DE8562F00E34CF7 /* ClassifyCollectionFooter.m */; };
+		AD25803A1E9435DB0001DA21 /* HomeBuyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD2580391E9435DB0001DA21 /* HomeBuyCell.m */; };
 		AD269CD31DF5BAA3002E47F2 /* NSTimer+Addtions.m in Sources */ = {isa = PBXBuildFile; fileRef = AD269CD21DF5BAA3002E47F2 /* NSTimer+Addtions.m */; };
 		AD269CD61DF5D558002E47F2 /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD269CD51DF5D558002E47F2 /* AddressModel.m */; };
 		AD3032961E31B09300B41444 /* ServeveCenterCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD3032951E31B09300B41444 /* ServeveCenterCell.m */; };
@@ -615,6 +616,8 @@
 		AD2558AE1DE8516E00E34CF7 /* ClassifyCollectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifyCollectionHeader.m; sourceTree = "<group>"; };
 		AD2558B01DE8562F00E34CF7 /* ClassifyCollectionFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifyCollectionFooter.h; sourceTree = "<group>"; };
 		AD2558B11DE8562F00E34CF7 /* ClassifyCollectionFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifyCollectionFooter.m; sourceTree = "<group>"; };
+		AD2580381E9435DB0001DA21 /* HomeBuyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeBuyCell.h; sourceTree = "<group>"; };
+		AD2580391E9435DB0001DA21 /* HomeBuyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeBuyCell.m; sourceTree = "<group>"; };
 		AD269CD11DF5BAA3002E47F2 /* NSTimer+Addtions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addtions.h"; sourceTree = "<group>"; };
 		AD269CD21DF5BAA3002E47F2 /* NSTimer+Addtions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addtions.m"; sourceTree = "<group>"; };
 		AD269CD41DF5D558002E47F2 /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
@@ -2883,6 +2886,8 @@
 				AD7076C21E4C70A000ABEBBE /* RongYunListCell.xib */,
 				ADEA6EF11E4DA8C700E04D9F /* FreeAppraiseCell.h */,
 				ADEA6EF21E4DA8C700E04D9F /* FreeAppraiseCell.m */,
+				AD2580381E9435DB0001DA21 /* HomeBuyCell.h */,
+				AD2580391E9435DB0001DA21 /* HomeBuyCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4131,6 +4136,7 @@
 				ADB66AC91E07B6FF00D80F2E /* MQTextMessage.m in Sources */,
 				AD65A5EF1DE436E6002C6364 /* WSImageBroswerVC.m in Sources */,
 				ADB66AE61E07B6FF00D80F2E /* MQTipsCell.m in Sources */,
+				AD25803A1E9435DB0001DA21 /* HomeBuyCell.m in Sources */,
 				AD9407701DEC85F00075620F /* MeCell.m in Sources */,
 				AD65A5E91DE436E6002C6364 /* JFImageManager.m in Sources */,
 				AD435D6B1E30A4DA00D8C954 /* ServeceCenterVC.m in Sources */,

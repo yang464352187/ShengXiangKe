@@ -18,7 +18,8 @@
              @"description1":@"description",
              @"advancePrice":@"advancePrice",
              @"oddNumber":@"oddNumber",
-             @"orderid":@"orderid"
+             @"orderid":@"orderid",
+             @"purchaseid":@"purchaseid"
              };
 }
 

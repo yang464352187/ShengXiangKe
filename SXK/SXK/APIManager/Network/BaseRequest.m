@@ -2557,5 +2557,39 @@
     
 }
 
+/**
+ *  获取寄卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetPurchaseList1WithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                           status:(NSInteger)status
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"purchaseid":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic,
+                             @"status":@(status)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__PurchaseList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
 
 @end

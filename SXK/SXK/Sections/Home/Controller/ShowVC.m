@@ -9,7 +9,8 @@
 #import "ShowVC.h"
 #import "MaintainCell.h"
 #import "BrandDetailModel.h"
-
+#import "MyBussinesModel.h"
+#import "HomeBuyCell.h"
 @interface ShowVC ()
 
 
@@ -30,7 +31,7 @@
     
     _weekSelf(weakSelf)
     
-    if ([self.myDict[@"title"] isEqualToString:@"来换包"]) {
+    if ([self.myDict[@"title"] isEqualToString:@"寄租"]) {
         
         [BaseRequest GetSwapSetupListWithSetupID:1 succesBlock:^(id data) {
             NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
@@ -43,11 +44,19 @@
         
     }else{
         
-        [BaseRequest GetShowSetupListWithSetupID:1 succesBlock:^(id data) {
-            //        NSLog(@"%@",describe(data));
-            NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
+//        [BaseRequest GetShowSetupListWithSetupID:1 succesBlock:^(id data) {
+//            //        NSLog(@"%@",describe(data));
+//            NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
+//            [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+//            
+//        } failue:^(id data, NSError *error) {
+//            
+//        }];
+        
+        [BaseRequest GetPurchaseList1WithPageNo:0 PageSize:0 order:-1 status:3 succesBlock:^(id data) {
+            NSArray *models = [MyBussinesModel modelsFromArray:data[@"purchaseList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-            
+
         } failue:^(id data, NSError *error) {
             
         }];
@@ -78,10 +87,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MaintainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MaintainCell"];
+    
+    MyBussinesModel *model = self.listData[indexPath.section];
+    HomeBuyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeBuyCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    BrandDetailModel *model = self.listData[indexPath.section];
-    [cell setModel1:model];
+    [cell setModel:model];
+    //        cell.delegate = self;
+    //        cell.index = indexPath.section;
+    return cell;
+    
     return cell;
 }
 
@@ -109,8 +123,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    BrandDetailModel *model = self.listData[indexPath.section];
-    NSDictionary *dic = @{@"rentid":model.rentid};
+    MyBussinesModel *model = self.listData[indexPath.section];
+    NSDictionary *dic = @{@"rentid":model.purchaseid};
     [self PushViewControllerByClassName:@"BrandDetailVC" info:dic];
 }
 
@@ -121,6 +135,7 @@
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
         [_tableView registerClass:[MaintainCell class] forCellReuseIdentifier:@"MaintainCell"];
+        [_tableView registerClass:[HomeBuyCell class] forCellReuseIdentifier:@"HomeBuyCell"];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];

@@ -68,6 +68,7 @@ static const NSTimeInterval kRequestTimeoutInterval = 15; // 网络请求超时�
     
     //打印请求数据
     DebugLog(@"\nDescribe:\n==============Request===============\n%@\n%@:\n%@\n\n\n", mNetworkTypeNames[networkType], aPath, describe(params));
+    
     aPath = [aPath stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
     switch (networkType) {

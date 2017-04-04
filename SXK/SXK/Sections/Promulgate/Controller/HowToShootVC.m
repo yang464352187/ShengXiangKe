@@ -29,6 +29,7 @@
         image.image = [UIImage imageNamed:@"如何拍摄"];
     }
     image.contentMode = UIViewContentModeScaleAspectFit;
+    
 //    image.clipsToBounds =YES;
     [self.view addSubview:image];
 

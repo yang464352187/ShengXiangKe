@@ -23,7 +23,7 @@
 #import "MQToast.h"
 #import "MyMaintainVC.h"
 #import "MyAppraiseVC.h"
-
+#import "MyBusiness.h"
 @interface MeVC ()
 
 @property (nonatomic, strong)UIButton *loginBtn;
@@ -531,8 +531,8 @@
         personBtn.titleLabel.font = SYSTEMFONT(14);
         personBtn.frame = VIEWFRAME(CommonWidth(375-90), CommonHight(50), 80, 14);
         
-        NSArray *titleArray = @[@"我的发布",@"我的租赁",@"我的养护",@"我的鉴定"];
-        NSArray *imageArray = @[@"发布",@"图层-114",@"养护",@"图层-118"];
+        NSArray *titleArray = @[@"我的租赁",@"我的买卖",@"我的养护",@"我的鉴定"];
+        NSArray *imageArray = @[@"图层-114",@"买买买买",@"养护",@"图层-118"];
         CGFloat width = (SCREEN_WIDTH - 192)/5;
         NSLog(@"width %lf",width);
         int k = 0;
@@ -799,22 +799,24 @@
     }
     switch (sender.tag) {
         case 0:{
-            NSMutableArray *vcArr1 = [NSMutableArray array];
-            for (int i =0; i<5; i++) {
-                UIViewController *vc = [[UIViewController alloc] init];
-                vc.view.backgroundColor = [UIColor whiteColor];
-                [vcArr1 addObject:vc];
-            }
-            NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
-            MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr1 titles:array type:1];
-            
-            [self pushViewController:vc];
+//            NSMutableArray *vcArr1 = [NSMutableArray array];
+//            for (int i =0; i<5; i++) {
+//                UIViewController *vc = [[UIViewController alloc] init];
+//                vc.view.backgroundColor = [UIColor whiteColor];
+//                [vcArr1 addObject:vc];
+//            }
+//            NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
+//            MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr1 titles:array type:1];
+//            
+//            [self pushViewController:vc];
+            [self PushViewControllerByClassName:@"MyTenancyVC" info:nil];
             break;
         }
         case 1:{
-            NSArray *array = @[@"啵客待收",@"进行中",@"啵主确认",@"已完成"];
-            MyRentVC *vc = [[MyRentVC alloc] initWithControllers:vcArr titles:array type:1];
-            [self pushViewController:vc];
+//            NSArray *array = @[@"啵客待收",@"进行中",@"啵主确认",@"已完成"];
+//            MyRentVC *vc = [[MyRentVC alloc] initWithControllers:vcArr titles:array type:1];
+//            [self pushViewController:vc];
+            [self PushViewControllerByClassName:@"MyBusiness" info:nil];
             break;
         }
 

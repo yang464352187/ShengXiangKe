@@ -237,7 +237,7 @@
 {
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor whiteColor];
-
+    
     return view;
 }
 
@@ -256,6 +256,7 @@
     
     CGFloat x = 15;
     CGFloat y = 15.f+30.f+5.f;
+    
     
     //CGFloat wordBtn_bottom = y;
     int rowNum = 1;
@@ -292,6 +293,10 @@
             y = y + 27.f + 10.f;
             rowNum+=1;
         }
+        
+        
+        
+        
     }
     
     //        [_delegate returnHeight:self.height];
@@ -302,7 +307,6 @@
 
 -(void)searchAvtion:(UIButton *)sender
 {
-    
     
     [self.text resignFirstResponder];
     [self.text endEditing:YES];
@@ -322,7 +326,7 @@
         DEFAULTS_SET_OBJ(dic1, @"search");
         
     }else{
-        NSLog(@"%@",describe(searchDic));
+//        NSLog(@"%@",describe(searchDic));
         NSArray * array = [searchDic allKeys];
         NSInteger max = [[array valueForKeyPath:@"@max.intValue"] integerValue];
         NSLog(@"%@",array);
@@ -330,8 +334,10 @@
             NSMutableDictionary *dic1 = [[NSMutableDictionary alloc] initWithDictionary:searchDic];
             [dic1 setValue:self.text.text forKey:[NSString stringWithFormat:@"%ld",max+1]];
             DEFAULTS_SET_OBJ(dic1, @"search");
-
+            
         }
+        
+        
     }
     
     

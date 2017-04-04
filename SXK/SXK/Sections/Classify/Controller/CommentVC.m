@@ -39,7 +39,7 @@
     [self.view addSubview:self.tableView];
     NSArray *array = self.myDict[@"array"];
     [self handleModels:array andTotal:array.count];
-
+    
     
 }
 

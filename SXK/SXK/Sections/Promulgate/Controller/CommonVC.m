@@ -28,9 +28,7 @@
 @property (nonatomic, strong)NSMutableDictionary *enclosureDic1;
 @property (nonatomic, strong)NSArray *dataArr;
 @property (nonatomic, strong)NSMutableArray *attachList;
-
 @property (nonatomic, strong) qualityVC *selectCell;
-
 
 @end
 
@@ -95,7 +93,7 @@
         [self.enclosureArr removeAllObjects];
         for (NSDictionary *dic  in array) {
             NSString *title = dic[@"attributeName"];
-            if (![title isEqualToString:@"相关配件"]) {
+            if (![title isEqualToString:@"相关配件"]){
                 [self.enclosureArr addObject:title];
                 NSArray *array = dic[@"attributeValueList"];
                 [self.dataDic setValue:array forKey:title];
@@ -133,27 +131,35 @@
             return;
         }
         
+        
         NSDictionary *dic = @{@"data":array,@"class":self.myDict[@"title"]};
         NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
-        
-        
         
         [self popGoBack];
         
     }else{
         if (self.selectCell.name.length < 1) {
             [ProgressHUDHandler showHudTipStr:@"未选择类型"];
+            
             return;
         }
         
     NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"title"]};
     NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
+    
     //通过通知中心发送通知
     [[NSNotificationCenter defaultCenter] postNotification:notification];
-    [self PopToIndexViewController:1];
+//    [self PopToIndexViewController:1];
         
+        NSString *type = DEFAULTS_GET_OBJ(@"promulgateType");
+        if ([type isEqualToString:@"3"]) {
+            [self PopToIndexViewController:3];
+            
+        }else{
+            [self PopToIndexViewController:1];
+        }
         
         
     }

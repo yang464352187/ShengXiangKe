@@ -113,15 +113,15 @@
         }
             
         case 3:{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"版本更新" message:@"当前版本已经是最新版本" preferredStyle:  UIAlertControllerStyleAlert];
-            
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //点击按钮的响应事件；
-            }]];
-
-            
-            //弹出提示框；
-            [self presentViewController:alert animated:true completion:nil];
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"版本更新" message:@"当前版本已经是最新版本" preferredStyle:  UIAlertControllerStyleAlert];
+//            
+//            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                //点击按钮的响应事件；
+//            }]];
+//
+//            
+//            //弹出提示框；
+//            [self presentViewController:alert animated:true completion:nil];
         }
             break;
         

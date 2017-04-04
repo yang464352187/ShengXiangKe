@@ -134,6 +134,10 @@
 #define APPINTERFACE__RecordList             @"/app/record/listpost"  //积分记录查询
 #define APPINTERFACE__CommontList            @"/app/rentcomment/listpost"  //评论列表
 #define APPINTERFACE__WalletList             @"/app/wallet/listpost"  //钱包记录查询
-
+#define APPINTERFACE__AddPurchase            @"/app/purchase/addpost"  //提交预约寄卖
+#define APPINTERFACE__PurchaseList           @"/app/purchase/listpost" //寄卖列表
+#define APPINTERFACE__PutchaseOrderList      @"/app/purchaseorder/listpost"//我的寄卖列表
+#define APPINTERFACE__DeletePurchaseOrder    @"/app/purchaseorder/delpost"//删除寄卖订单
+#define APPINTERFACE__ConfirmPurchaseOrder   @"/app/purchaseorder/setpost"//寄卖确认收货
 
 #endif /* APPMacro_h */

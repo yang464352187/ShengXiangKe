@@ -31,7 +31,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     // TODO:
-    NSLog(@"出现");
+//    NSLog(@"出现");
     [PushManager sharedManager].delegate = self;
 }
 
@@ -44,7 +44,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     // TODO:这里
-    NSLog(@"消失");
+//    NSLog(@"消失");
 }
 
 - (void)viewDidAppear:(BOOL)animated {

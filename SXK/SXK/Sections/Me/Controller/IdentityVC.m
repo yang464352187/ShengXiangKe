@@ -225,6 +225,7 @@
         
         if (self.name.length == 0) {
             [ProgressHUDHandler showHudTipStr:@"请输入名字"];
+            
             return;
         }
         if (self.idNumber.length != 18) {
@@ -235,6 +236,8 @@
             [ProgressHUDHandler showHudTipStr:@"请上传身份证照片"];
             return;
         }
+        
+        
         
         NSDictionary *dic = @{
                               @"name":self.name,

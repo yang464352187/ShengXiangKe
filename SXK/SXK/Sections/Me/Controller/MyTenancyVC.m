@@ -10,7 +10,8 @@
 #import "MyTenancyCell.h"
 #import "MyTenancyCell1.h"
 #import "MyTenancyCell2.h"
-
+#import "MyDistributeVC.h"
+#import "MyRentVC.h"
 @interface MyTenancyVC ()
 @property (nonatomic, assign)NSInteger index;
 
@@ -23,130 +24,58 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的租赁";
-    NSArray *array = @[@"待收货",@"已收货",@"已完成",@"已退回"];
-    [self setupTitlesView:array];
-    [self.view addSubview:self.tableView];
+//    NSArray *array = @[@"待收货",@"已收货",@"已完成",@"已退回"];
+//    [self setupTitlesView:array];
+//    [self.view addSubview:self.tableView];
+    [self initUI];
+}
+
+-(void)initUI
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [btn setTitle:@"我的发布" forState:UIControlStateNormal];
+    btn.frame = VIEWFRAME(0, 0, 100, 100);
+    [btn addTarget:self action:@selector(btn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
     
-}
-
-
-#pragma mark -- UITabelViewDelegate And DataSource
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 1;
+    UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
+    [btn1 setTitle:@"我的租赁" forState:UIControlStateNormal];
+    btn1.frame = VIEWFRAME(0, 100, 100, 100);
+    [btn1 addTarget:self action:@selector(btn1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn1];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MyTenancyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+-(void)btn:(UIButton *)sender
+{
+    NSMutableArray *vcArr1 = [NSMutableArray array];
+    for (int i =0; i<5; i++) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        vc.view.backgroundColor = [UIColor whiteColor];
+        [vcArr1 addObject:vc];
+    }
+    NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
+    MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr1 titles:array type:1];
     
+    [self pushViewController:vc];
 
-    if (self.index == 3) {
-        MyTenancyCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell1"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+}
+
+
+-(void)btn1:(UIButton *)sender
+{
+    NSMutableArray *vcArr = [NSMutableArray array];
+    for (int i =0; i<4; i++) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        vc.view.backgroundColor = [UIColor whiteColor];
+        [vcArr addObject:vc];
     }
-    if (self.index == 2) {
-        MyTenancyCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell2"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSArray *array = @[@"啵客待收",@"进行中",@"啵主确认",@"已完成"];
+    MyRentVC *vc = [[MyRentVC alloc] initWithControllers:vcArr titles:array type:1];
+    [self pushViewController:vc];
 
-        return cell;
-    }
-    if (self.index == 1) {
-        [cell reSetName];
-        return cell;
-    }
-    [cell reName];
-    return cell;
 }
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.index == 3) {
-        return 195;
-    }
-    if (self.index == 2) {
-        return 205;
-    }
-
-    return 180;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 0.0000001;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 15;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = APP_COLOR_GRAY_Header;
-    return view;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-#pragma mark -- getters and setters
-
-- (UITableView *)tableView{
-    if (!_tableView) {
-        
-        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 35, SCREEN_WIDTH, SCREEN_HIGHT-64-35) style:UITableViewStyleGrouped];
-        _tableView.dataSource      = self;
-        _tableView.delegate        = self;
-        [_tableView registerClass:[MyTenancyCell class] forCellReuseIdentifier:@"MyTenancyCell"];
-        [_tableView registerClass:[MyTenancyCell1 class] forCellReuseIdentifier:@"MyTenancyCell1"];
-        [_tableView registerClass:[MyTenancyCell2 class] forCellReuseIdentifier:@"MyTenancyCell2"];
-        _tableView.showsVerticalScrollIndicator = NO;;
-        _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
-        _tableView.tableFooterView = [[UIView alloc] init];
-        //        _tableView.tableHeaderView = self.headView;
-        _tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
-        _tableView.sectionHeaderHeight = 0.0;
-        _tableView.sectionFooterHeight = 0.0;
-        
-        
-    }
-    return _tableView;
-}
-
-- (void)titleClick:(UIButton *)button
-{
-    [self buttonStateChange:button];
-    // 滚动
-    //    [self setShowingIndex:button.tag animate:YES];
-}
-
-- (void)buttonStateChange:(UIButton *)button
-{
-    self.index = button.tag;
-    [self.tableView reloadData];
-    // 修改按钮状态
-    self.selectedButton.enabled = YES;
-    button.enabled = NO;
-    self.selectedButton = button;
-    [UIView animateWithDuration:0.25 animations:^{
-        self.indicatorView.width = button.titleLabel.width;
-        self.indicatorView.centerX = button.centerX;
-    }];
-    
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

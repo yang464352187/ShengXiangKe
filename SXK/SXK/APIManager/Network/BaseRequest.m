@@ -2379,4 +2379,183 @@
 }
 
 
+/**
+ *  发布寄卖
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)SetPurchaseWithParams:(NSDictionary *)params
+                 succesBlock:(SuccessBlock)successBlock
+                      failue:(FailureBlock)failueBlock;
+{
+    [self requestPostCommonWithPath:APPINTERFACE__AddPurchase Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
+
+/**
+ *  获取寄卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++ (void)GetPurchaseListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    
+    NSDictionary *dic = @{
+                          @"purchaseid":@(order)
+                          };
+    
+    NSDictionary *params = @{
+                             @"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"status":@(1),
+                             @"own":@(1),
+                             @"order":dic
+                             };
+    
+    
+    [self requestPostCommonWithPath:APPINTERFACE__PurchaseList Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+    
+}
+
+
+
+/**
+ *  获取我的寄卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetPutchaseOrderListWithPageNo:(NSInteger)pageNo
+                        PageSize:(NSInteger)pageSize
+                           order:(NSInteger)order
+                          status:(NSInteger)status
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"orderid":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic,
+                             @"own":@(1),
+                             @"status":@(status)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__PutchaseOrderList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
+/**
+ *  获取寄卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetPurchaseListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                           status:(NSInteger)status
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *dic = @{
+                          @"purchaseid":@(order)
+                          };
+    NSDictionary *params = @{@"pageNo":@(pageNo),
+                             @"pageSize":@(pageSize),
+                             @"order":dic,
+                             @"own":@(1),
+                             @"status":@(status)
+                             };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__PurchaseList Params:params succesBlock:^(id data) {
+        //        //登录成功
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
+/**
+ *  删除寄卖订单
+ *  @param orderid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)DeletePurchaseOrderWithOrderID:(NSInteger)orderid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+{
+    NSDictionary *params = @{@"orderid":@(orderid)};
+    [self requestPostCommonWithPath:APPINTERFACE__DeletePurchaseOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
+
+/**
+ *  确认收货
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ConfirmPurchaseOrderWithRentID:(NSInteger)rentid
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
+{
+    NSDictionary * params = @{
+                              @"orderid":@(rentid),
+                              @"status":@(4),
+                              };
+    
+    [self requestPostCommonWithPath:APPINTERFACE__ConfirmPurchaseOrder Params:params succesBlock:^(id data) {
+        
+        if (successBlock) {
+            successBlock(data);
+        }
+    } failue:failueBlock];
+    
+}
+
+
 @end

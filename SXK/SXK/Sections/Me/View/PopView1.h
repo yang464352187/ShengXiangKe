@@ -18,6 +18,8 @@
 
 @property (nonatomic, weak)id<PopView1Delegate>delegate;
 -(void)changeTitle:(NSString *)title andIdex:(NSInteger)index;
+-(void)changeTitle2:(NSString *)title andIdex:(NSInteger)index type:(NSInteger)type;
+
 -(void)show;
 @property (nonatomic, strong) NSString *oddNumber;
 

@@ -1100,4 +1100,85 @@
                     succesBlock:(SuccessBlock)successBlock
                          failue:(FailureBlock)failueBlock;
 
+
+
+/**
+ *  发布寄卖
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++(void)SetPurchaseWithParams:(NSDictionary *)params
+                 succesBlock:(SuccessBlock)successBlock
+                      failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  获取寄卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++ (void)GetPurchaseListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取我的买卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetPutchaseOrderListWithPageNo:(NSInteger)pageNo
+                              PageSize:(NSInteger)pageSize
+                                 order:(NSInteger)order
+                                status:(NSInteger)status
+                           succesBlock:(SuccessBlock)successBlock
+                                failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取寄卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetPurchaseListWithPageNo:(NSInteger)pageNo
+                         PageSize:(NSInteger)pageSize
+                            order:(NSInteger)order
+                           status:(NSInteger)status
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+/**
+ *  删除寄卖订单
+ *  @param orderid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)DeletePurchaseOrderWithOrderID:(NSInteger)orderid
+                           succesBlock:(SuccessBlock)successBlock
+                                failue:(FailureBlock)failueBlock;
+
+/**
+ *  确认收货
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ConfirmPurchaseOrderWithRentID:(NSInteger)rentid
+                           succesBlock:(SuccessBlock)successBlock
+                                failue:(FailureBlock)failueBlock;
+
+
 @end

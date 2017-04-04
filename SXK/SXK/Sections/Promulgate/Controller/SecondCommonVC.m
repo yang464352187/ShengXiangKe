@@ -72,8 +72,12 @@
         NSString *type = DEFAULTS_GET_OBJ(@"promulgateType");
         if ([type isEqualToString:@"1"]) {
             [self PopToIndexViewController:2];
-        }else{
+
+        }else if ([type isEqualToString:@"2"]){
             [self PopToIndexViewController:1];
+        }else{
+            [self PopToIndexViewController:3];
+
         }
 
     }else{

@@ -154,7 +154,14 @@
             NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
             //通过通知中心发送通知
             [[NSNotificationCenter defaultCenter] postNotification:notification];
-            [self PopToIndexViewController:1];
+            
+            NSString *type = DEFAULTS_GET_OBJ(@"promulgateType");
+            if ([type isEqualToString:@"3"]) {
+                [self PopToIndexViewController:3];
+                
+            }else{
+                [self PopToIndexViewController:1];
+            }
         }else{
             [ProgressHUDHandler showHudTipStr:@"请选择品牌"];
         }

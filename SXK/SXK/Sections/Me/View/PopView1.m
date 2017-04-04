@@ -22,6 +22,10 @@
 @property (nonatomic, assign)NSInteger index;
 
 @property (nonatomic, strong)NSString *title1;
+
+@property (nonatomic, strong)NSString *title2;
+
+@property (nonatomic, assign)NSInteger type;
 @end
 
 
@@ -146,6 +150,48 @@
 
 -(void)buttonAction:(UIButton *)sender
 {
+    if ([self.title2 isEqualToString:@"是否删除订单?"]) {
+        
+        
+        if (self.type == 2) {
+            [BaseRequest DeletePurchaseOrderWithOrderID:self.index succesBlock:^(id data) {
+                if ([self.delegate respondsToSelector:@selector(success)]) {
+                    [self.delegate success];
+                }
+                [ProgressHUDHandler showHudTipStr:@"删除成功"];
+                [self disMiss];
+                
+            } failue:^(id data, NSError *error) {
+                
+            }];
+        
+            return;
+        }
+        
+        
+        
+        
+        return;
+        
+    }
+    if ([self.title2 isEqualToString:@"是否确认收货?"]) {
+        [BaseRequest ConfirmPurchaseOrderWithRentID:self.index succesBlock:^(id data) {
+            if ([self.delegate respondsToSelector:@selector(success)]) {
+                [self.delegate success];
+            }
+            [ProgressHUDHandler showHudTipStr:@"确认完成"];
+            [self disMiss];
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        return;
+    }
+    
+    
+    
+    
+    
     if ([self.title1 isEqualToString:@"是否删除订单?"]) {
         [BaseRequest DeleteRentOrderWithRentID:self.index succesBlock:^(id data) {
             if ([self.delegate respondsToSelector:@selector(success)]) {
@@ -233,6 +279,9 @@
         }];
     }
     
+    self.title1 = @"";
+    self.title2 = @"";
+    
 
 }
 
@@ -241,6 +290,17 @@
     self.titleLab.text = title;
     self.index = index;
     self.title1 = title;
+    self.title2 =@"";
 }
+
+-(void)changeTitle2:(NSString *)title andIdex:(NSInteger)index type:(NSInteger)type
+{
+    self.titleLab.text = title;
+    self.index = index;
+    self.title2 = title;
+    self.title1 = @"";
+    self.type = type;
+}
+
 
 @end

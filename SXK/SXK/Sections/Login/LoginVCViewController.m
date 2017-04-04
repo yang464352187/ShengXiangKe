@@ -29,6 +29,7 @@
 
 -(void)initUI
 {
+    
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
     line.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
     
@@ -37,6 +38,7 @@
 
     UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(15, 151, SCREEN_WIDTH, 0.5)];
     line2.backgroundColor = [UIColor colorWithHexColorString:@"dcdcdc"];
+    
     
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     loginBtn.backgroundColor = APP_COLOR_GRAY_333333;
@@ -64,9 +66,6 @@
     [forgetBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     forgetBtn.titleLabel.font = [UIFont systemFontOfSize:14];
 
-    
-    
-    
 //    [self.view addSubview:line];
     [self.view addSubview:line1];
     [self.view addSubview:line2];

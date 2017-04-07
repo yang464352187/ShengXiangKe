@@ -10,7 +10,7 @@
 
 @interface BusinessModel : BaseModel
 
-@property (nonatomic, strong) NSNumber *condition, *advancePrice;
+@property (nonatomic, strong) NSNumber *condition, *advancePrice, *purchaseid;
 
 @property (nonatomic, strong) NSDictionary *category;
 

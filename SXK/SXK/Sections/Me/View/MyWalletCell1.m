@@ -15,6 +15,7 @@
     UILabel *_title1;
     UILabel *_moneyLab;
     UILabel *_timeLab;
+    NSArray *_array;
 }
 
 /*
@@ -76,7 +77,7 @@
         [_title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_left).offset(15);
             make.top.equalTo(self.mas_top).offset(23);
-            make.size.mas_equalTo(CGSizeMake(60, 15));
+            make.size.mas_equalTo(CGSizeMake(150, 15));
         }];
         
         [_title1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -109,7 +110,7 @@
         }];
         
 
-        
+        _array = @[@"充值奖励",@"租赁分享奖励",@"提现奖励",@"寄卖完成奖励",@"租赁完成奖励",@"寄卖分享奖励",@"余额支付"];
 
     }
     return  self;
@@ -118,10 +119,12 @@
 
 -(void)setModel:(id)model
 {
+    
+    
     WalletModel *_model = model;
     _addLabel.text = [NSString stringWithFormat:@"+%.2f",[_model.balance floatValue] / 100];
     _moneyLab.text = [NSString stringWithFormat:@"+%.2f",[_model.amount floatValue] / 100];
-    
+    _title.text = [NSString stringWithFormat:@"%@",_array[[_model.type integerValue] - 1]];
     long time = [_model.createtime integerValue];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

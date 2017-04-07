@@ -15,7 +15,8 @@
              @"category"        :@"category",
              @"name"            :@"name",
              @"advancePrice"    :@"advancePrice",
-             @"condition"       :@"condition"
+             @"condition"       :@"condition",
+             @"purchaseid"      :@"purchaseid"
              };
 }
 

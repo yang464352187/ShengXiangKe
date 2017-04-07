@@ -92,7 +92,7 @@
 {
     self.cellDic = [[NSMutableDictionary alloc] init];
     self.firstArr = @[@"类别",@"品牌"];
-    self.payArr = @[@"微信支付",@"支付宝支付",@"银联支付"];
+    self.payArr = @[@"微信支付",@"支付宝支付",@"余额支付"];
 }
 
 -(void)barButtonAction
@@ -320,39 +320,80 @@
 {
     [BaseRequest CreateAppraiseOrderWithReceiverid:self.receiverid brandid:self.brandid genreid:self.genreid total:self.total succesBlock:^(id data) {
         
-        [BaseRequest PayWithChannel:self.type orderID:[data[@"orderid"] integerValue] type:3 succesBlock:^(id data) {
+//        [BaseRequest PayWithChannel:self.type orderID:[data[@"orderid"] integerValue] type:3 succesBlock:^(id data) {
+//            
+//            //        NSLog(@"======%@====",data[@"info"]);
+//            _weekSelf(weakSelf);
+//            [Pingpp createPayment:data[@"info"] appURLScheme:@"wx4bfb2d22ce82d40d" withCompletion:^(NSString *result, PingppError *error) {
+//                NSLog(@"completion block: %@", result);
+//                if (error == nil) {
+//                    NSLog(@"PingppError is nil");
+//                    [ProgressHUDHandler showHudTipStr:@"付款成功"];
+//                    [weakSelf popGoBack];
+//                } else {
+//                    NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+//                    if (error.code == 3) {
+//                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+//                                                                        message:@"您还没安装微信,请前往AppStore中下载安装"
+//                                                                       delegate:nil
+//                                                              cancelButtonTitle:@"确定"
+//                                                              otherButtonTitles:nil];
+//                        [alert show];
+//                    }
+//                }
+//            }];
+//            
+//            
+//            
+//            
+//            
+//        } failue:^(id data, NSError *error) {
+//            
+//        }];
+        
+        
+        if ([self.type isEqualToString:@"upacp"]) {
             
-            //        NSLog(@"======%@====",data[@"info"]);
-            _weekSelf(weakSelf);
-            [Pingpp createPayment:data[@"info"] appURLScheme:@"wx4bfb2d22ce82d40d" withCompletion:^(NSString *result, PingppError *error) {
-                NSLog(@"completion block: %@", result);
-                if (error == nil) {
-                    NSLog(@"PingppError is nil");
+            [BaseRequest PayWithWalletWithOrderid:[data[@"orderid"] integerValue]  succesBlock:^(id data) {
+                if ([data[@"code"] integerValue] == 1) {
                     [ProgressHUDHandler showHudTipStr:@"付款成功"];
-                    [weakSelf popGoBack];
-                } else {
-                    NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
-                    if (error.code == 3) {
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                                        message:@"您还没安装微信,请前往AppStore中下载安装"
-                                                                       delegate:nil
-                                                              cancelButtonTitle:@"确定"
-                                                              otherButtonTitles:nil];
-                        [alert show];
-                    }
+                    [self popGoBack];
+                    
                 }
+            } failue:^(id data, NSError *error) {
+                
             }];
             
-            
-            
-            
-            
-        } failue:^(id data, NSError *error) {
-            
-        }];
-
-        
-        
+        }else{
+            [BaseRequest PayWithChannel:self.type orderID:[data[@"orderid"] integerValue] type:2 succesBlock:^(id data) {
+                
+                //        NSLog(@"======%@====",data[@"info"]);
+                _weekSelf(weakSelf);
+                [Pingpp createPayment:data[@"info"] appURLScheme:@"wx4bfb2d22ce82d40d" withCompletion:^(NSString *result, PingppError *error) {
+                    NSLog(@"completion block: %@", result);
+                    if (error == nil) {
+                        NSLog(@"PingppError is nil");
+                        [ProgressHUDHandler showHudTipStr:@"付款成功"];
+                        [weakSelf popGoBack];
+                    } else {
+                        NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
+                        if (error.code == 3) {
+                            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+                                                                            message:@"您还没安装微信,请前往AppStore中下载安装"
+                                                                           delegate:nil
+                                                                  cancelButtonTitle:@"确定"
+                                                                  otherButtonTitles:nil];
+                            [alert show];
+                        }
+                    }
+                }];
+                
+                
+                
+            } failue:^(id data, NSError *error) {
+                
+            }];
+        }
         
         
     } failue:^(id data, NSError *error) {

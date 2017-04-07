@@ -33,7 +33,7 @@
         NSArray *models = [MyAppraiseModel modelsFromArray:data[@"orderList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 
-        NSLog(@"%@",describe(models));
+//        NSLog(@"%@",describe(models));
         
     } failue:^(id data, NSError *error) {
         

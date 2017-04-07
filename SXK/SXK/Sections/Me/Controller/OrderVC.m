@@ -47,6 +47,7 @@
 @property (nonatomic, strong) NSString *mobile;
 
 @property (nonatomic, strong) NSString *address;
+
 @end
 
 @implementation OrderVC
@@ -475,7 +476,11 @@
         if ([data[@"code"] integerValue] == 1) {
             NSInteger orderid = [data[@"orderid"] integerValue];
             NSDictionary *dic = @{@"orderid":@(orderid),
+                                  @"type":@(1),
+                                  @"data":self.myDict
                                   };
+//            [self.myDict setValue:@(orderid) forKey:@"orderid"];
+//            [self.myDict setValue:@(1) forKey:@"type"];
             [weakSelf PushViewControllerByClassName:@"PayVC" info:dic];
         }
         

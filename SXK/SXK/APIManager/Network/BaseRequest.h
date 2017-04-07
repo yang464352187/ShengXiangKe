@@ -1195,6 +1195,79 @@
                             status:(NSInteger)status
                        succesBlock:(SuccessBlock)successBlock
                             failue:(FailureBlock)failueBlock;
+/**
+ *  获取寄租列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetRentList1WithPageNo:(NSInteger)pageNo
+                      PageSize:(NSInteger)pageSize
+                         order:(NSInteger)order
+                   succesBlock:(SuccessBlock)successBlock
+                        failue:(FailureBlock)failueBlock;
 
+/**
+ *  产品详情
+ *  @param purchaseid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetProductlWithPurchaseid:(NSInteger)purchaseid
+                      succesBlock:(SuccessBlock)successBlock
+                           failue:(FailureBlock)failueBlock;
+
++ (void)SetPurchaseWithPurchaseidList:(NSArray *)purchaseidList
+                           receiverid:(NSInteger)receiverid
+                          succesBlock:(SuccessBlock)successBlock
+                               failue:(FailureBlock)failueBlock;
+
+/**
+ *  寄卖协议
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)BussinessProtocolWithSetupID:(NSInteger)setupid
+                         succesBlock:(SuccessBlock)successBlock
+                              failue:(FailureBlock)failueBlock;
+
+/**
+ *  创建购买订单
+ *
+ *  @param params       params
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
+
++(void)CreatPurchaseOrderWithParams:(NSDictionary *)params
+                        succesBlock:(SuccessBlock)successBlock
+                             failue:(FailureBlock)failueBlock;
+
+/**
+ *  积分支付
+ *  @param orderid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)PayWithWalletWithOrderid:(NSInteger)orderid
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+
+/**
+ *  活动报名
+ *  @param activityid      ID
+ *  @param nickname      昵称
+ *  @param mobile        手机
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)EnterActivityWithActivityid:(NSInteger)activityid
+                           nickname:(NSString *)nickname
+                             mobile:(NSString *)mobile
+                        succesBlock:(SuccessBlock)successBlock
+                             failue:(FailureBlock)failueBlock;
 
 @end

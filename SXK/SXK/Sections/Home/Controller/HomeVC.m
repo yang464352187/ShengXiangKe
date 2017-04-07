@@ -279,7 +279,8 @@
         _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 530.0000/667*SCREEN_HIGHT)];
         _headView.backgroundColor = [UIColor whiteColor];
         
-        NSArray *titleArray = @[@"交互",@"租赁",@"活动",@"鉴定",@"养护"];
+        
+        NSArray *titleArray = @[@"交换",@"租赁",@"活动",@"鉴定",@"养护"];
         NSArray *imageArray = @[@"图层-115",@"图层-114",@"活动",@"顾问",@"养护"];
 
         int k = 0;
@@ -319,8 +320,8 @@
             k++;
         }
         
-        UIImage *leftImage = [UIImage imageNamed:@"交换箭头"];
-        UIImage *rightImage = [UIImage imageNamed:@"啵呗秀"];
+        UIImage *leftImage = [UIImage imageNamed:@"shouyejizu"];
+        UIImage *rightImage = [UIImage imageNamed:@"shouyejishou"];
         
         UIButton *leftBtn1 = [UIButton buttonWithType:UIButtonTypeSystem];
         [leftBtn1 setImage:[leftImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];

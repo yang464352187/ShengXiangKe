@@ -11,6 +11,8 @@
 #import "BusinessCell1.h"
 #import "BusinessCell2.h"
 #import "BusinessModel.h"
+#import "AddressModel.h"
+
 @interface BusinessVC1 ()
 
 @property (nonatomic, strong) NSArray *imagesArr;
@@ -21,6 +23,9 @@
 
 @property (nonatomic, strong) NSArray *models;
 
+@property (nonatomic, strong) AddressModel *model;
+
+@property (nonatomic, assign) BOOL isSelect;
 @end
 
 @implementation BusinessVC1
@@ -32,9 +37,18 @@
     _weekSelf(weakSelf);
     [BaseRequest GetPurchaseListWithPageNo:0 PageSize:0 order:1 succesBlock:^(id data) {
         weakSelf.models = [BusinessModel modelsFromArray:data[@"purchaseList"]];
-        NSLog(@"%@",describe(weakSelf.models));
+//        NSLog(@"%@",describe(weakSelf.models));
         NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:0];
         [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    
+    [BaseRequest GetAddressWithReceiverid:0 succesBlock:^(id data) {
+        weakSelf.model = [AddressModel modelFromDictionary:data[@"receiver"]];
+        NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+        [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+
     } failue:^(id data, NSError *error) {
         
     }];
@@ -52,7 +66,7 @@
     
     [self.view addSubview:self.tableView];
     
-    
+    self.isSelect = 0;
     
 }
 
@@ -112,12 +126,10 @@
         }
 
     }
-
-    
-    
     
     BusinessCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"cell1"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setModel:self.model];
     return cell;
 
 }
@@ -196,8 +208,9 @@
     }
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    UIImage *image = [UIImage imageNamed:@"椭圆-21"];
+    UIImage *image = [UIImage imageNamed:@"椭圆-1-拷贝"];
     [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *label = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                 andText:@"我已阅读并同意BOOBE"
                                       andTextColor:[UIColor blackColor]
@@ -208,12 +221,14 @@
     UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn1 setTitle:@"《寄卖协议》" forState:UIControlStateNormal];
     [btn1 setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+    [btn1 addTarget:self action:@selector(Click:) forControlEvents:UIControlEventTouchUpInside];
     btn1.titleLabel.textAlignment = NSTextAlignmentLeft;
     
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeSystem];
     btn2.backgroundColor = APP_COLOR_GREEN;
     [btn2 setTitle:@"确认寄卖" forState:UIControlStateNormal];
     [btn2 setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
     btn2.titleLabel.font = SYSTEMFONT(14);
     
     [view addSubview:btn];
@@ -265,6 +280,56 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 100;
+}
+
+-(void)btnAction:(UIButton *)sender
+{
+    if (self.models.count < 1) {
+        [ProgressHUDHandler showHudTipStr:@"没有商品提交"];
+        return;
+    }
+    if ([self.model.receiverid integerValue] < 1) {
+        [ProgressHUDHandler showHudTipStr:@"请选择地址"];
+        return;
+    }
+    if (!self.isSelect) {
+        [ProgressHUDHandler showHudTipStr:@"请认真阅读寄卖协议"];
+        return;
+    }
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for (BusinessModel *model in self.models) {
+        [array addObject:model.purchaseid];
+    }
+    
+    
+    _weekSelf(weakSelf);
+    [BaseRequest SetPurchaseWithPurchaseidList:array receiverid:[self.model.receiverid integerValue] succesBlock:^(id data) {
+         [ProgressHUDHandler showHudTipStr:@"预约成功"];
+        [weakSelf PopToRootViewController];
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    
+}
+
+-(void)Click:(UIButton *)sender
+{
+    [self PushViewControllerByClassName:@"BusinessProtocolVC" info:nil];
+}
+
+-(void)selectAction:(UIButton *)sender
+{
+    if (self.isSelect) {
+        UIImage *image = [UIImage imageNamed:@"椭圆-1-拷贝"];
+        [sender setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        self.isSelect = 0;
+    }else{
+        UIImage *image = [UIImage imageNamed:@"形状-111"];
+        [sender setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        self.isSelect = 1;
+    }
+
 }
 
 

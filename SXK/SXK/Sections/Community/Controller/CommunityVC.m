@@ -101,6 +101,7 @@
                 [weakSelf handleModels:models total:[data[@"total"] integerValue] iSrefresh:1];
                 [weakSelf handleModels:self.listData andTotal:[data[@"total"] integerValue]];
                 [weakSelf stopLoadingView];
+
                 self.first = 1;
                 
             } failue:^(id data, NSError *error) {

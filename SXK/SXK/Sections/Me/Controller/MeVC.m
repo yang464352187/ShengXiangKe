@@ -589,7 +589,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return 9;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -631,17 +631,17 @@
 
         }
             break;
-        case 6:{
+        case 5:{
             [self PushViewControllerByClassName:@"MyKeepVC" info:nil];
             
         }
             break;
-        case 8:{
+        case 7:{
             [self PushViewControllerByClassName:@"SetVC" info:nil];
 
         }
             break;
-        case 7:{
+        case 6:{
             MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
             [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
             [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];
@@ -667,7 +667,7 @@
             
         }
             break;
-        case 9:{
+        case 8:{
             [self initLoginView];
 
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -687,7 +687,7 @@
 -(NSMutableArray *)titleArr
 {
     if (!_titleArr) {
-        _titleArr = [[NSMutableArray alloc] initWithObjects:@"我的钱包",@"我的啵值",@"分享奖励",@"我的信用",@"服务中心",@"我的买卖",@"我的收藏",@"联系客服",@"设置",@"退出", nil];
+        _titleArr = [[NSMutableArray alloc] initWithObjects:@"我的钱包",@"我的啵值",@"分享奖励",@"我的信用",@"服务中心",@"我的收藏",@"联系客服",@"设置",@"退出", nil];
     }
     return _titleArr;
 }
@@ -695,7 +695,7 @@
 -(NSMutableArray *)imageArr
 {
     if (!_imageArr) {
-        _imageArr = [[NSMutableArray alloc] initWithObjects:@"钱包",@"积分",@"奖励",@"信用",@"服务-(3)",@"买买买买",@"收藏",@"联系客服",@"设置-(1)",@"mine_loginout", nil];
+        _imageArr = [[NSMutableArray alloc] initWithObjects:@"钱包",@"积分",@"奖励",@"信用",@"服务-(3)",@"收藏",@"联系客服",@"设置-(1)",@"mine_loginout", nil];
     }
     return _imageArr;
 }

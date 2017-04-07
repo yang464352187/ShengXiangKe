@@ -77,7 +77,7 @@
     view.backgroundColor = APP_COLOR_GRAY_Header;
     
     UIButton *certainBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [certainBtn setTitle:@"联系客服" forState:UIControlStateNormal];
+    [certainBtn setTitle:@"提交鉴定" forState:UIControlStateNormal];
     certainBtn.backgroundColor = APP_COLOR_GREEN;
     [certainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     certainBtn.titleLabel.font = SYSTEMFONT(14);
@@ -223,7 +223,7 @@
             NSData *image1 = UIImageJPEGRepresentation(image, 0.5);
             [photo addObject:image1];
         }
-        [CustomHUD createHudCustomShowContent:@"正在发布"];
+        [CustomHUD createHudCustomShowContent:@"正在提交"];
         _weekSelf(weakSelf);
         
         [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];

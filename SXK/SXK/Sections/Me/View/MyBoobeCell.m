@@ -16,6 +16,7 @@
     UILabel *_title1;
     UILabel *_moneyLab;
     UILabel *_timeLab;
+    NSArray *_array;
 }
 
 /*
@@ -74,7 +75,7 @@
         [_title mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.mas_left).offset(15);
             make.top.equalTo(self.mas_top).offset(23);
-            make.size.mas_equalTo(CGSizeMake(60, 15));
+            make.size.mas_equalTo(CGSizeMake(160, 15));
         }];
         
 //        [_title1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -106,6 +107,9 @@
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, 0.5));
         }];
         
+        
+        _array = @[@"充值奖励",@"提现奖励"];
+        
     }
     return  self;
 }
@@ -116,7 +120,7 @@
     _addLabel.text = [NSString stringWithFormat:@"+%@",_model.point];
     _moneyLab.text = [NSString stringWithFormat:@"%.2f",[_model.amount floatValue] / 100];
     
-    
+    _title.text = [NSString stringWithFormat:@"%@",_array[[_model.type integerValue]]];
     
     long time = [_model.createtime integerValue];
     

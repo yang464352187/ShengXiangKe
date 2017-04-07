@@ -77,7 +77,7 @@
     MaintainCellModel *model = [MaintainCellModel modelFromDictionary:self.myDict];
     [self.dataArr addObject:model];
     self.MaintainModel = model;
-    self.payArr = @[@"微信支付",@"支付宝支付",@"银联支付"];
+    self.payArr = @[@"微信支付",@"支付宝支付",@"余额支付"];
     
     [self initUI];
 }
@@ -320,6 +320,20 @@
     
     [BaseRequest CreateMaintainWithMaintainid:[self.MaintainModel.maintainid integerValue] receiverid:[self.model.receiverid integerValue] price:[self.MaintainModel.price integerValue] message:self.content succesBlock:^(id data) {
 //        NSLog(@"%@",describe(data));
+        
+        if ([self.type isEqualToString:@"upacp"]) {
+            
+            [BaseRequest PayWithWalletWithOrderid:[data[@"orderid"] integerValue]  succesBlock:^(id data) {
+                if ([data[@"code"] integerValue] == 1) {
+                    [ProgressHUDHandler showHudTipStr:@"付款成功"];
+                    [self popGoBack];
+                    
+                }
+            } failue:^(id data, NSError *error) {
+                
+            }];
+
+        }else{
             [BaseRequest PayWithChannel:self.type orderID:[data[@"orderid"] integerValue] type:2 succesBlock:^(id data) {
                 
                 //        NSLog(@"======%@====",data[@"info"]);
@@ -348,6 +362,12 @@
             } failue:^(id data, NSError *error) {
                 
             }];
+        }
+        
+        
+ 
+        
+        
 
 
         

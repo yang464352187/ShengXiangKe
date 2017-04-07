@@ -44,7 +44,7 @@
     
     [self initVCS];
     images = [NSMutableArray array];
-    titles = [NSMutableArray arrayWithObjects:@"寄租",@"寄售",@"鉴定", nil];
+    titles = [NSMutableArray arrayWithObjects:@"寄租",@"寄售",@"养护", nil];
     
     for (int i = 0; i<3; i++) {
         if (i<3) {
@@ -194,7 +194,7 @@
         if (index == 2) {
             
 //            [[PushManager sharedManager] pushToVCWithClassName:@"AppraiseVC" info:nil];
-            [self.vc PushViewControllerByClassName:@"FreeAppraiseVC" info:nil];
+            [self.vc PushViewControllerByClassName:@"MaintainVC" info:nil];
 
         }
 
@@ -207,7 +207,7 @@
             [[PushManager sharedManager] pushToVCWithClassName:@"BusinessVC" info:nil];
         }
         if (index == 2) {
-            [[PushManager sharedManager] pushToVCWithClassName:@"FreeAppraiseVC" info:nil];
+            [[PushManager sharedManager] pushToVCWithClassName:@"MaintainVC" info:nil];
         }
 
     }

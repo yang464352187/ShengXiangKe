@@ -10,6 +10,6 @@
 
 @interface WalletModel : BaseModel
 
-@property (nonatomic, strong) NSNumber *amount, *createtime, *balance;
+@property (nonatomic, strong) NSNumber *amount, *createtime, *balance, *type;
 
 @end

@@ -307,11 +307,7 @@
             make.size.mas_equalTo(CGSizeMake(60, 45));
         }];
         
-        
-        
-        
-        
-        
+    
         
     }
     return _headView;

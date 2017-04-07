@@ -189,6 +189,7 @@
     
     [self.vc.navigationController pushViewController:chat animated:YES];
     
+    
 //    NSLog(@"-----%ld-----",_userid);
 }
 

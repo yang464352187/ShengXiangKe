@@ -19,7 +19,8 @@
              @"advancePrice":@"advancePrice",
              @"oddNumber":@"oddNumber",
              @"orderid":@"orderid",
-             @"purchaseid":@"purchaseid"
+             @"purchaseid":@"purchaseid",
+             @"rentid":@"rentid"
              };
 }
 

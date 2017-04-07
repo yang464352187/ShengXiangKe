@@ -8,11 +8,17 @@
 
 #import "SetVC.h"
 #import "CommonCell.h"
+#import "YXCustomActionSheet.h"
+#import <UMSocialCore/UMSocialCore.h>
 
-@interface SetVC ()
+
+
+//#define   kAPP_URL : @"http://itunes.apple.com/lookup?id="
+
+@interface SetVC ()<YXCustomActionSheetDelegate>
 
 @property (nonatomic, strong)NSArray *dataArr;
-
+@property (nonatomic, strong)NSString *trackViewUrl;
 @end
 
 @implementation SetVC
@@ -122,6 +128,7 @@
 //            
 //            //弹出提示框；
 //            [self presentViewController:alert animated:true completion:nil];
+            [self updateApp];
         }
             break;
         
@@ -143,11 +150,212 @@
             [self PushViewControllerByClassName:@"AboutBoobe" info:dic];
             break;
         }
+        case 1:{
+            YXCustomActionSheet *cusSheet = [[YXCustomActionSheet alloc] init];
+            cusSheet.delegate = self;
+            NSArray *contentArray = @[@{@"name":@"微信",@"icon":@"微信-1"},
+                                      @{@"name":@"朋友圈 ",@"icon":@"朋友圈"},
+                                      @{@"name":@"QQ ",@"icon":@"QQ-1"},
+                                      @{@"name":@"新浪",@"icon":@"xinlang"}
+                                      ];
             
+            [cusSheet showInView:[UIApplication sharedApplication].keyWindow contentArray:contentArray];
+
+        }
         default:
             break;
     }
 }
+
+#pragma mark - YXCustomActionSheetDelegate
+
+- (void) customActionSheetButtonClick:(YXActionSheetButton *)btn
+{
+    
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+//    NSString* thumbURL = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,self.model.imgList[0]];
+    
+//    UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:@"http://itunes.apple.com/us/app/id1140378025"];
+    
+    UIImage *cachedImage = [UIImage imageNamed:@"未标题-1"];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"啵呗" descr:@"亲们快来下载啵呗吧" thumImage:cachedImage];
+    
+    //设置网页地址
+    shareObject.webpageUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id1140378025"];
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    switch (btn.tag) {
+        case 0:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_WechatSession messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+        case 1:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_WechatTimeLine messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+        case 2:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_QQ messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+        case 3:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_Sina messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+            
+        default:
+            break;
+    }
+    
+    NSLog(@"第%li个按钮被点击了",(long)btn.tag);
+}
+
+- (void)updateApp
+{
+    //    kAppID : 在iTunes connect上申请的APP ID;
+    NSString *urlStr = [NSString stringWithFormat:@"%@%@", @"http://itunes.apple.com/lookup?id="
+, @"1140378025"];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    //网络请求
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSError *err;
+        //NSLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        NSDictionary *appInfoDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&err];
+        
+        if (err) {
+            NSLog(@"%@", err.description);
+            return;
+        }
+        
+        NSArray *resultArray = [appInfoDict objectForKey:@"results"];
+        if (![resultArray count]) {
+            NSLog(@"error : resultArray == nil");
+            return;
+        }
+        
+        NSDictionary *infoDict = [resultArray objectAtIndex:0];
+        
+        //获取服务器上应用的最新版本号
+        NSString *updateVersion = infoDict[@"version"];
+        NSString *trackName = infoDict[@"trackName"];
+        
+        //_trackViewUrl : 更新的时候用到的地址
+        _trackViewUrl = infoDict[@"trackViewUrl"];
+        
+        //获取当前设备中应用的版本号
+        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
+        
+        //判断两个版本是否相同
+        if ([currentVersion doubleValue] < [updateVersion doubleValue]) {
+            NSString *titleStr = [NSString stringWithFormat:@"检查更新：%@", trackName];
+            NSString *messageStr = [NSString stringWithFormat:@"发现新版本（%@）,是否更新", updateVersion];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:titleStr message:messageStr delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"升级", nil];
+            alert.tag = [@"1140378025" intValue];
+            [alert show];
+            
+        } else {  //版本号和app store上的一致
+            NSString *titleStr = [NSString stringWithFormat:@"检查更新：%@", trackName];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:titleStr message:@"暂无新版本" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            alert.tag = [@"1140378025" intValue] + 1;
+            [alert show];
+        }
+    }];
+    [task resume];
+}
+//判断用户点击了哪一个按钮
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == [@"1140378025" intValue]) {
+        if (buttonIndex == 1) { //点击”升级“按钮，就从打开app store上应用的详情页面
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.trackViewUrl]];
+        }
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -10,6 +10,6 @@
 
 @interface RcordModel : BaseModel
 
-@property (nonatomic, strong) NSNumber *amount, *point, *createtime;
+@property (nonatomic, strong) NSNumber *amount, *point, *createtime, *type;
 
 @end

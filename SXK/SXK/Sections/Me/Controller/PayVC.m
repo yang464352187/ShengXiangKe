@@ -8,7 +8,8 @@
 
 #import "PayVC.h"
 #import "PayCell.h"
-
+#import "AppDelegate.h"
+#import "BrandDetailModel.h"
 @interface PayVC ()<SelectPayCellDelegate>
 
 @property (nonatomic, strong) NSArray *payArr;
@@ -16,6 +17,10 @@
 @property (nonatomic, strong) PayCell *selectCell;
 
 @property (nonatomic, strong) NSString *type;
+
+@property (nonatomic, strong)UIView *backGroundView;
+
+@property (nonatomic, strong)UIView *alertView;
 
 @end
 
@@ -33,8 +38,117 @@
 
 -(void)initData
 {
+    
+    BrandDetailModel *model = [BrandDetailModel modelFromDictionary:self.myDict[@"data"]];
+    
+    
     self.payArr = @[@"微信支付",@"支付宝支付",@"银联支付"];
 
+    
+    self.backGroundView  = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+    self.backGroundView.backgroundColor = [UIColor colorWithHexColorString:@"3c3c3c"];
+    self.backGroundView.alpha = 0.5;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    [self.backGroundView addGestureRecognizer:tap];
+
+    self.alertView = [[UIView alloc] initWithFrame:VIEWFRAME(30, SCREEN_HIGHT, CommonWidth(315), 430)];
+    self.alertView.backgroundColor = [UIColor whiteColor];
+    
+    
+    UIImageView *image = [[UIImageView alloc] init];
+    image.image = [UIImage imageNamed:@"订单背景"];
+    
+    UIImageView *image1 = [[UIImageView alloc] init];
+    [image1 sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,model.imgList[0]]]];
+    
+    UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 200, 44)                                                 andText:model.name
+                                        andTextColor:[UIColor blackColor]
+                                          andBgColor:[UIColor clearColor]
+                                             andFont:SYSTEMFONT(13)
+                                    andTextAlignment:NSTextAlignmentLeft];
+    
+    UILabel *content = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 200, 44)                                                 andText:model.keyword
+                                        andTextColor:[UIColor blackColor]
+                                          andBgColor:[UIColor clearColor]
+                                             andFont:SYSTEMFONT(13)
+                                    andTextAlignment:NSTextAlignmentLeft];
+    
+    
+    UILabel *price = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 200, 44)                                                 andText:[NSString stringWithFormat:@"租价%.2f元/天",[model.rentPrice floatValue]/100]
+
+                                        andTextColor:APP_COLOR_GREEN
+                                          andBgColor:[UIColor clearColor]
+                                             andFont:SYSTEMFONT(13)
+                                    andTextAlignment:NSTextAlignmentLeft];
+    
+    UIButton *cancelBtn =[UIButton buttonWithType:UIButtonTypeSystem];
+    [cancelBtn setTitle:@"取消订单" forState:UIControlStateNormal];
+    [cancelBtn setTitleColor:[UIColor colorWithHexColorString:@"aaaaaa"] forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(cancelBtn:) forControlEvents:UIControlEventTouchUpInside];
+    cancelBtn.frame = VIEWFRAME(CommonWidth(57), 360, 81, 27);
+    ViewBorderRadius(cancelBtn, 27/2, 0.5, [UIColor colorWithHexColorString:@"aaaaaa"]);
+    
+    UIButton *certainBtn =[UIButton buttonWithType:UIButtonTypeSystem];
+    [certainBtn setTitle:@"去付款" forState:UIControlStateNormal];
+    [certainBtn setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+    [certainBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    certainBtn.frame = VIEWFRAME(CommonWidth(178), 360, 81, 27);
+    ViewBorderRadius(certainBtn, 27/2, 0.5, APP_COLOR_GREEN);
+    
+    [self.alertView addSubview:image];
+    [self.alertView addSubview:image1];
+    [self.alertView addSubview:title];
+    [self.alertView addSubview:content];
+    [self.alertView addSubview:price];
+    [self.alertView addSubview:cancelBtn];
+    [self.alertView addSubview:certainBtn];
+    
+    [image mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.alertView.mas_top).offset(0);
+        make.left.equalTo(self.alertView.mas_left).offset(0);
+        make.right.equalTo(self.alertView.mas_right).offset(0);
+        make.bottom.equalTo(self.alertView.mas_bottom).offset(0);
+    }];
+    
+    [image1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.alertView.mas_top).offset(15);
+        make.left.equalTo(self.alertView.mas_left).offset(15);
+        make.right.equalTo(self.alertView.mas_right).offset(-15);
+        make.height.mas_equalTo(@(250));
+    }];
+    
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(image1.mas_bottom).offset(10);
+        make.left.equalTo(self.alertView.mas_left).offset(15);
+        make.right.equalTo(self.alertView.mas_right).offset(-15);
+        make.height.mas_equalTo(@(15));
+    }];
+    
+    [content mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(title.mas_bottom).offset(10);
+        make.left.equalTo(self.alertView.mas_left).offset(15);
+        make.right.equalTo(self.alertView.mas_right).offset(-15);
+        make.height.mas_equalTo(@(15));
+    }];
+
+    [price mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(content.mas_bottom).offset(10);
+        make.left.equalTo(self.alertView.mas_left).offset(15);
+        make.right.equalTo(self.alertView.mas_right).offset(-15);
+        make.height.mas_equalTo(@(15));
+    }];
+
+}
+
+-(void)cancelBtn:(UIButton *)sender
+{
+    [self disMiss];
+}
+
+-(void)buttonAction:(UIButton *)sender
+{
+    [self pay];
 }
 
 #pragma mark -- UITabelViewDelegate And DataSource
@@ -146,15 +260,23 @@
 
 -(void)payAction:(UIButton *)sender
 {
-    [BaseRequest PayWithChannel:self.type orderID:[self.myDict[@"orderid"] integerValue] type:1 succesBlock:^(id data) {
+    [self pay];
+}
 
-//        NSLog(@"======%@====",data[@"info"]);
+-(void)pay
+{
+    [BaseRequest PayWithChannel:self.type orderID:[self.myDict[@"orderid"] integerValue] type:[self.myDict[@"type"] integerValue]  succesBlock:^(id data) {
+        
+        //        NSLog(@"======%@====",data[@"info"]);
         _weekSelf(weakSelf);
         [Pingpp createPayment:data[@"info"] appURLScheme:@"wx4bfb2d22ce82d40d" withCompletion:^(NSString *result, PingppError *error) {
             NSLog(@"completion block: %@", result);
             if (error == nil) {
                 NSLog(@"PingppError is nil");
                 [ProgressHUDHandler showHudTipStr:@"付款成功"];
+                
+                [self.backGroundView removeFromSuperview];
+                [self.alertView removeFromSuperview];
                 [weakSelf popGoBack];
             } else {
                 NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
@@ -166,6 +288,11 @@
                                                           otherButtonTitles:nil];
                     [alert show];
                 }
+                
+                if (error.code == 5) {
+                    //                    NSLog(@"傻逼");
+                    [self loadingView];
+                }
             }
         }];
         
@@ -175,6 +302,69 @@
     }];
 
 }
+
+-(void)loadingView
+{
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.window addSubview:self.backGroundView];
+    [appDelegate.window addSubview:self.alertView];
+//    
+//    UserModel *model = [LoginModel curLoginUser];
+//    
+//    self.name.text = model.nickname;
+//    self.text.text = model.mobile;
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    
+    dispatch_async(queue, ^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                self.alertView.frame = VIEWFRAME(CommonWidth(30), CommonHight(100), CommonWidth(315), 430);
+                
+            } completion:^(BOOL finished) {
+                
+            }];
+        });
+    });
+    
+}
+
+
+
+-(void)tapAction:(UITapGestureRecognizer *)tap
+{
+    [self disMiss];
+}
+-(void)disMiss
+{
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    
+    dispatch_async(queue, ^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [UIView animateWithDuration:0.5 animations:^{
+                
+                self.alertView.frame = VIEWFRAME(30, SCREEN_HIGHT,CommonWidth(315), CommonHight(390));
+                
+            } completion:^(BOOL finished) {
+                
+                [self.backGroundView removeFromSuperview];
+                [self.alertView removeFromSuperview];
+                
+            }];
+        });
+    });
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

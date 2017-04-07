@@ -15,7 +15,8 @@
     return @{
              @"amount"        :@"amount",
              @"balance"         :@"balance",
-             @"createtime"    :@"createtime"
+             @"createtime"    :@"createtime",
+             @"type":@"type"
              
              };
 }

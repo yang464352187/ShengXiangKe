@@ -22,9 +22,6 @@
 #import "RentCommentModel.h"
 #import "DFFaceManager.h"
 #import "MLLabel+Size.h"
-
-
-
 #import "NSString+MLExpression.h"
 
 #define Margin 15
@@ -103,7 +100,6 @@
             weakSelf.dataArr1 = models;
             weakSelf.cellHeight1 = 358.50*count + (index - count *22)+15;
             [weakSelf.tableView reloadData];
-            
             
             
         } failue:^(id data, NSError *error) {

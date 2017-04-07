@@ -33,14 +33,12 @@
     
     if ([self.myDict[@"title"] isEqualToString:@"寄租"]) {
         
-        [BaseRequest GetSwapSetupListWithSetupID:1 succesBlock:^(id data) {
-            NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
+        [BaseRequest GetRentList1WithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
+            NSArray *models = [MyBussinesModel modelsFromArray:data[@"rentList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-            
         } failue:^(id data, NSError *error) {
             
         }];
-        
         
     }else{
         
@@ -122,10 +120,20 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([self.myDict[@"title"] isEqualToString:@"寄租"]) {
+        MyBussinesModel *model = self.listData[indexPath.section];
+        NSDictionary *dic = @{@"rentid":model.rentid};
+        [self PushViewControllerByClassName:@"BrandDetailVC" info:dic];
+
+    }else{
+        MyBussinesModel *model = self.listData[indexPath.section];
+        NSDictionary *dic = @{@"purchaseid":model.purchaseid};
+        [self PushViewControllerByClassName:@"BrandDetailVC1" info:dic];
+
+    }
     
-    MyBussinesModel *model = self.listData[indexPath.section];
-    NSDictionary *dic = @{@"rentid":model.purchaseid};
-    [self PushViewControllerByClassName:@"BrandDetailVC" info:dic];
+    
+    
 }
 
 - (UITableView *)tableView{

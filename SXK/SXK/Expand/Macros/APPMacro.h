@@ -13,9 +13,9 @@
 // 接口链接地址
 
 #define APP_BASEURL @"http://shexiangke.jcq.tbapps.cn"
+#define APP_BASEIMG @"http://ohqqvdngk.bkt.clouddn.com/"
 //#define APP_BASEURL @"https://shexiangke.boobe.com.cn"
 //#define APP_BASEIMG @"http://ohqqhwkx4.bkt.clouddn.com/"
-#define APP_BASEIMG @"http://ohqqvdngk.bkt.clouddn.com/"
 
 #pragma mark - BaseColor
 // 基本颜色
@@ -139,5 +139,11 @@
 #define APPINTERFACE__PutchaseOrderList      @"/app/purchaseorder/listpost"//我的寄卖列表
 #define APPINTERFACE__DeletePurchaseOrder    @"/app/purchaseorder/delpost"//删除寄卖订单
 #define APPINTERFACE__ConfirmPurchaseOrder   @"/app/purchaseorder/setpost"//寄卖确认收货
+#define APPINTERFACE__PurchaseProductDetail  @"/app/purchase/getpost"
+#define APPINTERFACE__PurchaseSetPost        @"/app/purchase/setpost"
+#define APPINTERFACE__BussinessProtocol      @"/app/purchaseagreementsetup/getpost"//寄卖协议
+#define APPINTERFACE__SetBussinessOrder      @"/app/purchaseorder/addpost"
+#define APPINTERFACE__PayByWallet            @"/app/wallet/delpost"
+#define APPINTERFACE__EnterActivity          @"/app/activityjoin/addpost"
 
 #endif /* APPMacro_h */

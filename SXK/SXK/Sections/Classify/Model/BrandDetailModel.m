@@ -37,7 +37,9 @@
              @"brand":@"brand",
              @"risk":@"risk",
              @"user":@"user",
-             @"category":@"category"
+             @"category":@"category",
+             @"sellingPrice":@"sellingPrice",
+             @"purchaseid":@"purchaseid"
              
              };
 }

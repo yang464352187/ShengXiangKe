@@ -12,10 +12,10 @@
 
 // 接口链接地址
 
-#define APP_BASEURL @"http://shexiangke.jcq.tbapps.cn"
-#define APP_BASEIMG @"http://ohqqvdngk.bkt.clouddn.com/"
-//#define APP_BASEURL @"https://shexiangke.boobe.com.cn"
-//#define APP_BASEIMG @"http://ohqqhwkx4.bkt.clouddn.com/"
+//#define APP_BASEURL @"http://shexiangke.jcq.tbapps.cn"
+//#define APP_BASEIMG @"http://ohqqvdngk.bkt.clouddn.com/"
+#define APP_BASEURL @"https://shexiangke.boobe.com.cn"
+#define APP_BASEIMG @"http://ohqqhwkx4.bkt.clouddn.com/"
 
 #pragma mark - BaseColor
 // 基本颜色
@@ -145,5 +145,17 @@
 #define APPINTERFACE__SetBussinessOrder      @"/app/purchaseorder/addpost"
 #define APPINTERFACE__PayByWallet            @"/app/wallet/delpost"
 #define APPINTERFACE__EnterActivity          @"/app/activityjoin/addpost"
+#define APPINTERFACE__DamagesMonye           @"/app/penaltysetup/getpost"//违约金
+#define APPINTERFAXE__ExplainSetup           @"/app/explainsetup/getpost"
+#define APPINTERFACE__DelOrder               @"/app/rentorder/delpost"
+#define APPINTERFACE__AddBusinessKeep        @"/app/collectionpurchase/addpost" //添加收藏
+#define APPINTERFACE__BusinessKeepList       @"/app/collectionpurchase/getpost" //寄卖收藏列表
+#define APPINTERFACE__MaintainKeepList       @"/app/collectionmaintain/getpost" //养护收藏列表
+#define APPINTERFACE__CancelMaintainKeep     @"/app/collectionmaintain/delpost" //取消养护收藏
+#define APPINTERFACE__CancelBusinessKeep     @"/app/collectionpurchase/delpost" //取消寄卖收藏
+#define APPINTERFACE__DelAppraiseOrder       @"/app/identifyorder/delpost"
+#define APPINTERFACE__AppraiseOrderDetail    @"/app/rentorder/getpost"
+#define APPINTERFACE__BusinessOrderDetail    @"/app/purchaseorder/getpost"
+
 
 #endif /* APPMacro_h */

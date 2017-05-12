@@ -43,7 +43,8 @@
 @property (nonatomic, assign) NSInteger quality;
 @property (nonatomic, assign) NSInteger person;
 @property (nonatomic, strong) NSString *color;
-
+@property (nonatomic, strong) UIButton *selectBtn;
+@property (nonatomic, assign) BOOL isSelect;
 
 @end
 
@@ -74,7 +75,7 @@
     [self.view addSubview:self.tableView];
     [self setRightBarButtonWith:[UIImage imageNamed:@"感叹号"] selector:@selector(barButtonAction)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-    
+    self.isSelect = 0;
     
     [self loadingRequest];
 }
@@ -91,7 +92,7 @@
 
 -(void)barButtonAction
 {
-    [self PushViewControllerByClassName:@"HowToShootVC" info:nil];
+    [self PushViewControllerByClassName:@"HowToPromulgate" info:nil];
 
 }
 #pragma mark -- UITabelViewDelegate And DataSource
@@ -165,8 +166,13 @@
     UIView *view = [[UIView alloc] init];
     view.frame = VIEWFRAME((SCREEN_WIDTH - 214.5)/2, 23.5, 214.5, 16.5);
     
-    UIImageView *image = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, 16.5, 16.5)];
-    image.image = [UIImage imageNamed:@"打钩"];
+//    UIImageView *image = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, 16.5, 16.5)];
+    UIImage *image = [UIImage imageNamed:@"打钩-1"];
+    UIButton *selectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+    selectBtn.frame = VIEWFRAME(0, 0, 16.5, 16.5);
+    [selectBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    self.selectBtn = selectBtn;
     
     UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(16.5,0 , 135, 16.5)
                                            andText:@"已阅读并同意BOOBE的"
@@ -191,9 +197,10 @@
     [promulgateBtn addTarget:self action:@selector(promulgateBtn:) forControlEvents:UIControlEventTouchUpInside];
     ViewRadius(promulgateBtn, 22);
     
-    [view addSubview:image];
+//    [view addSubview:image];
     [view addSubview:title];
     [view addSubview:explainBtn];
+    [view addSubview:selectBtn];
     [footView addSubview:promulgateBtn];
     [footView addSubview:view];
     return footView;
@@ -374,6 +381,7 @@
             self.categoryid = [text.userInfo[@"category"] integerValue];
             self.category = text.userInfo[@"name"];
             self.enclosure = nil;
+            NSLog(@"%ld",self.categoryid);
         }
         
         if ([text.userInfo[@"class"] isEqualToString:@"成色"]) {
@@ -413,6 +421,11 @@
     
     if (self.content.text.length < 1 || self.name.length < 1 || self.price.length < 1 || self.description.length < 1 || self.category.length < 1 || self.brand < 1 || self.color.length < 1 || self.quality < 1 || self.person < 1) {
         [ProgressHUDHandler showHudTipStr:@"请完善商品信息"];
+        return;
+    }
+    
+    if (!self.isSelect) {
+        [ProgressHUDHandler showHudTipStr:@"请仔细阅读并同意用户协议"];
         return;
     }
     
@@ -520,7 +533,18 @@
     [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
 }
 
-
+-(void)selectAction:(UIButton *)sender
+{
+    if (self.isSelect) {
+        self.isSelect = 0;
+        UIImage *image = [UIImage imageNamed:@"打钩-1"];
+        [self.selectBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    }else{
+        self.isSelect = 1;
+        UIImage *image = [UIImage imageNamed:@"打钩"];
+        [self.selectBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    }
+}
 
 
 - (void)didReceiveMemoryWarning {

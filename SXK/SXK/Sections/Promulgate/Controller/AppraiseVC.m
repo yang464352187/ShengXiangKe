@@ -354,10 +354,10 @@
         
         if ([self.type isEqualToString:@"upacp"]) {
             
-            [BaseRequest PayWithWalletWithOrderid:[data[@"orderid"] integerValue]  succesBlock:^(id data) {
+            [BaseRequest PayWithWalletWithOrderid:[data[@"orderid"] integerValue] type:3 succesBlock:^(id data) {
                 if ([data[@"code"] integerValue] == 1) {
                     [ProgressHUDHandler showHudTipStr:@"付款成功"];
-                    [self popGoBack];
+                    [self PopToRootViewController];
                     
                 }
             } failue:^(id data, NSError *error) {
@@ -365,7 +365,7 @@
             }];
             
         }else{
-            [BaseRequest PayWithChannel:self.type orderID:[data[@"orderid"] integerValue] type:2 succesBlock:^(id data) {
+            [BaseRequest PayWithChannel:self.type orderID:[data[@"orderid"] integerValue] type:3 succesBlock:^(id data) {
                 
                 //        NSLog(@"======%@====",data[@"info"]);
                 _weekSelf(weakSelf);
@@ -374,7 +374,7 @@
                     if (error == nil) {
                         NSLog(@"PingppError is nil");
                         [ProgressHUDHandler showHudTipStr:@"付款成功"];
-                        [weakSelf popGoBack];
+                        [weakSelf PopToRootViewController];
                     } else {
                         NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
                         if (error.code == 3) {

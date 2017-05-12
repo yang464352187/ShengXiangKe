@@ -235,7 +235,7 @@
     
     [CustomHUD createHudCustomShowContent:@"发布中"];
     
-    [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
+    [[GCQiniuUploadManager sharedInstance] registerWithScope:@"production" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
     [[GCQiniuUploadManager sharedInstance] createToken];
     
     [[GCQiniuUploadManager sharedInstance] uploadDatas:photo progress:^(float percent) {

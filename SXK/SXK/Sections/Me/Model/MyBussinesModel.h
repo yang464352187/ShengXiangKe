@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong)NSString *name, *description1, *oddNumber;
 
-@property (nonatomic, strong)NSNumber *marketPrice,*advancePrice,*sellingPrice,*orderid,*purchaseid,*rentid;
+@property (nonatomic, strong)NSNumber *marketPrice,*advancePrice,*sellingPrice,*orderid,*purchaseid,*rentid,*rentPrice, *userid;
 
 @property (nonatomic, strong)NSArray *imgList;
 @end

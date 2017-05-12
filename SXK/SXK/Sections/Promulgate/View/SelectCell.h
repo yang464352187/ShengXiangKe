@@ -18,6 +18,7 @@
 @interface SelectCell : BaseCell
 
 @property (nonatomic, strong)NSString *name;
+@property (nonatomic, strong)NSNumber *categryid;
 @property (nonatomic, strong)AppraiseClassModel *ACmodel;
 @property (weak, nonatomic) id<SelectCellDelegate> delegate;
 

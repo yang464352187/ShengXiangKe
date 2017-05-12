@@ -73,13 +73,16 @@
         
         _rentBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_rentBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        [_rentBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         
         _depositBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_depositBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-
+        [_depositBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
         _insuranceBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_insuranceBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-
+        [_insuranceBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        
         _selectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_selectBtn setImage:[select imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         [_selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -169,6 +172,17 @@
     self.deposit.text = [NSString stringWithFormat:@"¥:%.2f",[model.marketPrice floatValue]/100];
     self.insurancePrice.text = [NSString stringWithFormat:@"¥:%.2f",[model.risk floatValue]/100];
     
+}
+
+
+-(void)buttonAction:(UIButton *)sender
+{
+    
+        NSDictionary *dic = @{@"title":@"租赁说明"};
+//        [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
+    [[PushManager sharedManager] pushToVCWithClassName:@"ExplainSetup" info:dic];
+    
+
 }
 
 

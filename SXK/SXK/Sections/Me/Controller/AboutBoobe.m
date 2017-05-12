@@ -22,24 +22,27 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadingRequest];
+    
 }
 
 
 -(void)loadingRequest
 {
     [BaseRequest AboutBoobelWithSetupID:1 succesBlock:^(id data) {
-        NSLog(@"%@",data);
+//        NSLog(@"%@",data);
         self.html = data[@"setup"][@"content"];
         [self.webView loadHTMLString:self.html baseURL:nil];
     } failue:^(id data, NSError *error) {
         
     }];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = self.myDict[@"title"];
+    
     [self.view addSubview:self.webView];
     
 

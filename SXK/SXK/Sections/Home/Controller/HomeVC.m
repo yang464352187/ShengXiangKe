@@ -22,6 +22,12 @@
 #import "UserModel.h"
 #import <RongIMKit/RongIMKit.h>
 #import "RCConversationListVC.h"
+#import "UMessage.h"
+#import "AppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
+#import "QRCodeGenerateVC.h"
+#import "QRCodeScanningVC.h"
+#import "UIView+UIView_Boom.h"
 
 @interface HomeVC ()<SDCycleScrollViewDelegate>
 
@@ -33,6 +39,18 @@
 @property (strong, nonatomic) UIView *view1;
 @property (strong, nonatomic) UIView *view2;
 
+@property (strong, nonatomic) NSTimer *timer;
+
+@property (strong, nonatomic) UIView *view3;
+@property (strong, nonatomic) UIView *view4;
+@property (strong, nonatomic) UIView *view5;
+
+
+@property (nonatomic, assign) NSInteger index;
+
+@property (nonatomic, assign) NSInteger total;
+
+@property (nonatomic, strong) NSMutableArray *webArr;
 
 @end
 
@@ -41,7 +59,14 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-        [super viewWillAppear:animated];
+    
+//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+
+//    [UMessage addLaunchMessageWithWindow:self.view.window finishViewController:self];
+//    [UMessage addCardMessageWithLabel:@"home"];
+
+    
+    [super viewWillAppear:animated];
     _weekSelf(weakSelf);
     [BaseRequest GetAdvertisesetupWithSetupID:1 succesBlock:^(id data) {
 //        NSLog(@"%@",describe(data));
@@ -50,9 +75,11 @@
         NSMutableArray *images = [[NSMutableArray alloc] init];
         for (NSDictionary *image in imageArr) {
             NSString *str = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,image[@"img"]];
+            [weakSelf.webArr addObject:image[@"link"]];
             [images addObject:str];
-            
         }
+        
+        
         weakSelf.cycleScrollView.localizationImageNamesGroup = images;
         
     } failue:^(id data, NSError *error) {
@@ -85,21 +112,154 @@
     self.view.backgroundColor = [UIColor redColor];
     self.navigationController.navigationBar.hidden = YES;
     [self.view addSubview:self.tableView];
-    
-    
+
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(CloseKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_BEGIN object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(OpenKeyBoardToolBar) name:MQ_NOTIFICATION_CHAT_END object:nil];
     
     UserModel *model =   [LoginModel curLoginUser];
     [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
-//    [self changeview];
-//    [PushManager sharedManager].delegate = self;
+    self.index = 1;
+    self.total = 0;
+
+    [self initView];
+    [UIApplication sharedApplication].applicationIconBadgeNumber  =  10;
+
+    self.webArr = [[NSMutableArray alloc] init];
+}
+
+-(void)initView
+{
+    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 110.0f)];
+    
+    [self.view addSubview:containerView];
+    
+    UIView *fromView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height)];
+    fromView.backgroundColor = [UIColor clearColor];
+    
+    UIImageView * image1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height)];
+    image1.image = [UIImage imageNamed:@"提示框-5"];
+    UILabel *title1 = [UILabel createLabelWithFrame:VIEWFRAME(90,18, SCREEN_WIDTH - 120, 14)
+                                            andText:@"这里可以发布属于你自己的商品和使用鉴定服务哦!"
+                                       andTextColor:[UIColor blackColor]
+                                         andBgColor:[UIColor clearColor]
+                                            andFont:SYSTEMFONT(10)
+                                   andTextAlignment:NSTextAlignmentCenter];
+    title1.numberOfLines = 0;
+    [fromView addSubview:image1];
+    [image1 addSubview:title1];
+    
+    UIView *toView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height)];
+    toView.backgroundColor = [UIColor clearColor];
+    
+    UIImageView * image2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height)];
+    image2.image = [UIImage imageNamed:@"提示框-5"];
+    
+    UILabel *title2 = [UILabel createLabelWithFrame:VIEWFRAME(90,18, SCREEN_WIDTH - 120, 14)
+                                            andText:@"快点发布属于自己的奢侈品吧!"
+                                       andTextColor:[UIColor blackColor]
+                                         andBgColor:[UIColor clearColor]
+                                            andFont:SYSTEMFONT(10)
+                                   andTextAlignment:NSTextAlignmentCenter];
+    title2.numberOfLines = 0;
+    
+    [toView addSubview:image2];
+    [toView addSubview:title2];
+    [containerView addSubview:fromView];
+    
+    UIView *containerView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 110.0f)];
+    containerView1.alpha = 0;
+    [self.view addSubview:containerView1];
+    
+    [containerView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-55);
+        make.size.mas_equalTo(CGSizeMake(150, 110));
+    }];
+    
+    [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-55);
+        make.size.mas_equalTo(CGSizeMake(150, 110));
+    }];
+    
+    [title1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(fromView);
+        make.top.equalTo(fromView.mas_top).offset(0);
+        make.bottom.equalTo(fromView.mas_bottom).offset(0);
+        make.width.mas_equalTo(130);
+    }];
+    
+    [title2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(toView);
+        make.top.equalTo(toView.mas_top).offset(0);
+        make.bottom.equalTo(toView.mas_bottom).offset(0);
+        make.width.mas_equalTo(120);
+    }];
+    
+    
+    
+    self.view3 = fromView;
+    self.view4 = toView;
+    self.view5 = containerView;
+    
+    
+    
+    NSTimer  *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(checkUnreadCount) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    
+    self.timer  = timer;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+    [self.view5 addGestureRecognizer:tap];
     
 
-
-
 }
+
+-(void)tapped:(UIGestureRecognizer *)gesture
+{
+    [self GCDMethod:self.view5 afterTime:0];
+    [self.timer invalidate];
+}
+
+
+-(void)checkUnreadCount
+{
+    if (self.total == 10) {
+        [self.timer invalidate];
+        //        [self.view1 removeFromSuperview];
+        //        [self.view2 removeFromSuperview];
+        self.timer = nil;
+        
+        return;
+    }else{
+        self.total ++;
+    }
+    
+    
+    
+    if (self.index == 1) {
+        [CATransaction flush];
+        
+        [UIView transitionFromView:self.view3 toView:self.view4 duration:1.0f options:UIViewAnimationOptionTransitionFlipFromLeft completion:NULL];
+        self.index = 2;
+    }else{
+        self.index =1;
+        [CATransaction flush];
+        
+        [UIView transitionFromView:self.view4 toView:self.view3 duration:1.0f options:UIViewAnimationOptionTransitionFlipFromLeft completion:NULL];
+    }
+    
+}
+
+-(void)GCDMethod:(UIView *)myView afterTime:(NSTimeInterval)interval{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(interval * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [myView boom];
+    });
+}
+
+
+
 -(void)changeview
 {
     
@@ -247,6 +407,9 @@
     return 15;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
 
 #pragma mark -- getters and setters
 
@@ -350,7 +513,7 @@
         [searchBtn setImage:[image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
         [searchBtn.imageView setContentMode:UIViewContentModeScaleAspectFill];
         searchBtn.alpha = 0.9;
-        //        [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [searchBtn addTarget:self action:@selector(searchBtn:) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:searchBtn];
         
         
@@ -358,6 +521,7 @@
         leftBtn.frame = CommonVIEWFRAME(0, 27, 50.5, 30);
         UIImage *image1 = [UIImage imageNamed:@"图层-158"];
         [leftBtn setImage:[image1 imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)] forState:UIControlStateNormal];
+        [leftBtn addTarget:self action:@selector(leftBtn) forControlEvents:UIControlEventTouchUpInside];
         [_headView addSubview:leftBtn];
         
         UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -399,6 +563,10 @@
 //        }
 //        
 //    }
+    
+    NSDictionary *dic = @{@"url":self.webArr[index]};
+    [self PushViewControllerByClassName:@"WebVC" info:dic];
+//    NSLog(@"%@",self.webArr[index]);
 }
 
 
@@ -487,6 +655,12 @@
 //            [chatViewManager setLoginCustomizedId:[NSString stringWithFormat:@"%@",model.userid]];
 //            [chatViewManager pushMQChatViewControllerInViewController:self];
             
+            if (![LoginModel isLogin]) {
+                [ProgressHUDHandler showHudTipStr:@"请先登录"];
+                [[PushManager sharedManager] presentLoginVC];
+                return;
+            }
+
             RCConversationListVC *vc = [[RCConversationListVC alloc] init];
             [self.navigationController pushViewController:vc animated:YES];
 
@@ -520,7 +694,60 @@
     [self PushViewControllerByClassName:@"ShowVC" info:dic];
 }
 
+-(void)searchBtn:(UIButton *)btn
+{
+    [self PresentViewControllerByClassName:@"SearchVC" info:nil];
+}
 
+-(void)leftBtn
+{
+    // 1、 获取摄像设备
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if (device) {
+        AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+        if (status == AVAuthorizationStatusNotDetermined) {
+            [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+                if (granted) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
+                        [self.navigationController pushViewController:vc animated:YES];
+                    });
+                    
+                    SGQRCodeLog(@"当前线程 - - %@", [NSThread currentThread]);
+                    // 用户第一次同意了访问相机权限
+                    SGQRCodeLog(@"用户第一次同意了访问相机权限");
+                    
+                } else {
+                    
+                    // 用户第一次拒绝了访问相机权限
+                    SGQRCodeLog(@"用户第一次拒绝了访问相机权限");
+                }
+            }];
+        } else if (status == AVAuthorizationStatusAuthorized) { // 用户允许当前应用访问相机
+            QRCodeScanningVC *vc = [[QRCodeScanningVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if (status == AVAuthorizationStatusDenied) { // 用户拒绝当前应用访问相机
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"⚠️ 警告" message:@"请去-> [设置 - 隐私 - 相机 - SGQRCodeExample] 打开访问开关" preferredStyle:(UIAlertControllerStyleAlert)];
+            UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+                
+            }];
+            
+            [alertC addAction:alertA];
+            [self presentViewController:alertC animated:YES completion:nil];
+            
+        } else if (status == AVAuthorizationStatusRestricted) {
+            NSLog(@"因为系统原因, 无法访问相册");
+        }
+    } else {
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"未检测到您的摄像头" preferredStyle:(UIAlertControllerStyleAlert)];
+        UIAlertAction *alertA = [UIAlertAction actionWithTitle:@"确定" style:(UIAlertActionStyleDefault) handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertC addAction:alertA];
+        [self presentViewController:alertC animated:YES completion:nil];
+    }
+}
 
 /*
 #pragma mark - Navigation

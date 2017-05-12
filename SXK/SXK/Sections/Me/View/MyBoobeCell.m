@@ -108,7 +108,7 @@
         }];
         
         
-        _array = @[@"充值奖励",@"提现奖励"];
+        _array = @[@"充值奖励",@"租赁分享奖励",@"提现奖励",@"寄卖完成奖励",@"租赁完成奖励",@"寄卖分享奖励",@"余额支付"];
         
     }
     return  self;
@@ -119,6 +119,8 @@
     RcordModel *_model = model;
     _addLabel.text = [NSString stringWithFormat:@"+%@",_model.point];
     _moneyLab.text = [NSString stringWithFormat:@"%.2f",[_model.amount floatValue] / 100];
+    
+    
     
     _title.text = [NSString stringWithFormat:@"%@",_array[[_model.type integerValue]]];
     

@@ -51,6 +51,8 @@
 
 @property (nonatomic, strong) NSString *address;
 
+@property (nonatomic, assign) BOOL isSelect;
+
 @end
 
 @implementation BussinesOrderVC
@@ -91,6 +93,7 @@
     //    NSLog(@"%@===========",describe(self.myDict));
     BrandDetailModel *model = [BrandDetailModel modelFromDictionary:self.myDict];
     self.rent = [model.sellingPrice floatValue]/100;
+    self.isSelect = 0;
 }
 
 -(void)initUI
@@ -265,7 +268,8 @@
     UIImage *select = [UIImage imageNamed:@"1圆角矩形-1-拷贝"];//选择框
     UIButton *selectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [selectBtn setImage:[select imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
-    
+    [selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+
     //条款正文
     UILabel *titleLab = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                     andText:@"已阅读并同意"
                                          andTextColor:APP_COLOR_GRAY_Font
@@ -277,6 +281,7 @@
     UIButton *ProtocolBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [ProtocolBtn setTitle:@"《啵呗平台用户协议》" forState:UIControlStateNormal];
     [ProtocolBtn setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
+    [ProtocolBtn addTarget:self action:@selector(ProtocolAction:) forControlEvents:UIControlEventTouchUpInside];
     ProtocolBtn.titleLabel.font = SYSTEMFONT(13);
     
     [view addSubview:selectBtn];
@@ -407,6 +412,11 @@
         
     }
     
+    if (self.isSelect == 0) {
+        [ProgressHUDHandler showHudTipStr:@"请仔细阅读并同意啵呗平台协议"];
+        return;
+        
+    }
     
     BrandDetailModel *model = [BrandDetailModel modelFromDictionary:self.myDict];
 
@@ -444,7 +454,10 @@
         if ([data[@"code"] integerValue] == 1) {
             NSInteger orderid = [data[@"orderid"] integerValue];
             NSDictionary *dic = @{@"orderid":@(orderid),
-                                  @"type":@(7)
+                                  @"type":@(7),
+                                  @"push":@"business",
+                                  @"data":self.myDict,
+                                  @"index":@"a"
                                   };
             [weakSelf PushViewControllerByClassName:@"PayVC" info:dic];
         }
@@ -525,6 +538,27 @@
 }
 
 
+-(void)ProtocolAction:(UIButton *)sender
+{
+    NSDictionary *dic = @{@"title":@"用户协议"};
+    [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
+
+}
+
+
+-(void)selectAction:(UIButton *)sender
+{
+    if (!self.isSelect) {
+        UIImage *image = [UIImage imageNamed:@"图层-444"];
+        [sender setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        self.isSelect = 1;
+    }else{
+        UIImage *image = [UIImage imageNamed:@"1圆角矩形-1-拷贝"];
+        [sender setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        self.isSelect = 0;
+        
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

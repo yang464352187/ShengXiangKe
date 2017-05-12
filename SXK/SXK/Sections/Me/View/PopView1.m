@@ -240,7 +240,7 @@
         }];
     }else if ([self.title1 isEqualToString:@"是否确认删除?"]){
         
-        [BaseRequest DeleteRentOrderWithRentID:self.index succesBlock:^(id data) {
+        [BaseRequest DeleteRentOrder1WithRentID:self.index succesBlock:^(id data) {
             if ([self.delegate respondsToSelector:@selector(success)]) {
                 [self.delegate success];
             }
@@ -263,7 +263,31 @@
             
         }];
         
+    }else if ([self.title1 isEqualToString:@"是否删除鉴定订单?"]){
+        
+//        [BaseRequest ConfirmMyAppraiseWithOrderID:self.index succesBlock:^(id data) {
+//            
+//            if ([self.delegate respondsToSelector:@selector(success)]) {
+//                [self.delegate success];
+//            }
+//            [ProgressHUDHandler showHudTipStr:@"确认完成"];
+//            [self disMiss];
+//            
+//        } failue:^(id data, NSError *error) {
+//            
+//        }];
+        
+        [BaseRequest DelMyAppraiseWithOrderID:self.index succesBlock:^(id data) {
+            if ([self.delegate respondsToSelector:@selector(success)]) {
+                [self.delegate success];
+            }
+            [ProgressHUDHandler showHudTipStr:@"删除成功"];
+            [self disMiss];
+        } failue:^(id data, NSError *error) {
+            
+        }];
     }
+
     
     else{
         

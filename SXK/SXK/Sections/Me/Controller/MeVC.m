@@ -214,6 +214,11 @@
     [self.view addSubview:backGroundImage];
     self.backgroundView = backGroundImage;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    backGroundImage.userInteractionEnabled = YES;
+    [backGroundImage addGestureRecognizer:tap];
+    
+    
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     loginBtn.frame = CGRectMake(100, 100, 0, 0);
     UIImage *buttonimage = [UIImage imageNamed:@"BOOBE"];
@@ -347,6 +352,7 @@
     [explainBtn setTitle:@"《用户协议》" forState:UIControlStateNormal];
     [explainBtn setTitleColor:APP_COLOR_GRAY_333333 forState:UIControlStateNormal];
     explainBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [explainBtn addTarget:self action:@selector(explainAciton:) forControlEvents:UIControlEventTouchUpInside];
     [loginView addSubview:explainBtn];
     
     LoginBtn *BEBtn = [[LoginBtn alloc] initWithFrame:CGRectMake(64.0000/375*SCREEN_WIDTH,217.5000/667*SCREEN_HIGHT , 247.0000/375*SCREEN_WIDTH, 43.0000/667*SCREEN_HIGHT) andImage:[UIImage imageNamed:@"boobe"] andTitle:@"用BOOBE登录"];
@@ -664,6 +670,7 @@
         case 1:{
             NSDictionary *dic = @{@"score" :@(self.score)};
             [self PushViewControllerByClassName:@"MyBoobeValue" info:dic];
+//            NSLog(@"%lf",self.score);
             
         }
             break;
@@ -672,11 +679,14 @@
 
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             [userDefaults setBool:NO forKey:kLoginState];
-
+    
         }
 
             break;
-
+        case 3:{
+            [ProgressHUDHandler showHudTipStr:@"尚未开放，敬请期待"];
+        }
+            break;
         default:
             break;
     }
@@ -855,6 +865,12 @@
     }
 }
 
+-(void)explainAciton:(UIButton *)sender
+{
+    NSDictionary *dic = @{@"title":@"用户协议"};
+    [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
+}
+
 -(void)identityAction:(UIButton *)sender
 {
     [self PushViewControllerByClassName:@"IdentityVC" info:nil];
@@ -865,6 +881,11 @@
     [self PushViewControllerByClassName:@"MyFollowVC" info:nil];
 }
 
+
+-(void)tap:(UITapGestureRecognizer *)tap
+{
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -88,6 +88,15 @@
                 [ProgressHUDHandler showProgressHUD];
                 [BaseRequest loginWithUserName:self.userName.text password:self.passWord.text succesBlock:^(id data) {
                     [ProgressHUDHandler showHudTipStr:@"登录成功"];
+                    
+                    NSDictionary *params = @{};
+                    [BaseRequest GetPersonalInfoWithParams:params succesBlock:^(id data) {
+                        
+              
+                    } failue:^(id data, NSError *error) {
+                        
+                    }];
+                    
                     [weakSelf popGoBack];
                     [ProgressHUDHandler dismissProgressHUD];
 

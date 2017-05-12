@@ -10,9 +10,9 @@
 
 @interface MyPromulgateModel : BaseModel
 
-@property (nonatomic, strong)NSString *keyword, *name, *oddNumber;
+@property (nonatomic, strong)NSString *keyword, *name, *oddNumber, *description1;
 
-@property (nonatomic, strong)NSNumber *marketPrice, *rentPrice, *rentid;
+@property (nonatomic, strong)NSNumber *marketPrice, *rentPrice, *rentid, *condition, *orderid;
 
 @property (nonatomic, strong)NSArray *imgList;
 

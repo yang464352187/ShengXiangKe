@@ -11,6 +11,7 @@
 #import "SearchCell1.h"
 #import "BrandHotModel.h"
 #import "LXWSearchHotView.h"
+#import "Search1VC.h"
 @interface SearchVC ()
 @property (nonatomic, strong) UIView *headView;
 @property (nonatomic, strong) SearchCell *cell;
@@ -168,6 +169,7 @@
     
     SearchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchCell"];
     [cell fillWithArray:self.array];
+    cell.vc = self;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -198,8 +200,10 @@
         btn.titleLabel.font = SYSTEMFONT(14);
         [btn addTarget:self action:@selector(clearBtn:) forControlEvents:UIControlEventTouchUpInside];
         
+        
         [view addSubview:label];
         [view addSubview:btn];
+        
         
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(view);
@@ -212,10 +216,10 @@
             make.right.equalTo(view.mas_right).offset(-15);
             make.size.mas_equalTo(CGSizeMake(60, 30));
         }];
+        
+        
         return view;
     }
-    
-    
     
     return view;
 }
@@ -239,6 +243,25 @@
     view.backgroundColor = [UIColor whiteColor];
     
     return view;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"1");
+    
+    NSMutableArray *vcArr2 = [NSMutableArray array];
+    for (int i =0; i<2; i++) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        vc.view.backgroundColor = [UIColor whiteColor];
+        [vcArr2 addObject:vc];
+    }
+    NSArray *array = @[@"寄卖商品",@"寄租商品"];
+    NSDictionary *dic = @{@"title":@"搜索列表",@"content":self.dataArr[indexPath.row],@"type":@"6"};
+    
+    Search1VC *vc = [[Search1VC alloc] initWithControllers:vcArr2 titles:array type:1];
+    vc.dic = dic;
+    
+    [self pushViewController:vc];
 }
 
 - (CGFloat)setContents:(NSArray *)contents{
@@ -310,8 +333,23 @@
     
     [self.text resignFirstResponder];
     [self.text endEditing:YES];
-    NSDictionary *dic = @{@"title":@"搜索列表",@"content":self.text.text,@"type":@"6"};
-    [self PushViewControllerByClassName:@"ClassifyDetailVC" info:dic];
+
+    
+        NSMutableArray *vcArr2 = [NSMutableArray array];
+        for (int i =0; i<2; i++) {
+            UIViewController *vc = [[UIViewController alloc] init];
+            vc.view.backgroundColor = [UIColor whiteColor];
+            [vcArr2 addObject:vc];
+        }
+        NSArray *array = @[@"寄卖商品",@"寄租商品"];
+        NSDictionary *dic = @{@"title":@"搜索列表",@"content":self.text.text,@"type":@"6"};
+
+        Search1VC *vc = [[Search1VC alloc] initWithControllers:vcArr2 titles:array type:1];
+        vc.dic = dic;
+    
+        [self pushViewController:vc];
+//        [self PushViewControllerByClassName:@"Search1VC" info:dic];
+    
     
     NSMutableDictionary *searchDic = DEFAULTS_GET_OBJ(@"search");
     if (searchDic.count == 0) {

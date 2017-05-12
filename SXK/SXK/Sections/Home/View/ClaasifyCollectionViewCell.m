@@ -8,8 +8,6 @@
 
 #import "ClaasifyCollectionViewCell.h"
 
-
-
 @implementation ClaasifyCollectionViewCell
 
 - (void)awakeFromNib {
@@ -17,7 +15,7 @@
     // Initialization code
     UIImageView *headImage =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CommonWidth(105),CommonHight(100.5))];
     headImage.image =[UIImage imageNamed:@"背景"];
-    
+    headImage.contentMode = UIViewContentModeScaleAspectFill;
     UILabel *title = [UILabel createLabelWithFrame:CommonVIEWFRAME(0,115.5 , 105, 12)
                                            andText:@"GUCCI"
                                       andTextColor:[UIColor colorWithHexColorString:@"2c2c2c"]

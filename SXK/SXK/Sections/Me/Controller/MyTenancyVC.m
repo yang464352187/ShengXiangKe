@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的租赁";
 //    NSArray *array = @[@"待收货",@"已收货",@"已完成",@"已退回"];
@@ -38,19 +39,18 @@
     image1.userInteractionEnabled = YES;
     [self.view addSubview:image1];
     
-    
     UIImageView *image2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"takeonlease"]];
     image2.frame = VIEWFRAME(0, (SCREEN_HIGHT-64)/2, SCREEN_WIDTH,CommonHight(220));
     image2.userInteractionEnabled = YES;
     [self.view addSubview:image2];
 
-    
     UIView *view1 = [[UIView alloc] init];
-    view1.layer.shadowOpacity = 0.8f;
-    view1.layer.shadowRadius = 4;
-    view1.layer.shadowColor = [UIColor grayColor].CGColor;
+//    view1.layer.shadowOpacity = 0.8f;
+//    view1.layer.shadowRadius = 4;
+//    view1.layer.shadowColor = [UIColor grayColor].CGColor;
     view1.backgroundColor = [UIColor whiteColor];
-    
+    ViewBorder(view1, 0.5, [UIColor blackColor]);
+//
     UILabel *title11 = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"我的发布"
                                  andTextColor:[UIColor blackColor]
                                    andBgColor:[UIColor clearColor]
@@ -70,10 +70,11 @@
     
     
     UIView *view2 = [[UIView alloc] init];
-    view2.layer.shadowOpacity = 0.8f;
-    view2.layer.shadowRadius = 4;
-    view2.layer.shadowColor = [UIColor grayColor].CGColor;
+//    view2.layer.shadowOpacity = 0.8f;
+//    view2.layer.shadowRadius = 4;
+//    view2.layer.shadowColor = [UIColor grayColor].CGColor;
     view2.backgroundColor = [UIColor whiteColor];
+    ViewBorder(view2, 0.5, [UIColor blackColor]);
     
     UILabel *title21 = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"我的租赁"
                                         andTextColor:[UIColor blackColor]
@@ -94,13 +95,13 @@
     [view1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(image1.mas_bottom).offset(5);
-        make.size.mas_equalTo(CGSizeMake(100, 50));
+        make.size.mas_equalTo(CGSizeMake(125, 50));
     }];
     
     [view2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(image2.mas_bottom).offset(5);
-        make.size.mas_equalTo(CGSizeMake(100, 50));
+        make.size.mas_equalTo(CGSizeMake(125, 50));
     }];
     
     [title11 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -150,6 +151,7 @@
 
 -(void)tap1:(UITapGestureRecognizer*)tap
 {
+    
     NSMutableArray *vcArr1 = [NSMutableArray array];
     for (int i =0; i<5; i++) {
         UIViewController *vc = [[UIViewController alloc] init];
@@ -158,8 +160,8 @@
     }
     NSArray *array = @[@"待审核",@"发布中",@"租赁中",@"已下架",@"未通过"];
     MyDistributeVC *vc = [[MyDistributeVC alloc] initWithControllers:vcArr1 titles:array type:1];
-    
     [self pushViewController:vc];
+    
 }
 
 -(void)tap2:(UITapGestureRecognizer *)tap
@@ -175,6 +177,7 @@
     [self pushViewController:vc];
 
 }
+
 
 
 - (void)didReceiveMemoryWarning {

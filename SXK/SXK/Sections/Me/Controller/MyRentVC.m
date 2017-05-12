@@ -36,7 +36,10 @@
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 
 //        NSLog(@"%@",describe(models));
-        
+        if (models.count > 0) {
+            [self.noDataView removeFromSuperview];
+        }
+
     } failue:^(id data, NSError *error) {
         
     }];
@@ -69,6 +72,9 @@
             self.tableView = tableView;
         }
     }
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"暂无订单~"];
+
     self.index = 2;
 
 }
@@ -87,11 +93,6 @@
     
     MyRentModel *model = self.listData[indexPath.section];
     
-    MyTenancyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.index = indexPath.section;
-    cell.delegate = self;
-    [cell setModel:model];
 
     if (self.index == 4) {
         MyTenancyCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell1"];
@@ -118,7 +119,12 @@
 
         return cell;
     }
-    
+    MyTenancyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyTenancyCell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.index = indexPath.section;
+    cell.delegate = self;
+    [cell setModel:model];
+
     
     return cell;
 }
@@ -129,9 +135,9 @@
         return 195;
     }
     
-//    if (self.index == 3) {
-//        return 205;
-//    }
+    if (self.index == 4) {
+        return 150;
+    }
     
     return 180;
 }
@@ -155,7 +161,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    MyRentModel *model = self.listData[indexPath.section];
+    NSDictionary *dic = @{@"orderid":model.orderid,@"type":@"1"};
+    [self PushViewControllerByClassName:@"OrderDetailVC" info:dic];
+
 }
 
 
@@ -168,6 +177,9 @@
         if (x/SCREEN_WIDTH == i) {
             self.tableView = tableView;
             self.index = i+2;
+            self.isUseNoDataView = YES;
+            [self.noDataView setTitle:@"暂无订单~"];
+
 //            [self.tableView reloadData];
             [self loadingRequest];
             break;

@@ -78,6 +78,8 @@
         
         _insuranceBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_insuranceBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        [_insuranceBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+
         
         _selectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_selectBtn setImage:[select imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
@@ -170,6 +172,15 @@
     
 }
 
+-(void)buttonAction:(UIButton *)sender
+{
+    
+    NSDictionary *dic = @{@"title":@"租赁说明"};
+    //        [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
+    [[PushManager sharedManager] pushToVCWithClassName:@"ExplainSetup" info:dic];
+    
+    
+}
 
 -(void)selectAction:(UIButton *)sender
 {

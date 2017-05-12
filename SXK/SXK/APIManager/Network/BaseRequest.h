@@ -34,9 +34,9 @@
 + (void)registerWithUserName:(NSString *)userName
                     password:(NSString *)psw
                       verify:(NSString *)verify
+                  inviteCode:(NSString *)inviteCode
                  succesBlock:(SuccessBlock)successBlock
                       failue:(FailureBlock)failueBlock;
-
 
 
 /**
@@ -704,8 +704,9 @@
  *  @param successBlock 成功回调
  *  @param failueBlock  失败回调
  */
-+ (void)GetKeepListsuccesBlock:(SuccessBlock)successBlock
-                        failue:(FailureBlock)failueBlock;
++ (void)GetKeepListWithUrl:(NSString *)url
+               succesBlock:(SuccessBlock)successBlock
+                    failue:(FailureBlock)failueBlock;
 
 /**
  *  取消关注
@@ -943,12 +944,12 @@
  *  @param failueBlock  失败回调
  */
 + (void)GetRentListWithPageNo:(NSInteger)pageNo
-                      PageSize:(NSInteger)pageSize
-                         order:(NSInteger)order
-                       brandid:(NSInteger)brandid
-                   succesBlock:(SuccessBlock)successBlock
-                        failue:(FailureBlock)failueBlock;
-
+                     PageSize:(NSInteger)pageSize
+                        order:(NSInteger)order
+                      brandid:(NSInteger)brandid
+                         type:(NSInteger)type
+                  succesBlock:(SuccessBlock)successBlock
+                       failue:(FailureBlock)failueBlock;
 /**
  *  获取租赁列表
  *  @param pageNo       页码
@@ -961,6 +962,7 @@
                       PageSize:(NSInteger)pageSize
                          order:(NSInteger)order
                     categoryid:(NSInteger)categoryid
+                          type:(NSInteger)type
                    succesBlock:(SuccessBlock)successBlock
                         failue:(FailureBlock)failueBlock;
 
@@ -1253,6 +1255,7 @@
  *  @param failueBlock  失败回调
  */
 + (void)PayWithWalletWithOrderid:(NSInteger)orderid
+                            type:(NSInteger)type
                      succesBlock:(SuccessBlock)successBlock
                           failue:(FailureBlock)failueBlock;
 
@@ -1269,5 +1272,153 @@
                              mobile:(NSString *)mobile
                         succesBlock:(SuccessBlock)successBlock
                              failue:(FailureBlock)failueBlock;
+
+/**
+ *  违约金
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)DamagesMoneyWithSetupID:(NSInteger)setupid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+
+/**
+ *  租金说明
+ *  @param setupid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)ExplainSetupWithSetupID:(NSInteger)setupid
+                    succesBlock:(SuccessBlock)successBlock
+                         failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取寄卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetPurchaseList1WithPageNo:(NSInteger)pageNo
+                          PageSize:(NSInteger)pageSize
+                             order:(NSInteger)order
+                            status:(NSInteger)status
+                           brandid:(NSInteger)brandid
+                              type:(NSInteger)type
+                       succesBlock:(SuccessBlock)successBlock
+                            failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  获取寄卖列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param status       状态
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetPurchaseList1WithPageNo:(NSInteger)pageNo
+                          PageSize:(NSInteger)pageSize
+                             order:(NSInteger)order
+                            status:(NSInteger)status
+                        categoryid:(NSInteger)categoryid
+                              type:(NSInteger)type
+                       succesBlock:(SuccessBlock)successBlock
+                            failue:(FailureBlock)failueBlock;
+
+/**
+ *  获取搜索列表
+ *  @param pageNo       页码
+ *  @param pageSize     页数
+ *  @param order        订单
+ *  @param word         关键词
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)GetBussinessSearchListWithPageNo:(NSInteger)pageNo
+                                PageSize:(NSInteger)pageSize
+                                   order:(NSInteger)order
+                                    word:(NSString *)word
+                             succesBlock:(SuccessBlock)successBlock
+                                  failue:(FailureBlock)failueBlock;
+
+/**
+ *  删除租赁订单
+ *  @param rentid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)DeleteRentOrder1WithRentID:(NSInteger)rentid
+                       succesBlock:(SuccessBlock)successBlock
+                            failue:(FailureBlock)failueBlock;
+
+/**
+ *  寄卖收藏
+ *  @param purchaseid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AddKeepWithPurchaseID:(NSInteger)purchaseid
+                  succesBlock:(SuccessBlock)successBlock
+                       failue:(FailureBlock)failueBlock;
+
+/**
+ *  取消关注
+ *  @param purchaseid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)CancelKeepWithPurchaseID:(NSInteger)purchaseid
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+
+/**
+ *  取消关注
+ *  @param maintainid       ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)CancelKeepWithMaintainID:(NSInteger)maintainid
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+
+
+
+
+/**
+ *  删除鉴定订单
+ *  @param orderid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)DelMyAppraiseWithOrderID:(NSInteger)orderid
+                     succesBlock:(SuccessBlock)successBlock
+                          failue:(FailureBlock)failueBlock;
+
+
+/**
+ *  租赁订单详情
+ *  @param orderid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)AppraiseOrderDetailWithOrderID:(NSInteger)orderid
+                           succesBlock:(SuccessBlock)successBlock
+                                failue:(FailureBlock)failueBlock;
+
+/**
+ *  寄卖详情
+ *  @param orderid      ID
+ *  @param successBlock 成功回调
+ *  @param failueBlock  失败回调
+ */
++ (void)BusinessOrderDetailWithOrderID:(NSInteger)orderid
+                           succesBlock:(SuccessBlock)successBlock
+                                failue:(FailureBlock)failueBlock;
+
 
 @end

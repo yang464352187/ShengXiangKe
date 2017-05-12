@@ -8,6 +8,13 @@
 
 #import "MyAppraiseCell1.h"
 #import "MyAppraiseModel.h"
+#import "PopView1.h"
+
+@interface MyAppraiseCell1()<PopView1Delegate>
+
+
+@end
+
 @implementation MyAppraiseCell1
 {
     UIImageView *_headImageView;
@@ -15,6 +22,8 @@
     UILabel *_content;
     UIButton *_button;
     NSInteger _orderid;
+    PopView1 *_popView;
+
     
 }
 
@@ -44,14 +53,17 @@
                                          andFont:SYSTEMFONT(14)
                                 andTextAlignment:NSTextAlignmentLeft];
             
+        _popView =  [[PopView1 alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+        _popView.delegate = self;
+
         
         _content.numberOfLines = 0;
         [_content sizeToFit];
         
         _button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_button setTitle:@"已完成" forState:UIControlStateNormal];
+        [_button setTitle:@"删除" forState:UIControlStateNormal];
         [_button setTitleColor:APP_COLOR_GREEN forState:UIControlStateNormal];
-//        [_button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         ViewBorderRadius(_button, 5, 0.5, APP_COLOR_GREEN);
         
         
@@ -102,5 +114,21 @@
     _orderid = [_model.orderid integerValue];
     
 }
+
+-(void)buttonAction:(UIButton *)sender
+{
+    [_popView changeTitle:@"是否删除鉴定订单?" andIdex:_orderid];
+    [_popView show];
+
+}
+
+-(void)success
+{
+    if ([self.delegate respondsToSelector:@selector(returnIndex:)]) {
+        [self.delegate returnIndex:self.index];
+    }
+    
+}
+
 
 @end

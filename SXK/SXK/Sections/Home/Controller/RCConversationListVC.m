@@ -8,7 +8,7 @@
 
 #import "RCConversationListVC.h"
 #import "RongYunListCell.h"
-
+#import "LoginVC.h"
 @interface RCConversationListVC ()
 
 @property (nonatomic, strong)NSArray *iconArr;
@@ -16,11 +16,14 @@
 
 @implementation RCConversationListVC
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE)]];
     self.title = @"我的消息";
+
     self.iconArr = @[@"通知"];
 
 }

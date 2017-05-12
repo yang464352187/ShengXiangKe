@@ -223,6 +223,12 @@
 
 -(void)barButtonAction
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
     [self PushViewControllerByClassName:@"PromulgateTopicVC" info:nil];
 }
 
@@ -617,6 +623,12 @@
 
 -(void)onLike:(long long)itemId
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
     //点赞
 //    NSLog(@"onLike: %lld", itemId);
     [BaseRequest SetCommunityTopicWithTopicID:(NSInteger)itemId like:1 succesBlock:^(id data) {

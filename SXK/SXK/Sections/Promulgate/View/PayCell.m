@@ -64,6 +64,8 @@
             make.height.equalTo(@52);
         }];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [self addGestureRecognizer:tap];
     }
     return  self;
 }
@@ -83,7 +85,15 @@
         [_select setSelected:NO];
         _isSelect = 0;
     }
-}  
+}
+
+-(void)tap:(UITapGestureRecognizer *)tap
+{
+    if ([_delegate respondsToSelector:@selector(sendValue:andType:)]) { // 如果协议响应了sendValue:方法
+        [_delegate sendValue:self andType:self.type]; // 通知执行协议方法
+    }
+
+}
 
 -(void)btnAction:(UIButton *)sender
 {

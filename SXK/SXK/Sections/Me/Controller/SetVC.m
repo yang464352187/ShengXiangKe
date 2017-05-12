@@ -12,7 +12,6 @@
 #import <UMSocialCore/UMSocialCore.h>
 
 
-
 //#define   kAPP_URL : @"http://itunes.apple.com/lookup?id="
 
 @interface SetVC ()<YXCustomActionSheetDelegate>
@@ -35,7 +34,7 @@
 
 -(void)initData
 {
-    self.dataArr = [[NSMutableArray alloc] initWithObjects:@"常用地址",@"分享APP",@"清除缓存",@"检查更新",@"意见反馈",@"用户协议",@"关于啵呗", nil];
+    self.dataArr = [[NSMutableArray alloc] initWithObjects:@"常用地址",@"分享APP",@"清除缓存",@"意见反馈",@"用户协议",@"关于啵呗", nil];
 }
 
 
@@ -67,7 +66,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 7;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -118,7 +117,7 @@
             break;
         }
             
-        case 3:{
+//        case 3:{
 //            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"版本更新" message:@"当前版本已经是最新版本" preferredStyle:  UIAlertControllerStyleAlert];
 //            
 //            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -128,24 +127,24 @@
 //            
 //            //弹出提示框；
 //            [self presentViewController:alert animated:true completion:nil];
-            [self updateApp];
-        }
+//            [self updateApp];
+//        }
             break;
         
-        case 4:{
+        case 3:{
             NSDictionary *dic = @{@"title":@"意见反馈",
                                   @"opinion":@"请输入您的宝贵意见"};
             [self PushViewControllerByClassName:@"PersonalSummaryVC" info:dic];
             break;
         }
             
-        case 5:{
+        case 4:{
             NSDictionary *dic = @{@"title":@"用户协议"};
             [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
             break;
         }
             
-        case 6:{
+        case 5:{
             NSDictionary *dic = @{@"title":@"关于啵呗"};
             [self PushViewControllerByClassName:@"AboutBoobe" info:dic];
             break;
@@ -184,7 +183,7 @@
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"啵呗" descr:@"亲们快来下载啵呗吧" thumImage:cachedImage];
     
     //设置网页地址
-    shareObject.webpageUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id1140378025"];
+    shareObject.webpageUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id1183709449"];
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
@@ -294,7 +293,7 @@
 {
     //    kAppID : 在iTunes connect上申请的APP ID;
     NSString *urlStr = [NSString stringWithFormat:@"%@%@", @"http://itunes.apple.com/lookup?id="
-, @"1140378025"];
+, @"1183709449"];
     NSURL *url = [NSURL URLWithString:urlStr];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -334,13 +333,13 @@
             NSString *titleStr = [NSString stringWithFormat:@"检查更新：%@", trackName];
             NSString *messageStr = [NSString stringWithFormat:@"发现新版本（%@）,是否更新", updateVersion];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:titleStr message:messageStr delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"升级", nil];
-            alert.tag = [@"1140378025" intValue];
+            alert.tag = [@"1183709449" intValue];
             [alert show];
             
         } else {  //版本号和app store上的一致
             NSString *titleStr = [NSString stringWithFormat:@"检查更新：%@", trackName];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:titleStr message:@"暂无新版本" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            alert.tag = [@"1140378025" intValue] + 1;
+            alert.tag = [@"1183709449" intValue] + 1;
             [alert show];
         }
     }];
@@ -349,7 +348,7 @@
 //判断用户点击了哪一个按钮
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == [@"1140378025" intValue]) {
+    if (alertView.tag == [@"1183709449" intValue]) {
         if (buttonIndex == 1) { //点击”升级“按钮，就从打开app store上应用的详情页面
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.trackViewUrl]];
         }

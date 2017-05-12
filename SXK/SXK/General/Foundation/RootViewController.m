@@ -8,8 +8,7 @@
 
 #import "RootViewController.h"
 #import "AppDelegate.h"
-
-
+#import "UMessage.h"
 @interface RootViewController ()
 
 
@@ -21,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initUI];
-
+    
     // Do any additional setup after loading the view.
 }
 
@@ -29,6 +28,12 @@
 - (void)initUI{
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     appDelegate.window.rootViewController = self.tabbarVC;
+//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+//    [UMessage addLaunchMessageWithWindow:self.view.window finishViewController:self];
+
+
+    
 }
 
 #pragma mark -- getters and setters

@@ -10,9 +10,11 @@
 #import "MyAppraiseModel.h"
 #import "MyAppraiseCell.h"
 #import "MyAppraiseCell1.h"
-@interface MyAppraiseVC ()<MyAppraiseCellDelegate>
+
+@interface MyAppraiseVC ()<MyAppraiseCellDelegate,MyAppraiseCell1Delegate>
 
 @property (nonatomic, assign)NSInteger index;
+
 
 @end
 
@@ -22,8 +24,6 @@
 {
     [super viewWillAppear:animated];
     [self loadingRequest];
-    
-    
 }
 
 -(void)loadingRequest
@@ -32,12 +32,15 @@
     [BaseRequest GetMyAppraiseListWithPageNo:0 PageSize:0 order:-1 status:self.index succesBlock:^(id data) {
         NSArray *models = [MyAppraiseModel modelsFromArray:data[@"orderList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-
 //        NSLog(@"%@",describe(models));
-        
+        if (models.count > 0) {
+            [self.noDataView removeFromSuperview];
+        }
+
     } failue:^(id data, NSError *error) {
         
     }];
+    
 }
 
 
@@ -52,7 +55,7 @@
         tableView.showsVerticalScrollIndicator = NO;
         [tableView registerClass:[MyAppraiseCell class] forCellReuseIdentifier:@"MyAppraiseCell"];
         [tableView registerClass:[MyAppraiseCell1 class] forCellReuseIdentifier:@"MyAppraiseCell1"];
-
+        
 //        [tableView registerClass:[MyMaintainCell1 class] forCellReuseIdentifier:@"MyMaintainCell1"];
         tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         tableView.tableFooterView = [[UIView alloc] init];
@@ -65,9 +68,11 @@
             self.tableView = tableView;
         }
     }
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"暂无鉴定订单~"];
+
     self.index = 2;
 
-    
 }
 
 #pragma mark -- UITabelViewDelegate And DataSource
@@ -99,6 +104,9 @@
     if (self.index == 3 ) {
         MyAppraiseCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"MyAppraiseCell1"];
         MyAppraiseModel *model = self.listData[indexPath.section];
+        cell.delegate = self;
+        cell.index = indexPath.section;
+
         [cell setModel:model];
         return cell;
     }
@@ -156,6 +164,9 @@
         if (x/SCREEN_WIDTH == i) {
             self.tableView = tableView;
             self.index = i+2;
+            self.isUseNoDataView = YES;
+            [self.noDataView setTitle:@"暂无鉴定订单~"];
+
             //            [self.tableView reloadData];
             [self loadingRequest];
             break;

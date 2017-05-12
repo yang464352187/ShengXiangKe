@@ -9,7 +9,11 @@
 #import "MyFollowVC.h"
 #import "FollowListModel.h"
 #import "FollowListCell.h"
-@interface MyFollowVC ()
+#import <RongIMKit/RongIMKit.h>
+#import "RCConversationVC.h"
+@interface MyFollowVC ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource
+>
+@property (nonatomic, strong) FollowListModel *model;
 
 @end
 
@@ -32,6 +36,9 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的关注";
     [self.view addSubview:self.tableView];
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"暂无订单~"];
+
 }
 
 #pragma mark -- getters and setters
@@ -67,7 +74,7 @@
     
     FollowListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FollowListCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell setModel:self.listData[indexPath.row]];
+    [cell setModel:self.listData[indexPath.section]];
     return cell;
 }
 
@@ -100,6 +107,39 @@
     
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    FollowListModel *follow = self.listData[indexPath.section];
+    
+    self.model = follow;
+    
+    UserModel *model =   [LoginModel curLoginUser];
+    
+    RCConversationVC *chat = [[RCConversationVC alloc] initWithConversationType:ConversationType_PRIVATE
+                                                                       targetId:[NSString stringWithFormat:@"%@",model.userid]];
+    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
+    
+    [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
+    
+    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    
+    chat.conversationType = ConversationType_PRIVATE;
+    
+    chat.targetId = [NSString stringWithFormat:@"%ld",[follow.userid integerValue]];
+    
+    chat.title = follow.nickname;
+    
+    [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
+    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+    
+    
+    RCUserInfo *user = [[RCUserInfo alloc] initWithUserId: [NSString stringWithFormat:@"%ld",[follow.userid integerValue]] name:follow.nickname portrait:follow.headimgurl];
+    [[RCIM sharedRCIM] refreshUserInfoCache:user withUserId:[NSString stringWithFormat:@"%ld",[follow.userid integerValue]]];
+    
+
+    [self.navigationController pushViewController:chat animated:YES];
+}
+
 //- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    return YES;
@@ -117,6 +157,54 @@
 //    
 //    return @"删除";
 //}
+
+
+//-(void)push
+//{
+//    
+//    UserModel *model =   [LoginModel curLoginUser];
+//    
+//    RCConversationVC *chat = [[RCConversationVC alloc] initWithConversationType:ConversationType_PRIVATE
+//                                                                       targetId:[NSString stringWithFormat:@"%@",model.userid]];
+//    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
+//    
+//    [RCIM sharedRCIM].globalMessageAvatarStyle = RC_USER_AVATAR_CYCLE;
+//    
+//    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+//    
+//    chat.conversationType = ConversationType_PRIVATE;
+//    
+//    chat.targetId = [NSString stringWithFormat:@"%ld",_userid];
+//    
+//    chat.title = _title;
+//    
+//    [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;
+//    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;
+//    
+//    
+//    RCUserInfo *user = [[RCUserInfo alloc] initWithUserId: [NSString stringWithFormat:@"%ld",_userid] name:_title portrait:_image1];
+//    [[RCIM sharedRCIM] refreshUserInfoCache:user withUserId:[NSString stringWithFormat:@"%ld",_userid]];
+//    
+//    
+//    [self.vc.navigationController pushViewController:chat animated:YES];
+//    
+//    
+//    //    NSLog(@"-----%ld-----",_userid);
+//}
+//
+- (void)getUserInfoWithUserId:(NSString *)userId
+                   completion:(void (^)(RCUserInfo *userInfo))completion
+{
+    UserModel *model =   [LoginModel curLoginUser];
+    
+    if ([userId isEqualToString:[NSString stringWithFormat:@"%@",model.userid]]) {
+        return completion([[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl]);
+    }else
+    {
+        //        根据存储联系人信息的模型，通过 userId 来取得对应的name和头像url，进行以下设置（此处因为项目接口尚未实现，所以就只能这样给大家说说，请见谅）
+        return completion([[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%ld",[self.model.userid integerValue]] name:self.model.nickname portrait:self.model.headimgurl]);
+    }
+}
 
 
 

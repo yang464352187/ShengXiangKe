@@ -111,6 +111,29 @@
 //        [self addSubview:_orderNum];
 //        [self addSubview:_order];
         //        [self addSubview:_line];
+        
+        UIView *deleteBgView = [UIView new];
+        deleteBgView.backgroundColor = APP_COLOR_GREEN;
+        [self addSubview:deleteBgView];
+        
+        UIButton *deleteBtn = [UIButton new];
+        [deleteBtn setTitle:@"取消收藏" forState:UIControlStateNormal];
+        deleteBtn.titleLabel.font = SYSTEMFONT(14);
+        [deleteBgView addSubview:deleteBtn];
+        
+        [deleteBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.offset([UIScreen mainScreen].bounds.size.width);
+            make.top.equalTo(self.contentView);
+            make.bottom.equalTo(self.contentView).offset(1);
+            make.width.mas_equalTo(180);
+        }];
+        
+        [deleteBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.offset(80);
+            make.top.equalTo(deleteBgView);
+            make.bottom.equalTo(deleteBgView);
+            make.left.equalTo(deleteBgView);
+        }];
     }
     return  self;
 }

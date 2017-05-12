@@ -123,7 +123,7 @@
     if (!_textView) {
         _textView = [[FEPlaceHolderTextView alloc] initWithFrame:VIEWFRAME(15, 0, SCREEN_WIDTH-21-22, 96)];
         _textView.backgroundColor = [UIColor whiteColor];
-        _textView.placeholder = @"请输入您的个人简介";
+        _textView.placeholder = @"请输入您的详细信息";
         _textView.placeholderColor = [UIColor colorWithRed:188.0f/255.0f green:188.0/255.0f blue:188.0/255.0f alpha:1];
         [_textView setFont:SYSTEMFONT(14)];
     }

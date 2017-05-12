@@ -7,7 +7,16 @@
 //
 
 #import "BaseCell.h"
+@protocol MyAppraiseCell1Delegate <NSObject>
+
+-(void)returnIndex:(NSInteger)index;
+
+@end
 
 @interface MyAppraiseCell1 : BaseCell
+@property (nonatomic, assign)NSInteger index;
+@property (nonatomic, weak)id<MyAppraiseCell1Delegate>delegate;
+
+
 
 @end

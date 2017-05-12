@@ -22,6 +22,8 @@
 //#import "UIView+Explode.h"
 #import "objc/runtime.h"
 #import "UIView+UIView_Boom.h"
+#import "UMessage.h"
+//#import "UserNotifications.h"
 
 typedef void(^GESTURE_Tapped)(void);
 static NSString *GESTURE_BLOCK = @"GESTURE_BLOCK";
@@ -33,7 +35,7 @@ static NSString *GESTURE_BLOCK = @"GESTURE_BLOCK";
 @end
 
 
-@interface AppDelegate ()<UITabBarControllerDelegate>
+@interface AppDelegate ()<UITabBarControllerDelegate,UNUserNotificationCenterDelegate>
 
 @property (nonatomic, strong) UIView *view1;
 
@@ -55,7 +57,6 @@ static NSString *GESTURE_BLOCK = @"GESTURE_BLOCK";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     RootViewController *rootVC = [[RootViewController alloc] init];
     self.window.rootViewController = rootVC;
@@ -63,7 +64,9 @@ static NSString *GESTURE_BLOCK = @"GESTURE_BLOCK";
     [NSThread sleepForTimeInterval:1.0];
     [self.window makeKeyAndVisible];
     [self.window makeKeyWindow];
-    
+    [UMessage openDebugMode:YES];
+//    [UMessage addLaunchMessageWithWindow:self.window finishViewController:rootVC];
+
     [MQManager initWithAppkey:@"8a2358a00969823007f4ea328ad95bfa" completion:^(NSString *clientId, NSError *error) {
         
         if (!error) {
@@ -106,93 +109,6 @@ static NSString *GESTURE_BLOCK = @"GESTURE_BLOCK";
     
     self.index = 1;
     self.total = 0;
-    UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 110.0f)];
-    
-    [self.window addSubview:containerView];
-    
-    UIView *fromView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height)];
-    fromView.backgroundColor = [UIColor clearColor];
-    
-    UIImageView * image1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height)];
-    image1.image = [UIImage imageNamed:@"提示框-5"];
-    UILabel *title1 = [UILabel createLabelWithFrame:VIEWFRAME(90,18, SCREEN_WIDTH - 120, 14)
-                                      andText:@"这里可以发布属于你自己的商品和使用鉴定服务哦!"
-                                 andTextColor:[UIColor blackColor]
-                                   andBgColor:[UIColor clearColor]
-                                      andFont:SYSTEMFONT(10)
-                             andTextAlignment:NSTextAlignmentCenter];
-    title1.numberOfLines = 0;
-    [fromView addSubview:image1];
-    [image1 addSubview:title1];
-    
-    UIView *toView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height)];
-    toView.backgroundColor = [UIColor clearColor];
-    
-    UIImageView * image2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, containerView.frame.size.width, containerView.frame.size.height)];
-    image2.image = [UIImage imageNamed:@"提示框-5"];
-    
-    UILabel *title2 = [UILabel createLabelWithFrame:VIEWFRAME(90,18, SCREEN_WIDTH - 120, 14)
-                                            andText:@"快点发布属于自己的奢侈品吧!"
-                                       andTextColor:[UIColor blackColor]
-                                         andBgColor:[UIColor clearColor]
-                                            andFont:SYSTEMFONT(10)
-                                   andTextAlignment:NSTextAlignmentCenter];
-    title2.numberOfLines = 0;
-
-    [toView addSubview:image2];
-    [toView addSubview:title2];
-    
-    [containerView addSubview:fromView];
-    
-    UIView *containerView1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150.0f, 110.0f)];
-    containerView1.alpha = 0;
-    [self.window addSubview:containerView1];
-
-    
-    [containerView1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.window);
-        make.bottom.equalTo(self.window.mas_bottom).offset(-55);
-        make.size.mas_equalTo(CGSizeMake(150, 110));
-    }];
-
-    
-    [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.window);
-        make.bottom.equalTo(self.window.mas_bottom).offset(-55);
-        make.size.mas_equalTo(CGSizeMake(150, 110));
-    }];
-    
-    [title1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(fromView);
-        make.top.equalTo(fromView.mas_top).offset(0);
-        make.bottom.equalTo(fromView.mas_bottom).offset(0);
-        make.width.mas_equalTo(130);
-    }];
-    
-    [title2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(toView);
-        make.top.equalTo(toView.mas_top).offset(0);
-        make.bottom.equalTo(toView.mas_bottom).offset(0);
-        make.width.mas_equalTo(120);
-    }];
-
-    
-
-    self.view1 = fromView;
-    self.view2 = toView;
-    self.view3 = containerView;
-
-
-    
-    NSTimer  *timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(checkUnreadCount) userInfo:nil repeats:YES];
-
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    
-    self.timer  = timer;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
-    [self.view3 addGestureRecognizer:tap];
-    
-    
 //    __unsafe_unretained typeof(containerView) weakSelf = containerView;
 //    [containerView setTappedGestureWithBlock:^{
 //        [self.timer invalidate];
@@ -209,6 +125,30 @@ static NSString *GESTURE_BLOCK = @"GESTURE_BLOCK";
 //    button.backgroundColor = [UIColor greenColor];
 //    [button addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
 //    [self.window addSubview:button];
+    
+    
+    
+    
+    
+    [UMessage startWithAppkey:@"587ece4b65b6d616f6002e47" launchOptions:launchOptions];
+    //注册通知，如果要使用category的自定义策略，可以参考demo中的代码。
+    [UMessage registerForRemoteNotifications];
+    
+    //iOS10必须加下面这段代码。
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate=self;
+    UNAuthorizationOptions types10=UNAuthorizationOptionBadge|  UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
+    [center requestAuthorizationWithOptions:types10     completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            //点击允许
+            //这里可以添加一些自己的逻辑
+        } else {
+            //点击不允许
+            //这里可以添加一些自己的逻辑
+        }
+    }];
+    
+  [UMessage setLogEnabled:YES];
     
     
     return YES;
@@ -386,6 +326,74 @@ static NSString *GESTURE_BLOCK = @"GESTURE_BLOCK";
         }
     }
 }
+
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    
+    [UMessage didReceiveRemoteNotification:userInfo];
+    
+//        self.userInfo = userInfo;
+        //定制自定的的弹出框
+        if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+        {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"标题"
+                                                                message:@"Test On ApplicationStateActive"
+                                                               delegate:self
+                                                      cancelButtonTitle:@"确定"
+                                                      otherButtonTitles:nil];
+    
+            [alertView show];
+    
+        }
+    
+    
+}
+
+//iOS10新增：处理前台收到通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于前台时的远程推送接受
+        //关闭U-Push自带的弹出框
+        [UMessage setAutoAlert:NO];
+        //必须加这句代码
+        [UMessage didReceiveRemoteNotification:userInfo];
+        
+    }else{
+        //应用处于前台时的本地推送接受
+    }
+    //当应用处于前台时提示设置，需要哪个可以设置哪一个
+    completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
+}
+
+//iOS10新增：处理后台点击通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        //应用处于后台时的远程推送接受
+        //必须加这句代码
+        [UMessage didReceiveRemoteNotification:userInfo];
+        
+    }else{
+        //应用处于后台时的本地推送接受
+    }
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    //1.2.7版本开始不需要用户再手动注册devicetoken，SDK会自动注册
+    // [UMessage registerDeviceToken:deviceToken];
+    NSLog(@"token%@",deviceToken);
+    //下面这句代码只是在demo中，供页面传值使用。
+//    [self postTestParams:[self stringDevicetoken:deviceToken] idfa:[self idfa] openudid:[self openUDID]];
+    
+    NSLog(@"token%@",[[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                  stringByReplacingOccurrencesOfString: @">" withString: @""]
+                 stringByReplacingOccurrencesOfString: @" " withString: @""]);
+}
+
+
 
 
 @end

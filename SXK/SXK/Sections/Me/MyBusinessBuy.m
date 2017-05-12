@@ -35,7 +35,11 @@
         [BaseRequest GetPutchaseOrderListWithPageNo:0 PageSize:0 order:1 status:self.index succesBlock:^(id data) {
             NSArray *models = [MyBussinessBuyModel modelsFromArray:data[@"orderList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-            NSLog(@"+++++++%@+++++",describe(models));
+//            NSLog(@"+++++++%@+++++",describe(models));
+            if (models.count > 0) {
+                [self.noDataView removeFromSuperview];
+            }
+
         } failue:^(id data, NSError *error) {
     
         }];
@@ -76,6 +80,9 @@
             self.tableView = tableView;
         }
     }
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"暂无订单~"];
+
     self.index = 2;
     
 }
@@ -175,7 +182,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    MyBussinessBuyModel *model = self.listData[indexPath.section];
+    NSDictionary *dic = @{@"orderid":model.orderid,@"type":@"2"};
+    [self PushViewControllerByClassName:@"OrderDetailVC" info:dic];
 }
 
 
@@ -187,6 +196,9 @@
         if (x/SCREEN_WIDTH == i) {
             self.tableView = tableView;
             self.index = i + 2;
+            self.isUseNoDataView = YES;
+            [self.noDataView setTitle:@"暂无订单~"];
+
             [self loadingRequest];
             
             break;

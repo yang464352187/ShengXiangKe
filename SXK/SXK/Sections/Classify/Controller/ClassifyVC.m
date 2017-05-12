@@ -17,7 +17,7 @@
 #import "BrandHotModel.h"
 #import "CategoryListModel.h"
 #import "CategoryViewCell.h"
-
+#import "Search1VC.h"
 @interface ClassifyVC ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout,BATableViewDelegate>
 
 @property (nonatomic, strong)NSMutableArray *dataArr;
@@ -282,18 +282,37 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
-        [self.listCollectionView removeFromSuperview];
-        [self.view addSubview:self.contactTableView];
-
-    }else{
-        self.firstCell.backgroundColor = [UIColor colorWithHexColorString:@"eeeeee"];
-        CategoryListModel *model = self.CategoryListArr[indexPath.row - 1];
-        [self loadCategoryData:model];
-        [self.contactTableView removeFromSuperview];
-        [self.view addSubview: self.listCollectionView];
+    
+    if (tableView == _contactTableView.tableView) {
         
+        if (indexPath.section > 0) {
+            NSMutableArray *array = [self.BrandDic valueForKey:[NSString stringWithFormat:@"%c", 65+indexPath.section-1]];
+            if (array.count > 0) {
+                BrandModel *model = array[indexPath.row];
+                NSDictionary *dic = @{@"title":model.name,@"brandid":model.brandid,@"type":@"1"};
+                [self PushViewControllerByClassName:@"ClassifyDetailVC" info:dic];
+            }else{
+                [ProgressHUDHandler showHudTipStr:@"暂无收入相关品牌信息"];
+            }
+        }
+        
+        
+    }else{
+        if (indexPath.row == 0) {
+            [self.listCollectionView removeFromSuperview];
+            [self.view addSubview:self.contactTableView];
+            
+        }else{
+            self.firstCell.backgroundColor = [UIColor colorWithHexColorString:@"eeeeee"];
+            CategoryListModel *model = self.CategoryListArr[indexPath.row - 1];
+            [self loadCategoryData:model];
+            [self.contactTableView removeFromSuperview];
+            [self.view addSubview: self.listCollectionView];
+            
+        }
+
     }
+    
     
 
 
@@ -511,7 +530,7 @@
         ClassifyCollectionHeader *headerView =  [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"header1" forIndexPath:indexPath];
         headerView.backgroundColor = [UIColor whiteColor];
         [headerView changeTitle:@"全部分类" andImg:@"分类"];
-        [headerView changeTitle:@"quan" andImg:@""];
+//        [headerView changeTitle:@"quan" andImg:@""];
         
         return headerView;
     }
@@ -614,6 +633,15 @@
 {
 //    [self :@"LXWSearchHotView" info:nil];
 //    [self PushViewControllerByClassName:@"SearchVC" info:nil];
+//    NSMutableArray *vcArr2 = [NSMutableArray array];
+//    for (int i =0; i<2; i++) {
+//        UIViewController *vc = [[UIViewController alloc] init];
+//        vc.view.backgroundColor = [UIColor whiteColor];
+//        [vcArr2 addObject:vc];
+//    }
+//    NSArray *array = @[@"寄卖",@"寄租"];
+//    Search1VC *vc = [[Search1VC alloc] initWithControllers:vcArr2 titles:array type:1];
+//    [self pushViewController:vc];
     [self PresentViewControllerByClassName:@"SearchVC" info:nil];
 }
 

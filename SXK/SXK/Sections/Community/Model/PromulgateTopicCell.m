@@ -42,9 +42,20 @@
 
 -(void)fillWithArray:(NSArray *)array
 {
+    NSMutableArray *Arr = [[NSMutableArray alloc] init];
+    for (ModuleModel *model in array) {
+        if (![model.name isEqualToString:@"免费鉴定"]) {
+            [Arr addObject:model];
+        }
+    }
+    
+    
+    
     int j = 0;
-    for (int i = 0; i < array.count; i++) {
-        ModuleModel *model = array[i];
+    for (int i = 0; i < Arr.count; i++) {
+        ModuleModel *model = Arr[i];
+        
+        
         
         int k = i / 3;
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];

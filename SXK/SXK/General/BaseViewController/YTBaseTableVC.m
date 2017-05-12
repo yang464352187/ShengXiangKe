@@ -104,6 +104,7 @@
     }
     [self.tableView reloadData];
     if (_isUseNoDataView) {
+//        NSLog(@"11111111   a%ld",self.listData.count);
         self.noDataView.hidden = self.listData.count;
     }
 }

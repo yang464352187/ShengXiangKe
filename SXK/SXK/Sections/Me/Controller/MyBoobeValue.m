@@ -50,6 +50,8 @@
     }];
     
     
+    
+    
 
 }
 - (void)viewDidLoad {
@@ -108,6 +110,7 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    NSLog(@"------%ld-------",self.listData.count);
     return self.listData.count+1;
 }
 
@@ -239,7 +242,7 @@
         }];
         
         CGFloat score = [self.myDict[@"score"] floatValue];
-        self.moneyLabel.text = [NSString stringWithFormat:@"¥%.2f",score];
+        self.moneyLabel.text = [NSString stringWithFormat:@"¥%.3f",score];
         
     }
     return _headView;

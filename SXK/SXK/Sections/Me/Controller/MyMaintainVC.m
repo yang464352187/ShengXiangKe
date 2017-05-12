@@ -35,7 +35,10 @@
         
         NSArray *models = [MyMaintainModel modelsFromArray:data[@"orderList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
-        
+        if (models.count > 0) {
+            [self.noDataView removeFromSuperview];
+        }
+
     } failue:^(id data, NSError *error) {
         
     }];
@@ -65,6 +68,9 @@
             self.tableView = tableView;
         }
     }
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"暂无养护订单~"];
+
     self.index = 2;
 
 }
@@ -139,6 +145,9 @@
         if (x/SCREEN_WIDTH == i) {
             self.tableView = tableView;
             self.index = i+2;
+            self.isUseNoDataView = YES;
+            [self.noDataView setTitle:@"暂无养护订单~"];
+
             //            [self.tableView reloadData];
             [self loadingRequest];
             break;

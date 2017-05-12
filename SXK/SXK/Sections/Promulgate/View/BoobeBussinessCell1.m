@@ -30,6 +30,7 @@
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(15)
                               andTextAlignment:NSTextAlignmentLeft];
+        
         _content = [UILabel createLabelWithFrame:VIEWFRAME(15, 0, 150, 53)                                                    andText:@""
                                   andTextColor:APP_COLOR_GRAY_Font
                                     andBgColor:[UIColor clearColor]

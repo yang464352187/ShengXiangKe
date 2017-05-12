@@ -224,7 +224,7 @@
         UIImageView *BGImage = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, 223.0000)];
         BGImage.image = [UIImage imageNamed:@"矩形-51"];
         
-        self.moneyLabel = [UILabel createLabelWithFrame:VIEWFRAME(55, 5.5, 100, 41)                                                 andText:@"¥238947"
+        self.moneyLabel = [UILabel createLabelWithFrame:VIEWFRAME(55, 5.5, 100, 41)                                                 andText:@""
                                            andTextColor:[UIColor whiteColor]
                                              andBgColor:[UIColor clearColor]
                                                 andFont:SYSTEMFONT(23)

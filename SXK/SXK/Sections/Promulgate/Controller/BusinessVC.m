@@ -44,6 +44,8 @@
     
     self.dataArr3 = [[NSMutableArray alloc] initWithObjects:@"1、估价的标准有哪些?",@"2、商品为什么被退回",@"3、寄到平台不想卖了，想召回怎么办？" ,nil];
     
+    
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     [btn setTitle:@"开始预约寄卖" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -301,6 +303,7 @@
             thumbnailPoint.x = (targetWidth - scaledWidth) *0.5;
         }
     }
+    
     UIGraphicsBeginImageContext(size);
     CGRect thumbnailRect = CGRectZero;
     thumbnailRect.origin = thumbnailPoint;
@@ -319,6 +322,12 @@
 
 -(void)btnAction:(UIButton *)sender
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
     [self PushViewControllerByClassName:@"BusinessVC1" info:nil];
 }
 

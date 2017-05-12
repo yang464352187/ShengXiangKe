@@ -16,7 +16,7 @@
 #import "ZTTabBar.h"
 #import "VTingSeaPopView.h"
 
-
+#import "UMessage.h"
 @interface SXKViewController ()<ZTTabBarDelegate,VTingPopItemSelectDelegate,UIScrollViewDelegate,UITabBarDelegate>
 {
     NSMutableArray *images;
@@ -65,13 +65,17 @@
         }
 
     self.title1 = @"首页";
+    
 }
 - (void)setupData{
-    NSArray *imageNames = @[@"背景", @"背景", @"背景"];
+    NSArray *imageNames = @[@"4-11.jpg", @"4-12.jpg", @"4-13.jpg"];
     for (int i = 0; i < imageNames.count; i++) {
         UIImage *image = [UIImage imageNamed:imageNames[i]];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * ViewWidth(self.scrollView), 0, ViewWidth(self.scrollView), ViewHeight(self.scrollView))];
         imageView.image = image;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [imageView addGestureRecognizer:tap];
+        imageView.userInteractionEnabled =YES;
         [self.scrollView addSubview:imageView];
     }
     self.scrollView.contentSize = CGSizeMake(imageNames.count * ViewWidth(self.scrollView), ViewHeight(self.scrollView));
@@ -183,6 +187,12 @@
     if ([self.title1 isEqualToString:@"首页"]) {
 //        [self.vc PushViewControllerByClassName:@"PromulgateVC" info:nil];
         if (index == 0) {
+            if (![LoginModel isLogin]) {
+                [ProgressHUDHandler showHudTipStr:@"请先登录"];
+                [[PushManager sharedManager] presentLoginVC];
+                return;
+            }
+
             DEFAULTS_SET_OBJ(@"2", @"promulgateType");
             [self.vc PushViewControllerByClassName:@"PromulgateVC" info:nil];
         }
@@ -200,6 +210,12 @@
 
     }else{
         if (index == 0) {
+            if (![LoginModel isLogin]) {
+                [ProgressHUDHandler showHudTipStr:@"请先登录"];
+                [[PushManager sharedManager] presentLoginVC];
+                return;
+            }
+
             DEFAULTS_SET_OBJ(@"2", @"promulgateType");
             [[PushManager sharedManager] pushToVCWithClassName:@"PromulgateVC" info:nil];
         }
@@ -265,20 +281,47 @@
     [_beginButton addTarget:self action:@selector(buttonCliked:) forControlEvents:UIControlEventTouchUpInside];
 //    ViewRadius(_beginButton, 3.0);
     ViewBorderRadius(_beginButton, 15, 1, [UIColor whiteColor]);
-    [self.scrollView addSubview:_beginButton];
-    
-    [_beginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(-(SCREEN_WIDTH - 60)/2);
-        make.bottom.equalTo(self.view).offset(-100);
-        make.width.equalTo(@60);
-        make.height.equalTo(@30);
-    }];
+//    [self.scrollView addSubview:_beginButton];
+//    
+//    [_beginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(self.view).offset(-(SCREEN_WIDTH - 60)/2);
+//        make.bottom.equalTo(self.view).offset(-100);
+//        make.width.equalTo(@60);
+//        make.height.equalTo(@30);
+//    }];
     
 }
 
 - (void)viewWillLayoutSubviews{
     _pageControl.frame = CGRectMake(0, ViewHeight(self.scrollView) -50, ViewWidth(self.scrollView), 40);
 }
+
+-(void)tap:(UITapGestureRecognizer *)tap
+{
+    dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+    
+    dispatch_async(queue, ^{
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            
+            [UIView animateWithDuration:1.0 animations:^{
+                self.scrollView.alpha = 0 ;
+                
+            } completion:^(BOOL finished) {
+                [self.scrollView removeFromSuperview];
+                [self.pageControl removeFromSuperview];
+            }];
+            
+            
+            
+            
+        });
+    });
+
+}
+
+
 
 - (void)buttonCliked:(UIButton *)sender{
     

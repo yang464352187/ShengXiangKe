@@ -20,7 +20,8 @@
              @"oddNumber":@"oddNumber",
              @"orderid":@"orderid",
              @"purchaseid":@"purchaseid",
-             @"rentid":@"rentid"
+             @"rentid":@"rentid",
+             @"rentPrice":@"rentPrice"
              };
 }
 

@@ -287,6 +287,13 @@
 -(void)buttonAction:(UIButton *)sender
 {
     
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
+    
     NSNumber *activity = self.myDict[@"activityid"];
 
     _weekSelf(weakSelf);

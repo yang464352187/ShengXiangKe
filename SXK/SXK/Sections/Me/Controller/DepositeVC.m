@@ -179,7 +179,7 @@
             if (error == nil) {
                 NSLog(@"PingppError is nil");
                 [ProgressHUDHandler showHudTipStr:@"付款成功"];
-                [weakSelf popGoBack];
+                [weakSelf PopToRootViewController];
             } else {
                 NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
                 if (error.code == 3) {

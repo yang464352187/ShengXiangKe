@@ -91,6 +91,7 @@
     [explainBtn setTitle:@"《用户协议》" forState:UIControlStateNormal];
     [explainBtn setTitleColor:APP_COLOR_GRAY_333333 forState:UIControlStateNormal];
     explainBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [explainBtn addTarget:self action:@selector(explainAction:) forControlEvents:UIControlEventTouchUpInside];
     //    [loginView addSubview:explainBtn];
     UIButton *seeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     UIImage *image = [UIImage imageNamed:@"眼睛"];
@@ -331,6 +332,13 @@
             }];
         });
     });
+
+}
+
+-(void)explainAction:(UIButton *)sender
+{
+    NSDictionary *dic = @{@"title":@"用户协议"};
+    [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
 
 }
 

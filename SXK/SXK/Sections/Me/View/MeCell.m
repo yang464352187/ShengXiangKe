@@ -36,7 +36,7 @@
         
         _head = [[UIImageView alloc] initWithFrame:VIEWFRAME(28, 17.5, 17, 17)];
         _head.image = [UIImage imageNamed:@"钱包"];
-        
+        _head.contentMode = UIViewContentModeScaleAspectFill;
         _title = [UILabel createLabelWithFrame:VIEWFRAME(55, 5.5, 100, 41)                                                 andText:@"腕表"
                                   andTextColor:[UIColor blackColor]
                                     andBgColor:[UIColor clearColor]

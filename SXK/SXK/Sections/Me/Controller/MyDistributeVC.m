@@ -36,6 +36,9 @@
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 //        NSLog(@"++++++++++%@+++++++++",describe(weakSelf.listData));
 //        [weakSelf.tableView reloadData];
+        if (models.count > 0) {
+            [self.noDataView removeFromSuperview];
+        }
         
     } failue:^(id data, NSError *error) {
         
@@ -68,6 +71,8 @@
             self.tableView = tableView;
         }
     }
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"暂无订单~"];
     self.index =1;
     
 }
@@ -75,6 +80,7 @@
 #pragma mark -- UITabelViewDelegate And DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    NSLog(@"进来了  %ld",self.listData.count);
     return self.listData.count;
 }
 
@@ -153,8 +159,19 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (self.index == 3) {
+        MyPromulgateModel *model = self.listData[indexPath.section];
+        NSDictionary *dic = @{@"orderid":model.orderid,@"type":@"7"};
+        [self PushViewControllerByClassName:@"OrderDetailVC" info:dic];
+    }
+    if (self.index == 2) {
+        MyPromulgateModel *model = self.listData[indexPath.section];
+        NSDictionary *dic = @{@"rentid":model.rentid};
+        [self PushViewControllerByClassName:@"BrandDetailVC" info:dic];
+
+    }
 }
+
 
 
 -(void)setAnimationWithOrigin:(CGFloat)x{
@@ -164,7 +181,10 @@
         UITableView *tableView = self.tableViewArr[i];
         if (x/SCREEN_WIDTH == i) {
             self.tableView = tableView;
+            self.isUseNoDataView = YES;
+            [self.noDataView setTitle:@"暂无订单~"];
             self.index = i +1;
+            self.noDataView.tag = self.index;
             [self loadingRequest];
             
             break;

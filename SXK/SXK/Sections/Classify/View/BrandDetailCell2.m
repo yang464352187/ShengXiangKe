@@ -10,6 +10,8 @@
 #import "BrandDetailModel.h"
 #import <RongIMKit/RongIMKit.h>
 #import "RCConversationVC.h"
+#import "FollowListModel.h"
+
 @interface BrandDetailCell2 ()<RCIMUserInfoDataSource,RCIMGroupInfoDataSource
 >
 
@@ -23,6 +25,7 @@
     NSInteger _userid;
     NSString *_title;
     NSString *_image1;
+    BOOL _isFollow;
 }
 
 /*
@@ -58,15 +61,40 @@
         [_talkBtn addTarget:self action:@selector(buttonAction1:) forControlEvents:UIControlEventTouchUpInside];
         [_talkBtn setTintColor:[UIColor blackColor]];
         
-        UIImage *likeImage = [UIImage imageNamed:@"关注-(1)"];
         _likeBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [_likeBtn setTitle:@"啵一个" forState:UIControlStateNormal];
-        [_likeBtn setImage:[likeImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
         _likeBtn.frame = VIEWFRAME(SCREEN_WIDTH - 130, 11, 50, 15);
         _likeBtn.titleLabel.font = SYSTEMFONT(12);
         _likeBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0);
         [_likeBtn addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_likeBtn setTintColor:[UIColor blackColor]];
+        
+        _isFollow = 0;
+        [BaseRequest GetFollowListsuccesBlock:^(id data) {
+            NSArray *models = [FollowListModel modelsFromArray:data[@"follow"][@"userList"]];
+            NSLog(@"%@",describe(models));
+            for (FollowListModel *model1 in models) {
+                if (_userid == [model1.userid integerValue]) {
+                    _isFollow = 1;
+                }
+            }
+            
+            if (_isFollow) {
+                UIImage *talkImage = [UIImage imageNamed:@"已经关注1"];
+                [_likeBtn setImage:[talkImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+                
+            }else{
+                UIImage *likeImage = [UIImage imageNamed:@"关注-(1)"];
+                [_likeBtn setImage:[likeImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+            }
+            //        [weakSelf handleModels:models total:models.count];
+        } failue:^(id data, NSError *error) {
+            
+        }];
+        
+
+        
         
         [self addSubview:_image];
         [self addSubview:_label];
@@ -107,24 +135,66 @@
 
 -(void)setModel:(id)model
 {
+
+    
     BrandDetailModel *_model = model;
     _label.text = [NSString stringWithFormat:@"啵主:%@",_model.user[@"nickname"]];
     [_image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",_model.user[@"headimgurl"]]]];
     _userid = [_model.userid integerValue];
     _title = _model.user[@"nickname"];
     _image1 = [NSString stringWithFormat:@"%@",_model.user[@"headimgurl"]];
+    
+    
+//    _weekSelf(weakSelf);
+
+
 }
 
 
 -(void)buttonAction:(UIButton *)sender
 {
-    [BaseRequest AddFollowWithUserID:_userid succesBlock:^(id data) {
-        if ([data[@"code"] integerValue] == 1) {
-            [ProgressHUDHandler showHudTipStr:@"关注成功"];
-        }
-    } failue:^(id data, NSError *error) {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+    
+    UserModel *model =   [LoginModel curLoginUser];
+    
+    if (_userid == [model.userid integerValue]) {
+        [ProgressHUDHandler showHudTipStr:@"您不能关注自己"];
+        return;
+    }
+
+    
+    if (_isFollow) {
+        UIImage *likeImage = [UIImage imageNamed:@"关注-(1)"];
+        [_likeBtn setImage:[likeImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        [BaseRequest DeleteFollowWithUserID:_userid succesBlock:^(id data) {
+            if ([data[@"code"] integerValue] == 1) {
+                [ProgressHUDHandler showHudTipStr:@"取消关注"];
+            }
+
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
+        _isFollow = 0;
+    }else{
+        UIImage *talkImage = [UIImage imageNamed:@"已经关注1"];
+        [_likeBtn setImage:[talkImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        [BaseRequest AddFollowWithUserID:_userid succesBlock:^(id data) {
+            if ([data[@"code"] integerValue] == 1) {
+                [ProgressHUDHandler showHudTipStr:@"关注成功"];
+            }
+        } failue:^(id data, NSError *error) {
+            
+        }];
         
-    }];
+        _isFollow = 1;
+
+    }
+    
     
     
 }
@@ -156,6 +226,20 @@
 //    } failue:^(id data, NSError *error) {
 //        
 //    }];
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+    
+    UserModel *model =   [LoginModel curLoginUser];
+    
+    if (_userid == [model.userid integerValue]) {
+        [ProgressHUDHandler showHudTipStr:@"您不能和自己聊天"];
+        return;
+    }
+
+
     [self push];
     
 }
@@ -206,6 +290,7 @@
         return completion([[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%ld",_userid] name:_title portrait:_image1]);
     }
 }
+
 
 
 @end

@@ -20,6 +20,7 @@
 @property (strong, nonatomic)UIButton    *verifybtn;
 @property (assign, nonatomic) NSInteger   secs;
 @property (strong, nonatomic) NSTimer     *timer;
+@property (assign, nonatomic) BOOL        isSee;
 
 
 @end
@@ -32,6 +33,7 @@
     
     self.navigationItem.title = self.myDict[@"title"];
     [self initUI];
+    self.isSee = 1;
 
 }
 
@@ -82,7 +84,7 @@
     UIImage *image = [UIImage imageNamed:@"眼睛"];
     [seeBtn setImage:  [image imageWithRenderingMode:(UIImageRenderingModeAlwaysOriginal)]  forState:UIControlStateNormal];
     seeBtn.frame = VIEWFRAME(SCREEN_WIDTH - 80, 170, 100, 45);
-    [seeBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [seeBtn addTarget:self action:@selector(seeAction:) forControlEvents:UIControlEventTouchUpInside];
     
 
     
@@ -213,6 +215,18 @@
     }else{
         [self.verifybtn setTitle:[NSString stringWithFormat:@"发送中(%2ds)",(int)_secs] forState:UIControlStateNormal];
     }
+}
+
+-(void)seeAction:(UIButton *)sender
+{
+    if (self.isSee) {
+        self.isSee = 0;
+    }else{
+        self.isSee = 1;
+        
+    }
+    
+    self.passWord.secureTextEntry = self.isSee;
 }
 
 

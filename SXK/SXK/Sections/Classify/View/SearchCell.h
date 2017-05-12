@@ -7,15 +7,16 @@
 //
 
 #import "BaseCell.h"
-
+#import "SearchVC.h"
 
 @protocol SearchCellDelegate <NSObject>
-
-
-
 @end
 
 @interface SearchCell : BaseCell
 
 -(void)fillWithArray:(NSArray *)array;
+
+@property (nonatomic, strong)SearchVC *vc;
+
+
 @end

@@ -116,15 +116,15 @@
     self.pickerView.dataSource = self;
     self.pickerView.showsSelectionIndicator = YES;
     
-    self.provincePick = [[UIPickerView alloc] initWithFrame:CGRectMake(width, 44, 65.5, 100)];
+    self.provincePick = [[UIPickerView alloc] initWithFrame:CGRectMake(width, 44, 65.5, 150)];
     self.provincePick.delegate = self;
     self.provincePick.dataSource = self;
     
-    self.cityPick = [[UIPickerView alloc] initWithFrame:CGRectMake(width*2+65.5, 44, 65.5, 100)];
+    self.cityPick = [[UIPickerView alloc] initWithFrame:CGRectMake(width*2+65.5, 44, 65.5, 150)];
     self.cityPick.delegate = self;
     self.cityPick.dataSource = self;
     
-    self.areaPick = [[UIPickerView alloc] initWithFrame:CGRectMake(width*3+65.5*2, 44, 65.5, 100)];
+    self.areaPick = [[UIPickerView alloc] initWithFrame:CGRectMake(width*3+65.5*2, 44, 65.5, 150)];
     self.areaPick.delegate = self;
     self.areaPick.dataSource = self;
     

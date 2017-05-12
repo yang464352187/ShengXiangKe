@@ -70,8 +70,19 @@
             make.height.equalTo(@52);
         }];
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [self addGestureRecognizer:tap];
+        
     }
     return  self;
+}
+
+-(void)tap:(UITapGestureRecognizer *)tap
+{
+    if ([_delegate respondsToSelector:@selector(sendValue:)]) { // 如果协议响应了sendValue:方法
+        [_delegate sendValue:self]; // 通知执行协议方法
+    }
+
 }
 
 -(void)btnAction:(UIButton *)sender

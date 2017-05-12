@@ -13,6 +13,7 @@
 #import "ModuleModel.h"
 #import "FreeAppraiseCell.h"
 
+
 @interface FreeAppraiseVC ()<WSImagePickerViewDelegate>
 
 @property (nonatomic, strong) WSImagePickerView *pickerView;
@@ -21,23 +22,37 @@
 @property (nonatomic, assign) float heigh;
 @property (nonatomic, strong) NSArray *photoArr;
 @property (nonatomic, strong) NSMutableArray *uploadPhotoArr;
-
+@property (nonatomic, assign) NSInteger moduleid;
 
 @end
 
 @implementation FreeAppraiseVC
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"免费鉴定";
-    
+    self.uploadPhotoArr = [[NSMutableArray alloc] init];
     [self initUI];
 
 }
 
 -(void)initUI
 {
+    _weekSelf(weakSelf);
+    [BaseRequest GetCommunityModuleWithPageNo:0 PageSize:0 order:-1 succesBlock:^(id data) {
+         NSArray *models = [ModuleModel modelsFromArray:data[@"moduleList"]];
+        for (ModuleModel *model in models) {
+            if ([model.name isEqualToString:@"免费鉴定"]) {
+                weakSelf.moduleid = [model.moduleid integerValue];
+            }
+        }
+    } failue:^(id data, NSError *error) {
+        
+    }];
+    
+    
     [self.view addSubview:self.tableView];
 }
 
@@ -226,7 +241,7 @@
         [CustomHUD createHudCustomShowContent:@"正在提交"];
         _weekSelf(weakSelf);
         
-        [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
+        [[GCQiniuUploadManager sharedInstance] registerWithScope:@"production" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
         [[GCQiniuUploadManager sharedInstance] createToken];
         
         [[GCQiniuUploadManager sharedInstance] uploadDatas:photo progress:^(float percent) {
@@ -236,10 +251,11 @@
             NSArray *array = [link componentsSeparatedByString:@"/"];
             
             [weakSelf.uploadPhotoArr addObject:array[1]];
-            
+//            NSLog(@"%@",array);
         } allTasksCompletion:^{
+
             
-            [BaseRequest AddCommunityTopicWithContent:self.content.text imgList:self.uploadPhotoArr moduleid:1 succesBlock:^(id data) {
+            [BaseRequest AddCommunityTopicWithContent:self.content.text imgList:self.uploadPhotoArr moduleid:weakSelf.moduleid succesBlock:^(id data) {
                 [weakSelf popGoBack];
                 //                NSLog(@"---------%@-----------",describe(data));
                 [CustomHUD stopHidden];

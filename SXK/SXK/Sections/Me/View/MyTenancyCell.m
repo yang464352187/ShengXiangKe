@@ -185,7 +185,10 @@
     _title.text = _model.rent[@"name"];
     _content.text = _model.rent[@"keyword"];
     _price.text = [NSString stringWithFormat:@"¥%.2f",[_model.rent[@"rentPrice"] floatValue] / 100];
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.rent[@"img"]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
+    
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.rent[@"imgList"][0]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
+    
+//    NSLog(@"-------%@",_model.rent[@"img"]);
     _marketPrice.text = [NSString stringWithFormat:@"市场价 ¥%.2f",[_model.rent[@"marketPrice"] floatValue] / 100];
     _orderNum.text = [NSString stringWithFormat:@"单号 %@",_model.oddNumber];
     _rentid = [_model.orderid integerValue];

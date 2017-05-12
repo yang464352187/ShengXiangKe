@@ -68,14 +68,14 @@
                                              andFont:SYSTEMFONT(13)
                                     andTextAlignment:NSTextAlignmentLeft];
     
-    UILabel *content = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 200, 44)                                                 andText:model.keyword
+    UILabel *content = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 200, 44)                                                 andText:@""
                                         andTextColor:[UIColor blackColor]
                                           andBgColor:[UIColor clearColor]
                                              andFont:SYSTEMFONT(13)
                                     andTextAlignment:NSTextAlignmentLeft];
     
     
-    UILabel *price = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 200, 44)                                                 andText:[NSString stringWithFormat:@"租价%.2f元/天",[model.rentPrice floatValue]/100]
+    UILabel *price = [UILabel createLabelWithFrame:VIEWFRAME(30, 0, 200, 44)                                                 andText:@""
 
                                         andTextColor:APP_COLOR_GREEN
                                           andBgColor:[UIColor clearColor]
@@ -138,6 +138,14 @@
         make.right.equalTo(self.alertView.mas_right).offset(-15);
         make.height.mas_equalTo(@(15));
     }];
+    
+    if ( [self.myDict[@"index"] isEqualToString:@"a"] ) {
+        price.text = [NSString stringWithFormat:@"售价:%.2f元/天",[model.sellingPrice floatValue]/100];
+        content.text = model.description1;
+    }else{
+        price.text = [NSString stringWithFormat:@"租价:%.2f元/天",[model.rentPrice floatValue]/100];
+        content.text = model.description1;
+    }
 
 }
 
@@ -203,6 +211,12 @@
 
     return view;
 }
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
 
 - (UITableView *)tableView{
     if (!_tableView) {
@@ -274,10 +288,12 @@
             if (error == nil) {
                 NSLog(@"PingppError is nil");
                 [ProgressHUDHandler showHudTipStr:@"付款成功"];
-                
-                [self.backGroundView removeFromSuperview];
-                [self.alertView removeFromSuperview];
-                [weakSelf popGoBack];
+    
+                NSDictionary *dic = @{@"type":self.myDict[@"push"]};
+                [weakSelf PushViewControllerByClassName:@"OrderDetailVC" info:dic];
+                [weakSelf.backGroundView removeFromSuperview];
+                [weakSelf.alertView removeFromSuperview];
+//                [weakSelf PopToRootViewController];
             } else {
                 NSLog(@"PingppError: code=%lu msg=%@", (unsigned  long)error.code, [error getMsg]);
                 if (error.code == 3) {

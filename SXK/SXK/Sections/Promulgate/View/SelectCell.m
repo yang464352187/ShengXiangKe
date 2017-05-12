@@ -16,6 +16,7 @@
     UIImageView *_head;
     UIButton *_select;
     NSInteger _isSelect;
+    NSNumber *_categoryid;
     
 }
 
@@ -62,9 +63,20 @@
             make.width.equalTo(@52);
             make.height.equalTo(@52);
         }];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+        [self addGestureRecognizer:tap];
+
         
     }
     return  self;
+}
+
+-(void)tap:(UITapGestureRecognizer *)tap
+{
+    if ([_delegate respondsToSelector:@selector(sendValue:)]) { // 如果协议响应了sendValue:方法
+        [_delegate sendValue:self]; // 通知执行协议方法
+    }
+
 }
 
 -(void)btnAction:(UIButton *)sender
@@ -84,6 +96,8 @@
         _isSelect = 0;
     }
     self.name = _title.text;
+//    self.categryid = _categryid;
+    
 }
 
 
@@ -95,6 +109,9 @@
 {
     CategoryListModel *_model = model;
     _title.text = _model.name;
+    _categoryid =_model.categoryid;
+    self.categryid = _model.categoryid;
+    
 }
 -(void)setAppraiseModel:(id)model
 {

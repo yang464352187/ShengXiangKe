@@ -19,6 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"我的买卖";
+
     [self initUI];
 }
 
@@ -39,11 +40,11 @@
     
     
     UIView *view1 = [[UIView alloc] init];
-    view1.layer.shadowOpacity = 0.8f;
-    view1.layer.shadowRadius = 4;
-    view1.layer.shadowColor = [UIColor grayColor].CGColor;
+//    view1.layer.shadowOpacity = 0.8f;
+//    view1.layer.shadowRadius = 4;
+//    view1.layer.shadowColor = [UIColor grayColor].CGColor;
     view1.backgroundColor = [UIColor whiteColor];
-    
+    ViewBorder(view1, 0.5, [UIColor blackColor]);
     UILabel *title11 = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"我的寄卖"
                                         andTextColor:[UIColor blackColor]
                                           andBgColor:[UIColor clearColor]
@@ -63,11 +64,12 @@
     
     
     UIView *view2 = [[UIView alloc] init];
-    view2.layer.shadowOpacity = 0.8f;
-    view2.layer.shadowRadius = 4;
-    view2.layer.shadowColor = [UIColor grayColor].CGColor;
+//    view2.layer.shadowOpacity = 0.8f;
+//    view2.layer.shadowRadius = 4;
+//    view2.layer.shadowColor = [UIColor grayColor].CGColor;
     view2.backgroundColor = [UIColor whiteColor];
-    
+    ViewBorder(view2, 0.5, [UIColor blackColor]);
+
     UILabel *title21 = [UILabel createLabelWithFrame:VIEWFRAME(150, 60, 100, 50)                                                 andText:@"我的买入"
                                         andTextColor:[UIColor blackColor]
                                           andBgColor:[UIColor clearColor]
@@ -80,20 +82,23 @@
                                              andFont:SYSTEMFONT(13)
                                     andTextAlignment:NSTextAlignmentCenter];
     
+    
+    
     [self.view addSubview:view2];
     [view2 addSubview:title21];
     [view2 addSubview:title22];
     
+    
     [view1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(image1.mas_bottom).offset(5);
-        make.size.mas_equalTo(CGSizeMake(100, 50));
+        make.size.mas_equalTo(CGSizeMake(125, 50));
     }];
     
     [view2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(image2.mas_bottom).offset(5);
-        make.size.mas_equalTo(CGSizeMake(100, 50));
+        make.size.mas_equalTo(CGSizeMake(125, 50));
     }];
     
     [title11 mas_makeConstraints:^(MASConstraintMaker *make) {

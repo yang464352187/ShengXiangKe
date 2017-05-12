@@ -39,8 +39,8 @@
         [_webView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mas_top).offset(0);
             make.bottom.equalTo(self.mas_bottom).offset(0);
-            make.left.equalTo(self.mas_left).offset(-8);
-            make.right.equalTo(self.mas_right).offset(8);
+            make.left.equalTo(self.mas_left).offset(0);
+            make.right.equalTo(self.mas_right).offset(0);
         }];
     }
         return  self;

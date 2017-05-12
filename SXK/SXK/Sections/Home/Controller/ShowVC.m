@@ -11,6 +11,7 @@
 #import "BrandDetailModel.h"
 #import "MyBussinesModel.h"
 #import "HomeBuyCell.h"
+#import "HomeBuyCell1.h"
 @interface ShowVC ()
 
 
@@ -39,6 +40,7 @@
         } failue:^(id data, NSError *error) {
             
         }];
+        
         
     }else{
         
@@ -86,6 +88,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    
+    if ([self.myDict[@"title"] isEqualToString:@"寄租"]) {
+        MyBussinesModel *model = self.listData[indexPath.section];
+        HomeBuyCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeBuyCell1"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setModel:model];
+        //        cell.delegate = self;
+        //        cell.index = indexPath.section;
+        return cell;
+
+    }
+    
     MyBussinesModel *model = self.listData[indexPath.section];
     HomeBuyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeBuyCell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -94,7 +108,6 @@
     //        cell.index = indexPath.section;
     return cell;
     
-    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,8 +145,6 @@
 
     }
     
-    
-    
 }
 
 - (UITableView *)tableView{
@@ -144,6 +155,8 @@
         _tableView.delegate        = self;
         [_tableView registerClass:[MaintainCell class] forCellReuseIdentifier:@"MaintainCell"];
         [_tableView registerClass:[HomeBuyCell class] forCellReuseIdentifier:@"HomeBuyCell"];
+        [_tableView registerClass:[HomeBuyCell1 class] forCellReuseIdentifier:@"HomeBuyCell1"];
+
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];

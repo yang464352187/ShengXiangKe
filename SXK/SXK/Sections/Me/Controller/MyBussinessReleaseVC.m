@@ -38,6 +38,9 @@
     [BaseRequest GetPurchaseListWithPageNo:0 PageSize:0 order:-1 status:self.index succesBlock:^(id data) {
         NSArray *models = [MyBussinesModel modelsFromArray:data[@"purchaseList"]];
         [weakSelf handleModels:models total:[data[@"total"] integerValue]];
+        if (models.count > 0) {
+            [self.noDataView removeFromSuperview];
+        }
 
         NSLog(@"+++++++++%@++++++++",describe(models));
     } failue:^(id data, NSError *error) {
@@ -70,6 +73,8 @@
             self.tableView = tableView;
         }
     }
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"暂无订单~"];
     self.index = 3;
     
 }
@@ -150,7 +155,18 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if (self.index == 3 ) {
+        MyBussinesModel *model = self.listData[indexPath.section];
+        NSDictionary *dic = @{@"purchaseid":model.purchaseid};
+        [self PushViewControllerByClassName:@"BrandDetailVC1" info:dic];
+
+    }else{
+        MyBussinesModel *model = self.listData[indexPath.section];
+        NSDictionary *dic = @{@"orderid":model.orderid,@"type":@"8"};
+        [self PushViewControllerByClassName:@"OrderDetailVC" info:dic];
+    }
+
+
 }
 
 
@@ -163,7 +179,8 @@
             self.tableView = tableView;
             self.index = i + 3;
             [self loadingRequest];
-            
+            self.isUseNoDataView = YES;
+            [self.noDataView setTitle:@"暂无订单~"];
             break;
         }
         

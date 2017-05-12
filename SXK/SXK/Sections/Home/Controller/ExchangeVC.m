@@ -31,7 +31,7 @@
 
 -(void)initUI
 {
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"背景"]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"租赁-1.jpg"]];
 //    imageView.image = [UIImage imageNamed:@"背景"];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -62,6 +62,13 @@
 
 -(void)btnAction:(UIButton *)sender
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
+
     MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
     [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
     [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];

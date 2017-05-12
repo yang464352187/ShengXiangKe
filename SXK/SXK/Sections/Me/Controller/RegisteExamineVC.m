@@ -8,9 +8,24 @@
 
 #import "RegisteExamineVC.h"
 
-@interface RegisteExamineVC ()
+@interface RegisteExamineVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (strong, nonatomic) UIView *headView;
+
+@property (assign, nonatomic) NSInteger index;
+
+@property (nonatomic, strong)UIButton *firstBtn;
+
+@property (nonatomic, strong)UIButton *secondBtn;
+
+@property (nonatomic, strong)NSString *frontImage;
+
+@property (nonatomic, strong)NSString *backImage;
+
+@property (nonatomic, strong)UITextField *idNumber;
+
+@property (nonatomic, strong)UITextField *name;
+
 
 @end
 
@@ -23,10 +38,6 @@
     [self.view addSubview:self.tableView];
     
 }
-
-
-
-
 
 
 
@@ -118,11 +129,11 @@
         certainBtn.frame = VIEWFRAME(15, 20, CommonWidth(335), 40);
         ViewRadius(certainBtn, certainBtn.frame.size.height/2);
         certainBtn.tag = 300;
-        [certainBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [certainBtn addTarget:self action:@selector(btnAction1:) forControlEvents:UIControlEventTouchUpInside];
 
         [_headView addSubview:text1];
         [_headView addSubview:text2];
-        [_headView addSubview:text3];
+//        [_headView addSubview:text3];
         [_headView addSubview:line1];
         [_headView addSubview:line2];
         [_headView addSubview:line3];
@@ -131,7 +142,7 @@
         [_headView addSubview:firstBtn];
         [_headView addSubview:secondBtn];
         [_headView addSubview:certainBtn];
-        [_headView addSubview:view];
+//        [_headView addSubview:view];
         [view addSubview:title3];
         
         [text1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -193,32 +204,34 @@
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 10, height1));
         }];
         
-        [view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headView.mas_left).offset(0);
-            make.top.equalTo(title2.mas_bottom).offset(25);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH , 30));
-        }];
-        
-        [title3 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(view.mas_left).offset(10);
-            make.centerY.equalTo(view);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 10, 30));
-        }];
-        
-        [text3 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_headView.mas_left).offset(15);
-            make.top.equalTo(view.mas_bottom).offset(15);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 15, 30));
-        }];
+//        [view mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(_headView.mas_left).offset(0);
+//            make.top.equalTo(title2.mas_bottom).offset(25);
+//            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH , 30));
+//        }];
+//        
+//        [title3 mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(view.mas_left).offset(10);
+//            make.centerY.equalTo(view);
+//            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 10, 30));
+//        }];
+//        
+//        [text3 mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(_headView.mas_left).offset(15);
+//            make.top.equalTo(view.mas_bottom).offset(15);
+//            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 15, 30));
+//        }];
         
         [certainBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(text3.mas_bottom).offset(30);
+            make.top.equalTo(title2.mas_bottom).offset(50);
             make.left.equalTo(_headView.mas_left).offset(15);
             make.right.equalTo(_headView.mas_right).offset(-15);
             make.height.mas_equalTo(40);
         }];
-        
-        
+        self.firstBtn = firstBtn;
+        self.secondBtn = secondBtn;
+        self.name = text1;
+        self.idNumber = text2;
         
     }
     return _headView;
@@ -245,7 +258,10 @@
 -(void)btnAction:(UIButton *)sender
 {
     
-    
+    self.index = sender.tag;
+    UIActionSheet *action = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从照片库选取",nil];
+    [action showInView:self.view];
+
 }
 
 - (BOOL)isCorrect:(NSString *)IDNumber
@@ -322,6 +338,126 @@
         }
     }
     return YES;
+}
+
+#pragma mark - UIActionSheet delegate -
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    UIImagePickerController *pick=[[UIImagePickerController alloc]init];
+    pick.allowsEditing = true;//设置是否可以编辑相片涂鸦
+    pick.delegate = self;
+    
+    if (buttonIndex==0) {
+        //判断用户是否有权限访问相机
+        //        if ([[AuthorityManager sharedManager] hasAuthorityWithType:AuthorityType_Camera animated:YES]) {
+        //判断相机是否可用,因为模拟机是不可以的
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            
+            pick.sourceType = UIImagePickerControllerSourceTypeCamera;//设置 pick 的类型为相机
+            [self presentViewController:pick animated:true completion:nil];
+        }
+        else
+        {
+            NSLog(@"相机不可用");
+        }
+        
+    }
+    else if (buttonIndex==1)
+    {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+            pick.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:pick animated:true completion:nil];
+        }
+        else
+        {
+            NSLog(@"相册不可用");
+        }
+    }
+    
+}
+
+#pragma  mark - imagePickerController Delegate -
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSString *type=[info objectForKey:UIImagePickerControllerMediaType];
+    //判断选择的是否是图片,这个 public.image和public.movie是固定的字段.
+    if ([type isEqualToString:@"public.image"])
+    {
+        
+        UIImage *image=[info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        NSData *image1 = UIImageJPEGRepresentation(image, 0.5);
+        
+        if (self.index == 100) {
+            [self.firstBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        }else{
+            [self.secondBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        }
+        
+        [CustomHUD createHudCustomShowContent:@"正在上传"];
+        
+        _weekSelf(weakSelf);
+        [[GCQiniuUploadManager sharedInstance] registerWithScope:@"production" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
+        [[GCQiniuUploadManager sharedInstance] createToken];
+        
+        [[GCQiniuUploadManager sharedInstance] uploadData:image1 progress:^(float percent) {
+            
+        } completion:^(NSError *error, NSString *link, NSInteger index) {
+            NSArray *array = [link componentsSeparatedByString:@"/"];
+            [CustomHUD stopHidden];
+            if (weakSelf.index == 100) {
+                weakSelf.frontImage = array[1];
+            }else{
+                weakSelf.backImage = array[1];
+            }
+            [ProgressHUDHandler showHudTipStr:@"上传成功"];
+            
+        }];
+        
+    }
+    [picker dismissViewControllerAnimated:false completion:nil];
+}
+
+-(void)btnAction1:(UIButton *)sender
+{
+    if (self.name.text.length == 0) {
+        [ProgressHUDHandler showHudTipStr:@"请输入名字"];
+        
+        return;
+    }
+    if (![self judgeIdentityStringValid:self.idNumber.text] || self.idNumber.text.length != 18) {
+        [ProgressHUDHandler showHudTipStr:@"请输入正确的身份证号码"];
+        return;
+    }
+    if (self.frontImage.length == 0 || self.backImage.length == 0) {
+        [ProgressHUDHandler showHudTipStr:@"请上传身份证照片"];
+        return;
+    }
+    
+    
+    
+    NSDictionary *dic = @{
+                          @"name":self.name.text,
+                          @"idNumber":self.idNumber.text,
+                          @"front":self.frontImage,
+                          @"back":self.backImage,
+                          };
+    NSDictionary *params = @{@"seller":dic};
+    
+    _weekSelf(weakSelf);
+    [BaseRequest VerifyIdetityWithParams:params succesBlock:^(id data) {
+        
+        if ([data[@"code"] integerValue] == 1) {
+            [ProgressHUDHandler showHudTipStr:@"提交成功"];
+        }
+        [weakSelf popGoBack];
+        
+    } failue:^(id data, NSError *error) {
+        
+        if ([data[@"code"] integerValue] == 0) {
+            [ProgressHUDHandler showHudTipStr:@"请输入正确的身份证号码"];
+        }
+        
+    }];
 }
 
 

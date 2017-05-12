@@ -21,7 +21,8 @@
              @"birthday"            :@"birthday",
              @"role"              :@"role",
              @"sex"           :@"sex",
-             @"nickname"          :@"nickname"
+             @"nickname"          :@"nickname",
+             @"invitationCode":@"invitationCode"
              };
 }
 

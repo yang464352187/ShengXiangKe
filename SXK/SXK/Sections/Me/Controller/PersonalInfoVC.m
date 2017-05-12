@@ -10,8 +10,10 @@
 #import "TypeCell.h"
 #import "PopView.h"
 #import "AppDelegate.h"
+#import "YXCustomActionSheet.h"
+#import <UMSocialCore/UMSocialCore.h>
 
-@interface PersonalInfoVC ()<PopViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface PersonalInfoVC ()<PopViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,YXCustomActionSheetDelegate>
 
 @property (strong, nonatomic) UIView  *headView;
 @property (strong, nonatomic) NSArray *firstArr;
@@ -87,6 +89,9 @@
         _headView = [[UIView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, (203.0000/667*SCREEN_HIGHT))];
         _headView.backgroundColor = [UIColor whiteColor];
         
+        
+        UserModel *model =   [LoginModel curLoginUser];
+
         UIImageView *headImage = [[UIImageView alloc] initWithFrame:VIEWFRAME( (SCREEN_WIDTH - CommonHight(94))/2, CommonHight(18), CommonHight(94), CommonHight(94))];
         [headImage setUserInteractionEnabled:YES];
         headImage.userInteractionEnabled = YES;
@@ -103,7 +108,7 @@
         [shootBtn setImage:[shootImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         shootBtn.frame = VIEWFRAME(CommonWidth(200), CommonHight(90), CommonHight(25), CommonHight(25));
         
-        UILabel *siteLab = [UILabel createLabelWithFrame:CommonVIEWFRAME(24, 137.5, 262, 32)                                                 andText:@"http://www.baidu.com"
+        UILabel *siteLab = [UILabel createLabelWithFrame:CommonVIEWFRAME(24, 137.5, 262, 32)                                                 andText:[NSString stringWithFormat:@"分享专属邀请码%@给好友获得奖励哦!",model.invitationCode]
                                   andTextColor:[UIColor blackColor]
                                     andBgColor:[UIColor clearColor]
                                        andFont:SYSTEMFONT(13)
@@ -115,6 +120,7 @@
         [shareBtn setTitle:@"分享" forState:UIControlStateNormal];
         [shareBtn setBackgroundColor:APP_COLOR_GREEN];
         [shareBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [shareBtn addTarget:self action:@selector(shareAction:) forControlEvents:UIControlEventTouchUpInside];
         
         [_headView addSubview:headImage];
         [_headView addSubview:shootBtn];
@@ -162,10 +168,12 @@
         }
         self.sexCell = cell;
     }
+    
     if (indexPath.section == 0 && indexPath.row == 0) {
         [cell fillWithTitle1:self.firstArr[indexPath.row] Content:self.myDict[@"nickname"]];
         self.nicknameCell = cell;
     }
+    
     if (indexPath.section == 0 && indexPath.row == 2) {
         long time = [self.myDict[@"birthday"] integerValue];
         
@@ -180,7 +188,7 @@
         self.birthCell = cell;
     }
     if (indexPath.section == 0 && indexPath.row == 3) {
-        [cell fillWithTitle1:self.firstArr[indexPath.row] Content:@""];
+        [cell fillWithTitle1:self.firstArr[indexPath.row] Content:self.myDict[@"profile"]];
 //        self.birthCell = cell;
     }
 
@@ -239,8 +247,7 @@
     }
     
     if (indexPath.section == 1 && indexPath.row == 0) {
-//        [self.popView fillWithTitle:@"手机号码"];
-//        [self.popView show];
+
     }
     
     if (indexPath.section == 1 && indexPath.row == 1) {
@@ -349,25 +356,22 @@
     //判断选择的是否是图片,这个 public.image和public.movie是固定的字段.
     if ([type isEqualToString:@"public.image"])
     {
-
         UIImage *image=[info objectForKey:UIImagePickerControllerOriginalImage];
         
         NSData *image1 = UIImageJPEGRepresentation(image, 0.5);
         
-        
         self.headImage.image = image;
 
+        [[GCQiniuUploadManager sharedInstance] registerWithScope:@"production" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
         
-        
-        [[GCQiniuUploadManager sharedInstance] registerWithScope:@"shexiangke-jcq" accessKey:@"e6m0BrZSOPhaz6K2TboadoayOp-QwLge2JOQZbXa" secretKey:@"RxiQnoa8NqIe7lzSip-RRnBdX9_pwOQmBBPqGWvv"];
         [[GCQiniuUploadManager sharedInstance] createToken];
         
         [[GCQiniuUploadManager sharedInstance] uploadData:image1 progress:^(float percent) {
             
         } completion:^(NSError *error, NSString *link, NSInteger index) {
             NSArray *array = [link componentsSeparatedByString:@"/"];
-            NSDictionary *params = @{@"headimgurl":[NSString stringWithFormat:@"%@%@",APP_BASEIMG,array[1]]
-                                     
+            NSDictionary *params = @{
+                                     @"headimgurl":[NSString stringWithFormat:@"%@%@",APP_BASEIMG,array[1]]
                                      };
             
             [BaseRequest SetPersonalInfoWithParams:params succesBlock:^(id data) {
@@ -408,6 +412,156 @@
     }
     [picker dismissViewControllerAnimated:false completion:nil];
 }
+
+-(void)shareAction:(UIButton *)sender
+{
+    YXCustomActionSheet *cusSheet = [[YXCustomActionSheet alloc] init];
+    cusSheet.delegate = self;
+    NSArray *contentArray = @[@{@"name":@"微信",@"icon":@"微信-1"},
+                              @{@"name":@"朋友圈 ",@"icon":@"朋友圈"},
+                              @{@"name":@"QQ ",@"icon":@"QQ-1"},
+                              @{@"name":@"新浪",@"icon":@"xinlang"}
+                              ];
+    
+    [cusSheet showInView:[UIApplication sharedApplication].keyWindow contentArray:contentArray];
+}
+
+
+#pragma mark - YXCustomActionSheetDelegate
+
+- (void) customActionSheetButtonClick:(YXActionSheetButton *)btn
+{
+    
+    
+    UserModel *model =   [LoginModel curLoginUser];
+//    NSLog(@"%@",describe(model));
+//    
+//    return;
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    UIImage *cachedImage = [UIImage imageNamed:@"未标题-1"];
+    NSString *str = [NSString stringWithFormat:@"下载啵呗APP,注册并输入邀请码就可以获得奖励哦!邀请码为%@",model.invitationCode];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"啵呗" descr:str thumImage:cachedImage];
+    
+    //设置网页地址
+    shareObject.webpageUrl = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id1183709449"];
+
+    
+//    //创建网页内容对象
+//    NSString* thumbURL = [NSString stringWithFormat:@"%@%@",APP_BASEIMG,self.model.imgList[0]];
+//    
+//    UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:thumbURL];
+//    
+//    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.model.name descr:self.model.keyword thumImage:cachedImage];
+//    
+//    //设置网页地址
+//    shareObject.webpageUrl = [NSString stringWithFormat:@"http://shexiangke.jcq.tbapps.cn/wechat/userpage/getrent/rentid/%@",self.model.rentid];
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    switch (btn.tag) {
+        case 0:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_WechatSession messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+        case 1:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_WechatTimeLine messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+        case 2:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_QQ messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+        case 3:{
+            
+            //调用分享接口
+            [[UMSocialManager defaultManager] shareToPlatform:UMSocialPlatformType_Sina messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+                if (error) {
+                    UMSocialLogInfo(@"************Share fail with error %@*********",error);
+                }else{
+                    if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                        UMSocialShareResponse *resp = data;
+                        //分享结果消息
+                        UMSocialLogInfo(@"response message is %@",resp.message);
+                        //第三方原始返回的数据
+                        UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+                        
+                    }else{
+                        UMSocialLogInfo(@"response data is %@",data);
+                    }
+                }
+                //                [self alertWithError:error];
+            }];
+            
+        }break;
+            
+            
+        default:
+            break;
+    }
+    
+    NSLog(@"第%li个按钮被点击了",(long)btn.tag);
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

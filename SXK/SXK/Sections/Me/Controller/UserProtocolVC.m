@@ -27,7 +27,7 @@
 -(void)loadingRequest
 {
     [BaseRequest UserProtocolWithSetupID:1 succesBlock:^(id data) {
-        NSLog(@"%@",data);
+//        NSLog(@"%@",data);
         self.html = data[@"setup"][@"content"];
         [self.webView loadHTMLString:self.html baseURL:nil];
 

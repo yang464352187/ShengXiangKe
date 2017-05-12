@@ -105,10 +105,22 @@
 
 -(void)singleTapAction:(UITapGestureRecognizer *)tap
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
     [self PushViewControllerByClassName:@"FreeAppraiseVC" info:nil];
 }
 -(void)singleTapAction1:(UITapGestureRecognizer *)tap
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
     [self PushViewControllerByClassName:@"AppraiseVC" info:nil];
 }
 

@@ -95,7 +95,7 @@
         [self addSubview:_marketPrice];
         [self addSubview:_orderNum];
 //        [self addSubview:_backOrderNum];
-        [self addSubview:_button];
+//        [self addSubview:_button];
         
         
         [_headImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -156,11 +156,11 @@
 
         
         
-        [_button mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.mas_right).offset(-20);
-            make.bottom.equalTo(self.mas_bottom).offset(-15);
-            make.size.mas_equalTo(CGSizeMake(92, 26));
-        }];
+//        [_button mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.equalTo(self.mas_right).offset(-20);
+//            make.bottom.equalTo(self.mas_bottom).offset(-15);
+//            make.size.mas_equalTo(CGSizeMake(92, 26));
+//        }];
 
     }
     return  self;
@@ -172,7 +172,7 @@
     _title.text = _model.rent[@"name"];
     _content.text = _model.rent[@"keyword"];
     _price.text = [NSString stringWithFormat:@"¥%.2f",[_model.rent[@"rentPrice"] floatValue] / 100];
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.rent[@"img"]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,_model.rent[@"imgList"][0]]] placeholderImage:[UIImage imageNamed:@"占位-0"]];
     _marketPrice.text = [NSString stringWithFormat:@"市场价 ¥%.2f",[_model.rent[@"marketPrice"] floatValue] / 100];
     _orderNum.text = [NSString stringWithFormat:@"单号 %@",_model.backOddNumber];
 //    _backOrderNum.text = [NSString stringWithFormat:@"单号 %@",_model.backOddNumber];

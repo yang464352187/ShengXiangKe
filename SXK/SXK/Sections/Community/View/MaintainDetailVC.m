@@ -11,7 +11,19 @@
 #import "MaintainCell.h"
 #import "ProductDetailCell.h"
 #import "TradeCell.h"
+//#import <RongIMKit/RongIMKit.h>
+//#import "RCConversationVC.h"
+#import "MQChatViewManager.h"
+#import "MQChatDeviceUtil.h"
+#import <MeiQiaSDK/MeiQiaSDK.h>
+#import "NSArray+MQFunctional.h"
+#import "MQBundleUtil.h"
+#import "MQAssetUtil.h"
+#import "MQImageUtil.h"
+#import "MQToast.h"
+
 @interface MaintainDetailVC ()<ProductDetailCellDelegate>
+
 
 @property(nonatomic, strong)NSMutableArray *dataArr;
 
@@ -33,7 +45,7 @@
         MaintainCellModel *model = [MaintainCellModel modelFromDictionary:data[@"maintain"]];
         weakSelf.model = model;
         [self.dataArr addObject:model];
-        NSLog(@"%@",describe(model));
+//        NSLog(@"%@",describe(model));
         [weakSelf.tableView reloadData];
     } failue:^(id data, NSError *error) {
         
@@ -182,7 +194,7 @@
 - (UITableView *)tableView{
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-64-80) style:UITableViewStyleGrouped];
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
         [_tableView registerClass:[MaintainCell class] forCellReuseIdentifier:@"MaintainCell"];
@@ -218,6 +230,7 @@
     UIImage *talkImage = [UIImage imageNamed:@"对话"];
     UIButton *talkBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [talkBtn setTitle:@"聊呗" forState:UIControlStateNormal];
+    [talkBtn addTarget:self action:@selector(talkBtn:) forControlEvents:UIControlEventTouchUpInside];
     [talkBtn setImage:[talkImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
     talkBtn.frame = VIEWFRAME(SCREEN_WIDTH - 130, 11, 60, 15);
     talkBtn.titleLabel.font = SYSTEMFONT(12);
@@ -339,6 +352,12 @@
 
 -(void)buttonClick:(UIButton *)sender
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
     NSDictionary *dic = [self.model transformToDictionary];
     [self PushViewControllerByClassName:@"MaintainOrder" info:dic];
 }
@@ -355,6 +374,12 @@
 
 -(void)likeAction:(UIButton *)sender
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
     [BaseRequest AddKeepWithMaintainid:[self.model.maintainid integerValue] succesBlock:^(id data) {
         if ([data[@"code"] integerValue] == 1) {
             [ProgressHUDHandler showHudTipStr:@"收藏成功"];
@@ -363,6 +388,24 @@
     } failue:^(id data, NSError *error) {
         
     }];
+}
+
+
+-(void)talkBtn:(UIButton *)sender
+{
+
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
+    MQChatViewManager *chatViewManager = [[MQChatViewManager alloc] init];
+    [chatViewManager.chatViewStyle setEnableRoundAvatar:YES];
+    [chatViewManager setClientInfo:@{@"name":@"updated",@"avatar":@"http://pic1a.nipic.com/2008-10-27/2008102715429376_2.jpg"} override:YES];
+    [chatViewManager pushMQChatViewControllerInViewController:self];
+
+
 }
 
 - (void)didReceiveMemoryWarning {

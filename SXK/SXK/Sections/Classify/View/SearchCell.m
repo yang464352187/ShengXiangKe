@@ -9,7 +9,7 @@
 #import "SearchCell.h"
 #import "LXWSearchHotView.h"
 #import "BrandHotModel.h"
-
+#import "Search1VC.h"
 @interface SearchCell ()<LXWSearchHotViewDelegate>
 
 @end
@@ -49,11 +49,28 @@
     BrandHotModel *model = _array[tag];
     NSDictionary *dic = @{@"title":model.name,@"brandid":model.brandid,@"type":@"1"};
 
-    [[PushManager sharedManager] pushToVCWithClassName:@"ClassifyDetailVC" info:dic];
+//    [[PushManager sharedManager] pushToVCWithClassName:@"ClassifyDetailVC" info:dic];
+    
+    NSMutableArray *vcArr2 = [NSMutableArray array];
+    for (int i =0; i<2; i++) {
+        UIViewController *vc = [[UIViewController alloc] init];
+        vc.view.backgroundColor = [UIColor whiteColor];
+        [vcArr2 addObject:vc];
+    }
+
+    NSArray *array = @[@"寄卖商品",@"寄租商品"];
+//    NSDictionary *dic = @{@"title":@"搜索列表",@"content":self.text.text,@"type":@"6"};
+    
+    Search1VC *vc = [[Search1VC alloc] initWithControllers:vcArr2 titles:array type:1];
+    vc.dic = dic;
+    
+    [self.vc pushViewController:vc];
+    
+    
     
 //    [self PushViewControllerByClassName:@"ClassifyDetailVC" info:dic];
 
-    NSLog(@"%ld",tag);
+//    NSLog(@"%ld",tag);
 }
 
 

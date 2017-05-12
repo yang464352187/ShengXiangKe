@@ -70,7 +70,7 @@
 
 
 - (void)setTitle:(NSString *)title{
-    if ([title isEqualToString:@"暂时没有养护信息"]) {
+    if (![title isEqualToString:@"您还没有添加收货地址哦～"]) {
         [_addBtn removeFromSuperview];
     }
     _titleLabel.text = title;

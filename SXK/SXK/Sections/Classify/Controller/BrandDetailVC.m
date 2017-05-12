@@ -23,6 +23,7 @@
 #import "DFFaceManager.h"
 #import "MLLabel+Size.h"
 #import "NSString+MLExpression.h"
+#import "MyBussinesModel.h"
 
 #define Margin 15
 
@@ -53,6 +54,8 @@
 @property (strong, nonatomic) NSArray *dataArr;
 @property (assign, nonatomic) NSInteger CommentTotal;
 @property (strong, nonatomic) NSArray *dataArr1;
+@property (assign, nonatomic) BOOL isKeep;
+@property (strong, nonatomic) UIButton *btn;
 
 @end
 
@@ -146,7 +149,7 @@
         }];
         
         [self.markPrice mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.minRentPrice.mas_right).offset(5);
+            make.left.equalTo(self.minRentPrice.mas_right).offset(51);
             make.centerY.equalTo(self.minRentPrice);
             make.right.equalTo(self.headView.mas_right).offset(0);
             make.height.mas_equalTo(15);
@@ -176,7 +179,7 @@
     [self setRightBarButtonWith:image selector:@selector(barButtonAction)];
 
     [self initUI];
-    
+
   
 }
 
@@ -189,7 +192,6 @@
                               @{@"name":@"QQ ",@"icon":@"QQ-1"},
                               @{@"name":@"新浪",@"icon":@"xinlang"}
                               ];
-    
     [cusSheet showInView:[UIApplication sharedApplication].keyWindow contentArray:contentArray];
 
 }
@@ -320,7 +322,7 @@
 -(void)initUI
 {
     [self.view addSubview:self.tableView];
-    
+
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor whiteColor];
     UIButton *certainBtn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -420,7 +422,14 @@
         return 170;
     }
     if (indexPath.section == 5) {
-        return 270;
+        
+        BrandDetailModel *model = self.model;
+        NSDictionary *brand = model.brand;
+
+        CGFloat height = [UILabel getHeightByWidth:SCREEN_WIDTH - 30 title:brand[@"description"] font:SYSTEMFONT(13)];
+        
+        
+        return 270 + height + 10;
     }
     if (indexPath.section == 2) {
         return self.cellHeight1;
@@ -653,8 +662,6 @@
 
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        UIImage *image = [UIImage imageNamed:@"嘴型@2x"];
-        [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
         [btn setTitle:@"啵一个" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(likeAciton:) forControlEvents:UIControlEventTouchUpInside];
         btn.titleLabel.font = SYSTEMFONT(13);
@@ -694,6 +701,34 @@
             make.right.equalTo(_headView.mas_right).offset(0);
             make.size.mas_equalTo(CGSizeMake(60, 50));
         }];
+        self.btn = btn;
+        
+        self.isKeep = 0;
+//        _weekSelf(weakSelf);
+        [BaseRequest GetKeepListWithUrl:APPINTERFACE__GetKeepList succesBlock:^(id data) {
+            NSArray *models = [MyBussinesModel modelsFromArray:data[@"collection"][@"rentList"]];
+            for (MyBussinesModel *model in models) {
+                if ([self.model.userid integerValue] == [model.userid integerValue]) {
+                    self.isKeep = 1;
+                }
+            }
+            
+            if (self.isKeep) {
+                UIImage *image = [UIImage imageNamed:@"嘴型@2x"];
+                [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
+            }else{
+                UIImage *image = [UIImage imageNamed:@"嘴型-1@2x"];
+                [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
+            }
+            
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
+        
         
     }
     return _headView;
@@ -728,19 +763,74 @@
 
 -(void)buttonClick:(UIButton *)sender
 {
+    
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+    UserModel *model =   [LoginModel curLoginUser];
+    
+//    NSLog(@"%@  %@",self.model.userid , model.userid);
+    if ([self.model.userid integerValue] == [model.userid integerValue]) {
+        [ProgressHUDHandler showHudTipStr:@"您不能购买自己的商品"];
+        return;
+    }
+    
     [self PushViewControllerByClassName:@"OrderVC" info:self.dataDic];
 }
 
 -(void)likeAciton:(UIButton *)sender
 {
-    [BaseRequest AddKeepWithRentID:[self.model.rentid integerValue] succesBlock:^(id data) {
-        if ([data[@"code"] integerValue] == 1) {
-            [ProgressHUDHandler showHudTipStr:@"收藏成功"];
-        }
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+    UserModel *model =   [LoginModel curLoginUser];
 
-    } failue:^(id data, NSError *error) {
+    if ([self.model.userid integerValue] == [model.userid integerValue]) {
+        [ProgressHUDHandler showHudTipStr:@"您不能收藏自己的商品"];
+        return;
+    }
+
+    if (self.isKeep) {
+        self.isKeep = 0;
         
-    }];
+        UIImage *image = [UIImage imageNamed:@"嘴型-1@2x"];
+        [self.btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+        
+        [BaseRequest CancelKeepWithRentID:[self.model.rentid integerValue] succesBlock:^(id data) {
+            if ([data[@"code"] integerValue] == 1) {
+                [ProgressHUDHandler showHudTipStr:@"取消收藏"];
+            }
+
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
+        
+    }else{
+        self.isKeep = 1;
+        
+        UIImage *image = [UIImage imageNamed:@"嘴型@2x"];
+        [self.btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+
+        [BaseRequest AddKeepWithRentID:[self.model.rentid integerValue] succesBlock:^(id data) {
+            if ([data[@"code"] integerValue] == 1) {
+                [ProgressHUDHandler showHudTipStr:@"收藏成功"];
+            }
+            
+        } failue:^(id data, NSError *error) {
+            
+        }];
+
+    }
+    
+    
+    
+
+//    NSLog(@"-----%@-----",self.model.rentid);
 }
 
 -(void)sendAction:(UIButton *)sender

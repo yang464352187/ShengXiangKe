@@ -18,7 +18,9 @@
              @"marketPrice"    :@"marketPrice",
              @"name":           @"name",
              @"rentid":@"rentid",
-             @"oddNumber":@"oddNumber"
+             @"oddNumber":@"oddNumber",
+             @"condition":@"condition",
+             @"orderid":@"orderid"
              };
 }
 

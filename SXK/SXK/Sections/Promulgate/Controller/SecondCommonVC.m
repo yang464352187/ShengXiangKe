@@ -43,7 +43,9 @@
 //        NSLog(@"-----%@------",describe(models));
         weakSelf.dataArr = models;
         [weakSelf.tableView reloadData];
+        
     } failue:^(id data, NSError *error) {
+        
     }];
 }
 
@@ -62,13 +64,16 @@
         [ProgressHUDHandler showHudTipStr:@"请选择类型"];
         return;
     }
-    CategoryListModel *model = self.dataArr[0];
+//    CategoryListModel *model = self.dataArr[0];
     
     if ([self.myDict[@"type"] isEqualToString:@"类别"]) {
-        NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"className"],@"categoryid":self.myDict[@"categoryID"],@"category":model.categoryid};
+        NSDictionary *dic = @{@"name":self.selectCell.name,@"class":self.myDict[@"className"],@"categoryid":self.myDict[@"categoryID"],@"category":self.selectCell.categryid};
         NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dic];
         //通过通知中心发送通知
         [[NSNotificationCenter defaultCenter] postNotification:notification];
+        
+        
+        
         NSString *type = DEFAULTS_GET_OBJ(@"promulgateType");
         if ([type isEqualToString:@"1"]) {
             [self PopToIndexViewController:2];

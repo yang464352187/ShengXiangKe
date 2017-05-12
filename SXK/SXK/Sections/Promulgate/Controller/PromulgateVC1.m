@@ -44,6 +44,8 @@
 @property (nonatomic, assign) NSInteger quality;
 @property (nonatomic, assign) NSInteger person;
 @property (nonatomic, strong) NSString *color;
+@property (nonatomic, assign) BOOL isSelect;
+@property (nonatomic, strong) UIButton *selectBtn;
 
 
 @end
@@ -83,7 +85,8 @@
     [self.view addSubview:self.tableView];
     [self setRightBarButtonWith:[UIImage imageNamed:@"感叹号"] selector:@selector(barButtonAction)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tongzhi:) name:@"tongzhi" object:nil];
-    
+    self.isSelect = 0;
+
     
     [self loadingRequest];
 }
@@ -191,8 +194,12 @@
     UIView *view = [[UIView alloc] init];
     view.frame = VIEWFRAME((SCREEN_WIDTH - 214.5)/2, 23.5, 214.5, 16.5);
     
-    UIImageView *image = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, 16.5, 16.5)];
-    image.image = [UIImage imageNamed:@"打钩"];
+    UIImage *image = [UIImage imageNamed:@"打钩-1"];
+    UIButton *selectBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+    selectBtn.frame = VIEWFRAME(0, 0, 16.5, 16.5);
+    [selectBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    self.selectBtn = selectBtn;
     
     UILabel *title = [UILabel createLabelWithFrame:VIEWFRAME(16.5,0 , 135, 16.5)
                                            andText:@"已阅读并同意BOOBE的"
@@ -217,7 +224,8 @@
     [promulgateBtn addTarget:self action:@selector(promulgateBtn:) forControlEvents:UIControlEventTouchUpInside];
     ViewRadius(promulgateBtn, 22);
     
-    [view addSubview:image];
+//    [view addSubview:image];
+    [view addSubview:selectBtn];
     [view addSubview:title];
     [view addSubview:explainBtn];
     [footView addSubview:promulgateBtn];
@@ -441,6 +449,10 @@
         [ProgressHUDHandler showHudTipStr:@"请完善商品信息"];
         return;
     }
+    if (!self.isSelect) {
+        [ProgressHUDHandler showHudTipStr:@"请仔细阅读并同意用户协议"];
+        return;
+    }
     
     NSMutableArray *photo = [[NSMutableArray alloc] init];
     for (UIImage *image in self.photoArr) {
@@ -550,7 +562,18 @@
     [self PushViewControllerByClassName:@"UserProtocolVC" info:dic];
 }
 
-
+-(void)selectAction:(UIButton *)sender
+{
+    if (self.isSelect) {
+        self.isSelect = 0;
+        UIImage *image = [UIImage imageNamed:@"打钩-1"];
+        [self.selectBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    }else{
+        self.isSelect = 1;
+        UIImage *image = [UIImage imageNamed:@"打钩"];
+        [self.selectBtn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

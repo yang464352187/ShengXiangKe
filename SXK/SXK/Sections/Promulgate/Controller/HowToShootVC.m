@@ -19,14 +19,14 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = @"如何拍摄";
     NSString *headImage = self.myDict[@"image"];
-    UIImageView *image = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT)];
+    UIImageView *image = [[UIImageView alloc] initWithFrame:VIEWFRAME(0, -200, SCREEN_WIDTH, SCREEN_HIGHT)];
     if (SCREEN_WIDTH > 320) {
-        image.frame = VIEWFRAME(0, -40, SCREEN_WIDTH, SCREEN_HIGHT);
+        image.frame = VIEWFRAME(0, -100, SCREEN_WIDTH, SCREEN_HIGHT);
     }
     if (headImage.length > 0 ) {
         [image sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",APP_BASEIMG,headImage]]];
     }else{
-        image.image = [UIImage imageNamed:@"如何拍摄"];
+        image.image = [UIImage imageNamed:@"如何拍摄20170113"];
     }
     image.contentMode = UIViewContentModeScaleAspectFit;
     

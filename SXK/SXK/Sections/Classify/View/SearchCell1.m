@@ -35,7 +35,7 @@
         [btn addTarget:self action:@selector(clearBtn:) forControlEvents:UIControlEventTouchUpInside];
         
         
-        [self addSubview:btn];
+//        [self addSubview:btn];
         [self addSubview:_title];
         
         [_title mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -44,12 +44,12 @@
             make.size.mas_equalTo(CGSizeMake(200, 20));
         }];
         
-        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self);
-            make.right.equalTo(self.mas_right).offset(-15);
-            make.size.mas_equalTo(CGSizeMake(60, 30));
-
-        }];
+//        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self);
+//            make.right.equalTo(self.mas_right).offset(-15);
+//            make.size.mas_equalTo(CGSizeMake(60, 30));
+//
+//        }];
     }
     return  self;
 }

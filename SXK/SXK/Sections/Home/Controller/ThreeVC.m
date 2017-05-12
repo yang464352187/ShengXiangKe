@@ -9,6 +9,8 @@
 #import "ThreeVC.h"
 #import "MaintainCell.h"
 #import "BrandDetailModel.h"
+#import "MyBussinesModel.h"
+#import "HomeBuyCell1.h"
 @interface ThreeVC ()
 
 @end
@@ -22,7 +24,7 @@
         _weekSelf(weakSelf)
         [BaseRequest GetLeftSetupWithSetupID:1 succesBlock:^(id data) {
 //            NSLog(@"%@",describe(data));
-            NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
+            NSArray *models = [MyBussinesModel modelsFromArray:data[@"setup"][@"rentList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 
         } failue:^(id data, NSError *error) {
@@ -33,7 +35,7 @@
         _weekSelf(weakSelf)
 
         [BaseRequest GetRightUpSetupWithSetupID:1 succesBlock:^(id data) {
-            NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
+            NSArray *models = [MyBussinesModel modelsFromArray:data[@"setup"][@"rentList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 
         } failue:^(id data, NSError *error) {
@@ -44,7 +46,7 @@
         _weekSelf(weakSelf)
 
         [BaseRequest GetRightDownSetupWithSetupID:1 succesBlock:^(id data) {
-            NSArray *models = [BrandDetailModel modelsFromArray:data[@"setup"][@"rentList"]];
+            NSArray *models = [MyBussinesModel modelsFromArray:data[@"setup"][@"rentList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 
         } failue:^(id data, NSError *error) {
@@ -54,7 +56,7 @@
     }else if ([self.myDict[@"title"] isEqualToString:@"精选分类"]) {
         _weekSelf(weakSelf)
         [BaseRequest GetHomeClassWithSetupID:[self.myDict[@"classid"] integerValue] succesBlock:^(id data) {
-            NSArray *models = [BrandDetailModel modelsFromArray:data[@"class"][@"rentList"]];
+            NSArray *models = [MyBussinesModel modelsFromArray:data[@"class"][@"rentList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 
         } failue:^(id data, NSError *error) {
@@ -63,7 +65,7 @@
     }else{
         _weekSelf(weakSelf)
         [BaseRequest GetHomeTopicWithSetupID:[self.myDict[@"topicid"] integerValue] succesBlock:^(id data) {
-            NSArray *models = [BrandDetailModel modelsFromArray:data[@"topic"][@"rentList"]];
+            NSArray *models = [MyBussinesModel modelsFromArray:data[@"topic"][@"rentList"]];
             [weakSelf handleModels:models total:[data[@"total"] integerValue]];
 
         } failue:^(id data, NSError *error) {
@@ -87,7 +89,9 @@
     // Do any additional setup after loading the view.
     self.navigationItem.title = self.myDict[@"title"];
     [self.view addSubview:self.tableView];
-    
+    self.isUseNoDataView = YES;
+    [self.noDataView setTitle:@"暂无分类商品~"];
+
 }
 
 
@@ -102,11 +106,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MaintainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MaintainCell"];
+//    MaintainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MaintainCell"];
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//    BrandDetailModel *model = self.listData[indexPath.section];
+//    [cell setModel1:model];
+    
+    MyBussinesModel *model = self.listData[indexPath.section];
+    HomeBuyCell1 *cell = [tableView dequeueReusableCellWithIdentifier:@"HomeBuyCell1"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    BrandDetailModel *model = self.listData[indexPath.section];
-    [cell setModel1:model];
+    [cell setModel:model];
+    //        cell.delegate = self;
+    //        cell.index = indexPath.section;
     return cell;
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -144,7 +156,7 @@
         _tableView = [[UITableView alloc] initWithFrame:VIEWFRAME(0, 0, SCREEN_WIDTH, SCREEN_HIGHT-64) style:UITableViewStyleGrouped];
         _tableView.dataSource      = self;
         _tableView.delegate        = self;
-        [_tableView registerClass:[MaintainCell class] forCellReuseIdentifier:@"MaintainCell"];
+        [_tableView registerClass:[HomeBuyCell1 class] forCellReuseIdentifier:@"HomeBuyCell1"];
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.backgroundColor = APP_COLOR_BASE_BACKGROUND;
         _tableView.tableFooterView = [[UIView alloc] init];

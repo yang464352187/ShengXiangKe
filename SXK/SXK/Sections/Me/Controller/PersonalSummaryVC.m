@@ -52,7 +52,7 @@
         _textView.placeholderColor = [UIColor colorWithHexColorString:@"b6b6b6"];
         [_textView setFont:SYSTEMFONT(14)];
         ViewBorder(_textView, 0.5, [UIColor colorWithHexColorString:@"eeeeee"]);
-
+        
     }
     return _textView;
 }
@@ -65,6 +65,7 @@
         [BaseRequest SubmitOpinion:self.textView.text succesBlock:^(id data) {
             NSLog(@"%@",data);
             [ProgressHUDHandler showHudTipStr:@"反馈成功"];
+            
             [weakSelf popGoBack];
         } failue:^(id data, NSError *error) {
             

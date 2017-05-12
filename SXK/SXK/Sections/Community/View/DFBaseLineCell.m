@@ -401,6 +401,12 @@
 
 -(void) onClickLikeCommentBtn1:(id)sender
 {
+    if (![LoginModel isLogin]) {
+        [ProgressHUDHandler showHudTipStr:@"请先登录"];
+        [[PushManager sharedManager] presentLoginVC];
+        return;
+    }
+
     //    _isLikeCommentToolbarShow = !_isLikeCommentToolbarShow;
     //    _likeCommentToolbar.hidden = !_isLikeCommentToolbarShow;
         if (_delegate != nil && [_delegate respondsToSelector:@selector(onComment:)]) {

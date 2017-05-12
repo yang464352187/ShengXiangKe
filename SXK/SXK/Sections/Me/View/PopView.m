@@ -110,6 +110,7 @@
     UIButton *cancelBtn =[UIButton buttonWithType:UIButtonTypeSystem];
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn setTitleColor:[UIColor colorWithHexColorString:@"aaaaaa"] forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(cancelAction:) forControlEvents:UIControlEventTouchUpInside];
     cancelBtn.frame = VIEWFRAME(CommonWidth(57), 131, 81, 27);
     ViewBorderRadius(cancelBtn, 27/2, 0.5, [UIColor colorWithHexColorString:@"aaaaaa"]);
     
@@ -657,7 +658,6 @@
             [_delegate sendInfo:self.text.text andType:2];
             NSDictionary *params = @{@"sex":[NSString stringWithFormat:@"%@-%@",self.year,self.month]};
             [self loadRequest:params];
- 
         }
         
         
@@ -665,6 +665,12 @@
     }
     [self disMiss];
 
+}
+
+
+-(void)cancelAction:(UIButton *)sender
+{
+    [self disMiss];
 }
 
 -(void)loadRequest:(NSDictionary *)params

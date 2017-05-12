@@ -16,7 +16,7 @@
 @property (nonatomic, copy) NSString *mobile;
 @property (nonatomic, copy) NSString *nickname;
 @property (nonatomic, copy) NSString *image;
-
+@property (nonatomic, copy) NSString *invitationCode;
 @property (nonatomic, strong) NSNumber *userid,*birthday,*role,*sex;
 
 

@@ -121,6 +121,7 @@
     [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:[NSString stringWithFormat:@"%@",model.userid] name:model.nickname portrait:model.headimgurl];
     self.index = 1;
     self.total = 0;
+    
 
     [self initView];
     [UIApplication sharedApplication].applicationIconBadgeNumber  =  10;

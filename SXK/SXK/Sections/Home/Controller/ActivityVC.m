@@ -111,6 +111,7 @@
     ActivityListModel *model = self.listData[indexPath.section];
     NSDictionary *dic = @{@"activityid":model.activityid};
     [self PushViewControllerByClassName:@"ActivityDetailVC" info:dic];
+    
 }
 
 - (void)didReceiveMemoryWarning {

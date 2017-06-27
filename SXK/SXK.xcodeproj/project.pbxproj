@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7F55C71C3467914DCE5D65D7 /* libPods-SXK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DEF36623432472EDA20ED53 /* libPods-SXK.a */; };
+		A42C5FD91F025BE000C792F9 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A42C5FD81F025BE000C792F9 /* AppDelegate.mm */; };
 		AD0B5D981DF92E7300ACA080 /* BrandHotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0B5D971DF92E7300ACA080 /* BrandHotModel.m */; };
 		AD0B5D9B1DF93B0E00ACA080 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0B5D9A1DF93B0E00ACA080 /* ClassCollectionViewCell.m */; };
 		AD0B5D9E1DF947AA00ACA080 /* ActivityVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0B5D9D1DF947AA00ACA080 /* ActivityVC.m */; };
@@ -471,7 +472,6 @@
 		ADB8160D1E792EB70024CEAB /* BusinessVC1.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB8160C1E792EB70024CEAB /* BusinessVC1.m */; };
 		ADB816101E7934E30024CEAB /* BusinessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB8160F1E7934E30024CEAB /* BusinessCell.m */; };
 		ADB99C621DD567C400EC1DAD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB99C611DD567C400EC1DAD /* main.m */; };
-		ADB99C651DD567C400EC1DAD /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = ADB99C641DD567C400EC1DAD /* AppDelegate.mm */; };
 		ADB99C681DD567C400EC1DAD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB99C671DD567C400EC1DAD /* ViewController.m */; };
 		ADB99C6B1DD567C400EC1DAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADB99C691DD567C400EC1DAD /* Main.storyboard */; };
 		ADB99C6E1DD567C400EC1DAD /* SXK.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ADB99C6C1DD567C400EC1DAD /* SXK.xcdatamodeld */; };
@@ -586,6 +586,8 @@
 /* Begin PBXFileReference section */
 		0DEF36623432472EDA20ED53 /* libPods-SXK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SXK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EAC5BC4BDD7C045C7BE1066 /* Pods-SXK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.debug.xcconfig"; sourceTree = "<group>"; };
+		A42C5FD71F025BE000C792F9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SXK/AppDelegate.h; sourceTree = SOURCE_ROOT; };
+		A42C5FD81F025BE000C792F9 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = SXK/AppDelegate.mm; sourceTree = SOURCE_ROOT; };
 		A5C516769DD62A7AC259CF26 /* Pods-SXK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SXK.release.xcconfig"; path = "Pods/Target Support Files/Pods-SXK/Pods-SXK.release.xcconfig"; sourceTree = "<group>"; };
 		AD0B5D961DF92E7300ACA080 /* BrandHotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrandHotModel.h; sourceTree = "<group>"; };
 		AD0B5D971DF92E7300ACA080 /* BrandHotModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrandHotModel.m; sourceTree = "<group>"; };
@@ -1449,8 +1451,6 @@
 		ADB8160F1E7934E30024CEAB /* BusinessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessCell.m; sourceTree = "<group>"; };
 		ADB99C5D1DD567C400EC1DAD /* SXK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SXK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADB99C611DD567C400EC1DAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		ADB99C631DD567C400EC1DAD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
-		ADB99C641DD567C400EC1DAD /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../AppDelegate.mm; sourceTree = "<group>"; };
 		ADB99C661DD567C400EC1DAD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		ADB99C671DD567C400EC1DAD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		ADB99C6A1DD567C400EC1DAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -2981,8 +2981,8 @@
 		ADB99C981DD569FA00EC1DAD /* APPDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				ADB99C631DD567C400EC1DAD /* AppDelegate.h */,
-				ADB99C641DD567C400EC1DAD /* AppDelegate.mm */,
+				A42C5FD71F025BE000C792F9 /* AppDelegate.h */,
+				A42C5FD81F025BE000C792F9 /* AppDelegate.mm */,
 			);
 			path = APPDelegate;
 			sourceTree = "<group>";
@@ -4177,7 +4177,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4253,7 +4253,6 @@
 				ADB66AE01E07B6FF00D80F2E /* MQEventMessageCell.m in Sources */,
 				AD6552F51E5D7A8B00151129 /* NSString+LK.m in Sources */,
 				ADAE6AA01E56D6B700FBE5F8 /* MyAppraiseModel.m in Sources */,
-				ADB99C651DD567C400EC1DAD /* AppDelegate.mm in Sources */,
 				ADB66B031E07B6FF00D80F2E /* MEIQIA_AmrRecordWriter.m in Sources */,
 				AD0E340D1DFC310600066A6F /* CategoryListModel.m in Sources */,
 				AD4814C71E67B56A00A7F407 /* RentCommentModel.m in Sources */,
@@ -4590,6 +4589,7 @@
 				AD3044F71E120A4000DDB299 /* NSString+StringAttribute.m in Sources */,
 				AD7F9F311E542E1600588F67 /* YXActionSheetButton.m in Sources */,
 				ADB66AEB1E07B6FF00D80F2E /* MQChatAudioPlayer.m in Sources */,
+				A42C5FD91F025BE000C792F9 /* AppDelegate.mm in Sources */,
 				AD80A6A71E94F0BE00F5734D /* BussinesOrderVC.m in Sources */,
 				AD40A2FC1DDD5E43006C5576 /* ZTTabBar.m in Sources */,
 				ADB66AC81E07B6FF00D80F2E /* MQRichTextMessage.m in Sources */,

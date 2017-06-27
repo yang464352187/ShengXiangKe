@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //aklsdjfklajsdklf
     self.navigationItem.title = @"注册";
     self.isSelect = 0;
     self.isSee = 1;
